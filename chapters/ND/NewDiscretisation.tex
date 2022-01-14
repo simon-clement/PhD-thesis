@@ -245,15 +245,14 @@ The discretization consists in three parts:
 		  In state-of-the-art models using finite volumes,
 		  $u_{\star}$ is often computed using
 		  $u(\delta_{sl}) = \overline{u}_{\frac{1}{2}}$
-		\ref{Nishizawa}.
+		\cite{nishizawa2018surface}.
 		The corresponding bottom boundary condition is
 		$ K_{u,0} \phi_0^{n+1} = u_\star^2 
 		  \frac{\overline{u}^{n+1}_{\frac{1}{2}}}
 		  	{\overline{u}_{\frac{1}{2}}^n}$.
-			{\color{red} TODO références !!}
 
     \item "FV2":  $\delta_{\rm sl} = z_{1}$. In
-    \ref{Nishizawa}, the "FV1" strategy is shown to systematically
+    \cite{nishizawa2018surface}, the "FV1" strategy is shown to systematically
 	  underestimate $u(\delta_{\rm sl})$ because of the 
 	  convexity of the logarithmic profile.
 	A surface flux scheme is derived by assuming
@@ -296,3 +295,5 @@ the advantages of the "FV2" with a free $\delta_{\rm sl}$.
 
 \subsubsection{A surface flux scheme with a free $\delta_{\rm sl}$}
 
+\bibliography{biblio_ND}
+\bibliographystyle{plainnat}
