@@ -217,7 +217,7 @@ Then the reconstruction is given by
 
 \subsection{Wall law}
 We show here several strategies for the discretization
-if the surface layer. We first compare 3 state-of-the-art
+in the surface layer. We first compare 3 state-of-the-art
 discretizations then introduce an original one.
 
 The discretization consists in three parts:
@@ -227,14 +227,72 @@ The discretization consists in three parts:
 	\item How the boundary condition 
 		\eqref{eq:ND_NeutralCase_constantFlux} is implemented.
 \end{itemize}
-\subsubsection{State-of-the art strategies}
+\subsubsection{State-of-the-art strategies}
   We now present three strategies that are representative of
   what is done in models. A summary of those discretizations
   is presented in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
   \begin{itemize}
-    \item "FV pure": Similar to what is done in Finite Differences.
-    \item "FV1": Similar to what is done with Finite Volumes.
-    \item "FV2": Rewriting the results of {\color{red}Nishizawa}
+	  \item "FV pure": $\delta_{\rm sl} = z_{\frac{1}{2}}$. Similar to a Finite Differences discretization.
+	    The reconstruction of $u(z)$ is used to get 
+		  $u(z_{\frac{1}{2}})$.
+		  The first cell is treated like the others
+		  (i.e. \eqref{eq:ND_NeutralCase_EkmanEq} is
+		  applied inside the surface layer).
+	The bottom boundary condition is 
+		  $ K_{u,0} \phi_0^{n+1} = u_\star^2 
+		  \frac{{\cal S}_{1/2}^{n+1}(0)}{||{\cal S}_{1/2}^n(0)||}$.
+	  \item "FV1": $\delta_{\rm sl} = z_{\frac{1}{2}}$.
+		  In state-of-the-art models using finite volumes,
+		  $u_{\star}$ is often computed using
+		  $u(\delta_{sl}) = \overline{u}_{\frac{1}{2}}$
+		\ref{Nishizawa}.
+		The corresponding bottom boundary condition is
+		$ K_{u,0} \phi_0^{n+1} = u_\star^2 
+		  \frac{\overline{u}^{n+1}_{\frac{1}{2}}}
+		  	{\overline{u}_{\frac{1}{2}}^n}$.
+			{\color{red} TODO références !!}
+
+    \item "FV2":  $\delta_{\rm sl} = z_{1}$. In
+    \ref{Nishizawa}, the "FV1" strategy is shown to systematically
+	  underestimate $u(\delta_{\rm sl})$ because of the 
+	  convexity of the logarithmic profile.
+	A surface flux scheme is derived by assuming
+	  $\delta_{\rm sl} = z_1$ and by integrating $u(z)$
+	  in space in the first cell. Since the reconstruction
+	  of $u(z)$ is continuous, it is here equivalent to
+	  get $u_\star$ through
+	  $u^n(\delta_{\rm sl}) = {\cal S}^n_{\frac{3}{2}}(
+	  -\frac{h_{3/2}}{2})$. The first cell is only
+	  parametrized with the wall law, and the boundary condition
+		  at $z_1$ is $K_{u,1} \phi_1 - u_\star^2 
+		  \frac{{\cal S}_{\frac{3}{2}}^{n+1}
+		  	(-h_{\frac{3}{2}}/2)}
+		  {||u^n(\delta_{\rm sl})||} = 0$
+	  
   \end{itemize}
+  Note that for the first two strategies, $K_{u,0}$ should actually
+  take the value $\left. K_{u}\right|_{z=\delta_{sl}}$.
+  {\color{red} explanation ?}
+
+\begin{figure}
+	\subimport{images/}{sf_scheme_strategies.pdf_tex}
+	\caption{Summary of the surface flux schemes. The
+	wind profiles shown here do not correspond to
+	numerical values.}
+	\label{fig:ND_NeutralCase_summary_sfscheme}
+\end{figure}
+
+The "FV pure" and "FV1" strategies are not satisfactory because
+\begin{itemize}
+	\item "FV1" relies on the assumption that $\overline{u}_{\frac{1}{2}} = u(z_{\frac{1}{2}})$
+	\item both strategies assume that $u(z)$ is a parabolic spline in the surface layer and that $\eqref{eq:ND_NeutralCase_EkmanEq}$
+		can be applied as well.
+\end{itemize}
+The "FV2" surface flux scheme solves those problems.
+However, for all those discretizations, changing the space step
+also changes the height of the surface layer $\delta_{\rm sl}$.
+In the following, we derive a surface flux scheme that keep
+the advantages of the "FV2" with a free $\delta_{\rm sl}$.
+
 \subsubsection{A surface flux scheme with a free $\delta_{\rm sl}$}
 
