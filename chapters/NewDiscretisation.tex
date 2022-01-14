@@ -1,5 +1,26 @@
+\tableofcontents
 \section{Introduction}
 \begin{itemize}
+\item The solution obtained with a discretization
+	should be similar to the continuous solution.
+\item The continuous solution should be recovered when
+	the space step tends to 0.
 \item The height of the surface layer
-is usually determined by the discretisation
+	is usually determined by the discretization.
+\item This chapter presents a discretization such that
+	the surface layer can be chosen for physical reasons,
+		instead of numerical ones.
+\item We want the discretization to be robust with regards to
+	the space step. In particular, when the space step
+		tends to 0, the surface layer should still
+		be parametrized with the same wall law.
+\item The model used to derive this discretization is a 1D Ekman
+	equation, with a forcing representing a geostrophic guide.
+		The turbulent viscosity is computed with a
+		one-equation turbulence closure model.
+		{\color{red} TODO find reference}
+\item We begin with a neutral stratification for pedagogical purposes,
+	then apply the same concepts to a stratified column of
+		atmosphere.
 \end{itemize}
+\section{Neutral case}
