@@ -215,3 +215,26 @@ Then the reconstruction is given by
     \end{pmatrix}
 \end{equation}
 
+\subsection{Wall law}
+We show here several strategies for the discretization
+if the surface layer. We first compare 3 state-of-the-art
+discretizations then introduce an original one.
+
+The discretization consists in three parts:
+\begin{itemize}
+	\item How $u(\delta_{\rm sl}, t^n)$ is computed
+		(which influence the value of $u_\star$);
+	\item How the boundary condition 
+		\eqref{eq:ND_NeutralCase_constantFlux} is implemented.
+\end{itemize}
+\subsubsection{State-of-the art strategies}
+  We now present three strategies that are representative of
+  what is done in models. A summary of those discretizations
+  is presented in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
+  \begin{itemize}
+    \item "FV pure": Similar to what is done in Finite Differences.
+    \item "FV1": Similar to what is done with Finite Volumes.
+    \item "FV2": Rewriting the results of {\color{red}Nishizawa}
+  \end{itemize}
+\subsubsection{A surface flux scheme with a free $\delta_{\rm sl}$}
+
