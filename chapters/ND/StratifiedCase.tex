@@ -78,14 +78,14 @@ And the derivative of temperature at $z_{m-1}, z_m, z_{m+1}$ solves
 + \frac{h_{m+1/2}}{6h_m} {(\partial_z \theta)}_{m+1} \right)& \\
 -
     \left(
-    \frac{K_{m+1}}{h_m h_{m+1/2}}{(\partial_z \theta)}_{m+1} - \frac{2 K_m}{h_{m-1/2} h _{m+1/2}}{(\partial_z \theta)}_m + \frac{K_{m-1}}{h_m h_{m-1/2}}{(\partial_z \theta)}_{m-1}
+	\frac{K_{\theta, m+1}}{h_m h_{m+1/2}}{(\partial_z \theta)}_{m+1} - \frac{2 K_{\theta, m}}{h_{m-1/2} h _{m+1/2}}{(\partial_z \theta)}_m + \frac{K_{\theta, m-1}}{h_m h_{m-1/2}}{(\partial_z \theta)}_{m-1}
     \right)
 &= 0
 \end{aligned}
 \end{equation}
 \subsection{Turbulent viscosities}
 \label{sec:ND_StratifiedCase_turbulentVisc}
-
+The Turbulent Kinetic Energy (TKE) evolves with the equation
 \begin{equation}
 \label{eq:ND_StratifiedCase_TKE}
     \begin{aligned}
@@ -97,5 +97,229 @@ And the derivative of temperature at $z_{m-1}, z_m, z_{m+1}$ solves
     - \underbrace{c_{\epsilon}
     \frac{e^{3/2}}{l_{\epsilon}(z)}}_{\text{dissipation}}.
     \end{aligned}
+\end{equation}
+The turbulent viscosities $K_u, K_{\theta}$ and $K_e$ are computed
+with $(K_u, K_\theta, K_e) = (C_m , C_s \phi_z, C_e)l_m \sqrt{e}$.
+$l_m, l_\epsilon$ are obtained with the fourth method described in \cite{lemarie2021gmd} (section 4.2.2) named $l^\star_{\rm D80}$.
+
+In the Neutral case, no buoyancy term intervene in the computation
+of the TKE.
+
+Let us assume that in each cell, $e$ is not varying too much and
+$l_\epsilon$ is constant. We use Patankar's trick
+\footnote{
+	multiplying buoyancy by $\frac{\overline{e}^{n+1}}{\overline{e}^n}$ when buoyancy is greater than shear
+to ensure positivity preservation of $\overline{e}$ {\color{red}[ref ?]
+}} even if it does not guarantee positivity of TKE when
+dealing with Finite Volumes.
+Shear and buoyancy are also assumed to be constant in each cell
+({\color{red} rough approximations}):
+\begin{equation}
+\label{eq:ND_StratifiedCase_SemiDiscreteTKE}
+    \left(
+    \frac{c_\epsilon \sqrt{\overline{e}^n}}{l_\epsilon}
+	+ {\rm Ptk} \frac{K_{\theta} N^2}{\overline{e}^n}
+    + \partial_t
+    \right) \overline{e}
+    =\frac{K_{e,m+1} (\partial_z e)_{m+1} -
+    K_{e,m} (\partial_z e)_{m}}{h_{m+1/2}}
+    + K_u ||\partial_z u||^2
+    - (1 - {\rm Ptk}) K_\theta N^2
+\end{equation}
+Where ${\rm Ptk}=1$ if $K_u ||\partial_z u||^2 \leq K_\theta N^2$, 
+otherwise ${\rm Ptk}=0$.
+Similarly to $\theta$ and $u$, the prognostic equation
+to find the spatial derivative of the TKE at 
+the borders of the cells is
+\begin{equation}
+\label{eq:ND_StratifiedCase_prognosticTKE_FV}
+\begin{aligned}
+&\partial_t
+\left(
+    h_{m-1/2}\frac{(\partial_z e)_{m-1}}{12}+
+    h_m\frac{10(\partial_z e)_{m}}{12}+
+    h_{m+1/2}\frac{(\partial_z e)_{m+1}}{12}
+\right)
+\\&-
+    \left(\frac{K_{e,m+1} (\partial_z e)_{m+1} -
+        K_{e,m} (\partial_z e)_{m}}{h_{m+1/2}}
+-
+    \frac{K_{e,m} (\partial_z e)_{m} -
+        K_{e,m-1} (\partial_z e)_{m-1}}{h_{m-1/2}}
+        \right)
+\\
+&- \left(K_{u} ||\partial_z u||^2
+-  K_\theta N^2 
+\left({\rm Ptk}
+\left(\frac{\overline{e}}{\overline{e}^n} - 1\right)
++ 1\right)
+- \frac{c_\epsilon \sqrt{\overline{e}}}{l_\epsilon} \overline{e}
+\right)_{dm} = 0
+\end{aligned}
+\end{equation}
+where the index $X_{dm}$ is a shortcut for $X_{m+1/2} - X_{m-1/2}$.
+
+\paragraph{Boundary conditions}
+In the surface layer, $e$ is constant
+and $e(z\leq \delta_{\rm sl}) = e_{\rm sl} = \frac{{u_\star}^2}{\sqrt{c_m c_\epsilon}}$.
+A homogeneous Neumann boundary condition is used at the top.
+Let $k$ be the space index such that
+$z_k < \delta_{\rm sl} < z_{k+1}$. The space derivative of e for
+$z \leq z_k$ is set to 0 and its average is set to $e_{\rm sl}$.
+Let $\widetilde{e}$ be the TKE average on
+$[\delta_{\rm sl}, z_{k+1}]$.
+We use as a boundary condition $\widetilde{e} - 5 \widetilde{h}
+\frac{ (\partial_z e)_k}{12} -
+\widetilde{h}\frac{ (\partial_z e)_{k+1}}{12}= e(z<\delta_{sl})$
+and $(\partial_z e)_k = 0$.
+
+\subsection{FV free}
+{\color{red} TODO simplifier cette section}
+
+We now have all the ingredients to construct a boundary condition
+that is coherent with the MOST profiles with a free
+$\delta_{sl}$. Let $k$ such that $z_k < \delta_{\rm sl} < z_{k+1}$.
+We assume that
+\eqref{eq:ND_StratifiedCase_MOST} apply for $z<\delta_{sl}$,
+which leads us to separate the 
+cell $[\delta_{\rm sl}, z_{k+1}]$
+into two parts: the surface layer $[z_k,\delta_{\rm sl}]$ and the
+"subcell" $[\delta_{\rm sl}, z_{k+1}]$ of size $\widetilde{h}$, of
+average $\widetilde{u}, \widetilde{\theta}$
+and of subgrid reconstructions
+\begin{equation}
+\begin{aligned}
+{\cal S}_{k+1/2}(\xi) = \widetilde{u} +
+	\frac{\phi_{k+1} + \phi_{k}}{2} \xi
++ \frac{\phi_{k+1} - \phi_{k}}{2\widetilde{h}}
+	\left(\xi^2 - \frac{\widetilde{h}^2}{12}\right) \\
+{\cal T}_{k+1/2}(\xi) = \widetilde{\theta}_{1/2} +
+	\frac{{(\partial_z \theta)}_{k+1} + 
+		{(\partial_z \theta)}_{k}}{2} \xi
++ \frac{{(\partial_z \theta)}_{k+1} - {(\partial_z \theta)}_{k}}
+	{2\widetilde{h}}
+	\left(\xi^2 - \frac{\widetilde{h}^2}{12}\right)
+\end{aligned}
+\end{equation}
+Here, $\xi = z - (z_{k+1} - \frac{\widetilde{h}}{2})$.
+The relation between
+$\overline{u}_{k+1/2}, \overline{\theta}_{k+1/2}$ and
+$\widetilde{u},\widetilde{\theta}$ is, similarly to the neutral case:
+\begin{equation} \label{eq:ND_StratifiedCase_tmprelation_tilde_bar}
+\begin{aligned}
+\frac{\widetilde{h}}{h_{k+1/2}} \widetilde{u} =
+	\overline{u}_{k+1/2} - u(\delta_{sl}) \tau_{sl, u}\\
+\frac{\widetilde{h}}{h_{k+1/2}} (\widetilde{\theta} - \theta_s) =
+	(\overline{\theta}_{k+1/2}-\theta_s) -
+	(\theta(\delta_{sl})-\theta_s)\tau_{sl, \theta}
+\end{aligned}
+\end{equation}
+with for $x = u, \theta$:
+\begin{equation}
+\tau_{sl, x}^0 = \frac{\frac{1}{{h_{1/2}}}\int_{z_k}^{\delta_{sl}} \log(1+\frac{z}{z_{\star}})- \psi_x(\frac{z}{L_{MO}})
+    dz}{\log(1+\frac{\delta_{sl}}{z_\star})- \psi_x(\frac{\delta_{sl}}{L_{MO}})
+    }
+    =
+ \frac{\frac{1}{{h_{1/2}}}
+    \left[
+    (z+z_\star)\log(1+\frac{z}{z_\star})-z
+    +
+    z \Psi_m(\frac{z}{L_{MO}}) \right]_{z_k}^{\delta_{sl}}
+    }{\log(1+\frac{\delta_{sl}}{z_\star})- \psi_x(\frac{\delta_{sl}}{L_{MO}})
+    }
+\end{equation}
+and
+    $\alpha_{sl, x} = \frac{\widetilde{h}_{1/2}}{h_{1/2}} +
+    \tau_{sl, x}$
+non-dimensional numbers.
+Let us inject $u(\delta_{sl}) =
+{\cal S}(-\frac{\widetilde{h}}{2})$ and
+$\theta(\delta_{sl}) = {\cal T}(-\frac{\widetilde{h}}{2})$:
+\begin{equation}
+\begin{aligned}
+\label{eq:ND_StratifiedCase_relation_tilde_bar}
+\alpha_{sl, u}\widetilde{u} = \overline{u}_{k+1/2} +
+	\tau_{sl, u}
+\widetilde{h}
+	(\phi_k/3 + \phi_{k+1}/6) \\
+\alpha_{sl, \theta}
+\widetilde{\theta}
+= \overline{\theta}_{k+1/2} + \tau_{sl, \theta}
+	\widetilde{h}(\frac{{(\partial_z \theta)}_k}{3} + \frac{{(\partial_z \theta)}_{k+1}}{6})
+ - (1 - \alpha_{sl, \theta})\theta_s
+\end{aligned}
+\end{equation}
+
+The scheme can then use as boundary conditions at the surface layer:
+\begin{equation}
+\label{eq:ND_StratifiedCase_boundaryConditionFVfree}
+\begin{aligned}
+	K_{u,k} \phi_k = {u_\star}^2
+  \frac{\overline{u}_{k+1/2} - \frac{\widetilde{h}^2}{h_{k+1/2}}
+	(\frac{\phi_k}{3} + \frac{\phi_{k+1}}{6})}
+	{\alpha_{sl, u}||u^n(\delta_{sl})||} \\
+  \frac{\alpha_{sl, \theta} }
+  {C_H |u(\delta_{sl})|}
+	K_{\theta, k} (\partial_z \theta)_k = 
+  \overline{\theta}_{k+1/2} - \frac{\widetilde{h}^2}{h_{k+1/2}}
+	(\frac{{(\partial_z \theta)}_k}{3} +
+	\frac{{(\partial_z \theta)}_{k+1}}{6}) 
+  - \theta_s\\
+\end{aligned}
+\end{equation}
+Finally, the scheme at the first grid level above
+the surface layer is for $u$:
+\begin{equation}
+\label{eq:ND_StratifiedCase_prognosticu_FVfree}
+    \begin{aligned}
+(\partial_t + if)
+	    \left(\frac{\widetilde{h}}{6h_{k+1}} 
+    \phi_k
+    +
+    \left(
+	    \frac{\widetilde{h}}{3h_{k+1}} 
+	    + \frac{h_{k+3/2}}{3h_{k+1}}
+    \right)
+	    \phi_{k+1}
+	    + \frac{h_{k+3/2}}{6h_{k+1}} \phi_{k+2}\right)
+    = \\
+	    \frac{K_{u, k+2} \phi_{k+2} - K_{u, k+1} \phi_{k+1}}
+	    {h_{k+3/2}h_{k+1}} - \frac{K_{u, k+1} \phi_{k+1} -
+	    K_{u,k} \phi_k }{\widetilde{h}h_{k+1}}
+    \end{aligned}
+\end{equation}
+\begin{equation}
+	\label{eq:ND_StratifiedCase_semiDiscreteEkmanEqFVfree}
+	\partial_t \left(\frac{1}{\alpha_{\rm sl, u}}
+	\left(\overline{u}_{k+1/2} + \widetilde{h}\tau_{\rm sl, u}
+	(\frac{\phi_k}{3} + \frac{\phi_{k+1}}{6})\right)\right)
+	= \frac{K_{u, k+1}\phi_{k+1} - K_{u,k} \phi_k}{\widetilde{h}}
+\end{equation}
+and the same applies for $\theta$:
+\begin{equation}
+\label{eq:ND_StratifiedCase_prognosticPT_FVfree}
+    \begin{aligned}
+\partial_t \left(\frac{\widetilde{h}}{6h_{k+1}} 
+	    {(\partial_z \theta)}_k
+    +
+    \left(
+	    \frac{\widetilde{h}}{3h_{k+1}} 
+	    + \frac{h_{k+3/2}}{3h_{k+1}}
+    \right)
+	    {(\partial_z \theta)}_{k+1}
+	    + \frac{h_{k+3/2}}{6h_{k+1}} {(\partial_z \theta)}_{k+2}\right)
+    = \\
+	    \frac{K_{\theta, k+2} {(\partial_z \theta)}_{k+2} -
+	    K_{\theta, k+1} {(\partial_z \theta)}_{k+1}}
+	    {h_{k+3/2}h_{k+1}} - \frac{K_{\theta, k+1} {(\partial_z \theta)}_{k+1} -
+	    K_{\theta, k} {(\partial_z \theta)}_k }{\widetilde{h}h_{k+1}}
+    \end{aligned}
+\end{equation}
+\begin{equation}
+	\label{eq:ND_StratifiedCase_semiDiscreteEkmanEqPTFVfree}
+	\partial_t \left(\frac{1}{\alpha_{\rm sl, \theta}}
+	\left(\overline{\theta}_{k+1/2} + \widetilde{h}\tau_{\rm sl, \theta}
+	(\frac{{(\partial_z \theta)}_k}{3} + \frac{{(\partial_z \theta)}_{k+1}}{6})\right)\right)
+	= \frac{K_{\theta, k+1}{(\partial_z \theta)}_{k+1} - K_{\theta,k} {(\partial_z \theta)}_k}{\widetilde{h}}
 \end{equation}
 
