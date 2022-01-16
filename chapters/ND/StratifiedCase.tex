@@ -1,0 +1,101 @@
+\section{Stratified case}
+In this section, we no longer assume that the stratification
+is neutral. The effect of humidity is neglected.
+We first discuss the continuous and semi-discrete in space
+equations, then give the
+profile of viscosities depending on the turbulent kinetic energy
+(TKE), and extend the previous discussion on the wall Law to
+Monin-Obukhov Similarity Theory (MOST).
+
+\subsection{Continuous model and Finite Volumes discretization}
+\subsubsection{Continuous model}
+The wind speed $u$ and the potential temperature $\theta$ evolve
+together with
+\begin{equation}
+\begin{aligned}
+	\label{eq:ND_StratifiedCase_EkmanEq}
+  (\partial_t + if) u - \partial_z (\partial_z K_u u) &= if u_G \\
+  \partial_t \theta -\partial_z (\partial_z K_{\theta} \theta) &= 0.
+\end{aligned}
+\end{equation}
+The viscosities $K_u, K_\theta$ will be detailed in section \ref{sec:ND_StratifiedCase_turbulentVisc}.
+The boundary condition on the fluxes $K_u u$ and $K_\theta \theta$
+in the surface layer is
+\begin{equation}
+\begin{aligned}
+	\left.K_u \partial_z u \right|_{z\leq \delta_{\rm sl}}
+	&= u_\star^2
+	\frac{u(\delta_{\rm sl}, t)}{||u(\delta_{\rm sl}, t)||} \\
+	\left.K_\theta \partial_z \theta
+	\right|_{z\leq \delta_{\rm sl}}
+	&= \theta_\star u_\star = C_H ||u(\delta_{\rm sl})||
+	\left(\theta(\delta_{\rm sl}) - \theta_{s}\right)
+\end{aligned}
+\end{equation}
+and MOST profiles are {\color{red} A décider/ comprendre}
+\begin{equation}
+\label{eq:ND_StratifiedCase_MOST}
+\begin{aligned}
+    ||u(z)|| = \frac{u_\star}{\kappa}
+    \left(
+    \log(\frac{z}{z_\star^u})
+    - \psi_u(\frac{z}{L_{MO}})
+    + \psi_u(\frac{z_\star^u}{L_{MO}})
+    \right)
+    \\
+    \theta(z) - \theta_s = 
+    \frac{\theta_\star}{\kappa}
+    \left(
+    \log(\frac{z}{z_\star^\theta})
+    - \psi_\theta(\frac{z}{L_{MO}})
+    + \psi_\theta(\frac{z_\star^\theta}{{L_{MO}}})
+    \right)
+\end{aligned}
+\end{equation}
+where $L_{MO} = \frac{\theta(\delta_{\rm sl})
+u_\star^2}{\theta_\star \kappa g }$. We will use
+$C_H|u(\delta_{sl})| = \frac{u_\star \kappa}{\log(\frac{z}{z_\star^\theta})
+    - \psi_\theta(\frac{z}{L_{MO}})
+    + \psi_\theta(\frac{z_\star^\theta}{{L_{MO}}})}$
+\subsubsection{Finite Volumes discretization}
+The discretization of $u$ is exactly the same as in the
+neutral case (\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEq} and \eqref{eq:ND_NeutralCase_prognosticEqFV}) and the discretization of 
+the potential temperature is very similar:
+the average potential temperature $\overline{\theta}_{m+1/2}$
+evolves with
+\begin{equation}
+\label{eq:ND_StratifiedCase_semiDiscreteEkmanEqPT}
+    \partial_t \overline{\theta}_{m+1/2}
+    - \frac{K_{\theta, m+1} {(\partial_z \theta)}_{m+1} - K_{\theta, m} {(\partial_z \theta)}_m}{h_{m+1/2}}
+    = 0
+\end{equation}
+And the derivative of temperature at $z_{m-1}, z_m, z_{m+1}$ solves
+\begin{equation}
+\begin{aligned}
+\label{eq:ND_StratifiedCase_prognosticPT_FV}
+\partial_t \left( \frac{h_{m-1/2}}{6h_m} {(\partial_z \theta)}_{m-1} 
++ \frac{2}{3} {(\partial_z \theta)}_m  
++ \frac{h_{m+1/2}}{6h_m} {(\partial_z \theta)}_{m+1} \right)& \\
+-
+    \left(
+    \frac{K_{m+1}}{h_m h_{m+1/2}}{(\partial_z \theta)}_{m+1} - \frac{2 K_m}{h_{m-1/2} h _{m+1/2}}{(\partial_z \theta)}_m + \frac{K_{m-1}}{h_m h_{m-1/2}}{(\partial_z \theta)}_{m-1}
+    \right)
+&= 0
+\end{aligned}
+\end{equation}
+\subsection{Turbulent viscosities}
+\label{sec:ND_StratifiedCase_turbulentVisc}
+
+\begin{equation}
+\label{eq:ND_StratifiedCase_TKE}
+    \begin{aligned}
+    \partial_t e =
+    \underbrace{\partial_z \left(K_e
+    \partial_z e\right)}_{\text{diffusion}}
+    + \underbrace{K_u ||\partial_z u||^2}_{\text{shear}} 
+    - \underbrace{K_{\theta} N^2 }_{\text{buoyancy}}
+    - \underbrace{c_{\epsilon}
+    \frac{e^{3/2}}{l_{\epsilon}(z)}}_{\text{dissipation}}.
+    \end{aligned}
+\end{equation}
+
