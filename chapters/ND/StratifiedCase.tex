@@ -318,8 +318,13 @@ and the same applies for $\theta$:
 \begin{equation}
 	\label{eq:ND_StratifiedCase_semiDiscreteEkmanEqPTFVfree}
 	\partial_t \left(\frac{1}{\alpha_{\rm sl, \theta}}
-	\left(\overline{\theta}_{k+1/2} + \widetilde{h}\tau_{\rm sl, \theta}
-	(\frac{{(\partial_z \theta)}_k}{3} + \frac{{(\partial_z \theta)}_{k+1}}{6})\right)\right)
-	= \frac{K_{\theta, k+1}{(\partial_z \theta)}_{k+1} - K_{\theta,k} {(\partial_z \theta)}_k}{\widetilde{h}}
+	\left(
+	\overline{\theta}_{k+1/2} + \tau_{sl, \theta}
+	\widetilde{h}(\frac{{(\partial_z \theta)}_k}{3} +
+	\frac{{(\partial_z \theta)}_{k+1}}{6})
+	 - (1 - \alpha_{sl, \theta})\theta_s
+	\right) \right)
+	= \frac{K_{\theta, k+1}{(\partial_z \theta)}_{k+1} -
+	K_{\theta,k} {(\partial_z \theta)}_k}{\widetilde{h}}
 \end{equation}
 
