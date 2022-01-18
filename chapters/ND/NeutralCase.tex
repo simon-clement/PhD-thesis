@@ -3,7 +3,9 @@ In this section, we assume that the stratification is neutral.
 There is no effect of the stratification on the turbulent viscosity
 so the wind speed $u(z, t)$ can be integrated in time
 without the temperature and humidity profiles.
-{\color{red} presentation of subsections}
+We first present the continuous model used and its
+discretization with finite volumes. Several strategies to
+take into account the surface layer are then presented.
 \subsection{Continuous model and Finite Volumes discretization}
 \subsubsection{Continuous equations: two separate domains}
 \label{sec:ND_NeutralCase}
@@ -18,7 +20,7 @@ $f$ is the Coriolis parameter and $K_u$ the turbulent viscosity.
 The profile of $K_u$ will be detailed
 in section \ref{sec:ND_StratifiedCase_turbulentVisc}.
 inside the surface layer ($z \leq \delta_{\rm sl}$), the flux
-$K_u \partial_z u$ is constant: {\color{red} TODO passer un peu plus de temps dessus ?}
+$K_u \partial_z u$ is constant:
 \begin{equation}
 	\label{eq:ND_NeutralCase_constantFlux}
 	\left.K_u \partial_z u \right|_{z\leq \delta_{\rm sl}}
