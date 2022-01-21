@@ -13,7 +13,7 @@ The continuous equation above the surface layer
 ($z > \delta_{\rm sl}$) is
 \begin{equation}
 	\label{eq:ND_NeutralCase_EkmanEq}
-  (\partial_t + if) u - \partial_z (\partial_z K_u u) = if u_G
+  (\partial_t + if) u - \partial_z (K_u \partial_z u) = if u_G
 \end{equation}
 where $u_G$ is a constant value representing the geostrophic guide.
 $f$ is the Coriolis parameter and $K_u$ the turbulent viscosity.
@@ -28,8 +28,8 @@ $K_u \partial_z u$ is constant:
 	\frac{u(\delta_{\rm sl}, t)}{||u(\delta_{\rm sl}, t)||}.
 \end{equation}
 The size of the turbulent eddies at height $z$
-is proportional to the distance to the surface $z$.
-{\color{red} log-layer mismatch ref}. Combining molecular and
+is proportional to the distance to the surface $z$
+(e.g. \cite{kawai2012wall}). Combining molecular and
 turbulent viscosities gives 
 $K_u(z\leq \delta_{sl}) = \kappa u_\star z + K_{u, {\rm mol}}
 = \kappa u_\star (z + z_{\star})$.
@@ -379,3 +379,9 @@ The surface layer scheme "FV free" is identical to the case $k=0$, except that
 		between $z_m$ and $z_{m+1}$.
 	
 \end{itemize}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.55]{images/consistency_comparison.pdf}
+	\caption{Neutral case's numerical experiment}
+	\label{fig:ND_NeutralCase_NumericalExp}
+\end{figure}

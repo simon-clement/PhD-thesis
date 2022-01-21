@@ -13,17 +13,17 @@
 	the space step. In particular, when the space step
 		tends to 0, the surface layer should still
 		be parametrized with the same wall law.
-\item {\color{red} log-layer mismatch ref}: since the characteristic
+\item Since the characteristic
 	size of the turbulent eddies in the surface layer are
-		proportional to the distance to the surface,
+		proportional to the distance to the surface (\cite{kawai2012wall}),
 		it should not be assumed that we solve
 		correctly the mechanisms in the first levels
 		of a finite differences classical approach
 \item The model used to derive this discretization is a 1D Ekman
 	equation, with a forcing representing a geostrophic guide.
 		The turbulent viscosity is computed with a
-		one-equation turbulence closure model.
-		{\color{red} TODO find reference}
+		one-equation turbulence closure model. It was
+		tested against the code used in \cite{lemarie2021gmd}
 \item We begin with a neutral stratification for pedagogical purposes,
 	then apply the same concepts to a stratified column of
 		atmosphere.
