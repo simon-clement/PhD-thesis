@@ -39,25 +39,25 @@ and MOST profiles are
 \begin{aligned}
     ||u(z)|| = \frac{u_\star}{\kappa}
     \left(
-    \log(\frac{z}{z_\star^u})
+	\log(\frac{z}{z_{0M}})
     - \psi_u(\frac{z}{L_{MO}})
-    + \psi_u(\frac{z_\star^u}{L_{MO}})
+	+ \psi_u(\frac{z_{0M}}{L_{MO}})
     \right)
     \\
     \theta(z) - \theta_s = 
     \frac{\theta_\star}{\kappa}
     \left(
-    \log(\frac{z}{z_\star^\theta})
+	\log(\frac{z}{z_{0H}})
     - \psi_\theta(\frac{z}{L_{MO}})
-    + \psi_\theta(\frac{z_\star^\theta}{{L_{MO}}})
+	+ \psi_\theta(\frac{z_{0H}}{{L_{MO}}})
     \right)
 \end{aligned}
 \end{equation}
 where $L_{MO} = \frac{\theta(\delta_{\rm sl})
 u_\star^2}{\theta_\star \kappa g }$. We will use
-$C_H|u(\delta_{sl})| = \frac{u_\star \kappa}{\log(\frac{z}{z_\star^\theta})
+$C_H|u(\delta_{sl})| = \frac{u_\star \kappa}{\log(\frac{z}{z_{0H}})
     - \psi_\theta(\frac{z}{L_{MO}})
-    + \psi_\theta(\frac{z_\star^\theta}{{L_{MO}}})}$
+    + \psi_\theta(\frac{z_{0H}}{{L_{MO}}})}$
 \subsubsection{Finite Volumes discretization}
 The discretization of $u$ is exactly the same as in the
 neutral case (\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEq} and \eqref{eq:ND_NeutralCase_prognosticEqFV}) and the discretization of 
@@ -216,16 +216,16 @@ $\widetilde{u},\widetilde{\theta}$ is, similarly to the neutral case:
 \end{equation}
 with for $x = u, \theta$:
 \begin{equation}
-\tau_{sl, x}^0 = \frac{\frac{1}{{h_{1/2}}}\int_{z_k}^{\delta_{sl}} \log(1+\frac{z}{z_{\star}})- \psi_x(\frac{z}{L_{MO}})
-    dz}{\log(1+\frac{\delta_{sl}}{z_\star})- \psi_x(\frac{\delta_{sl}}{L_{MO}})
+\tau_{sl, x}^0 = \frac{\frac{1}{{h_{1/2}}}\int_{z_k}^{\delta_{sl}} \log(1+\frac{z}{z_{0x}})- \psi_x(\frac{z}{L_{MO}})
+	dz}{\log(1+\frac{\delta_{sl}}{z_{0x}})- \psi_x(\frac{\delta_{sl}}{L_{MO}})
     }
     =
  \frac{\frac{1}{{h_{1/2}}}
     \left[
-    (z+z_\star)\log(1+\frac{z}{z_\star})-z
+	    (z+z_{0x})\log(1+\frac{z}{z_{0x}})-z
     +
     z \Psi_m(\frac{z}{L_{MO}}) \right]_{z_k}^{\delta_{sl}}
-    }{\log(1+\frac{\delta_{sl}}{z_\star})- \psi_x(\frac{\delta_{sl}}{L_{MO}})
+    }{\log(1+\frac{\delta_{sl}}{z_{0x}})- \psi_x(\frac{\delta_{sl}}{L_{MO}})
     }
 \end{equation}
 and

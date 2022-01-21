@@ -32,19 +32,19 @@ is proportional to the distance to the surface $z$
 (e.g. \cite{kawai2012wall}). Combining molecular and
 turbulent viscosities gives 
 $K_u(z\leq \delta_{sl}) = \kappa u_\star z + K_{u, {\rm mol}}
-= \kappa u_\star (z + z_{\star})$.
+= \kappa u_\star (z + z_{0M})$ with $z_{0M} = \frac{K_{u, {\rm mol}}}{\kappa u_\star}$.
 It follows that
 \begin{equation}
 \label{eq:ND_NeutralCase_WallLaw}
 	||u(z, t) - u(0, t)|| = \frac{{u_\star}}{\kappa}
-	\log(1+\frac{z}{z_{\star}}).
+	\log(1+\frac{z}{z_{0M}}).
 \end{equation}
 A typical integration in time from $u(z, t^{n})$ to
 $u(z, t^{n+1})$ is:
 \begin{enumerate}
   \item Use \eqref{eq:ND_NeutralCase_WallLaw} to compute 
 	  $u_\star = \frac{\kappa ||u(z, t^n)||}
-			{\log(1+\frac{z}{z_\star})}$
+			{\log(1+\frac{z}{z_{0M}})}$
   \item Integrate in time \eqref{eq:ND_NeutralCase_EkmanEq}
   using \eqref{eq:ND_NeutralCase_constantFlux} as a boundary condition
 		either of Neumann type ($\left.K_u \partial_z u
@@ -280,7 +280,7 @@ $.
 Here, $\xi = z - (z_1 - \frac{\widetilde{h}}{2})$.
 The relation between $\overline{u}_{1/2}$ and $\widetilde{u}$ is 
 \begin{equation}
-\widetilde{h}\widetilde{u} = h_{1/2}\overline{u}_{1/2} - \frac{u(\delta_{sl})}{||u(\delta_{sl})||}\frac{{u_\star}}{\kappa}\int_{z_0}^{\delta_{sl}} \log(1+\frac{z}{z_{\star}}) dz.
+\widetilde{h}\widetilde{u} = h_{1/2}\overline{u}_{1/2} - \frac{u(\delta_{sl})}{||u(\delta_{sl})||}\frac{{u_\star}}{\kappa}\int_{z_0}^{\delta_{sl}} \log(1+\frac{z}{z_{0M}}) dz.
 \end{equation}
 The notations are summed up in Figure
 \ref{fig:ND_NeutralCase_nouvelle_dis_neutre}.
@@ -291,18 +291,18 @@ The notations are summed up in Figure
 \end{figure}
 
 
-Let us inject $u(\delta_{sl}) = \widetilde{u} - \widetilde{h}(\phi_0/3 + \phi_1/6)$ and $||u(\delta_{sl})|| = \frac{{u_\star}}{\kappa}\log(1+\frac{\delta_{sl}}{z_\star})$:
+Let us inject $u(\delta_{sl}) = \widetilde{u} - \widetilde{h}(\phi_0/3 + \phi_1/6)$ and $||u(\delta_{sl})|| = \frac{{u_\star}}{\kappa}\log(1+\frac{\delta_{sl}}{z_{0M}})$:
 \begin{equation}
 \frac{\widetilde{h}}{h_{1/2}}\widetilde{u} = \overline{u}_{1/2} - \tau_{sl}\left(\widetilde{u} - \widetilde{h}(\phi_0/3 + \phi_1/6)\right).
 \end{equation}
-with $\tau_{sl} = \frac{1}{{h_{1/2}}}\int_{z_0}^{\delta_{sl}} \frac{\log(1+\frac{z}{z_{\star}})}{\log(1+\frac{\delta_{sl}}{z_\star})} dz =
-\frac{(\delta_{\rm sl} + z_\star)\log(1+\frac{\delta_{\rm sl}}{z_\star}) - \delta_{\rm sl}}{h_{1/2}\log(1+\frac{\delta_{sl}}{z_\star})}$ a non-dimensional number $0 \leq\tau_{sl} < 1$. (In this neutral case $\tau_{\rm sl} = 0 \iff \widetilde{h}=h_{1/2}$)
+with $\tau_{sl} = \frac{1}{{h_{1/2}}}\int_{z_0}^{\delta_{sl}} \frac{\log(1+\frac{z}{z_{0M}})}{\log(1+\frac{\delta_{sl}}{z_{0M}})} dz =
+\frac{(\delta_{\rm sl} + z_{0M})\log(1+\frac{\delta_{\rm sl}}{z_{0M}}) - \delta_{\rm sl}}{h_{1/2}\log(1+\frac{\delta_{sl}}{z_{0M}})}$ a non-dimensional number $0 \leq\tau_{sl} < 1$. (In this neutral case $\tau_{\rm sl} = 0 \iff \widetilde{h}=h_{1/2}$)
 
 \paragraph{Evolution of $\tau_{\rm sl}$}
 $\tau_{\rm sl}$ is a constant in the neutral case
-when $\delta_{\rm sl}$ and $z_\star$ are constants. However,
-we will assume here that it varies since its stratified equivalent
-depends on the (non-constant) Obukhov length.
+when $\delta_{\rm sl}$ and $z_{0M}$ are constants. However,
+$z_{0M}$ depends on $u_\star$ and will vary.
+In all this document we assume that $\delta_{\rm sl}$ is a constant.
 
 Let $\alpha_{\rm sl} = \frac{\widetilde{h}}{h_{1/2}}+\tau_{sl}$.
 Then $\widetilde{u} = \frac{1}{\alpha_{\rm sl}}\left(\overline{u}_{1/2} + \widetilde{h}\tau_{sl}(\phi_0/3 + \phi_1/6)\right)$
@@ -367,7 +367,7 @@ The surface layer scheme "FV free" is identical to the case $k=0$, except that
 		\eqref{eq:ND_NeutralCase_boundaryCondFVfree},
 		\eqref{eq:ND_NeutralCase_prognosticEqFVfree} and
 		\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree};
-	\item $\tau_{sl} = \frac{1}{{h_{1/2}}}\int_{z_k}^{\delta_{sl}} \frac{\log(1+\frac{z}{z_{\star}})}{\log(1+\frac{\delta_{sl}}{z_\star})} dz$ and $\alpha_{\rm sl} = \frac{\widetilde{h}}{h_{k+1/2}} + \tau_{\rm sl}$;
+	\item $\tau_{sl} = \frac{1}{{h_{1/2}}}\int_{z_k}^{\delta_{sl}} \frac{\log(1+\frac{z}{z_{0M}})}{\log(1+\frac{\delta_{sl}}{z_{0M}})} dz$ and $\alpha_{\rm sl} = \frac{\widetilde{h}}{h_{k+1/2}} + \tau_{\rm sl}$;
 	\item for $m < k$, the cell $[z_m, z_{m+1}]$ is filled with
 		$K_{u,m} \phi_m = K_{u,k}\phi_k =
 	{u_\star}^2 \frac{\overline{u}_{k+1/2} -
@@ -385,3 +385,47 @@ The surface layer scheme "FV free" is identical to the case $k=0$, except that
 	\caption{Neutral case's numerical experiment}
 	\label{fig:ND_NeutralCase_NumericalExp}
 \end{figure}
+\subsection{Variation of $\delta_{\rm sl}$}
+In this subsection we assume that $\delta_{\rm sl}$ can differ
+from one time to another. Let us note
+$\delta_{\rm sl}^n, \delta_{\rm sl}^{n+1}$ the two different sizes
+of the surface layer.
+There are 3 cases to take into account:
+\begin{enumerate}
+\item there is a $k$ such that
+	$z_k< \delta_{\rm sl}^n, \delta_{\rm sl}^{n+1} < z_{k+1}$
+\item there is a $k$ such that
+	$ \delta_{\rm sl}^n < z_k < \delta_{\rm sl}^{n+1}$
+\item there is a $k$ such that
+	$ \delta_{\rm sl}^n > z_k > \delta_{\rm sl}^{n+1}$
+\end{enumerate}
+Note that multiple grid levels can be between $\delta_{\rm sl}^{n}$
+and $\delta_{\rm sl}^{n+1}$ in the second and third cases.
+\par
+Let $k^n$ be such that $z_{k^n} < \delta_{\rm sl}^{n}< z_{k^n + 1}$
+and $k^{n+1}$ such that
+$z_{k^{n+1}} < \delta_{\rm sl}^{n+1}< z_{k^{n+1} + 1}$
+\begin{enumerate}
+	\item $k^n = k^{n+1}$:
+Since $\delta_{\rm sl}$ changes, then $\widetilde{h}$ also change.
+It must be taken into account when
+discretising in time the equations
+\eqref{eq:ND_NeutralCase_prognosticEqFVfree} and 
+\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree}.
+The boundary condition stays \eqref{eq:ND_NeutralCase_boundaryCondFVfree}.
+	\item $k^n < k^{n+1}$:
+\eqref{eq:ND_NeutralCase_boundaryCondFVfree},
+\eqref{eq:ND_NeutralCase_prognosticEqFVfree} and 
+\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree} only need to
+be satisfied between $z_{k^{n+1}}$ and $z_{k^{n+1}+1}$.
+Hence, $\tau_{sl}(t^n)$ is set to 0.
+	\item $k^n > k^{n+1}$:
+\eqref{eq:ND_NeutralCase_prognosticEqFVfree} and 
+\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree}
+need to be satisfied in both cells.
+{\color{red} It is not possible to do this in a natural way,
+because using \eqref{eq:ND_NeutralCase_prognosticEqFVfree}
+assumes the solution was a quadratic spline whereas it was actually
+a log profile.
+}
+\end{enumerate}
