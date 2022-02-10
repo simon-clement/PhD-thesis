@@ -1,0 +1,66 @@
+\section{Consistency study}
+In this section, we investigate the effect of changing
+$\delta_{\rm sl}$ in the continuous, neutral model.
+In all this section we will assume that
+$z_0$ is constant.
+The main changes when $\delta_{\rm sl}$ becomes
+$\delta_{\rm sl}' < \delta_{\rm sl}$ are:
+\begin{itemize}
+\item the Coriolis effect and the large-scale forcing are
+now taken into account for $z \in 
+[\delta_{\rm sl}', \delta_{\rm sl}]$;
+\item the viscosity $K(z)$ for $z \in 
+[\delta_{\rm sl}', \delta_{\rm sl}]$ is not forced by the law
+of the wall anymore;
+\end{itemize}
+\subsection{Study of the consistency: continuous neutral case}
+Let $\delta_1$,$\delta_2$ two
+different heights of surface layer
+such that $\delta_1 < \delta_2$.
+
+Let $u_1$, $u_2$, be solutions of 
+\eqref{eq:ND_NeutralCase_EkmanEq},
+\eqref{eq:ND_NeutralCase_constantFlux} using
+respectively $\delta_1, \delta_2$ for $\delta_{sl}$.
+
+\subsubsection{Same viscosities}
+First, note that inside the surface layer for $u_2$,
+since $u_2(z) = \frac{u_\star}{\kappa}\log(1+\frac{z}{z_0})
+\frac{u_2(\delta_{2})}{||u_2(\delta_{2})||}$, assuming
+$||u_2(\delta_{2})||$ follows the same log low (it only works
+when the problem is continuous in time)
+\begin{equation}
+(\partial_t + if) u_2(z) = \frac{\log(1+\frac{z}{z_0})}
+{\log(1+\frac{\delta_2}{z_0})}(\partial_t + if) u_2(\delta_2), 
+~~~\forall z \leq \delta_2
+\end{equation}
+Hence, assuming $K\partial_z u_2$ is $C^1$ at $\delta_2$,
+$\partial_z (K\partial_z u_2) = 0$ and
+\begin{equation}
+(\partial_t + if) (u_2 - u_1) = \left(\frac{\log(1+\frac{z}{z_0})}
+{\log(1+\frac{\delta_2}{z_0})} - 1\right)i f u_G 
+-
+\partial_z (K \partial_z u_1), ~~~\forall z \in [\delta_1, \delta_2]
+\end{equation}
+We see in the right hand side of the latter equation the two items
+of the begining of the section:
+the large-scale forcing with the Coriolis effect,
+and the diffusion term of $u_1$ which is actually
+$\partial_z (K \partial_z u_1) = \partial_z (K \partial_z u_1 - K \partial_z u_2)$
+
+Let $w=u_2 - u_1$. If we assume that $K$ is the viscosity for both
+$u_2$ and $u_1$,
+Then
+\begin{equation}
+	\begin{cases}
+		(\partial_t + if) w = \partial_z (K \partial_z w) ,
+		~~ \forall z > \delta_2 \\
+(\partial_t + if) w = \partial_z (K \partial_z w) + \left(\frac{\log(1+\frac{z}{z_0})}
+{\log(1+\frac{\delta_2}{z_0})} - 1\right)i f u_G 
+, ~~~\forall z \in [\delta_1, \delta_2] \\
+		K \partial_z w = \frac{\kappa}
+		{\log(1+\frac{\delta_1}{z_0})}\left(
+		u_{\star, 2} u_2(\delta_1) -
+		u_{\star, 1} u_1(\delta_1)\right)
+	\end{cases}
+\end{equation}

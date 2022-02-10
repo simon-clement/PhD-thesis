@@ -334,3 +334,108 @@ and the same applies for $\theta$:
 	\caption{Stratified (stable) case's numerical experiment}
 	\label{fig:ND_StratifiedCase_NumericalExp}
 \end{figure}
+
+\subsection{Matching viscosities at the surface layer}
+In order to obtain a regular solution out of the "FV free"
+discretization, we derive here the constraints on mixing length
+and on TKE inside the surface layer.
+Assuming that 
+\begin{equation}
+	\label{eq:ND_StratifiedCase_viscosities_assumption}
+K_m = C_m l_m \sqrt{e} ~~\text{and}~~
+K_\theta = C_s l_m \sqrt{e} \phi_z
+\end{equation}
+ inside the SL, we have
+for $z\leq \delta_{\rm sl}$
+\begin{enumerate}
+\item Constant flux layer hypothesis and Robin boundary condition:
+\begin{subequations}
+\begin{equation}
+	\label{eq:ND_StratifiedCase_K_partial_z_u}
+	K_m \partial_z u = u_\star^2 \frac{u(\delta_{sl})}{|u^n(\delta_{sl})|}
+\end{equation}
+\begin{equation}
+	\label{eq:ND_StratifiedCase_partial_z_u}
+	\partial_z u = u_\star \frac{\phi_m(z/L_{MO})}{\kappa (z + z_{0M})}\frac{u(\delta_{sl})}{|u^n(\delta_{sl})|}
+\end{equation}
+\end{subequations}
+Leading to 
+\begin{equation}
+	\label{eq:ND_StratifiedCase_viscosities_SL}
+	K_m = \kappa u_\star\frac{z+ z_{0M}}{\phi_m(z/L_{MO})} ~~\text{and}~~
+K_\theta = \kappa u_\star\frac{z+ z_{0M}}{\phi_h(z/L_{MO})}
+\end{equation}
+\eqref{eq:ND_StratifiedCase_viscosities_assumption}
+together with \eqref{eq:ND_StratifiedCase_viscosities_SL} put
+a constraint on $\phi_z$ in the surface layer:
+$\phi_z = \frac{C_m\phi_m(z/L_{MO})}{C_s\phi_h(z/L_{MO})}
+		\forall z\leq \delta_{\rm sl}$.
+\item Quasi-equilibrium of the TKE equation:
+\begin{equation}
+	\label{eq:ND_StratifiedCase_TKE_quasi_equilibrium}
+	c_\epsilon \frac{e^{3/2}}{l_\epsilon}=K_m ||\partial_z u||^2 - \frac{g}{\theta_{ref}} K_\theta \partial_z \theta
+\end{equation}
+\end{enumerate}
+We assume that $l_\epsilon$ in
+\eqref{eq:ND_StratifiedCase_TKE_quasi_equilibrium} is taken at
+tmie index $n$, so that the energy can be integrated in time
+with a proper boundary condition before computing the mixing
+length. Then, we assume that $l_m = \sqrt{l_{up}l_{down}}$ and
+$l_\epsilon = \min(l_{up}, l_{down})$.
+We choose to keep the free-turbulence value
+$l_{up}^0 = \frac{2\sqrt{e}}
+{c_0|\partial_z u| + \sqrt{c_0^2 |\partial_z u| + 2N^2}}$
+in the SL, using \eqref{eq:ND_StratifiedCase_partial_z_u}
+to compute $|\partial_z u|$ and
+$N^2 = \frac{g}{\theta_{ref}}\theta_\star u_\star$.
+After $l_{up}^0$ has beed computed, as in
+\cite{lemarie2021gmd} $l_{up}$ is limited by
+the distance to the top and by the distance to a strongly
+stratified portion of the air column.
+Keeping the same computing routine for $l_{up}$ seems
+more natural since its value should not be too much
+influenced by a surface below.
+\par
+Now, \eqref{eq:ND_StratifiedCase_viscosities_SL} gives
+\begin{equation}
+	\label{eq:ND_StratifiedCase_solution_l_down}
+	l_{down}(e) = \frac{1}{l_{up} e} \left(
+	\frac{\kappa u_\star}{C_m}
+	\frac{z + z_{0M}}{\phi_m(z/L_{MO})}
+\right)^2
+\end{equation}
+$l_{down}$ is limited by the distance to the bottom only
+in the free-turbulence zone. In the SL, it keeps its value
+\eqref{eq:ND_StratifiedCase_solution_l_down}
+so that \eqref{eq:ND_StratifiedCase_viscosities_SL} is
+verified.
+
+\subsection{On the value of $K_0$}
+\label{sec:ND_StratifiedCase_viscosity0_FVpure}
+If we strictly follow the content of this document,
+$K_0$ should be equal to $K_{mol}$ (except for the "FV free" case).
+However, the boundary condition $K_0 \phi_0 = u_\star^2$
+does not behave the same way with FD and FV.
+(The orientation $\frac{u(\delta)}{||u(\delta)||}$
+was omitted for simplicity purpose. We also assume here $f=0$).
+
+\paragraph{Finite Differences}
+Injecting the boundary condition in the first grid level gives
+$\partial_t u_{1/2} = \frac{K_1}{h}\left(\frac{u_{3/2} - u_{1/2}}{h}
+ - u_\star^2
+\right)$.
+\textbf{The value of $K_0$ does not directly intervene in the equation}.
+
+\paragraph{Finite Volumes}
+In the continuity equation at $z=z_1$, it is used that
+$\partial_t u(z_1) = \frac{K_1 \phi_1 - u_\star^2}{h}
++ \frac{h \phi_1}{3} + \frac{h u_\star^2}{6 K_0}$
+\textbf{The (small) value of $K_0$ directly appears when we assume the
+parabolic profile inside the first grid level.}
+As a result, $\partial_t u(z_1)$ scales with $\frac{1}{K_0}$.
+That is seen
+on previous Figures.
+To obtain reasonable profiles, $K_0=K(\delta_{\rm sl})$ can be used
+but it does not correspond to the original discretisation choice.
+The consequence is that $\phi_0$ would not correspond
+to $(\partial_z u)(z_0)$ or $(\partial_z u)(z_{\delta sl})$.
