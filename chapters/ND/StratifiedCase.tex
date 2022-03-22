@@ -331,8 +331,15 @@ and the same applies for $\theta$:
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.55]{images/consistency_comparisonStratified.pdf}
-	\caption{Stratified (stable) case's numerical experiment}
-	\label{fig:ND_StratifiedCase_NumericalExp}
+	\includegraphics[scale=0.55]{images/consistency_comparisonStratified_linearscale.pdf}
+	\caption{Stratified (stable) case's numerical experiment. Top: log-scaled, bottom: linear-scaled}
+	\label{fig:ND_StratifiedCase_NumericalExpStable}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.55]{images/consistency_comparisonUnstable.pdf}
+	\caption{Stratified (unstable) case's numerical experiment.}
+	\label{fig:ND_StratifiedCase_NumericalExpUnstable}
 \end{figure}
 
 \subsection{Matching viscosities at the surface layer}
@@ -358,6 +365,10 @@ for $z\leq \delta_{\rm sl}$
 	\label{eq:ND_StratifiedCase_partial_z_u}
 	\partial_z u = u_\star \frac{\phi_m(z/L_{MO})}{\kappa (z + z_{0M})}\frac{u(\delta_{sl})}{|u^n(\delta_{sl})|}
 \end{equation}
+\begin{equation}
+	\label{eq:ND_StratifiedCase_partial_z_theta}
+	\partial_z \theta = \theta_\star \frac{\phi_h(z/L_{MO})}{\kappa (z + z_{0H})}, ~~~ K_\theta \partial_z \theta = u_\star \theta_\star
+\end{equation}
 \end{subequations}
 Leading to 
 \begin{equation}
@@ -378,7 +389,7 @@ $\phi_z = \frac{C_m\phi_m(z/L_{MO})}{C_s\phi_h(z/L_{MO})}
 \end{enumerate}
 We assume that $l_\epsilon$ in
 \eqref{eq:ND_StratifiedCase_TKE_quasi_equilibrium} is taken at
-tmie index $n$, so that the energy can be integrated in time
+time index $n$, so that the energy can be integrated in time
 with a proper boundary condition before computing the mixing
 length. Then, we assume that $l_m = \sqrt{l_{up}l_{down}}$ and
 $l_\epsilon = \min(l_{up}, l_{down})$.
@@ -386,8 +397,9 @@ We choose to keep the free-turbulence value
 $l_{up}^0 = \frac{2\sqrt{e}}
 {c_0|\partial_z u| + \sqrt{c_0^2 |\partial_z u| + 2N^2}}$
 in the SL, using \eqref{eq:ND_StratifiedCase_partial_z_u}
-to compute $|\partial_z u|$ and
-$N^2 = \frac{g}{\theta_{ref}}\theta_\star u_\star$.
+to compute $|\partial_z u|$ and using
+\eqref{eq:ND_StratifiedCase_partial_z_theta}
+for $N^2 = \frac{g}{\theta_{ref}}\partial_z \theta$.
 After $l_{up}^0$ has beed computed, as in
 \cite{lemarie2021gmd} $l_{up}$ is limited by
 the distance to the top and by the distance to a strongly
@@ -396,6 +408,19 @@ Keeping the same computing routine for $l_{up}$ seems
 more natural since its value should not be too much
 influenced by a surface below.
 \par
+Simplifying \eqref{eq:ND_StratifiedCase_TKE_quasi_equilibrium}
+with previous equations gives:
+\begin{equation}
+	\label{eq:ND_StratifiedCase_TKE_quasi_equilibrium_simplified}
+	e = \min(l_{up}^{2/3}, l_{down}^{2/3})\left(
+	\frac{u_\star}{c_\epsilon} 
+	\left({u}_\star^2
+	\frac{\phi_m(z/L_{MO})}{\kappa (z+z_{0M})}
+	- \frac{g}{\theta_{\rm ref}}\theta_\star
+	\right)
+	\right)^{2/3}
+\end{equation}
+
 Now, \eqref{eq:ND_StratifiedCase_viscosities_SL} gives
 \begin{equation}
 	\label{eq:ND_StratifiedCase_solution_l_down}
@@ -409,6 +434,31 @@ in the free-turbulence zone. In the SL, it keeps its value
 \eqref{eq:ND_StratifiedCase_solution_l_down}
 so that \eqref{eq:ND_StratifiedCase_viscosities_SL} is
 verified.
+To the solution of the system
+\eqref{eq:ND_StratifiedCase_solution_l_down},
+\eqref{eq:ND_StratifiedCase_TKE_quasi_equilibrium_simplified}
+is
+\begin{equation}
+	\label{eq:ND_StratifiedCase_solution_l_down}
+	\begin{cases}
+	l_{down}^{5/3} = \frac{1}{l_{up}} \frac{u_\star^{4/3}\left(
+	\frac{\kappa}{C_m}
+	\frac{z + z_{0M}}{\phi_m(z/L_{MO})}
+	\right)^2}{
+	\left({u}_\star^2
+	\frac{\phi_m(z/L_{MO})}{c_\epsilon\kappa (z+z_{0M})}
+	- \frac{g}{\theta_{\rm ref}c_\epsilon}\theta_\star
+	\right)^{2/3}} ~~~ {\rm if } ~~l_{down} < l_{up}\\
+	l_{down}(e) = \frac{1}{l_{up}^{5/3}} \frac{u_\star^{4/3}\left(
+	\frac{\kappa}{C_m}
+	\frac{z + z_{0M}}{\phi_m(z/L_{MO})}
+	\right)^2}{
+	\left({u}_\star^2
+	\frac{\phi_m(z/L_{MO})}{c_\epsilon\kappa (z+z_{0M})}
+	- \frac{g}{\theta_{\rm ref}c_\epsilon}\theta_\star
+	\right)^{2/3}} ~~~ {\rm otherwise}\\
+	\end{cases}
+\end{equation}
 
 \subsection{On the value of $K_0$}
 \label{sec:ND_StratifiedCase_viscosity0_FVpure}
@@ -438,4 +488,27 @@ on previous Figures.
 To obtain reasonable profiles, $K_0=K(\delta_{\rm sl})$ can be used
 but it does not correspond to the original discretisation choice.
 The consequence is that $\phi_0$ would not correspond
-to $(\partial_z u)(z_0)$ or $(\partial_z u)(z_{\delta sl})$.
+to $(\partial_z u)(z_0)$ or $(\partial_z u)(z_{\delta_{sl}})$.
+
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.55]{images/colorplots_FVlowres.pdf}
+	\includegraphics[scale=0.55]{images/colorplots_FVhighres.pdf}
+	\caption{Stratified (unstable) case's numerical experiment ("FV free").
+	Top: low resolution, bottom: high resolution.
+	The resolution of the bottom image does not give the space step.
+	}
+	\label{fig:ND_StratifiedCase_NumericalExpUnstableColorplot}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.55]{images/colorplots_FDlowres.pdf}
+	\includegraphics[scale=0.55]{images/colorplots_FDhighres.pdf}
+	\caption{Stratified (unstable) case's numerical experiment (FD).
+	Top: low resolution, bottom: high resolution
+	The resolution of the bottom image does not give the space step.
+	}
+	\label{fig:ND_StratifiedCase_NumericalExpUnstableColorplot}
+\end{figure}

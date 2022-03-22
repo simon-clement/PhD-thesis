@@ -64,3 +64,59 @@ Then
 		u_{\star, 1} u_1(\delta_1)\right)
 	\end{cases}
 \end{equation}
+\subsection{Semi-Discrete Consistency (Finite Differences)}
+{\color{red} ATTENTION ICI
+ ON MONTRE JUSTE QU'ON PEUT PRENDRE $u(z<\delta_{\rm sl})$ POUR
+ CONNAITRE L'ANGLE SI ON LE FAIT PROPREMENT.
+ EN BREF, CA SERT A RIEN.
+}
+This subsection shows that the semi-discrete in space
+Finite Differences
+scheme is not very sensitive to the value of $\delta_{\rm sl}$.
+
+The approach used in Finite Differences consists in assuming
+$\delta_{\rm sl} = z_{1/2}$ and to use the flux at $z_0$ in
+the integration in time
+$K_0\phi_0 = u_\star^2
+\frac{u(\delta_{\rm sl})}{||u(\delta_{\rm sl})||}$.
+We generalize the usual approach with
+$\delta_{sl} = z_{1/2} - \epsilon$ with
+$0 \leq \epsilon < \frac{h}{2}$. 
+We use $u_\star = \frac{\kappa ||u(\delta_{\rm sl})||}
+{\log(1+\frac{\delta_{sl}}{z_{0M}})}$ and
+the value $u(\delta_{\rm sl})$ can be approximated
+by $u_{1/2} - (\partial_z u)(\delta_{\rm sl})\epsilon $.
+The boundary condition becomes
+\begin{equation}
+	\label{eq:ND_Consistency_SemiDiscreteBdCond}
+K_0\phi_0 = 
+\kappa^2 ||u_{1/2} - (\partial_z u)(\delta_{\rm sl})\epsilon ||
+	\frac{u_{1/2} - (\partial_z u)(\delta_{\rm sl})\epsilon 
+}{\log(1+\frac{\delta_{sl}}{z_{0M}})^2}
+\end{equation}
+and it becomes convenient to compute the difference between
+$\delta_{sl}=z_{1/2}$ and $\delta_{sl}'=z_{1/2}-\epsilon$.
+Indeed,
+$|u - (\partial_z u) \epsilon| = |u| -
+\epsilon \frac{\mathfrak{R}(\overline{u} \partial_z u)}{|u|}
++ O(\epsilon^2)$ so
+$|u - (\partial_z u) \epsilon|(u - (\partial_z u) \epsilon) =
+|u|u -
+\epsilon \left(
+u\frac{\mathfrak{R}(\overline{u} \partial_z u)}{|u|}
++ |u| \partial_z u
+\right)
++ O(\epsilon^2)$.
+Using the Wall law
+$\partial_z u=\frac{u(\delta_{\rm sl})}{(\delta_{\rm sl} + z_0)
+\log(1+\frac{\delta_{sl}}{z_0})}$ we obtain 
+\begin{equation}
+|u - (\partial_z u) \epsilon|(u - (\partial_z u) \epsilon) - |u|u =
+	- \epsilon \left(\frac{2|u_{1/2}|u_{1/2}}
+	{(\delta_{\rm sl} + z_0) \log(1+\frac{\delta_{sl}}{z_0})}
+	\right)+ O(\epsilon^2)
+\end{equation}
+Combining with $\frac{\kappa^2}{\log(1+\frac{\delta_{sl}}{z_0})}$,
+we find the (left) derivative of the right-hand side of
+\eqref{eq:ND_Consistency_SemiDiscreteBdCond} with respect to
+$\delta_sl$ to be equal to zero.

@@ -1,0 +1,14 @@
+\section{Ocean part}
+\subsection{Implementation}
+{\color{red} Density is not taken into account in the code:
+it may be assumed as $\rho_a=1$ in the atmosphere: this can be
+a source of errors}
+\begin{itemize}
+\item
+In the ocean part, we use negative z grid levels.
+$z_0$ is the bottom of the ocean and $z_{M}=0$ is the surface.
+\item
+We now note $k$ the index such that $z_{k-1} < \delta_{sl} < z_k$.
+\item initialization: $e=e_{min}$ and $\theta = 280K$
+
+\end{itemize}
