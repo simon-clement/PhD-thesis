@@ -8,7 +8,196 @@ a source of errors}
 In the ocean part, we use negative z grid levels.
 $z_0$ is the bottom of the ocean and $z_{M}=0$ is the surface.
 \item
-We now note $k$ the index such that $z_{k-1} < \delta_{sl} < z_k$.
+We now note $k$ the index such that $z_{k-1} < \delta_{sl} \leq z_k$.
 \item initialization: $e=e_{min}$ and $\theta = 280K$
 
 \end{itemize}
+\begin{figure}
+	\subimport{images/}{nouvelle_dis_neutre_ocean.pdf_tex}
+	\caption{Surface layer scheme "FV free" in the oceanic SCM}
+	\label{fig:ND_NeutralCase_nouvelle_dis_neutre}
+\end{figure}
+
+\begin{equation} \label{eq:ND_Ocean_tmprelation_tilde_bar}
+\begin{aligned}
+	\frac{\widetilde{h}}{h_{k-1/2}} (u(0) - \widetilde{u}) =
+	(u(0) - \overline{u}_{k-1/2}) -
+	(u(0) - u(\delta_{sl}))\tau_{sl, u} \\
+\frac{\widetilde{h}}{h_{k-1/2}} (\theta_s - \widetilde{\theta}) =
+	(\theta_s - \overline{\theta}_{k-1/2}) -
+	(\theta_s - \theta(\delta_{sl}))\tau_{sl, \theta}
+\end{aligned}
+\end{equation}
+with for $x = u, \theta$:
+\begin{equation}
+	\tau_{sl, x} = \frac{\frac{1}{{h_{k-1/2}}}\int_{\delta_{sl}}^{z_k} \log(1+\frac{-z}{z_{0x}})- \psi_x(\frac{-z}{L_{MO}})
+	dz}{\log(1+\frac{-\delta_{sl}}{z_{0x}})- \psi_x(\frac{-\delta_{sl}}{L_{MO}})
+    }
+    =
+ \frac{\frac{1}{{h_{k-1/2}}}
+    \left[
+	    (-z+z_{0x})\log(1+\frac{-z}{z_{0x}})+z
+    -
+    z \Psi_m(\frac{-z}{L_{MO}}) \right]_{\delta_{sl}}^{z_k}
+    }{\log(1+\frac{-\delta_{sl}}{z_{0x}})- \psi_x(\frac{-\delta_{sl}}{L_{MO}})
+    }
+\end{equation}
+and
+$\alpha_{sl, x} = \frac{\widetilde{h}}{h_{k-1/2}} +
+\tau_{sl, x}$
+non-dimensional numbers.
+Let us inject $u(\delta_{sl}) =
+{\cal S}(\frac{\widetilde{h}}{2})$ and
+$\theta(\delta_{sl}) = {\cal T}(\frac{\widetilde{h}}{2})$:
+\begin{equation}
+\begin{aligned}
+\label{eq:ND_Ocean_relation_tilde_bar}
+\alpha_{sl, u}\widetilde{u} = \overline{u}_{k-1/2} -
+	\tau_{sl, u}
+\widetilde{h}
+	(\phi_k/3 + \phi_{k-1}/6) - (1 - \alpha_{sl, u})u(0)\\
+\alpha_{sl, \theta}
+\widetilde{\theta}
+= \overline{\theta}_{k-1/2} - \tau_{sl, \theta}
+	\widetilde{h}(\frac{{(\partial_z \theta)}_k}{3} + \frac{{(\partial_z \theta)}_{k-1}}{6})
+ - (1 - \alpha_{sl, \theta})\theta_s
+\end{aligned}
+\end{equation}
+The scheme can then use as boundary conditions at the surface layer:
+\begin{equation}
+\label{eq:ND_Ocean_boundaryConditionFVfree}
+\begin{aligned}
+	\frac{\alpha_{\rm sl, u} |u(0) - u(\delta_{\rm sl})|}
+	{u_\star^2}K_{u,k} \phi_k =
+	u(0) - \overline{u}_{k-1/2} - \frac{\widetilde{h}^2}{h_{k-1/2}}
+	(\frac{\phi_k}{3} + \frac{\phi_{k-1}}{6})
+	\\
+  \frac{\alpha_{sl, \theta} }
+  {C_H |u(\delta_{sl})|}
+	K_{\theta, k} (\partial_z \theta)_k = 
+  \theta_s - \overline{\theta}_{k-1/2} - \frac{\widetilde{h}^2}{h_{k-1/2}}
+	(\frac{{(\partial_z \theta)}_k}{3} +
+	\frac{{(\partial_z \theta)}_{k-1}}{6}) 
+  \\
+\end{aligned}
+\end{equation}
+Finally, the scheme at the first grid level above
+the surface layer is for $u$:
+\begin{equation}
+\label{eq:ND_Ocean_prognosticu_FVfree}
+    \begin{aligned}
+(\partial_t + if)
+	    \left(\frac{\widetilde{h}}{6h_{k-1}} 
+    \phi_k
+    +
+    \left(
+	    \frac{\widetilde{h}}{3h_{k-1}} 
+	    + \frac{h_{k-3/2}}{3h_{k-1}}
+    \right)
+	    \phi_{k-1}
+	    + \frac{h_{k-3/2}}{6h_{k-1}} \phi_{k-2}\right)
+    = \\
+	     \frac{K_{u, k} \phi_{k} -
+	    K_{u,k-1} \phi_{k-1} }{\widetilde{h}h_{k-1}} -
+\frac{K_{u, k-1} \phi_{k-1} - K_{u, k-2} \phi_{k-2}}
+	    {h_{k-3/2}h_{k-1}}
+    \end{aligned}
+\end{equation}
+\begin{equation}
+	\label{eq:ND_Ocean_semiDiscreteEkmanEqFVfree}
+	\partial_t \left(\frac{1}{\alpha_{\rm sl, u}}
+	\left(\overline{u}_{k-1/2} - \widetilde{h}\tau_{\rm sl, u}
+	(\frac{\phi_k}{3} + \frac{\phi_{k-1}}{6}) - 
+	(1-\alpha_{\rm sl, u})u(0)\right)\right)
+	= \frac{K_{u, k}\phi_{k} - K_{u,k-1} \phi_{k-1}}{\widetilde{h}}
+\end{equation}
+and the same applies for $\theta$:
+\begin{equation}
+\label{eq:ND_Ocean_prognosticPT_FVfree}
+    \begin{aligned}
+\partial_t \left(\frac{\widetilde{h}}{6h_{k-1}} 
+	    {(\partial_z \theta)}_k
+    +
+    \left(
+	    \frac{\widetilde{h}}{3h_{k-1}} 
+	    + \frac{h_{k-3/2}}{3h_{k-1}}
+    \right)
+	    {(\partial_z \theta)}_{k-1}
+	    + \frac{h_{k-3/2}}{6h_{k-1}} {(\partial_z \theta)}_{k-2}\right)
+    = \\
+	    \frac{K_{\theta, k} {(\partial_z \theta)}_{k} -
+	    K_{\theta, k-1} {(\partial_z \theta)}_{k-1} }{\widetilde{h}h_{k-1}}
+	    -\frac{K_{\theta, k-2} {(\partial_z \theta)}_{k-1} -
+	    K_{\theta, k-2} {(\partial_z \theta)}_{k-2}}
+	    {h_{k-3/2}h_{k-1}}
+    \end{aligned}
+\end{equation}
+\begin{equation}
+	\label{eq:ND_Ocean_semiDiscreteEkmanEqPTFVfree}
+	\partial_t \left(\frac{1}{\alpha_{\rm sl, \theta}}
+	\left(
+	\overline{\theta}_{k-1/2} - \tau_{sl, \theta}
+	\widetilde{h}(\frac{{(\partial_z \theta)}_k}{3} +
+	\frac{{(\partial_z \theta)}_{k-1}}{6})
+	 - (1 - \alpha_{sl, \theta})\theta_s
+	\right) \right)
+	= \frac{K_{\theta, k}{(\partial_z \theta)}_{k} -
+	K_{\theta,k-1} {(\partial_z \theta)}_{k-1}}{\widetilde{h}}
+\end{equation}
+
+\subsection{Computing $\tau_{\rm sl}$: stability function integration}
+In the ocean, we use the universal function of {\color{red} REFS Large et al (2019). (See Pelletier, 2021)}
+\begin{equation}
+	\phi^m(\zeta) = \phi^h(\zeta) = 1+5\zeta, ~~~ \zeta \geq 0
+\end{equation}
+\begin{equation}
+	\phi^m(\zeta) = (1-14\zeta)^{-1/3}, ~~~ \zeta < 0
+\end{equation}
+\begin{equation}
+	\phi^h(\zeta) = (1-25\zeta)^{-1/3}, ~~~ \zeta < 0
+\end{equation}
+and the first integrated form, $\psi(\zeta)= \int_0^\zeta \frac{1-\phi(x)}{x}dx$ is for $\zeta<0$
+\begin{equation}
+	\psi^x(\zeta)  = \sqrt{3}\left[\arctan(\sqrt{3}) -
+	\arctan\left(\frac{\sqrt{3}}{3}(2C_{\{m,h\}}+1)\right)\right]
+	+ \frac{3}{2}\ln \left(\frac{(C_{\{m,h\}})^2 + C_{\{m,h\}} + 1}{3}\right)
+\end{equation}
+and $\psi^x(\zeta) = -5\zeta$ for $\zeta \geq 0$
+where $C_m = (1-14\zeta)^{1/3}$, $C_h = (1-25\zeta)^{1/3}$.
+We now compute its volume-averaged form $\Psi^{\{m,h\}}(\zeta)= \frac{1}{\zeta}\int_0^\zeta \psi^{\{m,h\}}(x)dx$.
+\par
+First,
+\begin{equation}
+	\int \ln (C_m^2+C_m+1)d\zeta
+	= -2 \frac{\zeta}{3} - \frac{1}{28}C_m^2 - \frac{1}{14}C_m
+	+\zeta\ln (C_m^2+C_m+1) + {\rm const}
+\end{equation}
+and
+\begin{equation}
+	\int \arctan (\frac{2C_m+1}{\sqrt{3}})d\zeta
+	= \frac{\sqrt{3}}{56}C_m(C_m-2)
+	+ \zeta \arctan (\frac{2C_m+1}{\sqrt{3}}) + {\rm const}
+\end{equation}
+Putting them together, we get
+\begin{equation}
+\begin{aligned}
+	\Psi^m(\zeta)=\sqrt{3}\arctan(\sqrt{3})- 
+	\frac{3}{2}\ln(3) -
+	\frac{3}{56\zeta}C_m(C_m-2)
+	- \sqrt{3} \arctan (\frac{2C_m+1}{\sqrt{3}})
+	\\
+	-1 - \frac{3}{56\zeta}C_m^2 - \frac{3}{28\zeta}C_m
+	+\frac{3}{2}\ln (C_m^2+C_m+1)
+	+ \frac{{\rm const}}{\zeta}.
+\end{aligned}
+\end{equation}
+After simplification, using $\lim_\zeta\to0 \int_0^\zeta\psi(x)dx = 0$:
+\begin{equation}
+\begin{aligned}
+\Psi^{\{m,h\}}(\zeta)= -\frac{5}{2}\zeta, ~~~~ \zeta \geq 0 \\
+	\Psi^{\{m,h\}}(\zeta)=
+	\psi^{\{m,h\}}(\zeta)
+	- \frac{(2C_{\{m,h\}}+1)(C_{\{m,h\}} - 1)}
+	{2\left((C_{\{m,h\}})^2 + C_{\{m,h\}} + 1\right)}, ~~~~ \zeta < 0
+\end{aligned}
+\end{equation}
