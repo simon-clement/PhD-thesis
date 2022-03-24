@@ -102,7 +102,7 @@ the surface layer is for $u$:
 	     \frac{K_{u, k} \phi_{k} -
 	    K_{u,k-1} \phi_{k-1} }{\widetilde{h}h_{k-1}} -
 \frac{K_{u, k-1} \phi_{k-1} - K_{u, k-2} \phi_{k-2}}
-	    {h_{k-3/2}h_{k-1}}
+	    {h_{k-3/2}h_{k-1}} + \widetilde{F} - F_{k-3/2}
     \end{aligned}
 \end{equation}
 \begin{equation}
@@ -112,6 +112,7 @@ the surface layer is for $u$:
 	(\frac{\phi_k}{3} + \frac{\phi_{k-1}}{6}) - 
 	(1-\alpha_{\rm sl, u})u(0)\right)\right)
 	= \frac{K_{u, k}\phi_{k} - K_{u,k-1} \phi_{k-1}}{\widetilde{h}}
+	+ \widetilde{F}
 \end{equation}
 and the same applies for $\theta$:
 \begin{equation}
@@ -131,7 +132,7 @@ and the same applies for $\theta$:
 	    K_{\theta, k-1} {(\partial_z \theta)}_{k-1} }{\widetilde{h}h_{k-1}}
 	    -\frac{K_{\theta, k-2} {(\partial_z \theta)}_{k-1} -
 	    K_{\theta, k-2} {(\partial_z \theta)}_{k-2}}
-	    {h_{k-3/2}h_{k-1}}
+	    {h_{k-3/2}h_{k-1}} + \widetilde{F}_\theta - F_{\theta, k-3/2}
     \end{aligned}
 \end{equation}
 \begin{equation}
@@ -145,10 +146,11 @@ and the same applies for $\theta$:
 	\right) \right)
 	= \frac{K_{\theta, k}{(\partial_z \theta)}_{k} -
 	K_{\theta,k-1} {(\partial_z \theta)}_{k-1}}{\widetilde{h}}
+	+ \widetilde{F}_\theta 
 \end{equation}
 
 \subsection{Computing $\tau_{\rm sl}$: stability function integration}
-In the ocean, we use the universal function of {\color{red} REFS Large et al (2019). (See Pelletier, 2021)}
+In the ocean, we use the universal function of \citep{large2019similarity} (as in \citep{pelletier2021two})
 \begin{equation}
 	\phi^m(\zeta) = \phi^h(\zeta) = 1+5\zeta, ~~~ \zeta \geq 0
 \end{equation}
