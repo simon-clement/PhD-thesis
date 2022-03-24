@@ -73,11 +73,13 @@ The scheme can then use as boundary conditions at the surface layer:
 	(\frac{\phi_k}{3} + \frac{\phi_{k-1}}{6})
 	\\
   \frac{\alpha_{sl, \theta} }
-  {C_H |u(\delta_{sl})|}
+	{C_H |u(0)-u(\delta_{sl})|}
 	K_{\theta, k} (\partial_z \theta)_k = 
   \theta_s - \overline{\theta}_{k-1/2} - \frac{\widetilde{h}^2}{h_{k-1/2}}
 	(\frac{{(\partial_z \theta)}_k}{3} +
 	\frac{{(\partial_z \theta)}_{k-1}}{6}) 
+	+ \frac{\alpha_{sl, \theta} Q_s }
+	{C_H |u(0)-u(\delta_{sl})| \rho_0 C_p}
   \\
 \end{aligned}
 \end{equation}
