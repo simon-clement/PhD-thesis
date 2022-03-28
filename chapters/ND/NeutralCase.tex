@@ -282,10 +282,15 @@ $.
 Here, $\xi = z - (z_1 - \frac{\widetilde{h}}{2})$.
 The relation between $\overline{u}_{1/2}$ and $\widetilde{u}$ is 
 \begin{equation}
-\widetilde{h}\widetilde{u} = h_{1/2}\overline{u}_{1/2} - \frac{u(\delta_{sl})}{||u(\delta_{sl})||}\frac{{u_\star}}{\kappa}\int_{z_0}^{\delta_{sl}} \log(1+\frac{z}{z_{0M}}) dz.
+\label{eq:ND_NeutralCase_Chasles}
+	\widetilde{h}\widetilde{u} = h_{1/2}\overline{u}_{1/2} - \frac{u^{n+1}(\delta_{sl})}{||u^n(\delta_{sl})||}\frac{{u_\star}}{\kappa}\int_{z_0}^{\delta_{sl}} \log(1+\frac{z}{z_{0M}}) dz.
 \end{equation}
 The notations are summed up in Figure
 \ref{fig:ND_NeutralCase_nouvelle_dis_neutre}.
+The time indices of $\frac{u^{n+1}(\delta_{sl})}{||u^n(\delta_{sl})||}$
+in \eqref{eq:ND_NeutralCase_Chasles} directly come from the integration 
+of $\partial_z u$ given by the Robin boundary
+condition \eqref{eq:ND_NeutralCase_constantFlux}.
 \begin{figure}
 	\subimport{images/}{nouvelle_dis_neutre.pdf_tex}
 	\caption{Surface layer scheme "FV free"}
