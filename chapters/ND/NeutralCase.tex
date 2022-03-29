@@ -356,12 +356,12 @@ Finally, the scheme at the first grid level is
 \end{equation}
 
 where the evolution equation 
-$ \partial_t \widetilde{u}
+$ (\partial_t+if) \widetilde{u}
 = \frac{K_{u, 1}\phi_1 - K_{u,0} \phi_0}{\widetilde{h}}$ becomes
 
 \begin{equation}
 	\label{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree}
-	\partial_t (\frac{1}{\alpha_{\rm sl}}\left(\overline{u}_{1/2} + \widetilde{h}\tau_{sl}(\frac{\phi_0}{3} + \frac{\phi_1}{6})\right))
+	(\partial_t+if) (\frac{1}{\alpha_{\rm sl}}\left(\overline{u}_{1/2} + \widetilde{h}\tau_{sl}(\frac{\phi_0}{3} + \frac{\phi_1}{6})\right))
 = \frac{K_{u, 1}\phi_1 - K_{u,0} \phi_0}{\widetilde{h}}
 \end{equation}
 \paragraph{In the general case where $\delta_{\rm sl} \geq z_k$.}
