@@ -10,10 +10,17 @@ $z_0$ is the bottom of the ocean and $z_{M}=0$ is the surface.
 \item
 We now note $k$ the index such that $z_{k-1} < \delta_{sl} \leq z_k$.
 \item initialization: $e=e_{min}$ and $\theta = 280K$
-\item Boundary condition of the TKE:
-	$e_0=\frac{e_{bb}|\tau_m|}{\rho_0}$, and
-	boundary condition of mixing length is
-		$l_0 = \kappa \frac{2.10^5\times |\tau_m|}{\rho_0}$
+% \item Boundary condition of the TKE:
+% 	$e_0=\frac{e_{bb}|\tau_m|}{\rho_0}$, and
+% 	boundary condition of mixing length is
+% 		$l_0 = \kappa \frac{2.10^5\times |\tau_m|}{\rho_0}$
+\item $N^2$ is computed with a linear equation of state:
+	$N^2 = g \alpha \partial_z \theta$
+\item Solar flux penetration ? Instead of a stability function
+\item Universal functions (see section
+	\ref{ec:ND_Ocean_stabilityFunctionIntegration})
+\item Possible input of energy due to surface waves ?
+\item Mixing lengths
 
 \end{itemize}
 \begin{figure}
@@ -154,6 +161,7 @@ and the same applies for $\theta$:
 \end{equation}
 
 \subsection{Computing $\tau_{\rm sl}$: stability function integration}
+\label{sec:ND_Ocean_stabilityFunctionIntegration}
 In the ocean, we use the universal function of \citep{large2019similarity} (as in \citep{pelletier2021two})
 \begin{equation}
 	\phi^m(\zeta) = \phi^h(\zeta) = 1+5\zeta, ~~~ \zeta \geq 0
