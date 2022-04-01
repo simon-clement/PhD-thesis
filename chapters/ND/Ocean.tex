@@ -51,16 +51,16 @@ We now note $k$ the index such that $z_{k-1} < \delta_{sl} \leq z_k$.
 \end{equation}
 with for $x = u, \theta$:
 \begin{equation}
-	\tau_{sl, x} = \frac{\frac{1}{{h_{k-1/2}}}\int_{\delta_{sl}}^{z_k} \log(1+\frac{-z}{z_{0x}})- \psi_x(\frac{-z}{L_{MO}})
-	dz}{\log(1+\frac{-\delta_{sl}}{z_{0x}})- \psi_x(\frac{-\delta_{sl}}{L_{MO}})
+	\tau_{sl, x} = \frac{\frac{1}{{h_{k-1/2}}}\int_{\delta_{sl}}^{z_k} \ln(1+\frac{-z}{z_{0x}})- \psi_x(\frac{-z}{L_{MO}})
+	dz}{\ln(1+\frac{-\delta_{sl}}{z_{0x}})- \psi_x(\frac{-\delta_{sl}}{L_{MO}})
     }
     =
  \frac{\frac{1}{{h_{k-1/2}}}
     \left[
-	    (-z+z_{0x})\log(1+\frac{-z}{z_{0x}})+z
+	    (-z+z_{0x})\ln(1+\frac{-z}{z_{0x}})+z
     -
     z \Psi_m(\frac{-z}{L_{MO}}) \right]_{\delta_{sl}}^{z_k}
-    }{\log(1+\frac{-\delta_{sl}}{z_{0x}})- \psi_x(\frac{-\delta_{sl}}{L_{MO}})
+    }{\ln(1+\frac{-\delta_{sl}}{z_{0x}})- \psi_x(\frac{-\delta_{sl}}{L_{MO}})
     }
 \end{equation}
 and
@@ -242,21 +242,37 @@ The changes and implementation choices are listed hereafter:
 		When computing
 		$\frac{\kappa (\theta(\delta_a) - \theta(\delta_o))}
 		{\theta_a^{\star}}$,
-		Equation (43) of \citep{pelletier2021two} is
-		used instead of Equation (32) of
-		\citep{pelletier2021two}.
+		we use, like in
+		Equation (43) of \citep{pelletier2021two}:
+	\begin{equation}
+		\label{eq:ND_Ocean_skinbulk}
+		\frac{\kappa (\theta(0) - \theta(\delta_o))}
+		{\theta_o^{\star}} = (1 -
+		\frac{Q_{lw}}{u_o^{\star}\rho_0 c_p})
+		\left(\ln (1 - \frac{\delta_o}{z_{0H}}) -
+		\psi_h(\frac{-\delta_o}{z_{0H}})\right)
+		- \frac{Q_{sw}(0)}{u_o^{\star}\rho_0 c_p}
+		\int_{\delta_o}^0 \frac{\phi^h_o(-z/L_o)
+		\sum A_i \exp (k_i z)
+		}{z}dz.
+	\end{equation}
 	\item Reconstruction: noting that $\theta_{z_M}$ is
 		\textbf{not} directly affected by the
 		radiative fluxes, when computing $\theta(z>\delta_o)$
 		we use the integrated radiative fluxes of
-		equation (43) in \citep{pelletier2021two}.
+		equation \eqref{eq:ND_Ocean_skinbulk}
 	\item FV free discretisation: since the reconstruction
 		of $\theta_{z_M} - \theta(z)$ is affected by
 		the radiative fluxes, $\tau_{\rm sl}$ is also
 		changed. Since $\tau_{\rm sl}$ relies on an
 		integration over the SL, the explicit form
 		of $\tau_{\rm sl}$ is not known in general
-		and we compute a numerical approximation.
+		and we compute a numerical approximation of
+		$\frac{1}{h_{k-1/2}}\int_{z=\delta_o}^{z_k}
+		\int_{x=z}^0 \frac{\phi^h_o(-x/L_o)
+		\sum A_i \exp (k_i x)
+		}{z}dx dz$
+		.
 	\item Initialization and boundary conditions for test cases:
 		$K\partial_z \theta = \theta^{\star}_o u^{\star}_o$
 		is replaced by
@@ -268,7 +284,7 @@ The changes and implementation choices are listed hereafter:
 	\item In boundary conditions, $C_H |u(0)-u(\delta_o)|$ or
 		$C_H |u(\delta_a)-u(\delta_o)|$ is used.
 		its value ($\frac{\kappa u^{\star}_o}
-		{\log(1-\frac{\delta_o}{z_{0H}}) - \psi_h(\zeta)}$)
-		is changed, still following (43) of
-		\citep{pelletier2021two}.
+		{\ln(1-\frac{\delta_o}{z_{0H}}) - \psi_h(\zeta)}$)
+		is changed, still following
+		\eqref{eq:ND_Ocean_skinbulk}.
 \end{itemize}
