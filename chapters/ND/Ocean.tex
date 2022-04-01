@@ -16,7 +16,17 @@ We now note $k$ the index such that $z_{k-1} < \delta_{sl} \leq z_k$.
 % 		$l_0 = \kappa \frac{2.10^5\times |\tau_m|}{\rho_0}$
 \item $N^2$ is computed with a linear equation of state:
 	$N^2 = g \alpha \partial_z \theta$
-\item Solar flux penetration ? Instead of a stability function
+\item Solar flux penetration: first, we make the rough assumption that
+	the radiative fluxes are constant in the SL.
+	Noting $Q_{sw}$ and $Q_{lw}$ the (positive downward)
+	shortwave and longwave fluxes, the boundary condition for
+		$\theta$ becomes (the FV free discretisation will be
+		detailed later)
+	\begin{equation}
+		K \partial_z \theta^{n+1} = C_H |u^n(0) - u^n(\delta)|
+		(\theta^n_s - \theta^{n+1}(\delta)) - \frac{
+			Q_{sw} + Q_{lw} }{\rho_0 C_p}
+	\end{equation}
 \item Universal functions (see section
 	\ref{ec:ND_Ocean_stabilityFunctionIntegration})
 \item Possible input of energy due to surface waves ?
