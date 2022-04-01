@@ -293,7 +293,14 @@ of $\partial_z u$ given by the Robin boundary
 condition \eqref{eq:ND_NeutralCase_constantFlux}.
 \begin{figure}
 	\subimport{images/}{nouvelle_dis_neutre.pdf_tex}
-	\caption{Surface layer scheme "FV free"}
+	\caption{Surface layer scheme "FV free".
+	In the SL, $||u(z<\delta_{\rm sl})||$ is not
+	actually strictly following the log law because
+	$u_\star$ is computed at time $n$: to ensure continuity
+	we rather use
+	$||u(z<\delta_{\rm sl})|| = u(\delta_{\rm sl}) \frac{\log(
+	1+\frac{z}{z_\star})}{\log(1+\frac{\delta_{\rm sl}}{z_\star})}$
+	}
 	\label{fig:ND_NeutralCase_nouvelle_dis_neutre}
 \end{figure}
 
