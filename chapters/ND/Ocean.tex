@@ -227,6 +227,37 @@ After simplification, using $\lim_\zeta\to0 \int_0^\zeta\psi(x)dx = 0$:
 	{2\left((C_{\{m,h\}})^2 + C_{\{m,h\}} + 1\right)}, ~~~~ \zeta < 0
 \end{aligned}
 \end{equation}
+We finally get for $u$:
+\begin{equation}
+	\tau_{sl, u} = \frac{\frac{1}{{h_{k-1/2}}}
+    \left[
+	    (-z+z_{0m})\ln(1+\frac{-z}{z_{0m}})+z
+    -
+    z \Psi_m(\frac{-z}{L_{MO}}) \right]_{\delta_{sl}}^{z_k}
+    }{\ln(1+\frac{-\delta_{sl}}{z_{0m}})- \psi_u(\frac{-\delta_{sl}}{L_{MO}})
+    }
+\end{equation}
+and for $\theta$:
+\begin{equation}
+	\tau_{sl, \theta} =  \frac{1}{{h_{k-1/2}}}\frac{(1 -
+		\frac{Q_{lw}}{\theta_o^{\star}u_o^{\star}\rho_0 c_p})
+    \left[
+	    (-z+z_{0H})\ln(1+\frac{-z}{z_{0H}})+z
+    -
+    z \Psi_m(\frac{-z}{L_{MO}}) \right]_{\delta_{sl}}^{z_k}
+	- \frac{Q_{sw}}{\theta_o^{\star}u_o^{\star}\rho_0 c_p}
+	\int_{\delta_o}^{z_k}
+		E(z) dz
+    }{(1 - \frac{Q_{lw}}{\theta_o^{\star}u_o^{\star}\rho_0 c_p})
+	    \ln(1+\frac{-\delta_{sl}}{z_{0H}})- \psi_\theta(\frac{-\delta_{sl}}{L_{MO}})
+	    -\frac{Q_{sw}}{\theta_o^{\star}u_o^{\star}\rho_0 c_p} E(\delta_{sl})
+    }
+\end{equation}
+where $E(z) = \int_{z}^0 \frac{\phi^h_o(-x/L_o)
+		\sum A_i \exp (k_i x)
+		}{x}dx$
+
+
 \subsection{Radiative fluxes}
 We note $Q_{sw}$ and $Q_{lw}$ the shortwave and longwave positive
 downward fluxes. A new variable that is similar to a friction
