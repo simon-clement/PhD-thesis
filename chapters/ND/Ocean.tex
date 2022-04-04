@@ -236,8 +236,40 @@ scale but depends on $z$ can be defined:
 	\theta^\star_{o}(z) -
 	\frac{Q_{sw}(z) + Q_{lw}}{u^{\star}_o\rho_0 c_p}.
 \end{equation}
-The changes and implementation choices are listed hereafter:
-\begin{itemize}
+The changes and implementation choices are listed hereafter from
+the smallest changes to the greatest:
+\begin{enumerate}
+	\item Obhukov length is \textbf{not} changed directly and
+		still is $\kappa g \alpha \lambda_\theta
+		\theta^\star_a / (u^\star_o)^2$.
+	\item Initialization and boundary conditions for test cases:
+		$K\partial_z \theta = \theta^{\star}_o u^{\star}_o$
+		is replaced by
+		$K\partial_z \theta = \theta^{\star}_o u^{\star}_o
+		- \frac{Q_{sw} + Q_{lw}}{\rho_o c_p}$.
+	\item Reconstruction: noting that $\theta_{z_M}$ is
+		\textbf{not} directly affected by the
+		radiative fluxes, when computing $\theta(z>\delta_o)$
+		we use the integrated radiative fluxes of
+		equation \eqref{eq:ND_Ocean_skinbulk}
+	\item FV free discretisation: since the reconstruction
+		of $\theta_{z_M} - \theta(z)$ is affected by
+		the radiative fluxes, $\tau_{\rm sl}$ is also
+		changed. Since $\tau_{\rm sl}$ relies on an
+		integration over the SL, the explicit form
+		of $\tau_{\rm sl}$ is not known in general
+		and we compute a numerical approximation of
+		$\frac{1}{h_{k-1/2}}\int_{z=\delta_o}^{z_k}
+		\int_{x=z}^0 \frac{\phi^h_o(-x/L_o)
+		\sum A_i \exp (k_i x)
+		}{z}dx dz$
+		.
+	\item In boundary conditions, $C_H |u(0)-u(\delta_o)|$ or
+		$C_H |u(\delta_a)-u(\delta_o)|$ is used.
+		its value ($\frac{\kappa u^{\star}_o}
+		{\ln(1-\frac{\delta_o}{z_{0H}}) - \psi_h(\zeta)}$)
+		is changed, still following
+		\eqref{eq:ND_Ocean_skinbulk}.
 	\item Bulk formulae (function \verb|__friction_scales|):
 		When computing
 		$\frac{\kappa (\theta(\delta_a) - \theta(\delta_o))}
@@ -256,35 +288,4 @@ The changes and implementation choices are listed hereafter:
 		\sum A_i \exp (k_i z)
 		}{z}dz.
 	\end{equation}
-	\item Reconstruction: noting that $\theta_{z_M}$ is
-		\textbf{not} directly affected by the
-		radiative fluxes, when computing $\theta(z>\delta_o)$
-		we use the integrated radiative fluxes of
-		equation \eqref{eq:ND_Ocean_skinbulk}
-	\item FV free discretisation: since the reconstruction
-		of $\theta_{z_M} - \theta(z)$ is affected by
-		the radiative fluxes, $\tau_{\rm sl}$ is also
-		changed. Since $\tau_{\rm sl}$ relies on an
-		integration over the SL, the explicit form
-		of $\tau_{\rm sl}$ is not known in general
-		and we compute a numerical approximation of
-		$\frac{1}{h_{k-1/2}}\int_{z=\delta_o}^{z_k}
-		\int_{x=z}^0 \frac{\phi^h_o(-x/L_o)
-		\sum A_i \exp (k_i x)
-		}{z}dx dz$
-		.
-	\item Initialization and boundary conditions for test cases:
-		$K\partial_z \theta = \theta^{\star}_o u^{\star}_o$
-		is replaced by
-		$K\partial_z \theta = \theta^{\star}_o u^{\star}_o
-		- \frac{Q_{sw} + Q_{lw}}{\rho_o c_p}$.
-	\item Obhukov length is \textbf{not} changed directly and
-		still is $\kappa g \alpha \lambda_\theta
-		\theta^\star_a / (u^\star_o)^2$.
-	\item In boundary conditions, $C_H |u(0)-u(\delta_o)|$ or
-		$C_H |u(\delta_a)-u(\delta_o)|$ is used.
-		its value ($\frac{\kappa u^{\star}_o}
-		{\ln(1-\frac{\delta_o}{z_{0H}}) - \psi_h(\zeta)}$)
-		is changed, still following
-		\eqref{eq:ND_Ocean_skinbulk}.
-\end{itemize}
+\end{enumerate}
