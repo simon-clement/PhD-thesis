@@ -295,8 +295,10 @@ the smallest changes to the greatest:
 		\sum A_i \exp (k_i x)
 		}{z}dx dz$
 		.
-	\item In boundary conditions, $C_H |u(0)-u(\delta_o)|$ or
-		$C_H |u(\delta_a)-u(\delta_o)|$ is used.
+	\item In boundary conditions, $\lambda_u \lambda_\theta C_H^o
+		|u(0)-u(\delta_o)|$ or
+		$\lambda_u \lambda_\theta C_H^{a+o}
+		|u(\delta_a)-u(\delta_o)|$ is used.
 		its value ($\frac{\kappa u^{\star}_o}
 		{\ln(1-\frac{\delta_o}{z_{0H}}) - \psi_h(\zeta)}$)
 		is changed, still following
@@ -314,9 +316,56 @@ the smallest changes to the greatest:
 		\frac{Q_{lw}}{\theta_o^{\star}u_o^{\star}\rho_0 c_p})
 		\left(\ln (1 - \frac{\delta_o}{z_{0H}}) -
 		\psi_h(\frac{-\delta_o}{z_{0H}})\right)
-		- \frac{Q_{sw}(0)}{\theta_o^{\star}u_o^{\star}\rho_0 c_p}
+		- \frac{\lambda_\theta Q_{sw}(0)}
+		{\theta_o^{\star}u_o^{\star}\rho_0 c_p}
 		\int_{\delta_o}^0 \frac{\phi^h_o(-z/L_o)
 		\sum A_i \exp (k_i z)
 		}{z}dz.
 	\end{equation}
 \end{enumerate}
+\subsection{Bulk algorithm with radiative fluxes}
+\begin{equation}
+	C_D^{a+o} = \left(\frac{\kappa} {
+		\ln(1 + \frac{\delta_a}{z_{0M}}) -
+		\psi_m^a(\frac{\delta_a}{L_a})
+		+ \lambda_u \left(
+		\ln(1 - \frac{\delta_o}{z_{0M}}) -
+		\psi_m^o(-\frac{\delta_o}{L_o})
+		\right)
+	} \right)^2
+\end{equation}
+\begin{equation}
+	C_H^{a+o} = \frac{\kappa \sqrt{C_D}} {
+		\left(
+			\ln(1 + \frac{\delta_a}{z_{0H}}) -
+			\psi_h^a(\frac{\delta_a}{L_a})
+		\right)
+		+
+		(1 - \frac{Q_{lw}}
+		{\theta_o^{\star}u_o^{\star}\rho_0 c_p})
+		\lambda_\theta \left(
+			\ln(1 - \frac{\delta_o}{z_{0H}}) -
+			\psi_h^o(-\frac{\delta_o}{L_o})
+		\right)
+		- \frac{\lambda_\theta Q_{sw}(0)}
+		{\theta_o^{\star}u_o^{\star}\rho_0 c_p} E(\delta_o)
+	}
+\end{equation}
+In the bulk algorithm, we use $u_a^\star = \sqrt{C_D} |u(\delta_a)-
+u(\delta_o)|$ and
+$\theta_a^\star = \frac{C_H}{\sqrt{C_D}}(\theta(\delta_a)-
+\theta(\delta_o))$ to get the friction scales.
+Multiplying those equations gives the boundary condition
+$K_\theta \partial_z \theta = \lambda_u \lambda_t u_a^\star \theta_a^\star$.
+\footnote{
+$u_a^\star$ is actually directly used because $\frac{C_H}{\sqrt{C_D}}$
+can be simplified.
+}
+We use the following notation for $C_D$ and $C_H$:
+\begin{equation}
+	C_D^{a+o} = \frac{u_a^\star}{|u(\delta_a) - u(\delta_o)|},
+	~~~
+	C_D^{a} = \frac{u_a^\star}{|u(\delta_a) - u(0)|},
+	~~~
+	C_D^{o} = \frac{u_a^\star}{|u(0) - u(\delta_o)|},
+\end{equation}
