@@ -101,7 +101,8 @@ the surface layer is for $u$:
 	     \frac{K_{u, k} \phi_{k} -
 	    K_{u,k-1} \phi_{k-1} }{\widetilde{h}h_{k-1}} -
 \frac{K_{u, k-1} \phi_{k-1} - K_{u, k-2} \phi_{k-2}}
-	    {h_{k-3/2}h_{k-1}} + \widetilde{F} - F_{k-3/2}
+	    {h_{k-3/2}h_{k-1}} + \frac{\widetilde{F} - F_{k-3/2}}
+	    {h_{k-1}}
     \end{aligned}
 \end{equation}
 \begin{equation}
@@ -131,7 +132,8 @@ and the same applies for $\theta$:
 	    K_{\theta, k-1} {(\partial_z \theta)}_{k-1} }{\widetilde{h}h_{k-1}}
 	    -\frac{K_{\theta, k-2} {(\partial_z \theta)}_{k-1} -
 	    K_{\theta, k-2} {(\partial_z \theta)}_{k-2}}
-	    {h_{k-3/2}h_{k-1}} + \widetilde{F}_\theta - F_{\theta, k-3/2}
+	    {h_{k-3/2}h_{k-1}} + \frac{\widetilde{F}_\theta -
+	    F_{\theta, k-3/2}}{h_{k-1}}
     \end{aligned}
 \end{equation}
 \begin{equation}
