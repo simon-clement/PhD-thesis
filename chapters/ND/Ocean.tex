@@ -42,18 +42,10 @@ We now note $k$ the index such that $z_{k-1} < \delta_{sl} \leq z_k$.
 \end{equation}
 with for $x = u, \theta$:
 \begin{equation}
-	\tau_{sl, x} = \frac{\frac{1}{{h_{k-1/2}}}\int_{\delta_{sl}}^{z_k} \ln(1+\frac{-z}{z_{0x}})- \psi_x(\frac{-z}{L_{MO}})
-	dz}{\ln(1+\frac{-\delta_{sl}}{z_{0x}})- \psi_x(\frac{-\delta_{sl}}{L_{MO}})
-    }
-    =
- \frac{\frac{1}{{h_{k-1/2}}}
-    \left[
-	    (-z+z_{0x})\ln(1+\frac{-z}{z_{0x}})+z
-    -
-    z \Psi_m(\frac{-z}{L_{MO}}) \right]_{\delta_{sl}}^{z_k}
-    }{\ln(1+\frac{-\delta_{sl}}{z_{0x}})- \psi_x(\frac{-\delta_{sl}}{L_{MO}})
-    }
-\end{equation}
+	\tau_{sl, x} = \frac{\frac{1}{{h_{k-1/2}}}\int_{\delta_{sl}}^{z_k} x(0) - x(z)
+	dz}{x(0) - x(\delta_{sl})}
+\end{equation} (see Section
+\ref{sec:ND_Ocean_stabilityFunctionIntegration})
 and
 $\alpha_{sl, x} = \frac{\widetilde{h}}{h_{k-1/2}} +
 \tau_{sl, x}$
@@ -84,14 +76,12 @@ The scheme can then use as boundary conditions at the surface layer:
 	u(0) - \overline{u}_{k-1/2} - \frac{\widetilde{h}^2}{h_{k-1/2}}
 	(\frac{\phi_k}{3} + \frac{\phi_{k-1}}{6})
 	\\
-  \frac{\alpha_{sl, \theta} }
-	{C_H |u(0)-u(\delta_{sl})|}
 	K_{\theta, k} (\partial_z \theta)_k = 
-  \theta_s - \overline{\theta}_{k-1/2} - \frac{\widetilde{h}^2}{h_{k-1/2}}
-	(\frac{{(\partial_z \theta)}_k}{3} +
-	\frac{{(\partial_z \theta)}_{k-1}}{6}) 
-\end{aligned}
+	\theta_\star u_\star - \frac{Q_{lw} + Q_{sw}E(\delta_{sl})}{\rho_0 c_p}
+  \end{aligned}
 \end{equation}
+where $Q_{lw}, Q_{sw}, E$ are defined in Section
+\ref{sec:ND_Ocean_radiativeFluxes}.
 Finally, the scheme at the first grid level above
 the surface layer is for $u$:
 \begin{equation}
@@ -227,26 +217,28 @@ We finally get for $u$:
 \end{equation}
 and for $\theta$:
 \begin{equation}
-	\tau_{sl, \theta} =  \frac{1}{{h_{k-1/2}}}\frac{(1 -
-		\frac{Q_{lw}}{\theta_o^{\star}u_o^{\star}\rho_0 c_p})
+	\tau_{sl, \theta} =  \frac{1}{{h_{k-1/2}}}\frac{(Q_H -
+		Q_{lw})
     \left[
 	    (-z+z_{0H})\ln(1+\frac{-z}{z_{0H}})+z
     -
     z \Psi_m(\frac{-z}{L_{MO}}) \right]_{\delta_{sl}}^{z_k}
-	- \frac{Q_{sw}}{\theta_o^{\star}u_o^{\star}\rho_0 c_p}
-	\int_{\delta_o}^{z_k}
+	- Q_{sw} \int_{\delta_o}^{z_k}
 		E(z) dz
-    }{(1 - \frac{Q_{lw}}{\theta_o^{\star}u_o^{\star}\rho_0 c_p})
-	    \ln(1+\frac{-\delta_{sl}}{z_{0H}})- \psi_\theta(\frac{-\delta_{sl}}{L_{MO}})
-	    -\frac{Q_{sw}}{\theta_o^{\star}u_o^{\star}\rho_0 c_p} E(\delta_{sl})
+    }{(Q_H - Q_{lw})
+	    \left(\ln(1+\frac{-\delta_{sl}}{z_{0H}})-
+	    \psi_\theta(\frac{-\delta_{sl}}{L_{MO}})\right)
+	    -Q_{sw} E(\delta_{sl})
     }
 \end{equation}
 where $E(z) = \int_{z}^0 \frac{\phi^h_o(-x/L_o)
 		\sum A_i \exp (k_i x)
 		}{x}dx$
+and $Q_H = \theta_o^{\star}u_o^{\star}\rho_0 c_p$
 
 
 \subsection{Radiative fluxes}
+\label{sec:ND_Ocean_radiativeFluxes}
 We note $Q_{sw}$ and $Q_{lw}$ the shortwave and longwave positive
 downward fluxes. A new variable that is similar to a friction
 scale but depends on $z$ can be defined:
@@ -261,7 +253,7 @@ the smallest changes to the greatest:
 	\item Obhukov length is \textbf{not} changed directly and
 		still is $\kappa g \alpha \lambda_\theta
 		\theta^\star_a / (u^\star_o)^2$.
-	\item Initialization and boundary conditions for test cases:
+	\item Initialization and boundary conditions:
 		$K\partial_z \theta = \theta^{\star}_o u^{\star}_o$
 		is replaced by
 		$K\partial_z \theta = \theta^{\star}_o u^{\star}_o
@@ -283,14 +275,6 @@ the smallest changes to the greatest:
 		\sum A_i \exp (k_i x)
 		}{z}dx dz$
 		.
-	\item In boundary conditions, $\lambda_u \lambda_\theta C_H^o
-		|u(0)-u(\delta_o)|$ or
-		$\lambda_u \lambda_\theta C_H^{a+o}
-		|u(\delta_a)-u(\delta_o)|$ is used.
-		its value ($\frac{\kappa u^{\star}_o}
-		{\ln(1-\frac{\delta_o}{z_{0H}}) - \psi_h(\zeta)}$)
-		is changed, still following
-		\eqref{eq:ND_Ocean_skinbulk}.
 	\item Bulk formulae (function \verb|__friction_scales|):
 		When computing
 		$\frac{\kappa (\theta(\delta_a) - \theta(\delta_o))}
@@ -301,14 +285,12 @@ the smallest changes to the greatest:
 		\label{eq:ND_Ocean_skinbulk}
 		\frac{\kappa (\theta(0) - \theta(\delta_o))}
 		{\theta_o^{\star}} = (1 -
-		\frac{Q_{lw}}{\theta_o^{\star}u_o^{\star}\rho_0 c_p})
+		\frac{Q_{lw}}{Q_H})
 		\left(\ln (1 - \frac{\delta_o}{z_{0H}}) -
 		\psi_h(\frac{-\delta_o}{z_{0H}})\right)
 		- \frac{\lambda_\theta Q_{sw}(0)}
-		{\theta_o^{\star}u_o^{\star}\rho_0 c_p}
-		\int_{\delta_o}^0 \frac{\phi^h_o(-z/L_o)
-		\sum A_i \exp (k_i z)
-		}{z}dz.
+		{Q_H} E(\delta_o)
+		.
 	\end{equation}
 \end{enumerate}
 \subsection{Bulk algorithm with radiative fluxes}
@@ -331,13 +313,13 @@ the smallest changes to the greatest:
 		\right)
 		+
 		(1 - \frac{Q_{lw}}
-		{\theta_o^{\star}u_o^{\star}\rho_0 c_p})
+		{Q_H})
 		\lambda_\theta \left(
 			\ln(1 - \frac{\delta_o}{z_{0H}}) -
 			\psi_h^o(-\frac{\delta_o}{L_o})
 		\right)
 		- \frac{\lambda_\theta Q_{sw}(0)}
-		{\theta_o^{\star}u_o^{\star}\rho_0 c_p} E(\delta_o)
+		{Q_H} E(\delta_o)
 	}
 \end{equation}
 In the bulk algorithm, we use $u_a^\star = \sqrt{C_D} |u(\delta_a)-
