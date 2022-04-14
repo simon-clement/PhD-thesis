@@ -235,15 +235,37 @@ and for $\theta$:
 \end{equation}
 where $E(z) = \int_{z}^0 \frac{\phi^h_o(-x/L_o)
 		\sum A_i \exp (k_i x)
-		}{x}dx$
-and $Q_H = \theta_o^{\star}u_o^{\star}\rho_0 c_p$
-
+		}{-x + z_{0M}}dx$
+and $Q_H = \theta_o^{\star}u_o^{\star}\rho_0 c_p$.
+\paragraph{Computing E(z)}
+To be computed numerically, $E(z)$ is separated into two parts,
+similarly to the MOST theory:
+\begin{equation}
+	E(z) = \sum_i A_i\int_x^0
+	\frac{\exp(k_i x)}{-x + z_{0M}}
+	- \exp(k_i x)\frac{1 - \phi_0^h(\frac{-x}{L_{MO}})}
+	{-x + z_{0M}}
+	dx
+\end{equation}
+\begin{equation}
+	E(z) = \sum_i A_i \exp(k_i z_{0M}) \left(E1(k_i z_{0M})
+	- E1(k_i (-z+z_{0M)})\right)
+	- \int_{z}^0 \sum_i A_i \exp(k_i x)
+	\frac{1-\phi(\frac{-x}{L_{MO}})}{-x+z_{0M}} dx
+\end{equation}
+where $E1=\int_x^\infty \frac{\exp(-t)}{t}dt$ is the exponential
+integral.
 
 \subsection{Radiative fluxes}
 \label{sec:ND_Ocean_radiativeFluxes}
 We note $Q_{sw}$ and $Q_{lw}$ the shortwave and longwave positive
 downward fluxes. A new variable that is similar to a friction
 scale but depends on $z$ can be defined:
+{\color{red} Note: $Q_{sw}$ and $Q_{lw}$ are positive downard,
+so it should actually be $\theta^\star_{o, \rm rad}(z) =
+	\theta^\star_{o}(z) +
+	\frac{Q_{sw}(z) + Q_{lw}}{u^{\star}_o\rho_0 c_p}.
+$}
 \begin{equation}
 \theta^\star_{o, \rm rad}(z) =
 	\theta^\star_{o}(z) -
@@ -273,9 +295,7 @@ the smallest changes to the greatest:
 		of $\tau_{\rm sl}$ is not known in general
 		and we compute a numerical approximation of
 		$\frac{1}{h_{k-1/2}}\int_{z=\delta_o}^{z_k}
-		\int_{x=z}^0 \frac{\phi^h_o(-x/L_o)
-		\sum A_i \exp (k_i x)
-		}{z}dx dz$
+		E(z) dz$
 		.
 	\item Bulk formulae (function \verb|__friction_scales|):
 		When computing
