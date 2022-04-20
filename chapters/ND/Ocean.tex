@@ -77,10 +77,10 @@ The scheme can then use as boundary conditions at the surface layer:
 	(\frac{\phi_k}{3} + \frac{\phi_{k-1}}{6})
 	\\
 	K_{\theta, k} (\partial_z \theta)_k = 
-	\theta_\star u_\star - \frac{Q_{lw} + Q_{sw}E(\delta_{sl})}{\rho_0 c_p}
+	\theta_\star u_\star - \frac{Q_{lw} + Q_{sw}(\delta_{sl})}{\rho_0 c_p}
   \end{aligned}
 \end{equation}
-where $Q_{lw}, Q_{sw}, E$ are defined in Section
+where $Q_{lw}, Q_{sw}$ are defined in Section
 \ref{sec:ND_Ocean_radiativeFluxes}.
 Finally, the scheme at the first grid level above
 the surface layer is for $u$:
@@ -241,7 +241,7 @@ and $Q_H = \theta_o^{\star}u_o^{\star}\rho_0 c_p$.
 To be computed numerically, $E(z)$ is separated into two parts,
 similarly to the MOST theory:
 \begin{equation}
-	E(z) = \sum_i A_i\int_x^0
+	E(z) = \sum_i A_i\int_z^0
 	\frac{\exp(k_i x)}{-x + z_{0M}}
 	- \exp(k_i x)\frac{1 - \phi_0^h(\frac{-x}{L_{MO}})}
 	{-x + z_{0M}}
@@ -255,7 +255,13 @@ similarly to the MOST theory:
 \end{equation}
 where $E1=\int_x^\infty \frac{\exp(-t)}{t}dt$ is the exponential
 integral.
-
+The left part $\sum_i A_i \exp(k_i z_{0M}) \left(E1(k_i z_{0M})
+	- E1(k_i (-z+z_{0M)})\right)$ should be smaller than
+$\int_z^0 \frac{1}{-x + z_{0M}}dx$
+and the second part $\int_{z}^0 \sum_i A_i \exp(k_i x)
+	\frac{1-\phi(\frac{-x}{L_{MO}})}{-x+z_{0M}} dx$
+	should be smaller than $\int_{z}^0
+	\frac{1-\phi(\frac{-x}{L_{MO}})}{-x+z_{0M}} dx$
 \subsection{Radiative fluxes}
 \label{sec:ND_Ocean_radiativeFluxes}
 We note $Q_{sw}$ and $Q_{lw}$ the shortwave and longwave positive
