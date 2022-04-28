@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb,amsmath,mathrsfs,epsfig,color,url,calc,hyperref,nicefrac}
+\usepackage{import}
+\usepackage[numbers]{natbib}
+\usepackage{enumitem}
+%\RequirePackage{lineno}
+\usepackage{placeins}
+\usepackage{tikz}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{lineno}% line numbersk
+\setlength{\textwidth}{16.5cm}
+\setlength{\textheight}{25cm}
+\topmargin -2.5 cm
+\oddsidemargin 0 pt
+\evensidemargin 0 pt
+\linenumbers
+
+\title{Plan}
+\author{Simon Clement}
+\date{Mai 2022}
+
+\begin{document}
+\begin{enumerate}
+\item Etude de convergence des algorithmes de Schwarz
+	\begin{itemize}
+		\item Papier SMAI "Approximations of the discrete
+			convergence factor of Schwarz methods"
+		\item Taille de la fenêtre de temps
+		\item Domaines bornés
+		\item Initialisation aléatoire: bruit blanc 	
+	\end{itemize}
+\item Etude détaillée semi-discrètes et discrète avec
+	conditions hétérogènes.
+	\begin{itemize}
+		\item Papier SMAI "Discrete Analysis of SWR for a Diffusion
+			Reaction problem with Discontinuous Coefficients"
+		\item La difficulté d'une optimisation analytique
+		\item précision nécessaire de $\gamma$ pour avoir un ordre 2
+		\item Ecart à la solution monolithique avec condition $\kappa_c=1$
+			et avec $\gamma$
+	\end{itemize}
+\item Discrétisation des couches limites de surface atmosphérique
+	et océanique
+	\begin{itemize}
+		\item présentation des schémas de flux de surface
+			"FV free", "FD pure", etc.
+		\item Consistence du schéma "FV free"
+		\item Importance d'avoir le choix de $\delta_a$ dans
+			un modèle couplé
+	\end{itemize}
+\item Convergence des algorithmes de Schwarz appliqué au couplage
+	discret Océan-Atmosphère
+	\begin{itemize}
+	\item Proceeding DD26: "Discrete analysis of SWR for a
+		simplified air-sea coupling problem
+		with nonlinear transmission conditions"
+	\item expériences numériques sur la convergence de Schwarz
+		sur les modèles 1D de la section d'avant
+	\end{itemize}
+\end{enumerate}
+
+\end{document}
