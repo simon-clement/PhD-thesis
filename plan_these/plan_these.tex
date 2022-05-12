@@ -23,42 +23,122 @@
 
 \begin{document}
 \begin{enumerate}
-\item Etude de convergence des algorithmes de Schwarz
-	\begin{itemize}
-		\item Papier SMAI "Approximations of the discrete
-			convergence factor of Schwarz methods"
-		\item Taille de la fenêtre de temps
-		\item Domaines bornés
-		\item Initialisation aléatoire: bruit blanc 	
-	\end{itemize}
-\item Etude détaillée semi-discrètes et discrète avec
+\item Modélisation d'une colonne verticale ocean-atmosphère
+\begin{enumerate}
+	\item Derivation des équations primitives avec turbulence,
+		obtention du cas (1D + guide géostrophique)
+		\begin{enumerate}
+			\item équations primitives non turbulentes
+			\item Décomposition de Reynolds, TKE
+		\end{enumerate}
+	\item un couplage à 3 domaines
+		\begin{enumerate}
+			\item Loi du mur et Monin-Obukhov
+			\item Le couplage complet
+		\end{enumerate}
+	\item Hiérarchie de modèles utilisés
+		\begin{enumerate}
+			\item Couplage d'équations de
+				réaction-diffusion avec
+				diffusions différentes
+			\item Couplage d'Ekman avec $C_D$ constant
+			\item Couplage d'Ekman stratifié ou non,
+				avec $C_D(u_\star)$ et TKE
+		\end{enumerate}
+\end{enumerate}
+\item Etude détaillée semi-discrètes et discrète de Schwarz avec
 	conditions hétérogènes.
-	\begin{itemize}
+	\begin{enumerate}
 		\item Papier SMAI "Discrete Analysis of SWR for a Diffusion
 			Reaction problem with Discontinuous Coefficients"
-		\item La difficulté d'une optimisation analytique
-		\item précision nécessaire de $\gamma$ pour avoir un ordre 2
-		\item Ecart à la solution monolithique avec condition $\kappa_c=1$
-			et avec $\gamma$
-	\end{itemize}
+			\begin{enumerate}
+				\item Model problem and SWR algorithm
+				\item S-D and Discrete CV rates
+				\item Discrete Case
+				\item Numerical examples, optimisation
+			\end{enumerate}
+		\item La difficulté d'une optimisation analytique:
+			\begin{enumerate}
+				\item optimisation du continu
+				\item optimisation discrète avec
+					recouvrement (Wu, 2014)
+				\item pas d'optimisation discrète sans
+					recouvrement
+			\end{enumerate}
+		\item Sur la solution monolithique
+			\begin{enumerate}
+				\item précision nécessaire de
+					$\gamma$ pour avoir un ordre 2
+				\item Ecart à la solution monolithique
+					avec condition $\kappa_c=1$
+					et avec $\gamma$
+			\end{enumerate}
+
+	\end{enumerate}
+\item Etude approchée de convergence des algorithmes de Schwarz
+	\begin{enumerate}
+		\item Papier SMAI "Approximations of the discrete
+			convergence factor of Schwarz methods"
+			\begin{enumerate}
+					\item Discretisation and SWR
+					\item Modified equations
+					\item Combining S-D analyses
+					\item Effect on optimisation
+			\end{enumerate}
+		\item Inexactitude du facteur de CV discret
+			\begin{enumerate}
+				\item Domaines bornés
+				\item Taille de la fenêtre de temps
+				\item Initialisation aléatoire :
+					bruit blanc 	
+			\end{enumerate}
+	\end{enumerate}
 \item Discrétisation des couches limites de surface atmosphérique
 	et océanique
-	\begin{itemize}
-		\item présentation des schémas de flux de surface
-			"FV free", "FD pure", etc.
+	\begin{enumerate}
+		\item Cas neutre atmosphérique
+			\begin{enumerate}
+				\item Rappels de loi du mur + splines
+				\item Stratégies "classiques"
+				\item Stratégie avec reconstruction
+			\end{enumerate}
+		\item Cas stratifié atmosphérique
+			\begin{enumerate}
+				\item Rappels de Monin-Obukhov
+				\item Longueurs de mélanges et M-O
+				\item Extension de la reconstruction
+			\end{enumerate}
 		\item Consistence du schéma "FV free"
-		\item Importance d'avoir le choix de $\delta_a$ dans
-			un modèle couplé
-	\end{itemize}
+			et sensibilité à $\delta_a$
+			\begin{enumerate}
+				\item Cas neutre
+				\item Cas stable
+				\item Cas instable
+			\end{enumerate}
+		\item Couche limite océanique
+			\begin{enumerate}
+				\item Différences par rapport à
+					l'atmosphère
+				\item flux radiatifs et reconstruction
+				\item Bulk two-sided et sensibilité à
+					$\delta_o$
+			\end{enumerate}
+	\end{enumerate}
 \item Convergence des algorithmes de Schwarz appliqué au couplage
 	discret Océan-Atmosphère
-	\begin{itemize}
+	\begin{enumerate}
 	\item Proceeding DD26: "Discrete analysis of SWR for a
 		simplified air-sea coupling problem
 		with nonlinear transmission conditions"
+		\begin{enumerate}
+			\item Model Problem for OA coupling
+			\item Discretized coupled problem
+			\item Convergence analysis
+			\item Numerical experiments
+		\end{enumerate}
 	\item expériences numériques sur la convergence de Schwarz
 		sur les modèles 1D de la section d'avant
-	\end{itemize}
+	\end{enumerate}
 \end{enumerate}
 
 \end{document}
