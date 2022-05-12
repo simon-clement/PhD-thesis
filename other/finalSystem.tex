@@ -1,10 +1,11 @@
 \begin{subequations}
+% Atmosphere:
 \begin{equation}
 \begin{cases}
 \left.\partial_z \theta \right|_{\rm top} =
 \left.\partial_z u \right|_{\rm top} = 0& \\
 \left(\partial_t - \partial_z (K_\theta \partial_z )\right)
-\theta = 0 , ~~~~~&
+\theta = F_\theta , ~~~~~&
 \left(\partial_t + if - \partial_z (K_u \partial_z )\right)
 u =  i f u_G \\
 \left. K_\theta \partial_z \theta \right|_{{\delta_a}}
@@ -13,11 +14,23 @@ u =  i f u_G \\
 = \frac{{(u^\star_a)}^2}{|u_a - u_o|} (u_a - u_o)
 \end{cases}
 \end{equation}
+% BULK:
 \begin{equation}
-u^\star_a, \theta^\star_a, u^\star_o, \theta^\star_o =
-{\rm BULK}(u_a, u_o,
-\theta_a, \theta_o, \delta_a, \delta_o, Q_{lw}, Q_{sw})
+\begin{cases}
+\left. K_\theta \partial_z \theta \right|_{0<z<\delta_a}
+= u^\star_a \theta^\star_a,
+~~~~~&
+\left. K_u \partial_z u \right|_{{0<z<\delta_a}}
+= {(u^\star_a)}^2 e_{\tau} \\
+\left. K_\theta \partial_z \theta \right|_{\delta_o<z<0}
+= u^\star_o \theta^\star_o -
+	\frac{Q_{lw} + Q_{sw}(z)}{\rho_0 c_p},
+~~~~~&
+\left. K_u \partial_z u \right|_{{\delta_o}<z<0}
+= {(u^\star_o)}^2 e_{\tau}
+\end{cases}
 \end{equation}
+% Ocean:
 \begin{equation}
 \begin{cases}
 \left. K_\theta \partial_z \theta \right|_{\delta_o}
@@ -42,4 +55,6 @@ u_\star \theta_\star - \frac{Q_{lw} + Q_{sw}}{\rho_0 c_p}$
 because of the strong mixing, whereas $Q_{sw}$ is used as a
 source term for $z\leq \delta_o$ and
 $\left.K_\theta \partial_z \theta\right|_{z=\delta_o}=
-u_\star \theta_\star - \frac{Q_{lw}}{\rho_0 c_p}$
+u_\star \theta_\star - \frac{Q_{lw}}{\rho_0 c_p}$.
+
+$F_\theta = 1$ K/d is constant over the vertical axis.

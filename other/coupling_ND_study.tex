@@ -25,13 +25,19 @@
 \def\cal{\mathscr}
 \tableofcontents
 \import{}{finalSystem.tex}
-\section{Premier problème (?): Différences FD, FV, avec/sans OSL}
-TODO
-\section{Deuxième problème : manque de convergence du bulk}
 \begin{figure}
-	\includegraphics[scale=0.3]{colorplotReconstruction.png}
-	\caption{gauche: avec OSL, droite: sans OSL}
-	\label{fig:colorplotReconstruction}
+	\includegraphics[scale=0.6]{compareASLsize.pdf}
+	\includegraphics[scale=0.6]{compareASLsize_ustar.pdf}
+	\caption{Comparison ASL: dashed lines and left=high resolution.\\
+	In the ocean: Finite Differences with $\delta_o=0$}
+	\label{fig:compareASL}
+\end{figure}
+\begin{figure}
+	\includegraphics[scale=0.6]{referenceCoupling.pdf}
+	\includegraphics[scale=0.6]{referencefrictionScales.pdf}
+	\caption{Comparison OSL: dashed lines and left=high resolution.\\
+	In the atmosphere: Finite Differences with $\delta_a = z_{1/2}$}
+	\label{fig:compareOSL}
 \end{figure}
 
 \end{document}
