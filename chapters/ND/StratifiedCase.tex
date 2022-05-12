@@ -4,7 +4,7 @@ is neutral. The effect of humidity is neglected.
 We first discuss the continuous and semi-discrete in space
 equations, then give the
 profile of viscosities depending on the turbulent kinetic energy
-(TKE), and extend the previous discussion on the wall Law to
+(TKE), and extend the previous discussion on the wall law to
 Monin-Obukhov Similarity Theory (MOST).
 
 \subsection{Continuous model and Finite Volumes discretization}
@@ -55,7 +55,8 @@ and MOST profiles are
 \end{equation}
 where $L_{MO} = \frac{\theta(\delta_{\rm sl})
 u_\star^2}{\theta_\star \kappa g }$. We will use
-$C_H|u(\delta_{sl})| = \frac{u_\star \kappa}{\log(\frac{z}{z_{0H}})
+$C_H|u(\delta_{sl})- u(0)| = 
+\frac{u_\star \kappa}{\log(\frac{z}{z_{0H}})
     - \psi_\theta(\frac{z}{L_{MO}})
     + \psi_\theta(\frac{z_{0H}}{{L_{MO}}})}$
 \subsubsection{Finite Volumes discretization}
@@ -84,98 +85,7 @@ And the derivative of temperature at $z_{m-1}, z_m, z_{m+1}$ solves
 &= 0
 \end{aligned}
 \end{equation}
-\subsection{Turbulent viscosities}
-\label{sec:ND_StratifiedCase_turbulentVisc}
-The Turbulent Kinetic Energy (TKE) evolves with the equation
-\begin{equation}
-\label{eq:ND_StratifiedCase_TKE}
-    \begin{aligned}
-    \partial_t e =
-    \underbrace{\partial_z \left(K_e
-    \partial_z e\right)}_{\text{diffusion}}
-    + \underbrace{K_u ||\partial_z u||^2}_{\text{shear}} 
-    - \underbrace{K_{\theta} N^2 }_{\text{buoyancy}}
-    - \underbrace{c_{\epsilon}
-    \frac{e^{3/2}}{l_{\epsilon}(z)}}_{\text{dissipation}}.
-    \end{aligned}
-\end{equation}
-The turbulent viscosities $K_u, K_{\theta}$ and $K_e$ are computed
-with $(K_u, K_\theta, K_e) = (C_m , C_s \phi_z, C_e)l_m \sqrt{e}$.
-$l_m, l_\epsilon$ are obtained with the fourth method described in \cite{lemarie2021gmd} (section 4.2.2) named $l^\star_{\rm D80}$.
-
-In the Neutral case, no buoyancy term intervene in the computation
-of the TKE.
-
-Let us assume that in each cell, $e$ is not varying too much and
-$l_\epsilon$ is constant. We use Patankar's trick
-\footnote{
-	multiplying buoyancy by $\frac{\overline{e}^{n+1}}{\overline{e}^n}$ when buoyancy is greater than shear
-to ensure positivity preservation of $\overline{e}$ {\color{red}[ref ?]
-}} even if it does not guarantee positivity of TKE when
-dealing with Finite Volumes.
-Shear and buoyancy are also assumed to be constant in each cell
-({\color{red} rough approximations}):
-\begin{equation}
-\label{eq:ND_StratifiedCase_SemiDiscreteTKE}
-    \left(
-    \frac{c_\epsilon \sqrt{\overline{e}^n}}{l_\epsilon}
-	+ {\rm Ptk} \frac{K_{\theta} N^2}{\overline{e}^n}
-    + \partial_t
-    \right) \overline{e}
-    =\frac{K_{e,m+1} (\partial_z e)_{m+1} -
-    K_{e,m} (\partial_z e)_{m}}{h_{m+1/2}}
-    + K_u ||\partial_z u||^2
-    - (1 - {\rm Ptk}) K_\theta N^2
-\end{equation}
-Where ${\rm Ptk}=1$ if $K_u ||\partial_z u||^2 \leq K_\theta N^2$, 
-otherwise ${\rm Ptk}=0$.
-Similarly to $\theta$ and $u$, the prognostic equation
-to find the spatial derivative of the TKE at 
-the borders of the cells is
-\begin{equation}
-\label{eq:ND_StratifiedCase_prognosticTKE_FV}
-\begin{aligned}
-&\partial_t
-\left(
-    h_{m-1/2}\frac{(\partial_z e)_{m-1}}{12}+
-    h_m\frac{10(\partial_z e)_{m}}{12}+
-    h_{m+1/2}\frac{(\partial_z e)_{m+1}}{12}
-\right)
-\\&-
-    \left(\frac{K_{e,m+1} (\partial_z e)_{m+1} -
-        K_{e,m} (\partial_z e)_{m}}{h_{m+1/2}}
--
-    \frac{K_{e,m} (\partial_z e)_{m} -
-        K_{e,m-1} (\partial_z e)_{m-1}}{h_{m-1/2}}
-        \right)
-\\
-&- \left(K_{u} ||\partial_z u||^2
--  K_\theta N^2 
-\left({\rm Ptk}
-\left(\frac{\overline{e}}{\overline{e}^n} - 1\right)
-+ 1\right)
-- \frac{c_\epsilon \sqrt{\overline{e}}}{l_\epsilon} \overline{e}
-\right)_{dm} = 0
-\end{aligned}
-\end{equation}
-where the index $X_{dm}$ is a shortcut for $X_{m+1/2} - X_{m-1/2}$.
-
-\paragraph{Boundary conditions}
-In the surface layer, $e$ is constant
-and $e(z\leq \delta_{\rm sl}) = e_{\rm sl} = \frac{{u_\star}^2}{\sqrt{c_m c_\epsilon}}$.
-A homogeneous Neumann boundary condition is used at the top.
-Let $k$ be the space index such that
-$z_k < \delta_{\rm sl} < z_{k+1}$. The space derivative of e for
-$z \leq z_k$ is set to 0 and its average is set to $e_{\rm sl}$.
-Let $\widetilde{e}$ be the TKE average on
-$[\delta_{\rm sl}, z_{k+1}]$.
-We use as a boundary condition $\widetilde{e} - 5 \widetilde{h}
-\frac{ (\partial_z e)_k}{12} -
-\widetilde{h}\frac{ (\partial_z e)_{k+1}}{12}= e(z<\delta_{sl})$
-and $(\partial_z e)_k = 0$.
-
 \subsection{FV free}
-
 We now have all the ingredients to construct a boundary condition
 that is coherent with the MOST profiles with a free
 $\delta_{sl}$. Let $k$ such that $z_k < \delta_{\rm sl} < z_{k+1}$.
@@ -342,7 +252,101 @@ and the same applies for $\theta$:
 	\label{fig:ND_StratifiedCase_NumericalExpUnstable}
 \end{figure}
 
-\subsection{Matching viscosities at the surface layer}
+
+
+\subsection{Turbulent viscosities}
+\subsubsection{Finite Volumes discretization of TKE}
+\label{sec:ND_StratifiedCase_turbulentVisc}
+The Turbulent Kinetic Energy (TKE) evolves with the equation
+\begin{equation}
+\label{eq:ND_StratifiedCase_TKE}
+    \begin{aligned}
+    \partial_t e =
+    \underbrace{\partial_z \left(K_e
+    \partial_z e\right)}_{\text{diffusion}}
+    + \underbrace{K_u ||\partial_z u||^2}_{\text{shear}} 
+    - \underbrace{K_{\theta} N^2 }_{\text{buoyancy}}
+    - \underbrace{c_{\epsilon}
+    \frac{e^{3/2}}{l_{\epsilon}(z)}}_{\text{dissipation}}.
+    \end{aligned}
+\end{equation}
+The turbulent viscosities $K_u, K_{\theta}$ and $K_e$ are computed
+with $(K_u, K_\theta, K_e) = (C_m , C_s \phi_z, C_e)l_m \sqrt{e}$.
+$l_m, l_\epsilon$ are obtained with the fourth method described in \cite{lemarie2021gmd} (section 4.2.2) named $l^\star_{\rm D80}$.
+
+In the Neutral case, no buoyancy term intervene in the computation
+of the TKE.
+
+Let us assume that in each cell, $e$ is not varying too much and
+$l_\epsilon$ is constant.
+% We use Patankar's trick
+% \footnote{
+% 	multiplying buoyancy by $\frac{\overline{e}^{n+1}}{\overline{e}^n}$ when buoyancy is greater than shear
+% to ensure positivity preservation of $\overline{e}$ {\color{red}[ref ?]
+% }} even if it does not guarantee positivity of TKE when
+% dealing with Finite Volumes.
+Shear and buoyancy are also assumed to be constant in each cell
+({\color{red} rough approximations}):
+\begin{equation}
+\label{eq:ND_StratifiedCase_SemiDiscreteTKE}
+    \left(
+    \frac{c_\epsilon \sqrt{\overline{e}^n}}{l_\epsilon}
+	+ {\rm Ptk} \frac{K_{\theta} N^2}{\overline{e}^n}
+    + \partial_t
+    \right) \overline{e}
+    =\frac{K_{e,m+1} (\partial_z e)_{m+1} -
+    K_{e,m} (\partial_z e)_{m}}{h_{m+1/2}}
+    + K_u ||\partial_z u||^2
+    - (1 - {\rm Ptk}) K_\theta N^2
+\end{equation}
+Where ${\rm Ptk}=1$ if $K_u ||\partial_z u||^2 \leq K_\theta N^2$, 
+otherwise ${\rm Ptk}=0$.
+Similarly to $\theta$ and $u$, the prognostic equation
+to find the spatial derivative of the TKE at 
+the borders of the cells is
+\begin{equation}
+\label{eq:ND_StratifiedCase_prognosticTKE_FV}
+\begin{aligned}
+&\partial_t
+\left(
+    h_{m-1/2}\frac{(\partial_z e)_{m-1}}{12}+
+    h_m\frac{10(\partial_z e)_{m}}{12}+
+    h_{m+1/2}\frac{(\partial_z e)_{m+1}}{12}
+\right)
+\\&-
+    \left(\frac{K_{e,m+1} (\partial_z e)_{m+1} -
+        K_{e,m} (\partial_z e)_{m}}{h_{m+1/2}}
+-
+    \frac{K_{e,m} (\partial_z e)_{m} -
+        K_{e,m-1} (\partial_z e)_{m-1}}{h_{m-1/2}}
+        \right)
+\\
+&- \left(K_{u} ||\partial_z u||^2
+-  K_\theta N^2 
+\left({\rm Ptk}
+\left(\frac{\overline{e}}{\overline{e}^n} - 1\right)
++ 1\right)
+- \frac{c_\epsilon \sqrt{\overline{e}}}{l_\epsilon} \overline{e}
+\right)_{dm} = 0
+\end{aligned}
+\end{equation}
+where the index $X_{dm}$ is a shortcut for $X_{m+1/2} - X_{m-1/2}$.
+
+\paragraph{Boundary conditions}
+In the surface layer, $e$ is constant
+and $e(z\leq \delta_{\rm sl}) = e_{\rm sl} = \frac{{u_\star}^2}{\sqrt{c_m c_\epsilon}}$.
+A homogeneous Neumann boundary condition is used at the top.
+Let $k$ be the space index such that
+$z_k < \delta_{\rm sl} < z_{k+1}$. The space derivative of e for
+$z \leq z_k$ is set to 0 and its average is set to $e_{\rm sl}$.
+Let $\widetilde{e}$ be the TKE average on
+$[\delta_{\rm sl}, z_{k+1}]$.
+We use as a boundary condition $\widetilde{e} - 5 \widetilde{h}
+\frac{ (\partial_z e)_k}{12} -
+\widetilde{h}\frac{ (\partial_z e)_{k+1}}{12}= e(z<\delta_{sl})$
+and $(\partial_z e)_k = 0$.
+
+\subsubsection{Matching viscosities at the surface layer}
 In order to obtain a regular solution out of the "FV free"
 discretization, we derive here the constraints on mixing length
 and on TKE inside the surface layer.
@@ -459,37 +463,6 @@ into the previous equation and get
 \end{equation}
 It is actually sufficient to use
 \eqref{eq:ND_StratifiedCase_solution_l_down} to compute $l_{down}$.
-
-\subsection{On the value of $K_0$}
-\label{sec:ND_StratifiedCase_viscosity0_FVpure}
-If we strictly follow the content of this document,
-$K_0$ should be equal to $K_{mol}$ (except for the "FV free" case).
-However, the boundary condition $K_0 \phi_0 = u_\star^2$
-does not behave the same way with FD and FV.
-(The orientation $\frac{u(\delta)}{||u(\delta)||}$
-was omitted for simplicity purpose. We also assume here $f=0$).
-
-\paragraph{Finite Differences}
-Injecting the boundary condition in the first grid level gives
-$\partial_t u_{1/2} = \frac{K_1}{h}\left(\frac{u_{3/2} - u_{1/2}}{h}
- - u_\star^2
-\right)$.
-\textbf{The value of $K_0$ does not directly intervene in the equation}.
-
-\paragraph{Finite Volumes}
-In the continuity equation at $z=z_1$, it is used that
-$\partial_t u(z_1) = \frac{K_1 \phi_1 - u_\star^2}{h}
-+ \frac{h \phi_1}{3} + \frac{h u_\star^2}{6 K_0}$
-\textbf{The (small) value of $K_0$ directly appears when we assume the
-parabolic profile inside the first grid level.}
-As a result, $\partial_t u(z_1)$ scales with $\frac{1}{K_0}$.
-That is seen
-on previous Figures.
-To obtain reasonable profiles, $K_0=K(\delta_{\rm sl})$ can be used
-but it does not correspond to the original discretisation choice.
-The consequence is that $\phi_0$ would not correspond
-to $(\partial_z u)(z_0)$ or $(\partial_z u)(z_{\delta_{sl}})$.
-
 
 \begin{figure}
 	\centering

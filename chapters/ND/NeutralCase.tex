@@ -186,10 +186,10 @@ Then the reconstruction is given by
     \end{pmatrix}
 \end{equation}
 
-\subsection{Wall law}
-We show here several strategies for the discretization
-in the surface layer. We first compare 3 state-of-the-art
-discretizations then introduce an original one.
+\subsection{State-of-the-art surface flux schemes}
+We show here subsection several strategies for the
+discretization in the surface layer. We first compare 3
+state-of-the-art discretizations then introduce an original one.
 
 The discretization consists in three parts:
 \begin{itemize}
@@ -198,7 +198,6 @@ The discretization consists in three parts:
 	\item How the boundary condition 
 		\eqref{eq:ND_NeutralCase_constantFlux} is implemented.
 \end{itemize}
-\subsubsection{State-of-the-art strategies}
   We now present three strategies that are representative of
   what is done in models. A summary of those discretizations
   is presented in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
@@ -267,7 +266,7 @@ also changes the height of the surface layer $\delta_{\rm sl}$.
 In the following, we derive a surface flux scheme that keep
 the advantages of the "FV2" with a free $\delta_{\rm sl}$.
 
-\subsubsection{A surface flux scheme with a free $\delta_{\rm sl}<z_1$}
+\subsection{A surface flux scheme with a free $\delta_{\rm sl}<z_1$}
 We now construct a boundary condition that is coherent
 with the wall law with a free $\delta_{sl}$. We first assume
 that $\delta_{\rm sl} < z_1$ and then relax this hypothesis.
@@ -400,47 +399,79 @@ The surface layer scheme "FV free" is identical to the case $k=0$, except that
 	\caption{Neutral case's numerical experiment. Top: log-scaled, bottom: linear-scaled}
 	\label{fig:ND_NeutralCase_NumericalExp}
 \end{figure}
-\subsection{Variation of $\delta_{\rm sl}$}
-In this subsection we assume that $\delta_{\rm sl}$ can differ
-from one time to another. Let us note
-$\delta_{\rm sl}^n, \delta_{\rm sl}^{n+1}$ the two different sizes
-of the surface layer.
-There are 3 cases to take into account:
-\begin{enumerate}
-\item there is a $k$ such that
-	$z_k< \delta_{\rm sl}^n, \delta_{\rm sl}^{n+1} < z_{k+1}$
-\item there is a $k$ such that
-	$ \delta_{\rm sl}^n < z_k < \delta_{\rm sl}^{n+1}$
-\item there is a $k$ such that
-	$ \delta_{\rm sl}^n > z_k > \delta_{\rm sl}^{n+1}$
-\end{enumerate}
-Note that multiple grid levels can be between $\delta_{\rm sl}^{n}$
-and $\delta_{\rm sl}^{n+1}$ in the second and third cases.
-\par
-Let $k^n$ be such that $z_{k^n} < \delta_{\rm sl}^{n}< z_{k^n + 1}$
-and $k^{n+1}$ such that
-$z_{k^{n+1}} < \delta_{\rm sl}^{n+1}< z_{k^{n+1} + 1}$
-\begin{enumerate}
-	\item $k^n = k^{n+1}$:
-Since $\delta_{\rm sl}$ changes, then $\widetilde{h}$ also change.
-It must be taken into account when
-discretising in time the equations
-\eqref{eq:ND_NeutralCase_prognosticEqFVfree} and 
-\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree}.
-The boundary condition stays \eqref{eq:ND_NeutralCase_boundaryCondFVfree}.
-	\item $k^n < k^{n+1}$:
-\eqref{eq:ND_NeutralCase_boundaryCondFVfree},
-\eqref{eq:ND_NeutralCase_prognosticEqFVfree} and 
-\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree} only need to
-be satisfied between $z_{k^{n+1}}$ and $z_{k^{n+1}+1}$.
-Hence, $\tau_{sl}(t^n)$ is set to 0.
-	\item $k^n > k^{n+1}$:
-\eqref{eq:ND_NeutralCase_prognosticEqFVfree} and 
-\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree}
-need to be satisfied in both cells.
-{\color{red} It is not possible to do this in a natural way,
-because using \eqref{eq:ND_NeutralCase_prognosticEqFVfree}
-assumes the solution was a quadratic spline whereas it was actually
-a log profile.
-}
-\end{enumerate}
+% \subsection{Variation of $\delta_{\rm sl}$}
+% In this subsection we assume that $\delta_{\rm sl}$ can differ
+% from one time to another. Let us note
+% $\delta_{\rm sl}^n, \delta_{\rm sl}^{n+1}$ the two different sizes
+% of the surface layer.
+% There are 3 cases to take into account:
+% \begin{enumerate}
+% \item there is a $k$ such that
+% 	$z_k< \delta_{\rm sl}^n, \delta_{\rm sl}^{n+1} < z_{k+1}$
+% \item there is a $k$ such that
+% 	$ \delta_{\rm sl}^n < z_k < \delta_{\rm sl}^{n+1}$
+% \item there is a $k$ such that
+% 	$ \delta_{\rm sl}^n > z_k > \delta_{\rm sl}^{n+1}$
+% \end{enumerate}
+% Note that multiple grid levels can be between $\delta_{\rm sl}^{n}$
+% and $\delta_{\rm sl}^{n+1}$ in the second and third cases.
+% \par
+% Let $k^n$ be such that $z_{k^n} < \delta_{\rm sl}^{n}< z_{k^n + 1}$
+% and $k^{n+1}$ such that
+% $z_{k^{n+1}} < \delta_{\rm sl}^{n+1}< z_{k^{n+1} + 1}$
+% \begin{enumerate}
+% 	\item $k^n = k^{n+1}$:
+% Since $\delta_{\rm sl}$ changes, then $\widetilde{h}$ also change.
+% It must be taken into account when
+% discretising in time the equations
+% \eqref{eq:ND_NeutralCase_prognosticEqFVfree} and 
+% \eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree}.
+% The boundary condition stays \eqref{eq:ND_NeutralCase_boundaryCondFVfree}.
+% 	\item $k^n < k^{n+1}$:
+% \eqref{eq:ND_NeutralCase_boundaryCondFVfree},
+% \eqref{eq:ND_NeutralCase_prognosticEqFVfree} and 
+% \eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree} only need to
+% be satisfied between $z_{k^{n+1}}$ and $z_{k^{n+1}+1}$.
+% Hence, $\tau_{sl}(t^n)$ is set to 0.
+% 	\item $k^n > k^{n+1}$:
+% \eqref{eq:ND_NeutralCase_prognosticEqFVfree} and 
+% \eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree}
+% need to be satisfied in both cells.
+% {\color{red} It is not possible to do this in a natural way,
+% because using \eqref{eq:ND_NeutralCase_prognosticEqFVfree}
+% assumes the solution was a quadratic spline whereas it was actually
+% a log profile.
+% }
+% \end{enumerate}
+\paragraph{On the value of $K_0$}
+\label{sec:ND_StratifiedCase_viscosity0_FVpure}
+If we strictly follow the content of this document,
+$K_0$ should be equal to $K_{mol}$ (except for the "FV free" case).
+However, the boundary condition $K_0 \phi_0 = u_\star^2$
+does not behave the same way with FD and FV.
+(The orientation $\frac{u(\delta)}{||u(\delta)||}$
+was omitted for simplicity purpose. We also assume here $f=0$).
+
+\begin{itemize}
+		\item \textbf{Finite Differences}:
+Injecting the boundary condition in the first grid level gives
+$\partial_t u_{1/2} = \frac{K_1}{h}\left(\frac{u_{3/2} - u_{1/2}}{h}
+ - u_\star^2
+\right)$.
+\textbf{The value of $K_0$ does not directly intervene in the equation}.
+
+\item \textbf{Finite Volumes}:
+In the continuity equation at $z=z_1$, it is used that
+$\partial_t u(z_1) = \frac{K_1 \phi_1 - u_\star^2}{h}
++ \frac{h \phi_1}{3} + \frac{h u_\star^2}{6 K_0}$
+\textbf{The (small) value of $K_0$ directly appears when we assume the
+parabolic profile inside the first grid level.}
+As a result, $\partial_t u(z_1)$ scales with $\frac{1}{K_0}$.
+That is seen
+on previous Figures.
+To obtain reasonable profiles, $K_0=K(\delta_{\rm sl})$ can be used
+but it does not correspond to the original discretisation choice.
+The consequence is that $\phi_0$ would not correspond
+to $(\partial_z u)(z_0)$ or $(\partial_z u)(z_{\delta_{sl}})$.
+\end{itemize}
+

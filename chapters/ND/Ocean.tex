@@ -1,5 +1,7 @@
 \section{Ocean part}
-\subsection{Implementation}
+\subsection{Differences with the atmosphere and derivation of
+	a symmetric surface flux scheme}
+\subsubsection{Implementation}
 {\color{red} Density is not taken into account in the code:
 it may be assumed as $\rho_a=1$ in the atmosphere: this can be
 a source of errors}
@@ -150,7 +152,7 @@ and the same applies for $\theta$:
 	+ \widetilde{F}_\theta 
 \end{equation}
 
-\subsection{Computing $\tau_{\rm sl}$: stability function integration}
+\subsubsection{Computing $\tau_{\rm sl}$: stability function integration}
 \label{sec:ND_Ocean_stabilityFunctionIntegration}
 In the ocean, we use the universal function of \citep{large2019similarity} (as in \citep{pelletier2021two})
 \begin{equation}
@@ -262,7 +264,7 @@ and the second part $\int_{z}^0 \sum_i A_i \exp(k_i x)
 	\frac{1-\phi(\frac{-x}{L_{MO}})}{-x+z_{0M}} dx$
 	should be smaller than $\int_{z}^0
 	\frac{1-\phi(\frac{-x}{L_{MO}})}{-x+z_{0M}} dx$
-\subsection{Radiative fluxes}
+\subsection{Radiative fluxes, another surface flux scheme}
 \label{sec:ND_Ocean_radiativeFluxes}
 We note $Q_{sw}$ and $Q_{lw}$ the shortwave and longwave positive
 downward fluxes. A new variable that is similar to a friction
@@ -321,7 +323,8 @@ the smallest changes to the greatest:
 		.
 	\end{equation}
 \end{enumerate}
-\subsection{Bulk algorithm with radiative fluxes}
+\subsection{Bulk algorithm with radiative fluxes, sensitivity to
+	$\delta_o$}
 \label{sec:bulkRadiativeFluxes}
 \begin{equation}
 	C_D^{a+o} = \left(\frac{\kappa} {
