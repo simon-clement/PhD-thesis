@@ -2,11 +2,11 @@
 In this section, we no longer assume that the stratification
 is neutral. The effect of humidity is neglected.
 We first discuss the continuous and semi-discrete in space
-equations, then give the
-profile of viscosities depending on the turbulent kinetic energy
-(TKE), and extend the previous discussion on the wall law to
+equations, then extend the previous discussion on the wall law to
 Monin-Obukhov Similarity Theory (MOST).
-
+Section \ref{sec:ND_StratifiedCase_turbulentVisc} gives the
+profile of viscosities depending on the turbulent kinetic energy
+(TKE).
 \subsection{Continuous model and Finite Volumes discretization}
 \subsubsection{Continuous model}
 The wind speed $u$ and the potential temperature $\theta$ evolve
@@ -15,31 +15,36 @@ together with
 \begin{aligned}
 	\label{eq:ND_StratifiedCase_EkmanEq}
   (\partial_t + if) u - \partial_z (\partial_z K_u u) &= if u_G \\
-  \partial_t \theta -\partial_z (\partial_z K_{\theta} \theta) &= 0.
+\partial_t \theta -\partial_z (\partial_z K_{\theta} \theta)
+	&= F_{\theta}.
 \end{aligned}
 \end{equation}
-The viscosities $K_u, K_\theta$ will be detailed in section \ref{sec:ND_StratifiedCase_turbulentVisc}.
-The boundary condition on the fluxes $K_u u$ and $K_\theta \theta$
+{\color{red} TODO regarder forcing dans toutes les equations d'après}
+The viscosities $K_u, K_\theta$ will be detailed in section
+\ref{sec:ND_StratifiedCase_turbulentVisc}.
+The boundary condition on the fluxes $K_u \partial_z u$ and
+$K_\theta \partial_z \theta$
 in the surface layer is
 \begin{equation}
 \begin{aligned}
 	\left.K_u \partial_z u \right|_{z\leq \delta_{\rm sl}}
 	&= u_\star^2
-	\frac{u(\delta_{\rm sl}, t)}{||u(\delta_{\rm sl}, t)||} \\
+	\frac{u(\delta_{\rm sl})-u(0)}
+	{||u(\delta_{\rm sl}) - u(0)||} \\
 	\left.K_\theta \partial_z \theta
 	\right|_{z\leq \delta_{\rm sl}}
-	&= \theta_\star u_\star = C_H ||u(\delta_{\rm sl})||
+	&= \theta_\star u_\star = C_H
+	||u(\delta_{\rm sl}) - u(0)||
 	\left(\theta(\delta_{\rm sl}) - \theta_{s}\right)
 \end{aligned}
 \end{equation}
 and MOST profiles are
-%{\color{red} A décider/ comprendre}
 \begin{equation}
 \label{eq:ND_StratifiedCase_MOST}
 \begin{aligned}
-    ||u(z)|| = \frac{u_\star}{\kappa}
+	||u(z)-u(0)|| = \frac{u_\star}{\kappa}
     \left(
-	\log(\frac{z}{z_{0M}})
+	\log(1+\frac{z}{z_{0M}})
     - \psi_u(\frac{z}{L_{MO}})
 	+ \psi_u(\frac{z_{0M}}{L_{MO}})
     \right)
@@ -47,7 +52,7 @@ and MOST profiles are
     \theta(z) - \theta_s = 
     \frac{\theta_\star}{\kappa}
     \left(
-	\log(\frac{z}{z_{0H}})
+	\log(1+\frac{z}{z_{0H}})
     - \psi_\theta(\frac{z}{L_{MO}})
 	+ \psi_\theta(\frac{z_{0H}}{{L_{MO}}})
     \right)
@@ -56,7 +61,7 @@ and MOST profiles are
 where $L_{MO} = \frac{\theta(\delta_{\rm sl})
 u_\star^2}{\theta_\star \kappa g }$. We will use
 $C_H|u(\delta_{sl})- u(0)| = 
-\frac{u_\star \kappa}{\log(\frac{z}{z_{0H}})
+\frac{u_\star \kappa}{\log(+1\frac{z}{z_{0H}})
     - \psi_\theta(\frac{z}{L_{MO}})
     + \psi_\theta(\frac{z_{0H}}{{L_{MO}}})}$
 \subsubsection{Finite Volumes discretization}
@@ -69,20 +74,20 @@ evolves with
 \label{eq:ND_StratifiedCase_semiDiscreteEkmanEqPT}
     \partial_t \overline{\theta}_{m+1/2}
     - \frac{K_{\theta, m+1} {(\partial_z \theta)}_{m+1} - K_{\theta, m} {(\partial_z \theta)}_m}{h_{m+1/2}}
-    = 0
+	= \overline{F_{\theta, m+1/2}}
 \end{equation}
 And the derivative of temperature at $z_{m-1}, z_m, z_{m+1}$ solves
 \begin{equation}
 \begin{aligned}
 \label{eq:ND_StratifiedCase_prognosticPT_FV}
-\partial_t \left( \frac{h_{m-1/2}}{6h_m} {(\partial_z \theta)}_{m-1} 
-+ \frac{2}{3} {(\partial_z \theta)}_m  
-+ \frac{h_{m+1/2}}{6h_m} {(\partial_z \theta)}_{m+1} \right)& \\
+\partial_t \left( \frac{h_{m-1/2}}{6} {(\partial_z \theta)}_{m-1} 
++ \frac{2h_m}{3} {(\partial_z \theta)}_m  
++ \frac{h_{m+1/2}}{6} {(\partial_z \theta)}_{m+1} \right)& \\
 -
     \left(
-	\frac{K_{\theta, m+1}}{h_m h_{m+1/2}}{(\partial_z \theta)}_{m+1} - \frac{2 K_{\theta, m}}{h_{m-1/2} h _{m+1/2}}{(\partial_z \theta)}_m + \frac{K_{\theta, m-1}}{h_m h_{m-1/2}}{(\partial_z \theta)}_{m-1}
+	\frac{K_{\theta, m+1}}{ h_{m+1/2}}{(\partial_z \theta)}_{m+1} - \frac{2 h_m K_{\theta, m}}{h_{m-1/2} h _{m+1/2}}{(\partial_z \theta)}_m + \frac{K_{\theta, m-1}}{ h_{m-1/2}}{(\partial_z \theta)}_{m-1}
     \right)
-&= 0
+&= \overline{F_{\theta, m+1/2}} - \overline{F_{\theta, m-1/2}}
 \end{aligned}
 \end{equation}
 \subsection{FV free}
@@ -90,10 +95,10 @@ We now have all the ingredients to construct a boundary condition
 that is coherent with the MOST profiles with a free
 $\delta_{sl}$. Let $k$ such that $z_k < \delta_{\rm sl} < z_{k+1}$.
 We assume that
-\eqref{eq:ND_StratifiedCase_MOST} apply for $z<\delta_{sl}$,
+\eqref{eq:ND_StratifiedCase_MOST} applies for $z<\delta_{sl}$,
 which leads us to separate the 
-cell $[\delta_{\rm sl}, z_{k+1}]$
-into two parts: the surface layer $[z_k,\delta_{\rm sl}]$ and the
+cell $[z_k, z_{k+1}]$
+into two parts: the surface layer part $[z_k,\delta_{\rm sl}]$ and the
 "subcell" $[\delta_{\rm sl}, z_{k+1}]$ of size $\widetilde{h}$, of
 average $\widetilde{u}, \widetilde{\theta}$
 and of subgrid reconstructions
@@ -117,9 +122,11 @@ $\overline{u}_{k+1/2}, \overline{\theta}_{k+1/2}$ and
 $\widetilde{u},\widetilde{\theta}$ is, similarly to the neutral case:
 \begin{equation} \label{eq:ND_StratifiedCase_tmprelation_tilde_bar}
 \begin{aligned}
-\frac{\widetilde{h}}{h_{k+1/2}} \widetilde{u} =
-	\overline{u}_{k+1/2} - u(\delta_{sl}) \tau_{sl, u}\\
-\frac{\widetilde{h}}{h_{k+1/2}} (\widetilde{\theta} - \theta_s) =
+	\frac{\widetilde{h}}{h_{k+1/2}} (\widetilde{u}-u(0)) &=
+	\overline{u}_{k+1/2}-u(0) - 
+	(u(\delta_{sl})-u(0)) \tau_{sl, u}\\
+	\frac{\widetilde{h}}{h_{k+1/2}}
+	(\widetilde{\theta} - \theta_s) &=
 	(\overline{\theta}_{k+1/2}-\theta_s) -
 	(\theta(\delta_{sl})-\theta_s)\tau_{sl, \theta}
 \end{aligned}
@@ -148,13 +155,14 @@ $\theta(\delta_{sl}) = {\cal T}(-\frac{\widetilde{h}}{2})$:
 \begin{equation}
 \begin{aligned}
 \label{eq:ND_StratifiedCase_relation_tilde_bar}
-\alpha_{sl, u}\widetilde{u} = \overline{u}_{k+1/2} +
+	\alpha_{sl, u}\widetilde{u} &= \overline{u}_{k+1/2} +
 	\tau_{sl, u}
 \widetilde{h}
-	(\phi_k/3 + \phi_{k+1}/6) \\
+	(\frac{\phi_k}{3} + \frac{\phi_{k+1}}{6})
+	- (1- \alpha_{sl, u}) u(0)\\
 \alpha_{sl, \theta}
 \widetilde{\theta}
-= \overline{\theta}_{k+1/2} + \tau_{sl, \theta}
+	&= \overline{\theta}_{k+1/2} + \tau_{sl, \theta}
 	\widetilde{h}(\frac{{(\partial_z \theta)}_k}{3} + \frac{{(\partial_z \theta)}_{k+1}}{6})
  - (1 - \alpha_{sl, \theta})\theta_s
 \end{aligned}
@@ -166,10 +174,10 @@ The scheme can then use as boundary conditions at the surface layer:
 \begin{aligned}
 	K_{u,k} \phi_k = {u_\star}^2
   \frac{\overline{u}_{k+1/2} - \frac{\widetilde{h}^2}{h_{k+1/2}}
-	(\frac{\phi_k}{3} + \frac{\phi_{k+1}}{6})}
-	{\alpha_{sl, u}||u^n(\delta_{sl})||} \\
+	(\frac{\phi_k}{3} + \frac{\phi_{k+1}}{6}) - u(0)}
+	{\alpha_{sl, u}||u^n(\delta_{sl})-u(0)||} \\
   \frac{\alpha_{sl, \theta} }
-  {C_H |u(\delta_{sl})|}
+	{C_H |u(\delta_{sl})-u(0)|}
 	K_{\theta, k} (\partial_z \theta)_k = 
   \overline{\theta}_{k+1/2} - \frac{\widetilde{h}^2}{h_{k+1/2}}
 	(\frac{{(\partial_z \theta)}_k}{3} +
@@ -183,59 +191,71 @@ the surface layer is for $u$:
 \label{eq:ND_StratifiedCase_prognosticu_FVfree}
     \begin{aligned}
 (\partial_t + if)
-	    \left(\frac{\widetilde{h}}{6h_{k+1}} 
+	    \left(\frac{\widetilde{h}}{6} 
     \phi_k
     +
     \left(
-	    \frac{\widetilde{h}}{3h_{k+1}} 
-	    + \frac{h_{k+3/2}}{3h_{k+1}}
+	    \frac{\widetilde{h}}{3} 
+	    + \frac{h_{k+3/2}}{3}
     \right)
 	    \phi_{k+1}
-	    + \frac{h_{k+3/2}}{6h_{k+1}} \phi_{k+2}\right)
+	    + \frac{h_{k+3/2}}{6} \phi_{k+2}\right)
     = \\
 	    \frac{K_{u, k+2} \phi_{k+2} - K_{u, k+1} \phi_{k+1}}
-	    {h_{k+3/2}h_{k+1}} - \frac{K_{u, k+1} \phi_{k+1} -
-	    K_{u,k} \phi_k }{\widetilde{h}h_{k+1}}
+	    {h_{k+3/2}} - \frac{K_{u, k+1} \phi_{k+1} -
+	    K_{u,k} \phi_k }{\widetilde{h}}
     \end{aligned}
 \end{equation}
 \begin{equation}
+    \begin{aligned}
 	\label{eq:ND_StratifiedCase_semiDiscreteEkmanEqFVfree}
 	(\partial_t+if) \left(\frac{1}{\alpha_{\rm sl, u}}
 	\left(\overline{u}_{k+1/2} + \widetilde{h}\tau_{\rm sl, u}
-	(\frac{\phi_k}{3} + \frac{\phi_{k+1}}{6})\right)\right)
-	= \frac{K_{u, k+1}\phi_{k+1} - K_{u,k} \phi_k}{\widetilde{h}}
+	(\frac{\phi_k}{3} + \frac{\phi_{k+1}}{6})
+	- (1 - \alpha_{sl, u})u(0)
+	\right)\right)
+	= \\
+    \frac{K_{u, k+1}\phi_{k+1} - K_{u,k} \phi_k}{\widetilde{h}}
+    + i f u_G
+    \end{aligned}
 \end{equation}
 and the same applies for $\theta$:
 \begin{equation}
 \label{eq:ND_StratifiedCase_prognosticPT_FVfree}
     \begin{aligned}
-\partial_t \left(\frac{\widetilde{h}}{6h_{k+1}} 
+	    &\partial_t \left(\frac{\widetilde{h}}{6} 
 	    {(\partial_z \theta)}_k
     +
     \left(
-	    \frac{\widetilde{h}}{3h_{k+1}} 
-	    + \frac{h_{k+3/2}}{3h_{k+1}}
+	    \frac{\widetilde{h}}{3} 
+	    + \frac{h_{k+3/2}}{3}
     \right)
 	    {(\partial_z \theta)}_{k+1}
-	    + \frac{h_{k+3/2}}{6h_{k+1}} {(\partial_z \theta)}_{k+2}\right)
+	    + \frac{h_{k+3/2}}{6} {(\partial_z \theta)}_{k+2}\right)
     = \\
-	    \frac{K_{\theta, k+2} {(\partial_z \theta)}_{k+2} -
+	    &\frac{K_{\theta, k+2} {(\partial_z \theta)}_{k+2} -
 	    K_{\theta, k+1} {(\partial_z \theta)}_{k+1}}
-	    {h_{k+3/2}h_{k+1}} - \frac{K_{\theta, k+1} {(\partial_z \theta)}_{k+1} -
-	    K_{\theta, k} {(\partial_z \theta)}_k }{\widetilde{h}h_{k+1}}
+	    {h_{k+3/2}} - \frac{K_{\theta, k+1} {(\partial_z \theta)}_{k+1} -
+	    K_{\theta, k} {(\partial_z \theta)}_k }{\widetilde{h}}
+	    + \overline{F_{\theta, k+3/2}} -
+	    \overline{F_{\theta, k+1/2}}
     \end{aligned}
 \end{equation}
 \begin{equation}
+    \begin{aligned}
 	\label{eq:ND_StratifiedCase_semiDiscreteEkmanEqPTFVfree}
-	\partial_t \left(\frac{1}{\alpha_{\rm sl, \theta}}
+	    &\partial_t \left(\frac{1}{\alpha_{\rm sl, \theta}}
 	\left(
 	\overline{\theta}_{k+1/2} + \tau_{sl, \theta}
 	\widetilde{h}(\frac{{(\partial_z \theta)}_k}{3} +
 	\frac{{(\partial_z \theta)}_{k+1}}{6})
 	 - (1 - \alpha_{sl, \theta})\theta_s
 	\right) \right)
-	= \frac{K_{\theta, k+1}{(\partial_z \theta)}_{k+1} -
+	= \\
+	    &\frac{K_{\theta, k+1}{(\partial_z \theta)}_{k+1} -
 	K_{\theta,k} {(\partial_z \theta)}_k}{\widetilde{h}}
+	    + \overline{F_{\theta, k+1/2}}
+    \end{aligned}
 \end{equation}
 
 \begin{figure}
@@ -255,8 +275,8 @@ and the same applies for $\theta$:
 
 
 \subsection{Turbulent viscosities}
-\subsubsection{Finite Volumes discretization of TKE}
 \label{sec:ND_StratifiedCase_turbulentVisc}
+\subsubsection{Finite Volumes discretization of TKE}
 The Turbulent Kinetic Energy (TKE) evolves with the equation
 \begin{equation}
 \label{eq:ND_StratifiedCase_TKE}
@@ -272,7 +292,7 @@ The Turbulent Kinetic Energy (TKE) evolves with the equation
 \end{equation}
 The turbulent viscosities $K_u, K_{\theta}$ and $K_e$ are computed
 with $(K_u, K_\theta, K_e) = (C_m , C_s \phi_z, C_e)l_m \sqrt{e}$.
-$l_m, l_\epsilon$ are obtained with the fourth method described in \cite{lemarie2021gmd} (section 4.2.2) named $l^\star_{\rm D80}$.
+$l_m, l_\epsilon$ are obtained with the fourth method described in \cite{lemarie_simplified_2021} (section 4.2.2) named $l^\star_{\rm D80}$.
 
 In the Neutral case, no buoyancy term intervene in the computation
 of the TKE.
@@ -285,8 +305,7 @@ $l_\epsilon$ is constant.
 % to ensure positivity preservation of $\overline{e}$ {\color{red}[ref ?]
 % }} even if it does not guarantee positivity of TKE when
 % dealing with Finite Volumes.
-Shear and buoyancy are also assumed to be constant in each cell
-({\color{red} rough approximations}):
+Shear and buoyancy are also assumed to be constant in each cell:
 \begin{equation}
 \label{eq:ND_StratifiedCase_SemiDiscreteTKE}
     \left(
@@ -405,7 +424,7 @@ to compute $|\partial_z u|$ and using
 \eqref{eq:ND_StratifiedCase_partial_z_theta}
 for $N^2 = \frac{g}{\theta_{ref}}\partial_z \theta$.
 After $l_{up}^0$ has beed computed, as in
-\cite{lemarie2021gmd} $l_{up}$ is limited by
+\cite{lemarie_simplified_2021} $l_{up}$ is limited by
 the distance to the top and by the distance to a strongly
 stratified portion of the air column.
 Keeping the same computing routine for $l_{up}$ seems
