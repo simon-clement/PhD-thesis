@@ -310,16 +310,13 @@ Shear and buoyancy are also assumed to be constant in each cell:
 \label{eq:ND_StratifiedCase_SemiDiscreteTKE}
     \left(
     \frac{c_\epsilon \sqrt{\overline{e}^n}}{l_\epsilon}
-	+ {\rm Ptk} \frac{K_{\theta} N^2}{\overline{e}^n}
     + \partial_t
     \right) \overline{e}
     =\frac{K_{e,m+1} (\partial_z e)_{m+1} -
     K_{e,m} (\partial_z e)_{m}}{h_{m+1/2}}
     + K_u ||\partial_z u||^2
-    - (1 - {\rm Ptk}) K_\theta N^2
+    - K_\theta N^2
 \end{equation}
-Where ${\rm Ptk}=1$ if $K_u ||\partial_z u||^2 \leq K_\theta N^2$, 
-otherwise ${\rm Ptk}=0$.
 Similarly to $\theta$ and $u$, the prognostic equation
 to find the spatial derivative of the TKE at 
 the borders of the cells is
@@ -342,9 +339,6 @@ the borders of the cells is
 \\
 &- \left(K_{u} ||\partial_z u||^2
 -  K_\theta N^2 
-\left({\rm Ptk}
-\left(\frac{\overline{e}}{\overline{e}^n} - 1\right)
-+ 1\right)
 - \frac{c_\epsilon \sqrt{\overline{e}}}{l_\epsilon} \overline{e}
 \right)_{dm} = 0
 \end{aligned}
