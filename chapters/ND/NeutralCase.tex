@@ -238,8 +238,18 @@ The discretization consists in two parts:
   {\color{red} regarder la doc de l'IFS pour ça}
   A summary of those discretizations
   is presented in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
-  {\color{red} Ca manque d'une explication en FD ?}
   \begin{itemize}
+	  \item With Finite Differences:
+		  it is assumed that
+		  $\delta_{\rm sl} = z_{\frac{1}{2}}$.
+		The Finite Differences approximation applied on
+		  the evolution equation states that
+		  $(\partial_t+if) u_{\frac{1}{2}}
+		  =\frac{1}{h_{\frac{1}{2}}}(K_1\phi_1 - K_0\phi_0)
+		  + if u_G$.
+		  The bulk is carried with the value
+		  $u(\delta_{sl}) = u_{1/2}$ and the boundary
+		  condition is simply applied on $K_0\phi_0$.
 	  \item "FV pure": $\delta_{\rm sl} = z_{\frac{1}{2}}$. Similar to a Finite Differences discretization.
 	    The reconstruction of $u(z)$ is used to get 
 		  $u(z_{\frac{1}{2}})$.
@@ -297,7 +307,10 @@ The "FV pure" and "FV1" strategies are not satisfactory because
 \begin{itemize}
 	\item "FV1" relies on the assumption that $\overline{u}_{\frac{1}{2}} = u(z_{\frac{1}{2}})$
 	\item both strategies assume that $u(z)$ is a parabolic spline in the surface layer and that $\eqref{eq:ND_NeutralCase_EkmanEq}$
-		can be applied as well.
+		can be applied as well. Note that this is not
+		the case with Finite Differences:
+		$\eqref{eq:ND_NeutralCase_EkmanEq}$ is not assumed
+		below $z_{1/2}$.
 \end{itemize}
 The "FV2" surface flux scheme solves those problems.
 However, for all those discretizations, changing the space step
