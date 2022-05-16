@@ -29,31 +29,34 @@
 		obtention du cas (1D + guide géostrophique)
 		\begin{enumerate}
 			\item équations primitives non turbulentes
-			\item Décomposition de Reynolds, TKE
+			\item Décomposition de Reynolds
+			\item Fermeture Turbulente et énergie cinétique turbulente
 		\end{enumerate}
-	\item un couplage à 3 domaines
+	\item La couche limite de surface
 		\begin{enumerate}
 			\item Loi du mur et Monin-Obukhov
-			\item Le couplage complet
+			\item Bulk two-sided, le couplage complet
 		\end{enumerate}
 	\item Hiérarchie de modèles utilisés
 		\begin{enumerate}
 			\item Couplage d'équations de
 				réaction-diffusion avec
 				diffusions différentes
-			\item Couplage d'Ekman avec $C_D$ constant
+			\item Couplage d'Ekman avec une loi de friction
 			\item Couplage d'Ekman stratifié ou non,
-				avec $C_D(u_\star)$ et TKE
+				avec bulk et énergie cinétique turbulente
 		\end{enumerate}
+	\item Contexte et objectifs de la thèse
 \end{enumerate}
-\item Etude détaillée semi-discrètes et discrète de Schwarz avec
-	conditions hétérogènes.
-	\begin{enumerate}
-		\item Papier SMAI "Discrete Analysis of SWR for a Diffusion
-			Reaction problem with Discontinuous Coefficients"
+\item Discrete Analysis of SWR for a Diffusion Reaction problem
+	with Discontinuous Coefficients
+		\begin{enumerate}
+		\item Papier SMAI "Discrete Analysis of SWR for a
+			Diffusion Reaction problem with
+				Discontinuous Coefficients"
 			\begin{enumerate}
 				\item Model problem and SWR algorithm
-				\item S-D and Discrete CV rates
+				\item Semi-discrete and Discrete convergence rates
 				\item Discrete Case
 				\item Numerical examples, optimisation
 			\end{enumerate}
@@ -68,10 +71,10 @@
 		\item Sur la solution monolithique
 			\begin{enumerate}
 				\item précision nécessaire de
-					$\gamma$ pour avoir un ordre 2
+					la projection
+					des conditions d'interface
+					pour avoir un ordre 2
 				\item Ecart à la solution monolithique
-					avec condition $\kappa_c=1$
-					et avec $\gamma$
 			\end{enumerate}
 
 	\end{enumerate}
@@ -82,19 +85,22 @@
 			\begin{enumerate}
 					\item Discretisation and SWR
 					\item Modified equations
-					\item Combining S-D analyses
+					\item Combining Semi-discrete analyses
 					\item Effect on optimisation
 			\end{enumerate}
-		\item Inexactitude du facteur de CV discret
+		\item Limitations du facteur de convergence discret
 			\begin{enumerate}
 				\item Domaines bornés
 				\item Taille de la fenêtre de temps
 				\item Initialisation aléatoire :
-					bruit blanc 	
+					influence du choix
+					du bruit blanc 	
 			\end{enumerate}
+		\item Conclusion partielle
+			% avant de passer à des modèles + sophistiqués
 	\end{enumerate}
 \item Discrétisation des couches limites de surface atmosphérique
-	et océanique
+	et océanique cohérente avec la théorie physique
 	\begin{enumerate}
 		\item Cas neutre atmosphérique
 			\begin{enumerate}
@@ -106,9 +112,9 @@
 			\begin{enumerate}
 				\item Rappels de Monin-Obukhov
 					et discretisation FV pour 
-					$\theta$
+					la température
 				\item Extension de la reconstruction
-				\item Longueurs de mélanges et M-O
+				\item Longueurs de mélanges et Monin-Obukhov
 			\end{enumerate}
 		\item Consistence du schéma "FV free"
 			et sensibilité à $\delta_a$
@@ -124,7 +130,7 @@
 					dérivation similaire
 				\item flux radiatifs et reconstruction
 				\item Bulk two-sided et sensibilité à
-					$\delta_o$
+					la profondeur de couche limite
 			\end{enumerate}
 	\end{enumerate}
 \item Convergence des algorithmes de Schwarz appliqué au couplage
@@ -134,7 +140,7 @@
 		simplified air-sea coupling problem
 		with nonlinear transmission conditions"
 		\begin{enumerate}
-			\item Model Problem for OA coupling
+			\item Model Problem for ocean-atmosphere coupling
 			\item Discretized coupled problem
 			\item Convergence analysis
 			\item Numerical experiments
