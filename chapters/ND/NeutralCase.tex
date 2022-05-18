@@ -512,6 +512,19 @@ The notations are summed up in Figure
 	}
 	\label{fig:ND_NeutralCase_nouvelle_dis_neutre}
 \end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.6]{images/neutral_comparisonPlot.pdf}
+	\caption{Vertical profiles of $|u|$ (top) and $\arg(u)$ (bottom)
+	for the various surface flux schemes presented
+	after one day of integration in time in neutral conditions.
+	The time step is $\Delta t = 30 \;{\rm s}$
+	and the vertical levels are taken
+	on the ECMWF website as the
+	25 first of the 137 levels configuration.
+	}
+	\label{fig:ND_NeutralCase_comparisonPlot}
+\end{figure}
 \begin{remark}
 	The flux $K_u \phi$ is constant in the surface layer. Hence
 	$K_{u,\delta}\phi_{\delta} = K_{u,0} \phi_0$ and since the
@@ -644,32 +657,42 @@ used to integrate $\phi$ in time
 is also changed for $m=1$: $h_{m-1/2}$ is replaced
 with $\widetilde{h}$ and $K_{u, m-1}\phi_{m-1}$ is replaced by
 $K_{u,\delta}\phi_{\delta}$.
-\paragraph{In the general case where $\delta_{\rm sl} \geq z_k$.}
-Let $k$ be such that $z_k \leq \delta_{\rm sl} < z_{k+1}$.
-The surface layer scheme "FV free" is identical to the case $k=0$, except that
-\begin{itemize}
-	\item the subcell of average $\widetilde{u}$ and of size
-		$\widetilde{h}$ is $[\delta_{\rm sl}, z_{k+1}]$:
-		$k$ is added to the indices in 
-		\eqref{eq:ND_NeutralCase_boundaryCondFVfree} and
-		\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree};
-	\item $\tau_{sl} = \frac{1}{{h_{1/2}}}\int_{z_k}^{\delta_{sl}} \frac{\log(1+\frac{z}{z_{0M}})}{\log(1+\frac{\delta_{sl}}{z_{0M}})} dz$ and $\alpha_{\rm sl} = \frac{\widetilde{h}}{h_{k+1/2}} + \tau_{\rm sl}$;
-	\item for $m < k$, the cell $[z_m, z_{m+1}]$ is filled with
-		$K_{u,m} \phi_m = K_{u,k}\phi_k =
-	{u_\star}^2e_\tau$
-		and the average $\overline{u}_{m+1/2}$
-		is computed with the integrated wall law
-		between $z_m$ and $z_{m+1}$.
-		The subgrid reconstruction in those cells are directly
-		the wall law.
-\end{itemize}
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.55]{images/consistency_comparison.pdf}
-	\includegraphics[scale=0.55]{images/consistency_comparison_linearscale.pdf}
-	\caption{Neutral case's numerical experiment. Top: log-scaled, bottom: linear-scaled}
-	\label{fig:ND_NeutralCase_NumericalExp}
-\end{figure}
+%
+\par
+Figure \ref{fig:ND_NeutralCase_comparisonPlot} is a snapshot of
+the vertical profiles of $|u|$ and $\arg(u)$ close to the surface
+for the surface flux schemes presented.
+The profiles are obtained after 24 hours of integration in neutral
+conditions and with $u(0) = 0$.
+It is seen that the profiles of $|u|$ with the "FV free" and "FV2"
+follow a wall law. The "FV1" and "FV pure" discretizations
+present identical profiles that are close to the Finite Differences
+discretization. However, it is the case only when $K_0$ is
+replaced by $K_{\delta}$ in those discretizations
+(see the paragraph "On the value of $K_{u,0}$" below).
+The profile of $\arg(u)$ is significantly affected by the surface
+flux scheme: it is not surprising as the Coriolis effect is
+not taken into account in the surface layer for the "FV2" and
+"FV free" parameterizations.
+The differences between "FV2" and "FV free" only come from the
+choice of $\delta_{sl}$:
+by choosing $\delta_{sl}=z_1$, both profiles would have been
+rigorously identical
+(see the paragraph "in the general case where
+$\delta_{sl} \geq z_1$" below).
+\par
+Finally, a large part of the differences shown here come from
+the turbulent closure; having an explicit surface layer changes
+the turbulent kinetic energy in the first level. The discretization
+of the turbulent viscosities will be detailed in the stratified part
+(Section \ref{sec:ND_StratifiedCase_turbulentVisc}).
+% \begin{figure}
+% 	\centering
+% 	\includegraphics[scale=0.55]{images/consistency_comparison.pdf}
+% 	\includegraphics[scale=0.55]{images/consistency_comparison_linearscale.pdf}
+% 	\caption{Neutral case's numerical experiment. Top: log-scaled, bottom: linear-scaled}
+% 	\label{fig:ND_NeutralCase_NumericalExp}
+% \end{figure}
 % \subsection{Variation of $\delta_{\rm sl}$}
 % In this subsection we assume that $\delta_{\rm sl}$ can differ
 % from one time to another. Let us note
@@ -740,16 +763,36 @@ In the continuity equation at $z=z_1$, it is implicitly used that
 The (small) value of $K_{u,0}$ directly appears when we assume the
 parabolic profile inside the first grid level.
 As a result, $\partial_t u(z_1)$ scales with $\frac{1}{K_0}$ and
+as it is seen in Figure \ref{fig:ND_NeutralCase_comparisonPlot}
 exhibits unreasonable values.
 To obtain physically plausible profiles,
-by copying the expression of the "FV free" scheme
-$\phi_{\delta} = \frac{K_{mol}}{K_{u,\delta}}\phi_0$ the surface
-viscosity can be multiplied by $\frac{K_{u,\delta}}{K_{mol}}$
-but it does not correspond to the original discretisation choice.
-The consequence is that $\phi_0$ would correspond
-to neither $(\partial_z u)(z_0)$ nor
-		$(\partial_z u)(z_{\delta_{sl}})$.
+by copying the expression $\phi_{\delta} = \frac{K_{mol}}{K_{u,\delta}}\phi_0$ of the "FV free" scheme, the surface
+viscosity will be multiplied by $\frac{K_{u,\delta}}{K_{mol}}$.
+However, it does not correspond to the original discretisation choice.
+The consequence is that $\phi_0$ really corresponds
+to neither $(\partial_z u)(z_0)$ nor $(\partial_z u)(z_{\delta_{sl}})$.
 {\color{red} J'aimerais avoir une idée de si ce genre de trucs
 		arrive dans des modèles + sophistiqués}
 \end{itemize}
 
+\paragraph{In the general case where $\delta_{\rm sl} \geq z_k$.}
+Let $k$ be such that $z_k \leq \delta_{\rm sl} < z_{k+1}$.
+The surface layer scheme "FV free" is identical to the case $k=0$, except that
+\begin{itemize}
+	\item the subcell of average $\widetilde{u}$ and of size
+		$\widetilde{h}$ is $[\delta_{\rm sl}, z_{k+1}]$:
+		$k$ is added to the indices in 
+		\eqref{eq:ND_NeutralCase_boundaryCondFVfree} and
+		\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree};
+	\item $\tau_{sl} = \frac{1}{{h_{1/2}}}\int_{z_k}^{\delta_{sl}} \frac{\log(1+\frac{z}{z_{0M}})}{\log(1+\frac{\delta_{sl}}{z_{0M}})} dz$ and $\alpha_{\rm sl} = \frac{\widetilde{h}}{h_{k+1/2}} + \tau_{\rm sl}$;
+	\item for $m < k$, the cell $[z_m, z_{m+1}]$ is filled with
+		$K_{u,m} \phi_m = K_{u,k}\phi_k =
+	{u_\star}^2e_\tau$
+		and the average $\overline{u}_{m+1/2}$
+		is computed with the integrated wall law
+		between $z_m$ and $z_{m+1}$.
+		The subgrid reconstruction in those cells are directly
+		the wall law.
+\end{itemize}
+It is straightforward to check that for $\delta_{sl} = z_1$
+the "FV2" scheme is rigorously recovered.
