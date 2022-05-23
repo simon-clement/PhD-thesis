@@ -19,11 +19,10 @@ different heights of surface layer
 such that $\delta_1 < \delta_2$.
 
 Let $u_1$, $u_2$, be solutions of 
-\eqref{eq:ND_NeutralCase_EkmanEq},
-\eqref{eq:ND_NeutralCase_constantFlux} using
+\eqref{eq:ND_NeutralCase_continuousModel} using
 respectively $\delta_1, \delta_2$ for $\delta_{sl}$.
 
-\subsubsection{Same viscosities}
+\subsubsection{Analytical study assuming identical viscosities}
 First, note that inside the surface layer for $u_2$,
 since $u_2(z) = \frac{u_\star}{\kappa}\log(1+\frac{z}{z_0})
 \frac{u_2(\delta_{2})}{||u_2(\delta_{2})||}$, assuming
@@ -65,11 +64,14 @@ Then
 	\end{cases}
 \end{equation}
 \subsubsection{Semi-Discrete Consistency (Finite Differences)}
-{\color{red} ATTENTION ICI
- ON MONTRE JUSTE QU'ON PEUT PRENDRE $u(z<\delta_{\rm sl})$ POUR
- CONNAITRE L'ANGLE SI ON LE FAIT PROPREMENT.
- EN BREF, CA SERT A RIEN.
-}
+{\color{red} A rédiger mieux: montrer que
+$\partial_{\delta_{sl}}(K_0\phi_0)(z_\frac{1}{2})=0$ au moins
+pour $z_0M$ fixé. Pour $z_0M$ non fixé ça doit pouvoir se faire
+aussi je pense. Ca veut dire qu'il est inutile d'essayer de faire
+mieux en différences finies puisque y'a pas une grosse sensibilité.
+Ca va donc nécessairement (pour pas perdre la face) avec
+une démonstration de l'importance de FV free ?}
+\par
 This subsection shows that the semi-discrete in space
 Finite Differences
 scheme is not very sensitive to the value of $\delta_{\rm sl}$.
@@ -119,6 +121,6 @@ $\partial_z u=\frac{u(\delta_{\rm sl})}{(\delta_{\rm sl} + z_0)
 Combining with $\frac{\kappa^2}{\log(1+\frac{\delta_{sl}}{z_0})}$,
 we find the (left) derivative of the right-hand side of
 \eqref{eq:ND_Consistency_SemiDiscreteBdCond} with respect to
-$\delta_sl$ to be equal to zero.
+$\delta_{sl}$ to be equal to zero.
 \subsection{Study of the consistency: stable case}
 \subsection{Study of the consistency: unstable case}

@@ -342,7 +342,31 @@ The Turbulent Kinetic Energy (TKE) evolves with the equation
 \end{equation}
 The turbulent viscosities $K_u, K_{\theta}$ and $K_e$ are computed
 with $(K_u, K_\theta, K_e) = (C_m , C_s \phi_z, C_e)l_m \sqrt{e}$.
-$l_m, l_\epsilon$ are obtained with the fourth method described in \cite{lemarie_simplified_2021} (section 4.2.2) named $l^\star_{\rm D80}$.
+$l_m = \sqrt{l_{\rm up} l_{\rm down}}$ and
+$l_\epsilon = \min{l_{\rm up} l_{\rm down}}$
+are obtained with the fourth method described in
+\cite{lemarie_simplified_2021} named $l^\star_{\rm D80}$:
+\begin{enumerate}
+	\item Define
+		\begin{equation}
+			l^\star_{\rm D80} = \frac{2\sqrt{e}}
+			{c_0 ||\partial_z u|| + \sqrt{
+				c_0^2 ||\partial_z u||^2 + 2 N^2
+			}};
+		\end{equation}
+	\item initialize $l_{\rm up}$ and $l_{\rm down}$ to
+		$l^\star_{\rm D80}$;
+	\item limit $l_{\rm up}$ by the distance to the top and to
+		a strongly stratified area: this is done by
+		ensuring $-\partial_z l_{\rm up} < 1$ and
+		$l_{\rm up}(z_{\rm top}) \approx 0$.
+	\item limit $l_{\rm down}$ by the distance to the surface
+		and to a strongly stratified area: this is done by
+		ensuring $\partial_z l_{\rm down} < 1$ and
+		an appropriate surface layer value.
+		The value here is not zero so that the surface layer
+		links correctly with the computational domain.
+\end{enumerate}
 
 In the Neutral case, no buoyancy term intervene in the computation
 of the TKE.
@@ -375,9 +399,9 @@ the borders of the cells is
 \begin{aligned}
 &\partial_t
 \left(
-    h_{m-1/2}\frac{(\partial_z e)_{m-1}}{12}+
-    h_m\frac{10(\partial_z e)_{m}}{12}+
-    h_{m+1/2}\frac{(\partial_z e)_{m+1}}{12}
+    h_{m-1/2}\frac{(\partial_z e)_{m-1}}{6}+
+    h_m\frac{2(\partial_z e)_{m}}{3}+
+    h_{m+1/2}\frac{(\partial_z e)_{m+1}}{6}
 \right)
 \\&-
     \left(\frac{K_{e,m+1} (\partial_z e)_{m+1} -
@@ -404,9 +428,6 @@ $\partial_z u$ and $N^2$ are given by MOST.
 A homogeneous Neumann boundary condition is used at the top.
 
 \subsubsection{Matching viscosities at the surface layer}
-{\color{red} TODO utiliser
-la version simple et voir si ça fonctionne: pourquoi on utilise
-la version compliquée dans le code ?!}
 In order to obtain a regular solution out of the "FV free"
 discretization, we derive here the constraints on mixing length
 and on TKE inside the surface layer.
@@ -525,26 +546,10 @@ into the previous equation and get
 	\end{cases}
 \end{equation}
 It is actually sufficient to use
-\eqref{eq:ND_StratifiedCase_solution_l_down1} to compute $l_{down}$.
-
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.55]{images/colorplots_FVlowres.pdf}
-	\includegraphics[scale=0.55]{images/colorplots_FVhighres.pdf}
-	\caption{Stratified (unstable) case's numerical experiment ("FV free").
-	Top: low resolution, bottom: high resolution.
-	The resolution of the bottom image does not give the space step.
-	}
-	\label{fig:ND_StratifiedCase_NumericalExpUnstableColorplot}
-\end{figure}
-
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.55]{images/colorplots_FDlowres.pdf}
-	\includegraphics[scale=0.55]{images/colorplots_FDhighres.pdf}
-	\caption{Stratified (unstable) case's numerical experiment (FD).
-	Top: low resolution, bottom: high resolution
-	The resolution of the bottom image does not give the space step.
-	}
-	\label{fig:ND_StratifiedCase_NumericalExpUnstableColorplot}
-\end{figure}
+\eqref{eq:ND_StratifiedCase_solution_l_down1}
+to compute $l_{down}$ explicitly. It also guarantees that
+the MOST viscosity and the MOST diffusivity numerically
+scale with $l_m\sqrt{e}$.
+However, by using \eqref{eq:ND_StratifiedCase_solution_l_down2}
+the boundary condition for $e(z \leq \delta_{\rm sl})$ is more
+stable. {\color{red} TODO justification empirique}
