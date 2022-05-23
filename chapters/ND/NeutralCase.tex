@@ -123,11 +123,8 @@ $u(z, t^{n+1})$ is:
 	\end{equation}
 	\cite{lemarie_stability_2015} showed that the explicit
 	numerical interface condition is not necessarily
-	stable.
+	stable: we choose to use the implicit condition.
 	% citation: IFS Part IV end of page 48
-	In this chapter the implicit implementation is hence used;
-	however, a combination of those conditions
-	will be performed in chapter \ref{chapter:OACoupling}.
 	The implicit implementation is used for instance in the
 	ECMWF model (see Section 3.5 of \citep{ecmwf_ifs_2020}).
 \end{enumerate}
@@ -569,8 +566,8 @@ with $\tau_{sl} = \frac{1}{{h_{1/2}}}\int_{z_0}^{\delta_{sl}}
 	h_{1/2}\log(1+\frac{\delta_{sl}}{z_{0M}})}$ a non-dimensional
 number $0 \leq\tau_{sl} < 1$ which depends on the log law and
 on the values of $\widetilde{h}, h_{1/2}$.
-In this neutral case $\tau_{\rm sl} = 0 \iff \widetilde{h}=h_{1/2}$
-
+Note that $\tau_{\rm sl} = 0 \iff \widetilde{h}=h_{1/2}$.
+{\color{red} pourquoi on a pas $\widetilde{u} = \overline{u}$ alors?}
 \begin{remark}
 $\tau_{\rm sl}$ is a constant in the neutral case
 when $\delta_{\rm sl}$ and $z_{0M}$ are constants. However,
@@ -578,8 +575,10 @@ $z_{0M}$ depends on $u_\star$ and will vary.
 In all this thesis we assume that $\delta_{\rm sl}$ does not
 change over time.
 \end{remark}
-
+%
 Let $\alpha_{\rm sl}(t) = \frac{\widetilde{h}}{h_{1/2}}+\tau_{sl}(t)$.
+It is straightforward to show that $\alpha_{\rm sl}$ increases with
+$\widetilde{h}$ and that $0<\alpha_{\rm sl} \leq 1$.
 Then $\widetilde{u}$ can be expressed in terms of the prognostic
 variables with \eqref{eq:ND_NeutralCase_utildeExpression}
 % $\widetilde{u} = \frac{1}{\alpha_{\rm sl}}\left(
@@ -796,3 +795,5 @@ The surface layer scheme "FV free" is identical to the case $k=0$, except that
 \end{itemize}
 It is straightforward to check that for $\delta_{sl} = z_1$
 the "FV2" scheme is rigorously recovered.
+The derivation for any $\delta_{\rm sl} \geq 0$ is detailed for
+the stratified case in section \ref{sec:ND_StratifiedCase_FVfree}

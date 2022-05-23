@@ -1,6 +1,24 @@
 \section{Stratified case}
-In this section, we no longer assume that the stratification
-is neutral. The effect of humidity is neglected.
+Now that all the ideas have been presented in the Neutral case,
+we extend the discussion to the case of a stratified column.
+A stratified fluid has layers of different densities.
+We assume for simplicity that the atmosphere
+is dry and that the density variation is
+proportional to the variation of the temperature:
+\begin{equation}
+	\partial_z \rho \propto
+	- \partial_z \theta.
+\end{equation}
+The stratification is hence given by a temperature profile:
+if the temperature increases with $z$, the column is said
+to be stable and the vertical mixing is reduced. This is
+typically the case above sea ice or during the night.
+On the contrary an unstable stratification comes from
+a decreasing temperature with $z$: it happens
+during daytime of diurnal cycles and enhance the
+vertical mixing.
+%
+\par
 We first discuss the continuous and semi-discrete in space
 equations, then extend the previous discussion on the wall law to
 Monin-Obukhov Similarity Theory (MOST).
@@ -9,35 +27,32 @@ profile of viscosities depending on the turbulent kinetic energy
 (TKE).
 \subsection{Continuous model and Finite Volumes discretization}
 \subsubsection{Continuous model}
-The wind speed $u$ and the potential temperature $\theta$ evolve
-together with
-\begin{equation}
-\begin{aligned}
+The continuous equations stay the same for $u$
+(see \eqref{eq:ND_NeutralCase_continuousModel}),
+except that the turbulent viscosity and the
+friction scale $u*$ depends on the temperature $\theta$:
+\begin{subequations}
+	\label{eq:ND_StratifiedCase_continuousModel}
+	\begin{equation}
 	\label{eq:ND_StratifiedCase_EkmanEq}
-  (\partial_t + if) u - \partial_z (\partial_z K_u u) &= if u_G \\
 \partial_t \theta -\partial_z (\partial_z K_{\theta} \theta)
-	&= F_{\theta}.
-\end{aligned}
-\end{equation}
-The viscosities $K_u, K_\theta$ will be detailed in section
-\ref{sec:ND_StratifiedCase_turbulentVisc}.
-The boundary condition on the fluxes $K_u \partial_z u$ and
-$K_\theta \partial_z \theta$
-in the surface layer is
-\begin{equation}
-\begin{aligned}
-	\left.K_u \partial_z u \right|_{z\leq \delta_{\rm sl}}
-	&= u_\star^2
-	\frac{u(\delta_{\rm sl})-u(0)}
-	{||u(\delta_{\rm sl}) - u(0)||} \\
+	= F_{\theta},~~~~~~~~~~~~~~ z \geq \delta_{sl}
+	\end{equation}
+	\begin{equation}
+	\label{eq:ND_StratifiedCase_ConstantFlux}
 	\left.K_\theta \partial_z \theta
 	\right|_{z\leq \delta_{\rm sl}}
-	&= \theta_\star u_\star = C_H
+	= \theta_\star u_\star = C_H
 	||u(\delta_{\rm sl}) - u(0)||
 	\left(\theta(\delta_{\rm sl}) - \theta_{s}\right)
-\end{aligned}
-\end{equation}
-and MOST profiles are
+	,~~~ z < \delta_{sl}
+	\end{equation}
+\end{subequations}
+The viscosities $K_u, K_\theta$ will be detailed with
+the discretization of the turbulent kinetic energy in section
+\ref{sec:ND_StratifiedCase_turbulentVisc}.
+In the surface layer, Monin-Obukhov Similarity Theory (MOST)
+profiles for $u$ and $\theta$ are
 \begin{equation}
 \label{eq:ND_StratifiedCase_MOST}
 \begin{aligned}
@@ -63,6 +78,16 @@ $C_H|u(\delta_{sl})- u(0)| =
 \frac{u_\star \kappa}{\log(+1\frac{z}{z_{0H}})
     - \psi_\theta(\frac{z}{L_{MO}})
     + \psi_\theta(\frac{z_{0H}}{{L_{MO}}})}$
+Similarly to the neutral case, the semi-discrete in time
+boundary condition is not explicit:
+$C_H^n|u^n(\delta_{sl})- u(0)|$ is computed with the values
+at the current time step whereas the temperature variation
+is taken in the time $n+1$: the boundary condition for temperature
+is
+\begin{equation}
+	K_\theta \partial_z \theta = C_H^n|u^n(\delta_{sl})- u(0)| (\theta^{n+1}(\delta_{\rm sl}) - \theta_s), ~~~~ z < \delta_{\rm sl}
+\end{equation}
+
 \subsubsection{Finite Volumes discretization}
 The discretization of $u$ is exactly the same as in the
 neutral case (\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEq} and \eqref{eq:ND_NeutralCase_prognosticEqFV}) and the discretization of 
@@ -89,17 +114,99 @@ And the derivative of temperature at $z_{m-1}, z_m, z_{m+1}$ solves
 	&= \overline{F}_{\theta, m+1/2} - \overline{F}_{\theta, m-1/2}
 \end{aligned}
 \end{equation}
+We also extend the surface scheme strategies for the temperature:
+\begin{itemize}
+	\item With Finite Differences the evolution equation is
+		solved at $z_{\frac{1}{2}}$ with the surface flux:
+		\begin{equation}
+			\underbrace{K_\theta
+			\partial_z \theta_0^{n+1}}_{\text{
+				Surface flux
+			}} =
+			\underbrace{C_H|u^n_{\frac{1}{2}}- u(0)|
+			(\theta_{\frac{1}{2}}^{n+1}
+			- \theta_s)}_{\text{FD values at}
+			z_{\frac{1}{2}}}.
+		\end{equation}
+	\item With "FV pure" the evolution equation is solved in all
+		the first grid level with the reconstructed
+		value $\theta(\delta_{sl}) = {\cal T}_{1/2}(0)$:
+		\begin{equation}
+			\underbrace{K_\theta
+			\partial_z \theta_0^{n+1}}_{\text{
+				Surface flux
+			}} =
+			\underbrace{C_H
+			|{\cal S}_{1/2}^{n}(0)- u(0)|
+			({\cal T}_{1/2}^{n+1}(0)
+			- \theta_s)}_{\text{Reconstructions at}
+			z_{\frac{1}{2}}}.
+		\end{equation}
+	\item With "FV1" the evolution equation is solved in all
+		the first grid level with the averaged-value
+		assumption that $\theta(\delta_{sl}) =
+		\overline{\theta}_{\frac{1}{2}}$:
+		\begin{equation}
+			\underbrace{K_\theta
+			\partial_z \theta_0^{n+1}}_{\text{
+				Surface flux
+			}} =
+			\underbrace{C_H
+			|\overline{u}_{\frac{1}{2}}^n- u(0)|
+			(\overline{\theta}_{\frac{1}{2}}^{n+1}(0)
+			- \theta_s)}_{\text{Reconstructions at}
+			z_{\frac{1}{2}}}.
+		\end{equation}
+	\item With "FV2" in the first grid level
+		the MOST profile for $\theta$ is assumed as in
+		\cite{nishizawa_surface_2018}.
+		The boundary condition is the flux at the top of the
+		surface layer $\delta_{sl}=z_1$,
+		using the reconstructed solution at $z_1$:
+		\begin{equation}
+			\underbrace{K_\theta
+			\partial_z \theta^{n+1}_1}_{\text{
+				Flux at
+			} z_1} =
+			\underbrace{C_H
+			|{\cal S}_{3/2}^{n}(-\frac{h_\frac{3}{2}}{2})
+			- u(0)|
+			({\cal T}_{3/2}^{n+1}
+			(-\frac{h_\frac{3}{2}}{2})
+			- \theta_s)}_{\text{Reconstructions at}
+			z_{1}}.
+		\end{equation}
+\end{itemize}
+The limitations of the strategies shown in the neutral case are the
+same for the temperature: the "FV1" approach is biased because
+of the approximation
+$\overline{\theta}_{\frac{1}{2}}=\theta(\delta_{\rm sl})$ and
+both "FV1" and "FV pure" assume that the evolution equation occurs
+in the surface layer and approximate a MOST profile with
+a quadratic spline.
+The value of $K_\theta$ at $z_0$ cannot be set to the molecular
+diffusivity in those cases for the same reason as in the neutral case.
+%
+Moreover, the discretizations force $\delta_{sl}$ to the first
+grid level $z_{\frac{1}{2}}$ (or $z_1$ in the case of "FV2").
+We now extend the "FV free" surface scheme to eliminate those
+limitations.
 \subsection{FV free}
-We now have all the ingredients to construct a boundary condition
-that is coherent with the MOST profiles with a free
-$\delta_{sl}$. Let $k$ such that $z_k < \delta_{\rm sl} < z_{k+1}$.
-We assume that
-\eqref{eq:ND_StratifiedCase_MOST} applies for $z<\delta_{sl}$,
-which leads us to separate the 
-cell $[z_k, z_{k+1}]$
-into two parts: the surface layer part $[z_k,\delta_{\rm sl}]$ and the
+\label{sec:ND_StratifiedCase_FVfree}
+In this section \ref{sec:ND_StratifiedCase_FVfree} we follow
+step by step the derivation of the neutral "FV free" scheme and
+apply it to this stratified case. The stratification adds no
+complexity: we hence present the derivation directly for
+any $\delta_{\rm sl} \geq 0$.
+Let $k$ such that $z_k \leq \delta_{\rm sl} < z_{k+1}$.
+As in the neutral case, the cell $[z_k, z_{k+1}]$ is split
+into two parts for the "FV free" surface flux scheme.
+The first part $[z_k,\delta_{\rm sl}]$ is contained
+in the surface layer where the temperature and wind
+follow \eqref{eq:ND_StratifiedCase_MOST}.
+The second part is the
 "subcell" $[\delta_{\rm sl}, z_{k+1}]$ of size $\widetilde{h}$, of
-average $\widetilde{u}, \widetilde{\theta}$
+averages $\widetilde{u}, \widetilde{\theta}$
 and of subgrid reconstructions
 \begin{equation}
 \begin{aligned}
@@ -115,7 +222,8 @@ and of subgrid reconstructions
 	\left(\xi^2 - \frac{\widetilde{h}^2}{12}\right)
 \end{aligned}
 \end{equation}
-Here, $\xi = z - (z_{k+1} - \frac{\widetilde{h}}{2})$.
+where $\xi = z - (z_{k+1} - \frac{\widetilde{h}}{2})$ is defined
+for $\delta_{\rm sl} < z < z_{k+1}$.
 The relation between
 $\overline{u}_{k+1/2}, \overline{\theta}_{k+1/2}$ and
 $\widetilde{u},\widetilde{\theta}$ is, similarly to the neutral case:
@@ -130,9 +238,10 @@ $\widetilde{u},\widetilde{\theta}$ is, similarly to the neutral case:
 	(\theta(\delta_{sl})-\theta_s)\tau_{sl, \theta}
 \end{aligned}
 \end{equation}
-with for $x = u, \theta$:
+where the non-dimensional numbers $\tau_{sl, u}, \tau_{sl, \theta}$
+depend on the stratification. For $x=u, \theta$,
 \begin{equation}
-\tau_{sl, x}^0 = \frac{\frac{1}{{h_{1/2}}}\int_{z_k}^{\delta_{sl}} \log(1+\frac{z}{z_{0x}})- \psi_x(\frac{z}{L_{MO}})
+\tau_{sl, x} = \frac{\frac{1}{{h_{1/2}}}\int_{z_k}^{\delta_{sl}} \log(1+\frac{z}{z_{0x}})- \psi_x(\frac{z}{L_{MO}})
 	dz}{\log(1+\frac{\delta_{sl}}{z_{0x}})- \psi_x(\frac{\delta_{sl}}{L_{MO}})
     }
     =
@@ -140,14 +249,24 @@ with for $x = u, \theta$:
     \left[
 	    (z+z_{0x})\log(1+\frac{z}{z_{0x}})-z
     +
-    z \Psi_m(\frac{z}{L_{MO}}) \right]_{z_k}^{\delta_{sl}}
+    z \Psi_x(\frac{z}{L_{MO}}) \right]_{z_k}^{\delta_{sl}}
     }{\log(1+\frac{\delta_{sl}}{z_{0x}})- \psi_x(\frac{\delta_{sl}}{L_{MO}})
-    }
+    }.
 \end{equation}
-and
-    $\alpha_{sl, x} = \frac{\widetilde{h}_{1/2}}{h_{1/2}} +
-    \tau_{sl, x}$
-non-dimensional numbers.
+Note that we used $\Psi_x$, the averaged form of the universal
+profile stability functions defined in \citep{nishizawa_surface_2018}.
+%
+Since $\log(1+\frac{z}{z_{0x}})-
+\psi_x(\frac{z}{L_{MO}})$ is non-negative and increase with $z$ even
+in strongly unstable situations,
+$0 \leq \tau_{sl, x} < 1$ and as in the neutral case
+$\tau_{sl, x}=0 \iff \widetilde{h}=h_{k+1/2}$. This let us retrieve
+the "FV2" surface flux scheme by setting the height of the surface
+layer to exactly $z_1$.
+We define the non-dimensional number
+$\alpha_{sl, x} = \frac{\widetilde{h}_{1/2}}{h_{1/2}} + \tau_{sl, x}$.
+The increasing nature of MOST profiles gives that
+$0 < \alpha_{sl, x} \leq 1$ increases with $\widetilde{h}$.
 Let us inject $u(\delta_{sl}) =
 {\cal S}(-\frac{\widetilde{h}}{2})$ and
 $\theta(\delta_{sl}) = {\cal T}(-\frac{\widetilde{h}}{2})$:
@@ -166,113 +285,45 @@ $\theta(\delta_{sl}) = {\cal T}(-\frac{\widetilde{h}}{2})$:
  - (1 - \alpha_{sl, \theta})\theta_s
 \end{aligned}
 \end{equation}
-
-The scheme can then use as boundary conditions at the surface layer:
+Finally, equations \eqref{eq:ND_NeutralCase_boundaryCondFVfree} and
+\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree} can be used for
+$u$ and the equations for $\theta$ are similar:
+the boundary condition of "FV free" is
 \begin{equation}
-\label{eq:ND_StratifiedCase_boundaryConditionFVfree}
-\begin{aligned}
-	K_{u,k} \phi_k = {u_\star}^2
-  \frac{\overline{u}_{k+1/2} - \frac{\widetilde{h}^2}{h_{k+1/2}}
-	(\frac{\phi_k}{3} + \frac{\phi_{k+1}}{6}) - u(0)}
-	{\alpha_{sl, u}||u^n(\delta_{sl})-u(0)||} \\
-  \frac{\alpha_{sl, \theta} }
-	{C_H |u(\delta_{sl})-u(0)|}
-	K_{\theta, k} (\partial_z \theta)_k = 
+	\label{eq:ND_StratifiedCase_semiDiscreteEkmanEqFVfree}
+	\underbrace{K_{\theta, \delta} (\partial_z \theta)_\delta}_{
+		\text{Flux at } \delta_{sl}
+	} = 
+	C_H |u(\delta_{sl})-u(0)|
+	\underbrace{
+	\frac{
   \overline{\theta}_{k+1/2} - \frac{\widetilde{h}^2}{h_{k+1/2}}
 	(\frac{{(\partial_z \theta)}_k}{3} +
 	\frac{{(\partial_z \theta)}_{k+1}}{6}) 
-  - \theta_s\\
-\end{aligned}
+  - \theta_s
+}{\alpha_{sl, \theta}}
+	}_{\text{Reconstruction at } \delta_{sl}}
 \end{equation}
-Finally, the scheme at the first grid level above
-the surface layer is for $u$:
-\begin{equation}
-\label{eq:ND_StratifiedCase_prognosticu_FVfree}
-    \begin{aligned}
-(\partial_t + if)
-	    \left(\frac{\widetilde{h}}{6} 
-    \phi_k
-    +
-    \left(
-	    \frac{\widetilde{h}}{3} 
-	    + \frac{h_{k+3/2}}{3}
-    \right)
-	    \phi_{k+1}
-	    + \frac{h_{k+3/2}}{6} \phi_{k+2}\right)
-    = \\
-	    \frac{K_{u, k+2} \phi_{k+2} - K_{u, k+1} \phi_{k+1}}
-	    {h_{k+3/2}} - \frac{K_{u, k+1} \phi_{k+1} -
-	    K_{u,k} \phi_k }{\widetilde{h}}
-    \end{aligned}
-\end{equation}
-\begin{equation}
-    \begin{aligned}
-	\label{eq:ND_StratifiedCase_semiDiscreteEkmanEqFVfree}
-	(\partial_t+if) \left(\frac{1}{\alpha_{\rm sl, u}}
-	\left(\overline{u}_{k+1/2} + \widetilde{h}\tau_{\rm sl, u}
-	(\frac{\phi_k}{3} + \frac{\phi_{k+1}}{6})
-	- (1 - \alpha_{sl, u})u(0)
-	\right)\right)
-	= \\
-    \frac{K_{u, k+1}\phi_{k+1} - K_{u,k} \phi_k}{\widetilde{h}}
-    + i f u_G
-    \end{aligned}
-\end{equation}
-and the same applies for $\theta$:
-\begin{equation}
-\label{eq:ND_StratifiedCase_prognosticPT_FVfree}
-    \begin{aligned}
-	    &\partial_t \left(\frac{\widetilde{h}}{6} 
-	    {(\partial_z \theta)}_k
-    +
-    \left(
-	    \frac{\widetilde{h}}{3} 
-	    + \frac{h_{k+3/2}}{3}
-    \right)
-	    {(\partial_z \theta)}_{k+1}
-	    + \frac{h_{k+3/2}}{6} {(\partial_z \theta)}_{k+2}\right)
-    = \\
-	    &\frac{K_{\theta, k+2} {(\partial_z \theta)}_{k+2} -
-	    K_{\theta, k+1} {(\partial_z \theta)}_{k+1}}
-	    {h_{k+3/2}} - \frac{K_{\theta, k+1} {(\partial_z \theta)}_{k+1} -
-	    K_{\theta, k} {(\partial_z \theta)}_k }{\widetilde{h}}
-	    + \overline{F}_{\theta, k+3/2} -
-	    \overline{F}_{\theta, k+1/2}
-    \end{aligned}
-\end{equation}
+and the evolution equation of the first active grid level is
 \begin{equation}
     \begin{aligned}
 	\label{eq:ND_StratifiedCase_semiDiscreteEkmanEqPTFVfree}
-	    &\partial_t \left(\frac{1}{\alpha_{\rm sl, \theta}}
-	\left(
-	\overline{\theta}_{k+1/2} + \tau_{sl, \theta}
+	    \partial_t \left(\frac{1}{\alpha_{\rm sl, \theta}}
+	    \left(
+	    \overline{\theta}_{k+1/2} + \tau_{sl, \theta}
 	\widetilde{h}(\frac{{(\partial_z \theta)}_k}{3} +
 	\frac{{(\partial_z \theta)}_{k+1}}{6})
 	 - (1 - \alpha_{sl, \theta})\theta_s
-	\right) \right)
+	    \right) \right)&
 	= \\
-	    &\frac{K_{\theta, k+1}{(\partial_z \theta)}_{k+1} -
+	    \frac{K_{\theta, k+1}{(\partial_z \theta)}_{k+1} -
 	K_{\theta,k} {(\partial_z \theta)}_k}{\widetilde{h}}
-	    + \overline{F}_{\theta, k+1/2}
+	    + &\overline{F}_{\theta, k+1/2}.
     \end{aligned}
 \end{equation}
-
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.55]{images/consistency_comparisonStratified.pdf}
-	\includegraphics[scale=0.55]{images/consistency_comparisonStratified_linearscale.pdf}
-	\caption{Stratified (stable) case's numerical experiment. Top: log-scaled, bottom: linear-scaled}
-	\label{fig:ND_StratifiedCase_NumericalExpStable}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.55]{images/consistency_comparisonUnstable.pdf}
-	\caption{Stratified (unstable) case's numerical experiment.}
-	\label{fig:ND_StratifiedCase_NumericalExpUnstable}
-\end{figure}
-
-
-
+The prognostic equation \eqref{eq:ND_StratifiedCase_prognosticPT_FV}
+for $\partial_z \theta$ is also adjusted for the first
+level to replace $h_{k+1/2}$ by $\widetilde{h}$.
 \subsection{Turbulent viscosities}
 \label{sec:ND_StratifiedCase_turbulentVisc}
 \subsubsection{Finite Volumes discretization of TKE}
