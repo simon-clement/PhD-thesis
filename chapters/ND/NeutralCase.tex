@@ -33,18 +33,17 @@ without the temperature and humidity profiles.
 \subsection{Continuous model and Finite Volumes discretization}
 \label{sec:ND_NeutralCase_continuousModel}
 \subsubsection{Continuous equations: two separate domains}
-{\color{red} TODO lier un peu mieux les phrases, c'est vraiment pas beau là}
 In fluid dynamics, the presence of a rough surface makes strong
-gradients appear.
-The motion scales close to the surface are much smaller than
-elsewhere in the domain. In most applications it is numerically
-intractable to refine the mesh enough for those small scales.
+gradients appear:
+the motion scales close to the surface are much smaller than
+elsewhere in the domain and it is numerically
+intractable in most applications
+to refine the mesh enough for those small scales.
 The models hence exclude from the computational domain
 a part of the surface layer, using an adapted boundary
 condition. \cite{mohammadi_rough_1998} show that usual boundary
-conditions can be derived with domain decomposition arguments.
-%
-The computational domain is split into two parts:
+conditions can be derived with domain decomposition arguments;
+the computational domain is split into two parts:
 the surface layer $(0,\delta_{sl})$ and the remainder of
 the atmosphere column, $(\delta_{sl}, +\infty)$.
 %
@@ -84,8 +83,8 @@ detailed in section \ref{sec:ND_StratifiedCase_turbulentVisc}.
 The orientation of $\partial_z u$ is contained in
 $e_\tau = \frac{u(\delta_{\rm sl})-u(0)}
 	{||u(\delta_{\rm sl})-u(0)||}$
-where the surface current $u(0)$ is given by the ocean model
-in a coupled situation.
+where the surface current $u(0)$ is set to 0 or given by
+the ocean model in a coupled situation.
 %
 \par
 In the surface layer, the size of the turbulent eddies at height $z$

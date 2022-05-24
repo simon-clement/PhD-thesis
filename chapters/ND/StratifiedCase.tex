@@ -449,6 +449,23 @@ A homogeneous Neumann boundary condition is used at the top.
 In order to obtain a regular solution out of the "FV free"
 discretization, we derive here the constraints on mixing length
 and on TKE inside the surface layer.
+A subgrid model that suit both
+surface layer and free turbulence was proposed by
+\citep{redelsperger_simple_2001}, motivated by measurements.
+In the neutral case, this subgrid model leads to linear
+mixing lengths $l_m, l_{\epsilon}$ in the surface layer;
+with stratified fluids, the formulation is more sophisticated
+and depends strongly on the Obukhov length.
+The link between the surface layer and the regions
+further away from the surface is ensured with a linear combination
+between the two regimes.
+%
+\par
+Instead of following the latter method,
+we aim to keep the mixing lengths \eqref{eq:ND_StratifiedCase_lD80}
+of the computational domain and
+to set a particular boundary condition for $l_{down}$
+to satisfy the Monin-Obukhov Similarity Theory.
 Assuming that 
 \begin{equation}
 	\label{eq:ND_StratifiedCase_viscosities_assumption}
@@ -546,7 +563,7 @@ into the previous equation and get
 	\frac{\phi_m(z/L_{MO})}{c_\epsilon\kappa (z+z_{0M})}
 	- \frac{g}{\theta_{\rm ref}c_\epsilon}\theta_\star
 	\right)^{2/3}} ~~~ {\rm if } ~~l_{down} < l_{up}\\
-	l_{down}(e) = \frac{1}{l_{up}^{5/3}} \frac{u_\star^{4/3}\left(
+	l_{down} = \frac{1}{l_{up}^{5/3}} \frac{u_\star^{4/3}\left(
 	\frac{\kappa}{C_m}
 	\frac{z + z_{0M}}{\phi_m(z/L_{MO})}
 	\right)^2}{
