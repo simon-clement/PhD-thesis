@@ -18,6 +18,8 @@ a decreasing temperature with $z$: it happens
 during daytime of diurnal cycles and enhance the
 vertical mixing.
 %
+Finally, if the temperature is a constant, the neutral case is
+recovered.
 \par
 We first discuss the continuous and semi-discrete in space
 equations, then extend the previous discussion on the wall law to
@@ -125,7 +127,7 @@ We also extend the surface scheme strategies for the temperature:
 			}} =
 			\underbrace{C_H|u^n_{\frac{1}{2}}- u(0)|
 			(\theta_{\frac{1}{2}}^{n+1}
-			- \theta_s)}_{\text{FD values at}
+			- \theta_s)}_{\text{FD values at }
 			z_{\frac{1}{2}}}.
 		\end{equation}
 	\item With "FV pure" the evolution equation is solved in all
@@ -139,7 +141,7 @@ We also extend the surface scheme strategies for the temperature:
 			\underbrace{C_H
 			|{\cal S}_{1/2}^{n}(0)- u(0)|
 			({\cal T}_{1/2}^{n+1}(0)
-			- \theta_s)}_{\text{Reconstructions at}
+			- \theta_s)}_{\text{Reconstructions at }
 			z_{\frac{1}{2}}}.
 		\end{equation}
 	\item With "FV1" the evolution equation is solved in all
@@ -154,7 +156,7 @@ We also extend the surface scheme strategies for the temperature:
 			\underbrace{C_H
 			|\overline{u}_{\frac{1}{2}}^n- u(0)|
 			(\overline{\theta}_{\frac{1}{2}}^{n+1}(0)
-			- \theta_s)}_{\text{Reconstructions at}
+			- \theta_s)}_{\text{Averaged values around }
 			z_{\frac{1}{2}}}.
 		\end{equation}
 	\item With "FV2" in the first grid level
@@ -173,7 +175,7 @@ We also extend the surface scheme strategies for the temperature:
 			- u(0)|
 			({\cal T}_{3/2}^{n+1}
 			(-\frac{h_\frac{3}{2}}{2})
-			- \theta_s)}_{\text{Reconstructions at}
+			- \theta_s)}_{\text{Reconstructions at }
 			z_{1}}.
 		\end{equation}
 \end{itemize}
@@ -343,12 +345,13 @@ The Turbulent Kinetic Energy (TKE) evolves with the equation
 The turbulent viscosities $K_u, K_{\theta}$ and $K_e$ are computed
 with $(K_u, K_\theta, K_e) = (C_m , C_s \phi_z, C_e)l_m \sqrt{e}$.
 $l_m = \sqrt{l_{\rm up} l_{\rm down}}$ and
-$l_\epsilon = \min{l_{\rm up} l_{\rm down}}$
+$l_\epsilon = \min{(l_{\rm up}, l_{\rm down})}$
 are obtained with the fourth method described in
 \cite{lemarie_simplified_2021} named $l^\star_{\rm D80}$:
 \begin{enumerate}
 	\item Define
 		\begin{equation}
+			\label{eq:ND_StratifiedCase_lD80}
 			l^\star_{\rm D80} = \frac{2\sqrt{e}}
 			{c_0 ||\partial_z u|| + \sqrt{
 				c_0^2 ||\partial_z u||^2 + 2 N^2
@@ -367,10 +370,7 @@ are obtained with the fourth method described in
 		The value here is not zero so that the surface layer
 		links correctly with the computational domain.
 \end{enumerate}
-
-In the Neutral case, no buoyancy term intervene in the computation
-of the TKE.
-
+%
 Let us assume that in each cell, $e$ is not varying too much and
 $l_\epsilon$ is constant.
 % We use Patankar's trick
@@ -481,20 +481,13 @@ time index $n$, so that the energy can be integrated in time
 with a proper boundary condition before computing the mixing
 length. Then, we assume that $l_m = \sqrt{l_{up}l_{down}}$ and
 $l_\epsilon = \min(l_{up}, l_{down})$.
-We choose to keep the free-turbulence value
-$l_{up}^0 = \frac{2\sqrt{e}}
-{c_0|\partial_z u| + \sqrt{c_0^2 |\partial_z u| + 2N^2}}$
-in the SL, using \eqref{eq:ND_StratifiedCase_partial_z_u}
-to compute $|\partial_z u|$ and using
-\eqref{eq:ND_StratifiedCase_partial_z_theta}
-for $N^2 = \frac{g}{\theta_{ref}}\partial_z \theta$.
-After $l_{up}^0$ has beed computed, as in
-\cite{lemarie_simplified_2021} $l_{up}$ is limited by
-the distance to the top and by the distance to a strongly
-stratified portion of the air column.
-Keeping the same computing routine for $l_{up}$ seems
-more natural since its value should not be too much
-influenced by a surface below.
+The characteristic length $l_{up}$ (resp. $l_{down}$) indicates
+how much the turbulent mixing is acting upwards (resp. downward).
+In the surface layer, it is hence natural to follow the
+procedure \eqref{eq:ND_StratifiedCase_lD80} for $l_{up}$,
+using the MOST profiles for the shear and buoyancy.
+We derive the surface value of $l_{down}$ to link Monin-Obukhov
+Similarity Theory with the turbulent closure used here.
 \par
 Simplifying \eqref{eq:ND_StratifiedCase_TKE_quasi_equilibrium}
 with previous equations gives:

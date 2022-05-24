@@ -33,6 +33,7 @@ without the temperature and humidity profiles.
 \subsection{Continuous model and Finite Volumes discretization}
 \label{sec:ND_NeutralCase_continuousModel}
 \subsubsection{Continuous equations: two separate domains}
+{\color{red} TODO lier un peu mieux les phrases, c'est vraiment pas beau là}
 In fluid dynamics, the presence of a rough surface makes strong
 gradients appear.
 The motion scales close to the surface are much smaller than
@@ -352,7 +353,7 @@ summarized in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
 		\end{equation}
 		  .
 	  \item "FV pure": $\delta_{\rm sl} = z_{\frac{1}{2}}$.
-		  Similar to the Finite Differences discretization.
+		  The scheme is similar to the Finite Differences.
 	    The reconstruction of $u(z)$ inside the first grid level
 		  is used to get $u(z_{\frac{1}{2}})$.
 		  The first cell is treated like the others:
@@ -413,12 +414,12 @@ summarized in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
 	\end{equation}
 	  
   \end{itemize}
-  Note that for the first two strategies "FV pure" and
-  "FV1", for numerical reasons $K_{u,0}$
-  should not actually
-  take the value $\left. K_{u}\right|_{z=0} = K_{mol}$.
-  See section \ref{sec:ND_StratifiedCase_viscosity0_FVpure} for
-  the explanation.
+  % Note that for the first two strategies "FV pure" and
+  % "FV1", for numerical reasons $K_{u,0}$
+  % should not actually
+  % take the value $\left. K_{u}\right|_{z=0} = K_{mol}$.
+  % See section \ref{sec:ND_StratifiedCase_viscosity0_FVpure} for
+  % the explanation.
 
 \begin{figure}
 	\centering
@@ -798,3 +799,13 @@ It is straightforward to check that for $\delta_{sl} = z_1$
 the "FV2" scheme is rigorously recovered.
 The derivation for any $\delta_{\rm sl} \geq 0$ is detailed for
 the stratified case in section \ref{sec:ND_StratifiedCase_FVfree}
+\begin{figure}
+	\subimport{images/}{nouvelle_dis_neutre_anydelta.pdf_tex}
+	\caption{ Surface layer scheme "FV free" with
+	$\delta_{sl} \geq z_k$.}
+	\label{fig:ND_NeutralCase_nouvelle_dis_neutre_anydelta}
+\end{figure}
+Figure \ref{fig:ND_NeutralCase_nouvelle_dis_neutre_anydelta}
+shows how is handled the surface layer in this case: the part in grey
+is neutralized for the prognostic equation and is filled afterward
+with the help of the log law.
