@@ -538,14 +538,14 @@ The notations are summed up in Figure
 \par
 The relation between $\overline{u}_{1/2}$ and $\widetilde{u}$ is 
 given by the Chasles' relation
-$ \int_{\delta_{sl}}^{z_1} u dz = \int_0^{z_1} u dz -
-\int_0^{\delta_{sl}} u dz$, which can be written as
+$ \int_{\delta_{sl}}^{z_1} u dz = \int_{z_0}^{z_1} u dz -
+\int_{z_0}^{\delta_{sl}} u dz$, which can be written as
 \begin{equation}
 \label{eq:ND_NeutralCase_Chasles}
 	\widetilde{h}\widetilde{u} = h_{1/2}\overline{u}_{1/2} -
 	e_\tau \frac{{u_\star}}{\kappa}\int_{z_0}^{\delta_{sl}}
 	\log(1+\frac{z}{z_{0M}}) dz
-	+ \delta_{sl} u(0)
+	+ (\delta_{sl}-z_0) u(0)
 \end{equation}
 where the time indices in $e_\tau = \frac{u^{n+1}(\delta_{sl})-u(0)}
 {||u^n(\delta_{sl})-u(0)||}$ must be the same as in the
@@ -557,7 +557,7 @@ and the log law $||u^n(\delta_{sl})-u(0)|| = \frac{{u_\star}}{\kappa}\log(1+\fra
 	\label{eq:ND_NeutralCase_utildeExpression}
 	\frac{\widetilde{h}}{h_{1/2}}\widetilde{u} = \overline{u}_{1/2} - \left(\widetilde{u} - \widetilde{h}(\phi_{\delta}/3 + \phi_1/6)
 	\right)\tau_{sl} +
-	(\tau_{sl} - \frac{\delta_{sl}}{h_{1/2}})u(0)
+	(\tau_{sl} - \frac{h_{1/2} - \widetilde{h}}{h_{1/2}})u(0)
 \end{equation}
 with $\tau_{sl} = \frac{1}{{h_{1/2}}}\int_{z_0}^{\delta_{sl}}
 \frac{\log(1+\frac{z}{z_{0M}})}{\log(1+\frac{\delta_{sl}}{z_{0M}})}dz
@@ -566,8 +566,9 @@ with $\tau_{sl} = \frac{1}{{h_{1/2}}}\int_{z_0}^{\delta_{sl}}
 	h_{1/2}\log(1+\frac{\delta_{sl}}{z_{0M}})}$ a non-dimensional
 number $0 \leq\tau_{sl} < 1$ which depends on the log law and
 on the values of $\widetilde{h}, h_{1/2}$.
-Note that $\tau_{\rm sl} = 0 \iff \widetilde{h}=h_{1/2}$.
-{\color{red} pourquoi on a pas $\widetilde{u} = \overline{u}$ alors?}
+Note that $\tau_{\rm sl} = 0 \iff \widetilde{h}=h_{1/2}$ and that in
+this case \eqref{eq:ND_NeutralCase_utildeExpression} is equivalent to
+$\widetilde{u} = \overline{u}_{1/2}$.
 \begin{remark}
 $\tau_{\rm sl}$ is a constant in the neutral case
 when $\delta_{\rm sl}$ and $z_{0M}$ are constants. However,

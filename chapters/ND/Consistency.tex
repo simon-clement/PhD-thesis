@@ -3,7 +3,7 @@ In this section, we investigate the effect of changing
 $\delta_{\rm sl}$ in the continuous, neutral model.
 In all this section we will assume that
 $z_0$ is constant.
-The main changes when $\delta_{\rm sl}$ becomes
+The main direct changes when $\delta_{\rm sl}$ becomes
 $\delta_{\rm sl}' < \delta_{\rm sl}$ are:
 \begin{itemize}
 \item the Coriolis effect and the large-scale forcing are
@@ -11,8 +11,20 @@ now taken into account for $z \in
 [\delta_{\rm sl}', \delta_{\rm sl}]$;
 \item the viscosity $K(z)$ for $z \in 
 [\delta_{\rm sl}', \delta_{\rm sl}]$ is not forced by the law
-of the wall anymore;
+of the wall anymore.
 \end{itemize}
+There are also indirect effects due to the non-linearity of the
+problem:
+\begin{itemize}
+	\item Even if the bulk algorithm is well designed and returns
+		the same friction scales whether it takes as input
+		$(\delta_1, u_2(\delta_1))$ or 
+		$(\delta_2, u_2(\delta_2))$ (which is assumed to
+		be the case),
+		the input differs between $u_1$ and $u_2$ because
+		of the direct effects.
+\end{itemize}
+
 \subsection{Study of the consistency: neutral case}
 Let $\delta_1$,$\delta_2$ two
 different heights of surface layer
@@ -33,13 +45,22 @@ when the problem is continuous in time)
 {\log(1+\frac{\delta_2}{z_0})}(\partial_t + if) u_2(\delta_2), 
 ~~~\forall z \leq \delta_2
 \end{equation}
-Hence, assuming $K\partial_z u_2$ is $C^1$ at $\delta_2$,
-$\partial_z (K\partial_z u_2) = 0$ and
+Let us assume that $K\partial_z u_2$ is $C^1$ at $\delta_2$;
+then $\partial_z (K\partial_z u_2) = 0$ in all the interval
+$(0, \delta_2)$ and the evolution equation of $u_2$ in
+$(\delta_1, \delta_2)$ is
+\begin{equation}
+(\partial_t + if) u_2(z) = \frac{\log(1+\frac{z}{z_0})}
+{\log(1+\frac{\delta_2}{z_0})} i f u_G, 
+	~~~\forall z \in (\delta_1, \delta_2).
+\end{equation}
+The difference between $u_1$ and $u_2$ is governed by this interval:
+substracting the two evolution equations gives
 \begin{equation}
 (\partial_t + if) (u_2 - u_1) = \left(\frac{\log(1+\frac{z}{z_0})}
 {\log(1+\frac{\delta_2}{z_0})} - 1\right)i f u_G 
 -
-\partial_z (K \partial_z u_1), ~~~\forall z \in [\delta_1, \delta_2]
+\partial_z (K \partial_z u_1), ~~~\forall z \in (\delta_1, \delta_2).
 \end{equation}
 We see in the right hand side of the latter equation the two items
 of the begining of the section:
@@ -48,47 +69,46 @@ and the diffusion term of $u_1$ which is actually
 $\partial_z (K \partial_z u_1) = \partial_z (K \partial_z u_1 - K \partial_z u_2)$
 
 Let $w=u_2 - u_1$. If we assume that $K$ is the viscosity for both
-$u_2$ and $u_1$,
-Then
+$u_2$ and $u_1$ then
 \begin{equation}
 	\begin{cases}
 		(\partial_t + if) w = \partial_z (K \partial_z w) ,
 		~~ \forall z > \delta_2 \\
 (\partial_t + if) w = \partial_z (K \partial_z w) + \left(\frac{\log(1+\frac{z}{z_0})}
 {\log(1+\frac{\delta_2}{z_0})} - 1\right)i f u_G 
-, ~~~\forall z \in [\delta_1, \delta_2] \\
+, ~~~\forall z \in (\delta_1, \delta_2) \\
 		K \partial_z w = \frac{\kappa}
 		{\log(1+\frac{\delta_1}{z_0})}\left(
 		u_{\star, 2} u_2(\delta_1) -
-		u_{\star, 1} u_1(\delta_1)\right)
+		u_{\star, 1} u_1(\delta_1)\right),
+		~~~ \forall z \leq \delta_1.
 	\end{cases}
 \end{equation}
+Apart from the bulk sensitivity in the surface condition,
+the difference is hence from the forcing
+$\left(\frac{\log(1+\frac{z}{z_0})}
+{\log(1+\frac{\delta_2}{z_0})} - 1\right)i f u_G$.
+This forcing is more important when $\frac{\delta}{z_0}$
+is small.
 \subsubsection{Semi-Discrete Consistency (Finite Differences)}
-{\color{red} A rédiger mieux: montrer que
-$\partial_{\delta_{sl}}(K_0\phi_0)(z_\frac{1}{2})=0$ au moins
-pour $z_0M$ fixé. Pour $z_0M$ non fixé ça doit pouvoir se faire
-aussi je pense. Ca veut dire qu'il est inutile d'essayer de faire
-mieux en différences finies puisque y'a pas une grosse sensibilité.
-Ca va donc nécessairement (pour pas perdre la face) avec
-une démonstration de l'importance de FV free ?}
-\par
 This subsection shows that the semi-discrete in space
 Finite Differences
-scheme is not very sensitive to the value of $\delta_{\rm sl}$.
-
+scheme is not sensitive to the value of $\delta_{\rm sl}$.
+We put aside the sensitivity of the bulk procedure by
+assuming that $z_{0M}$ is a constant.
+%
 The approach used in Finite Differences consists in assuming
 $\delta_{\rm sl} = z_{1/2}$ and to use the flux at $z_0$ in
 the integration in time
 $K_0\phi_0 = u_\star^2
-\frac{u(\delta_{\rm sl})}{||u(\delta_{\rm sl})||}$.
+\frac{u(\delta_{\rm sl})}{||u(\delta_{\rm sl})||}$
+(we assume that $u(0)=0$ for simplicity).
 We generalize the usual approach with
 $\delta_{sl} = z_{1/2} - \epsilon$ with
-$0 \leq \epsilon < \frac{h}{2}$. 
-We use $u_\star = \frac{\kappa ||u(\delta_{\rm sl})||}
-{\log(1+\frac{\delta_{sl}}{z_{0M}})}$ and
-the value $u(\delta_{\rm sl})$ can be approximated
-by $u_{1/2} - (\partial_z u)(\delta_{\rm sl})\epsilon $.
-The boundary condition becomes
+$\epsilon < \frac{h_{\frac{1}{2}}}{2}$. 
+The value $u(\delta_{\rm sl})$ can be approximated
+by $u_{1/2} - (\partial_z u)(\delta_{\rm sl})\epsilon$.
+The implementation of such a boundary condition would be
 \begin{equation}
 	\label{eq:ND_Consistency_SemiDiscreteBdCond}
 K_0\phi_0 = 
@@ -119,8 +139,19 @@ $\partial_z u=\frac{u(\delta_{\rm sl})}{(\delta_{\rm sl} + z_0)
 	\right)+ O(\epsilon^2)
 \end{equation}
 Combining with $\frac{\kappa^2}{\log(1+\frac{\delta_{sl}}{z_0})}$,
-we find the (left) derivative of the right-hand side of
+we find the derivative of the right-hand side of
 \eqref{eq:ND_Consistency_SemiDiscreteBdCond} with respect to
 $\delta_{sl}$ to be equal to zero.
+In conclusion, if $z_{0M}$ does not depend on $u$ and if
+the evolution equation is integrated in time at $z_\frac{1}{2}$,
+then for the Finite Differences scheme
+\begin{equation}
+	\partial_{\delta_{sl}} (K_0 \phi_0) = 0.
+\end{equation}
+This result is expected since in the boundary condition
+$K_0 \phi_0 = u_\star^2 e_\tau$ the orientation $e_\tau$ is
+not changed by the use of the wall law for $\partial_z u$
+and the friction scale $u_\star$ is not affected because
+$u(z_\frac{1}{2} - \epsilon)$ is given by the wall law.
 \subsection{Study of the consistency: stable case}
 \subsection{Study of the consistency: unstable case}
