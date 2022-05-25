@@ -154,4 +154,64 @@ not changed by the use of the wall law for $\partial_z u$
 and the friction scale $u_\star$ is not affected because
 $u(z_\frac{1}{2} - \epsilon)$ is given by the wall law.
 \subsection{Study of the consistency: stable case}
+We study numerically in a stable case the consistency of the
+discretisations: how the change of the space step affects the
+solution of the discrete equations ?
+\paragraph{Description of the test case}
+We intend to obtain a strongly stratified profile: the temperature
+is hence increasing with the height at the initialization and
+the surface temperature decreases with time.
+The initial temperature is $265$ K in the first 100 meters of the
+atmosphere and then gains 1 degree every 100 meters;
+the surface temperature starts at 265 K and loses
+1 degree every ten hours.
+The geostrophic wind is $u_G = 8 \;{\rm m}.{\rm s}^{-1}$,
+the time step is $\Delta t = 30 \;{\rm s}$.
+\begin{figure}
+	\centering
+\includegraphics[scale=0.6]{images/Stratified.pdf}
+	\caption{ Evolution of $u_\star$ and
+		vertical profiles of $|u|$ and $\arg(u)$ for
+		several surface flux schemes. Above 200m,
+		the profiles are those of the initial condition.
+	}
+	\label{fig:ND_Consistency_Stratified}
+\end{figure}
+The profiles obtained after 72 hours of integration are
+shown in Figure \ref{fig:ND_Consistency_Stratified}.
+It is seen that the temperature and wind profiles are
+all similar.
+Two simulations are done: the first one uses 15 grid points
+in the 400m column and the second one uses 40 grid points and is then
+projected onto the first grid.
+\begin{figure}
+	\centering
+\includegraphics[scale=0.6]{images/consistency_comparisonStratified.pdf}
+	\caption{Differences in $u_\star, |u|$ and $\arg(u)$
+	between a high resolution and a low resolution
+	of the 
+	}
+	\label{fig:ND_Consistency_comparisonStratified}
+\end{figure}
+\paragraph{Results} The differences between the two simulations are shown in Figure
+\ref{fig:ND_Consistency_comparisonStratified}.
+The difference between the high resolution and the low resolution
+does not significantly change with the surface flux schemes.
+The difference in $u_\star$ is especially high for the "FV2" scheme.
+Note that the initialization for FV free and FV2 is particular:
+to ensure the continuity of the solution,
+the initial profile is already adjusted for the
+MO theory. This is why the relative $u_\star$ difference is zero
+at initialization whereas it is very high for the other surface flux
+schemes.
+%
+The "FV2" scheme is not very consistent because it follows the
+continuous model with $\delta_{sl}$ changing together with the
+space step.
+The Finite Differences method or the "FV pure" methods suffer
+less from this problem because even if $\delta_{sl}$ changes,
+it is more or less assumed that the evolution equation is
+integrated inside the surface layer.
+{\color{red} Dans la série des interprétations physiques sorties
+de nulle part...}
 \subsection{Study of the consistency: unstable case}
