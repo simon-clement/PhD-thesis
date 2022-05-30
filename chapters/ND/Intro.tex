@@ -1,4 +1,5 @@
 \section{Introduction}
+{\color{red} [J'ai pas encore rédigé l'intro]}
 \begin{itemize}
 \item The solution obtained with a discretization
 	should be similar to the continuous solution.
@@ -8,25 +9,40 @@
 	is usually determined by the discretization.
 \item This chapter presents a discretization such that
 	the surface layer can be chosen for physical reasons,
-		instead of numerical ones.
+	in addition to numerical ones.
 \item We want the discretization to be robust with regards to
 	the space step. In particular, when the space step
-		tends to 0, the surface layer should still
-		be parametrized with the same wall law.
+	tends to 0, the surface layer should still
+	be parametrized with the same wall law.
+	\cite{basu_cautionary_2017} warns that
+	using a small space step while keeping
+	the same boundary treatment in LES contradict the Monin-Obukhov
+	hypothesis of being above the roughness sublayer.
 \item Since the characteristic
 	size of the turbulent eddies in the surface layer are
 		proportional to the distance to the surface (\cite{kawai_wall-modeling_2012}),
 		it should not be assumed that we solve
 		correctly the mechanisms in the first levels
-		of a finite differences classical approach
-
+		of a finite differences classical approach.
+		\cite{kawai_wall-modeling_2012} propose to use other
+		levels than the first to parameterize the
+		wall law in the Neutral case.
+	\item \cite{maronga_improved_2020} proposed an improved
+		boundary condition for stratified Large-Eddy Simulations
+		which consists in using as the bulk input
+		horizontally averaged values at
+		$\delta_{sl}$ chosen for physical and numerical
+		reasons (within the surface layer, above the
+		roughness sublayer and in a region where flows are
+		well-resolved).
 \item Comment est gérée la condition de surface dans les modèles:
 	couches à flux constant, les mélanges entre paramétrisation
 	de couche limite et d'atm libre, etc.
-\item Nishizawa have shown that a bias is created in some models
+\item \cite{nishizawa_surface_2018} have shown that a bias is created
+	in some models
 	because of an underlying assumption that the log layer
 		is linear.
-\item The model used to derive this discretization is a 1D Ekman
+	\item The model used to derive this discretization is a 1D Ekman
 	equation, with a forcing representing a geostrophic guide.
 		The turbulent viscosity is computed with a
 		one-equation turbulence closure model. It was
