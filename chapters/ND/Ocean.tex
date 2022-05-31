@@ -365,7 +365,7 @@ should take into account the radiative fluxes: in
 $K_\theta \partial_z \theta$ is exactly equal to
 $\theta^\star_{o, \rm rad}(z) u^\star_{o}$.
 However, it seems important to keep an evolution equation
-in the surface layer {\color{red} là faut que ça mature,
+in the surface layer {\color{red} là faut que ça mûrisse,
 je sais pas pourquoi ca serait mieux avec une équation d'évolution}.
 %
 \par
@@ -415,10 +415,12 @@ inside the SL:
     \theta_{\delta_o}\right)
 \end{equation}
 where $\nu$ is a constant parameter that can be set to 1 to
-recover a linear reconstruction of $\theta$.
+recover a linear reconstruction of $\theta(z)$.
+\cite{zeng_prognostic_2005} choose $\nu=0.3$ and argue that
+the choice of $\nu$ is linked to the size of the molecular
+sublayer.
 We formulate the reconstruction in terms of $\overline{\theta}_{sl}$
 and $\left.\partial_z \theta\right|_{\delta_o}$:
-{\color{red} TODO intégrer seulement jusqu'à $z_k$ !}
 \begin{equation}
     \overline{\theta}_{sl} = \frac{1}{\nu+1}
     (\theta_{\delta_o} + \nu \theta_s)
@@ -438,21 +440,29 @@ $\theta_s - \theta_{\delta_o} =
     \frac{1}{\nu+1} + \left(\frac{z}{h_{sl}}\right)^\nu
 \right).
 \end{equation}
-Let us assume now that between
-$z_{k-1}$ and $\delta_o$ , there is a quadratic spline.
+\begin{remark}
+It would be possible to consider that $\overline{\theta}_{sl}$ is
+the average in an interval $(\delta_o, z_k)$.
+However the radiative forcing would affect each individual cell
+inside the surface layer, leading to a contradiction with the simple
+reconstruction of the surface layer.
+\end{remark}
+Let us assume now that  $\theta(z)$ is a quadratic spline between
+$z_{-1}$ and $\delta_o$.
 Using the continuity at $z=\delta_o$ and Chasles' relation,
+we link the surface layer profile with the spline:
 \begin{equation}
 \underbrace{
     \overline{\theta}_{sl} -
-    \frac{h_{sl}}{\nu+1} \partial_z \theta
-    }_{\theta(\delta_o^{+})}
+    \frac{h_{sl}}{\nu+1}\left. \partial_z \theta
+    \right|_{\delta_o}}_{\theta(\delta_o^{+})}
     =
     \underbrace{
     \widetilde{\theta}
     + \frac{\widetilde{h}}{3}
     \left.\partial_z \theta\right|_{\delta_o}
     + \frac{\widetilde{h}}{6}
-	\left.\partial_z \theta\right|_{z_{k-1}}}_{
+	\left.\partial_z \theta\right|_{z_{-1}}}_{
 	\theta(\delta_o^{-})}
 	,
     ~~~~
@@ -460,28 +470,27 @@ Using the continuity at $z=\delta_o$ and Chasles' relation,
     h_{-1/2} \overline{\theta} = 
     h_{sl}\overline{\theta}_{sl} +\widetilde{h}
     \widetilde{\theta}}_{
-    \int_{z_{k-1}}^{0}\theta(z) dz
+    \int_{z_{-1}}^{0}\theta(z) dz
     }.
 \end{equation}
-The reconstruction for $|z|<|\delta_o|$ is hence
+The reconstruction for $|z|<|\delta_o|$ (inside the surface layer) is hence
 \begin{equation}
     \theta(z) =
     \overline{\theta}_{-\frac{1}{2}}
     +
-    \left(\frac{h_{sl}}{\alpha_{sl}(\nu+1)} +
-    \frac{\widetilde{h}}{3\alpha_{sl}}
+	\left(\frac{h_{sl}\widetilde{h}}{-z_{-1}(\nu+1)} +
+	\frac{\widetilde{h}^2}{-3 z_{-1}}
     +
     \frac{h_{sl}}{\nu}\left(
     \frac{1}{\nu+1} + \left(\frac{z}{h_{sl}}
     \right)^\nu
     \right)\right) \partial_z \theta_{\delta_o}
     +
-    \left(\frac{\widetilde{h}}{6\alpha_{sl}}\right)
-    \partial_z \theta_{k-1}
+	\left(\frac{\widetilde{h}^2}{-6 z_{-1}}\right)
+    \partial_z \theta_{-1};
 \end{equation}
-with $\alpha_{sl} = 1+\frac{h_{sl}}{\widetilde{h}}$.
-for $|\delta_o| < |z| < |z_{k-1}|$,
-in the quadratic region, we have
+for $|\delta_o| < |z| < |z_{-1}|$
+(in the quadratic region) we have
 \begin{equation}
     \theta(z) =
         \widetilde{\theta}
@@ -495,17 +504,17 @@ in the quadratic region, we have
         \left(
         \frac{\widetilde{h}^2 - 
         3(z-\delta_o)^2}{6 \widetilde{h}}
-        \right)\partial_z \theta_{k-1}
+        \right)\partial_z \theta_{-1}
 \end{equation}
 where $\widetilde{\theta}$ is computed with
 \begin{equation}
 \label{eq:formulaTildeTheta}
 \widetilde{\theta} = \overline{\theta}_{-1/2}
--\frac{1}{\widetilde{\alpha}}\left(
+	-\frac{\delta_o}{z_{-1}}\left(
 \frac{h_{sl}}{\nu+1} + \frac{\widetilde{h}}{3}
 \right)\partial_z \theta_{\delta_o}
-- \frac{\widetilde{h}}{6\widetilde{\alpha}}
-\partial_z \theta_{k-1}, ~~~~ \widetilde{\alpha} = 1+ \frac{\widetilde{h}}{h_{sl}}
+	- \frac{\widetilde{h}\delta_o}{6z_{-1}}
+\partial_z \theta_{-1}
 \end{equation}
 The continuity equation at $z_{-1}$
 uses $\widetilde{h}$
@@ -515,7 +524,7 @@ as the space step:
     - \frac{\widetilde{h}}{3}
     \partial_z \theta_{-1}
     - \frac{\widetilde{h}}{6}
-    \partial_z \theta_{0}
+    \partial_z \theta_{\delta_o}
     = \overline{\theta}_{-3/2}
     + \frac{\widetilde{h}}{3}
     \partial_z \theta_{-1}
@@ -537,68 +546,99 @@ Starting from \eqref{eq:formulaTildeTheta}, we get
 \partial_t
 \left(
 \widetilde{h}\overline{\theta}_{-1/2}
--\frac{1}{\widetilde{\alpha}}\left(
+	-\frac{\delta_o}{z_{-1}}\left(
 \frac{\widetilde{h}h_{sl}}{\nu+1} + \frac{\widetilde{h}^2}{3}
 \right)\partial_z \theta_{\delta_o}
-- \frac{\widetilde{h}^2}{6\widetilde{\alpha}}
-\partial_z \theta_{k-1}
+	- \frac{\widetilde{h}^2\delta_o}{6z_{-1}}
+\partial_z \theta_{-1}
 \right)
-= K\partial_z \theta_k-
-K\partial_z \theta_{k-1}
+	= K\partial_z \theta_{\delta_o}-
+K\partial_z \theta_{-1}
 - \widetilde{h}
-\int^{\delta_o}_{z_{k-1}}
-\frac{\partial_z Q_{sw}}{\rho_0 c_p} dz
+\int^{\delta_o}_{z_{-1}}
+\frac{\partial_z Q_{sw}}{\rho_0 c_p} dz.
 \end{equation}
-where 
-$1/\widetilde{\alpha}=
-\frac{h_{sl}}{-\delta_{o}}$
+Note that the reconstruction we are using is not differentiable
+in $z=0$.
+If greater regularity is needed, it is possible to link
+the reconstruction with a proper modeling of the molecular sublayer
+(e.g. $\rho_0 c_p K_{mol} \partial_z \theta(z) =
+Q - Q_{lw} - \int_z^0 \partial_z Q_{sw}(z')dz'$ for $|z|<<|\delta_o|$)
+% It is hence more appealing to take into account
+% the molecular sublayer to add some regularity to the solution.
+% \subsubsection{Oceanic surface flux scheme with molecular sublayer}
+% We now imitate the previous derivation, using a more regular
+% reconstruction for $\theta(z)$ inside the surface layer:
+% we take exactly the reconstruction used by
+% \cite{zeng_prognostic_2005}: let $d << |\delta_o|$ be the
+% depth of the molecular sublayer:
+% \begin{equation}
+% 	\theta(z) = \theta_{-d} -
+% 	\left(\frac{z+d}{\delta_o + d}\right)^\nu
+% 	\left(\theta_{-d} - \theta_{\delta_o}\right)
+% \end{equation}
+% where the temperature at the bottom of the molecular sublayer
+% $\theta_{-d}$ is linked to the surface temperature through an
+% integration of
+% $K_{mol}\partial_z \theta = \frac{Q-Q_{lw}}{\rho_0 c_p} -
+% \frac{1}{\rho_0 c_p}\int_{-d}^0\partial_z Q_{sw}(z)dz$:
+% \begin{equation}
+% 	\theta_{-d} = \theta_s - \frac{d}{\rho_0 c_p K_{\theta, mol}}
+% 	\left(
+% 	\frac{Q-Q_{lw} - Q_{sw}(0)f_s}{\rho_0 c_p}
+% 	\right).
+% \end{equation}
+% $f_s$ is here the fraction of solar radiation absorbed in the
+% sublayer, described in \cite{zeng_prognostic_2005}.
+% $d$ can be parametrized by $u_\star$ and the fluxes.
 
 \subsection{Two-sided Bulk and sensitivity to the discretization
 	of the surface layers}
 \label{sec:ND_Ocean_bulkRadiativeFluxes}
-\begin{equation}
-	C_D^{a+o} = \left(\frac{\kappa} {
-		\ln(1 + \frac{\delta_a}{z_{0M}}) -
-		\psi_m^a(\frac{\delta_a}{L_a})
-		+ \lambda_u \left(
-		\ln(1 - \frac{\delta_o}{z_{0M}}) -
-		\psi_m^o(-\frac{\delta_o}{L_o})
-		\right)
-	} \right)^2
-\end{equation}
-\begin{equation}
-	C_H^{a+o} = \frac{\kappa \sqrt{C_D}} {
-		\left(
-			\ln(1 + \frac{\delta_a}{z_{0H}}) -
-			\psi_h^a(\frac{\delta_a}{L_a})
-		\right)
-		+
-		(1 - \frac{Q_{lw}}
-		{Q_H})
-		\lambda_\theta \left(
-			\ln(1 - \frac{\delta_o}{z_{0H}}) -
-			\psi_h^o(-\frac{\delta_o}{L_o})
-		\right)
-		- \frac{\lambda_\theta Q_{sw}(0)}
-		{Q_H} E(\delta_o)
-	}
-\end{equation}
-In the bulk algorithm, we use $u_a^\star = \sqrt{C_D} |u(\delta_a)-
-u(\delta_o)|$ and
-$\theta_a^\star = \frac{C_H}{\sqrt{C_D}}(\theta(\delta_a)-
-\theta(\delta_o))$ to get the friction scales.
-Multiplying those equations gives the boundary condition
-$K_\theta \partial_z \theta = \lambda_u \lambda_t u_a^\star \theta_a^\star$.
-\footnote{
-$u_a^\star$ is actually directly used because $\frac{C_H}{\sqrt{C_D}}$
-can be simplified.
-}
-We use the following notation for $C_D$ and $C_H$:
-\begin{equation}
-	C_D^{a+o} = \frac{u_a^\star}{|u(\delta_a) - u(\delta_o)|},
-	~~~
-	C_D^{a} = \frac{u_a^\star}{|u(\delta_a) - u(0)|},
-	~~~
-	C_D^{o} = \frac{u_a^\star}{|u(0) - u(\delta_o)|},
-\end{equation}
+% \subsubsection{Description of the two-sided bulk algorithm}
+% \begin{equation}
+% 	C_D^{a+o} = \left(\frac{\kappa} {
+% 		\ln(1 + \frac{\delta_a}{z_{0M}}) -
+% 		\psi_m^a(\frac{\delta_a}{L_a})
+% 		+ \lambda_u \left(
+% 		\ln(1 - \frac{\delta_o}{z_{0M}}) -
+% 		\psi_m^o(-\frac{\delta_o}{L_o})
+% 		\right)
+% 	} \right)^2
+% \end{equation}
+% \begin{equation}
+% 	C_H^{a+o} = \frac{\kappa \sqrt{C_D}} {
+% 		\left(
+% 			\ln(1 + \frac{\delta_a}{z_{0H}}) -
+% 			\psi_h^a(\frac{\delta_a}{L_a})
+% 		\right)
+% 		+
+% 		(1 - \frac{Q_{lw}}
+% 		{Q_H})
+% 		\lambda_\theta \left(
+% 			\ln(1 - \frac{\delta_o}{z_{0H}}) -
+% 			\psi_h^o(-\frac{\delta_o}{L_o})
+% 		\right)
+% 		- \frac{\lambda_\theta Q_{sw}(0)}
+% 		{Q_H} E(\delta_o)
+% 	}
+% \end{equation}
+% In the bulk algorithm, we use $u_a^\star = \sqrt{C_D} |u(\delta_a)-
+% u(\delta_o)|$ and
+% $\theta_a^\star = \frac{C_H}{\sqrt{C_D}}(\theta(\delta_a)-
+% \theta(\delta_o))$ to get the friction scales.
+% Multiplying those equations gives the boundary condition
+% $K_\theta \partial_z \theta = \lambda_u \lambda_t u_a^\star \theta_a^\star$.
+% \footnote{
+% $u_a^\star$ is actually directly used because $\frac{C_H}{\sqrt{C_D}}$
+% can be simplified.
+% }
+% We use the following notation for $C_D$ and $C_H$:
+% \begin{equation}
+% 	C_D^{a+o} = \frac{u_a^\star}{|u(\delta_a) - u(\delta_o)|},
+% 	~~~
+% 	C_D^{a} = \frac{u_a^\star}{|u(\delta_a) - u(0)|},
+% 	~~~
+% 	C_D^{o} = \frac{u_a^\star}{|u(0) - u(\delta_o)|},
+% \end{equation}
 
