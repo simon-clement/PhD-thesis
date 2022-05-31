@@ -221,7 +221,7 @@ The surface flux scheme is summarized in Figure
 \ref{fig:ND_Ocean_nouvelle_dis_neutre}.
 \begin{figure}
 	\subimport{images/}{nouvelle_dis_neutre_ocean.pdf_tex}
-	\caption{Surface layer scheme "FV free" in the oceanic SCM}
+	\caption{Surface layer scheme "FV free" in the ocean model}
 	\label{fig:ND_Ocean_nouvelle_dis_neutre}
 \end{figure}
 As it will be explained
@@ -364,8 +364,10 @@ should take into account the radiative fluxes: in
 \eqref{eq:ND_Ocean_boundaryConditionFVfree} the flux
 $K_\theta \partial_z \theta$ is exactly equal to
 $\theta^\star_{o, \rm rad}(z) u^\star_{o}$.
-However, it seems important to keep an evolution equation
-in the surface layer {\color{red} là faut que ça mûrisse,
+However, to keep global conservation properties on the potential
+temperature it seems important to keep a finite volumes
+evolution equation in the surface layer.
+{\color{red} là faut que ça mûrisse,
 je sais pas pourquoi ca serait mieux avec une équation d'évolution}.
 %
 \par
