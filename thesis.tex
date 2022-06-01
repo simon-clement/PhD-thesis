@@ -1,0 +1,490 @@
+%----------------------------------------------------------------------
+% Document class
+%----------------------------------------------------------------------
+% \documentclass[a4paper,twoside,openany,final,12pt,table]{book}
+\documentclass[draft,a4paper,twoside,openany,final,12pt,table]{book}
+
+%What to include (useful if you want to send certain portions for review).
+%\includeonly{
+%  title,
+%  abstract,
+%  acknowledgements,
+%  contents,
+%  ch1,
+%  ch2,
+%  0_backmatter
+%}
+%----------------------------------------------------------------------
+
+
+%----------------------------------------------------------------------
+% Packages and macros
+%----------------------------------------------------------------------
+\usepackage[a4paper]{meta-donnees}
+
+% \usepackage[top=1in,bottom=1in]{geometry}
+% \usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2cm]{geometry}
+% \usepackage[top=4cm, bottom=3cm, inner=3.5cm, outer=2.5cm]{geometry}
+% \usepackage[strict]{changepage}
+\usepackage{layout}
+\usepackage{setspace}
+\usepackage{import}
+
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{url}
+%\usepackage{afterpage} % conflicts with tcolorbox
+\usepackage{placeins}
+\usepackage{xparse}
+%\hyphenation{NMDAR
+%		      NMDARs
+%		      tri-he-te-ro-meric
+%		      iono-tropic
+%		      non-selective}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{pifont}
+\usepackage[figuresleft]{rotating}
+\usepackage{latexsym}
+\usepackage{verbatim}
+\usepackage[utf8]{inputenc}
+\usepackage{multirow}
+\usepackage{lscape}
+%\usepackage{makeidx}
+\usepackage{enumitem}
+\usepackage{forest}
+\usepackage{ifdraft}
+% \usepackage{mychronogram}
+% \usepackage{minitoc}
+\newtheorem*{remark}{Remark}
+
+\usepackage{adjustbox}
+\usepackage{tabto}
+
+\usepackage{bibentry}
+\usepackage[numbers]{natbib}
+\usepackage{etoc}
+\nobibliography*
+
+%\makeindex
+% This should be after most packages
+\usepackage[%ps2pdf, %debug,
+            pdftitle            = {{Numerical analysis for the reconciliation in space and time of the discretizations of the air-sea exchanges and their parameterization}},
+            pdfsubject          = {Ph.D. Thesis},
+            pdfauthor           = {Simon CLEMENT},
+            pdfkeywords         = {{Schwarz methods, Semi-Discrete, Discrete}},
+            pdfpagemode         = {UseOutlines},
+            colorlinks          = true,
+            linkcolor           = {blue},
+            citecolor           = {blue},
+            %urlcolor            = {black},
+            pdfstartview        = {FitH},
+            pdfdisplaydoctitle  = true,
+            bookmarks           = true,
+            bookmarksopen       = false,
+            bookmarksnumbered   = true,
+            bookmarkstype       = {toc},
+            raiselinks          = false,
+            breaklinks          = true,
+            pageanchor          = true,
+            backref             = page]{hyperref}
+
+\usepackage{breakurl}
+\def\UrlBreaks{\do\/\do-}
+
+% These need to be after hyperref
+\usepackage{algorithm}
+% \usepackage{algorithmicx}
+%\usepackage[all]{hypcap}
+
+\newcommand{\Desc}[2]{\State \makebox[2em][l]{#1}#2}
+\newcommand{\MyComment}[1]{\hfill{{\tt// #1}}}
+\newcommand{\MyLineComment}[1]{\State{{\tt// #1}}}
+
+%\usepackage{mymath}
+\usepackage{amssymb,amsmath,mathrsfs,epsfig,color,url,calc,hyperref,nicefrac, amsthm}
+\usepackage{enumitem}
+%\RequirePackage{lineno}
+\usepackage{placeins}
+\usepackage{tikz}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{lineno}% line numbersk
+\usepackage{subcaption}
+\usepackage[format=hang,font=small,labelfont=bf]{caption}
+\setlength{\textwidth}{16.5cm}
+%\setlength{\textheight}{23cm}
+\topmargin 0 pt
+\oddsidemargin 0 pt
+\evensidemargin 0 pt
+\linenumbers
+
+\usepackage{minitoc}
+
+\usepackage[obeyDraft,colorinlistoftodos,bordercolor=white,color=green!40,textwidth=2cm]{todonotes}
+
+\usepackage[noabbrev,sort]{cleveref} % nameinlink,
+
+% This needs to be after backref, which is included by hyperref if backref is
+% enabled.  The command is used to list locations of citations.
+\renewcommand*{\backref}[1]{}
+\renewcommand*{\backrefalt}[4]{
+\ifcase #1
+(No cited.)
+\or
+(Cited on page #2.)
+\else
+(Cited on pages #2.)
+\fi
+}
+
+%----------------------------------------------------------------------
+% Some more style
+%----------------------------------------------------------------------
+
+% \usepackage[Sonny]{fncychap}
+% \ChNameVar{\large}
+% \ChNumVar{\large}
+% \ChTitleVar{\huge\rm\centering}
+% \usepackage[Lenny]{fncychap}
+% \usepackage[Bjornstrup]{fncychap}
+
+%---------------------------------------------------------------------
+%                   Chapter title style
+%---------------------------------------------------------------------
+
+%\usepackage{titlesec}
+%
+%\definecolor{headercolor}{HTML}{3690E9}
+%\definecolor{headergray}{HTML}{BEC0C2}
+%
+%\usepackage{epigraph}
+%\usepackage{tikz}
+%\usepackage{tikzpagenodes}
+%\titleformat{\chapter}[display]
+%  {\normalfont\huge}
+%  {}
+%  {20pt}
+%  {%
+%  \begin{tikzpicture}[remember picture,overlay]
+%\fill[color=headercolor] (-10,20) rectangle (18.5,-0.9);
+%\fill[top color=black, bottom color=headergray] (-10, -0.9) rectangle (18.5, -1.1);
+%\node[
+%    anchor=east,
+%    font=\color{white},
+%    % text width=\textwidth+3.0cm]
+%    text width=\textwidth+4.5cm]
+%at ([xshift=-1.5cm,yshift=5pt]titlerect.east) {\fontsize{30}{36}\sffamily\selectfont#1};
+%% at ([yshift=5pt]titlerect.east) {\fontsize{30}{36}\textsc{#1}};
+%\node[](chapterpos) at ([yshift=3cm]current page.east|-titlerect.east){};
+%\fill[color=white] 
+%      ([xshift=-3.7cm, yshift=-0.8cm] chapterpos.north west) rectangle ([xshift=4.5cm, yshift=0.8cm]chapterpos.south west);
+%\node[
+%    anchor= east,
+%    inner xsep=3cm,
+%    outer sep=0pt,
+%    font=\color{headercolor}](chapter)%,
+%at (chapterpos.center) {\fontsize{80}{86}\bfseries\thechapter};
+%  \end{tikzpicture}%
+%}
+%\titleformat{name=\chapter,numberless}[display]
+%  {\normalfont\huge}
+%  {}
+%  {20pt}
+%  {%
+%  \begin{tikzpicture}[remember picture,overlay]
+%  \node[
+%   anchor=west,
+%    rectangle,
+%    minimum height=4cm,
+%    text width=\paperwidth,
+%    xshift=-\the\dimexpr\oddsidemargin+1in\relax,
+%    outer sep=0pt] (titlerect) {};
+%\node[
+%    anchor=south west,
+%    xshift=6cm,
+%    yshift=2cm,
+%    text width=\textwidth]
+%at (titlerect.south west) {\fontsize{80}{86}\bfseries#1};
+%  \end{tikzpicture}%
+%  }[]
+%\titlespacing*{\chapter}
+%  {0pt}{-90pt}{60pt}
+%
+%---------------------------------------------------------------------
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\textsc{\nouppercase{\leftmark}}}
+\fancyhead[RO]{\textsc{\nouppercase{\rightmark}}}
+\fancyfoot[C]{\thepage}
+
+
+%----------------------------------------------------------------------
+
+
+%----------------------------------------------------------------------
+% Macros
+%----------------------------------------------------------------------
+
+% mdframed
+\newcommand{\mdr}[1]{\begin{mdframed}[roundcorner=5pt]#1\end{mdframed}}
+\newcommand{\lmdr}[1]{\begin{mdframed}[roundcorner=5pt,linewidth=2pt]{\bf #1}\end{mdframed}}
+
+% todo
+\newcommand{\myTD}[1]{\textcolor{red}{{\bf #1}}}
+\newcommand{\tdf}[1]{\missingfigure[color=red!30]{[\currentlabelchapter]: #1}}
+\newcommand{\tdt}[1]{\missingfigure[color=red!30]{TABLE[\currentlabelchapter]: #1}}
+\newcommand{\needed}[1]{\todo[inline,noline,color=red!70]{[\currentlabelchapter]: #1}}
+\newcommand{\appNeeded}[1]{\todo[color=red!70]{[app]: #1}}
+\newcommand{\major}[1]{\todo[color=orange!50]{[\currentlabelchapter]: #1}}
+\newcommand{\minor}[1]{\todo[color=yellow!50]{[\currentlabelchapter]: #1}}
+\newcommand{\question}[1]{\todo[color=blue!50]{[\currentlabelchapter]: #1}}
+
+% name of a variable, software ...
+\newcommand{\sn}[1]{{\ttfamily #1}}
+
+% term
+\newcommand{\tn}[1]{\emph{#1}}
+%----------------------------------------------------------------------
+
+
+\setcounter{secnumdepth}{3}
+
+% crossreferences -- cases when capital letter should be used
+\crefname{table}{Table}{Tables}%
+\crefname{subtable}{Table}{Tables}%
+\crefname{part}{Part}{Parts}%
+\crefname{chapter}{Chapter}{Chapters}%
+\crefname{section}{Section}{Sections}%
+\crefname{subsection}{Subsection}{Subsections}%
+\crefname{subsubsection}{Subsection}{Subsections}%
+\crefname{appendix}{Appendix}{Appendices}%
+\crefname{subappendix}{Appendix}{Appendices}%
+\crefname{subsubappendix}{Appendix}{Appendices}%
+\crefname{subsubsubappendix}{Appendix}{Appendices}%
+\crefname{theorem}{Theorem}{Theorems}%
+\crefname{lemma}{Lemma}{Lemmas}%
+\crefname{algorithm}{Algorithm}{Algorithms}%
+\crefname{listing}{Listing}{Listings}%
+\crefname{figure}{Figure}{Figures}%
+\crefname{Hierarchy}{Hierarchy}{Hierarchies}%
+\crefname{HierarchyLevel}{}{}%
+\crefname{Assumption}{Assumption}{Assumptions}%
+\crefname{equation}{}{}%
+\crefname{subequation}{}{}%
+\crefname{parentequation}{}{}%
+\crefformat{equation}{(#2#1#3)}
+\crefformat{subequation}{(#2#1#3)}
+\crefformat{parentequation}{(#2#1#3)}
+%----------------------------------------------------------------------
+
+% custom definition of different styles
+%\setlist[itemize]{itemsep=0pt, topsep=5pt}
+%\setlist[enumerate]{itemsep=0pt, topsep=5pt}
+%\setlist[description]{itemsep=0pt, topsep=5pt, labelwidth=1cm, labelindent=8pt, leftmargin=\labelindent+\labelwidth+\labelsep}
+
+% remove extra white space around long tables
+\setlength{\LTpre}{4pt}
+\setlength{\LTpost}{0pt}
+
+%\newcommand{\thesisHierarchyStyle}[1]{\changeHierarchyStyle{width=13cm,breakable,before=,after=\par}{#1}}
+%\thesisHierarchyStyle{}
+
+\renewcommand*{\lstlistlistingname}{Listing}
+\renewcommand{\mtctitle}{Table of contents}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage[english]{babel}
+\usepackage{titlesec}
+\usepackage{xassoccnt}
+\usepackage{lettrine}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.15}
+\usepackage{physics}
+\usepgfplotslibrary{fillbetween}
+\makeatletter
+%\newcommand{\finalpage}[1]{%
+%    \clearpage%
+%    \SuspendCounters{page}
+%    \pagestyle{empty}
+%    \ifodd\c@page
+%    \null
+%    \clearpage
+%    \fi
+%    #1
+%}
+\makeatother
+
+% useful macros for english writing
+\newcommand{\eg}{{\it e.g. }}
+\newcommand{\ie}{{\it i.e. }}
+\newcommand{\etal}{et {\it al.}}
+\newcommand{\vs}{{\it vs }}
+\newcommand{\etc}{{\it etc}}
+
+%---------------------------------------
+% ACRONYM MACRO
+%---------------------------------------
+
+\usepackage{xcolor}
+\definecolor{linkColor}{RGB}{0,0,255}
+\definecolor{comment}{RGB}{0.0, 0.6, 0.2}
+
+\newcommand{\ccg}{\cellcolor{gray}}
+\newcommand{\inred}[1]{\color{red}#1\color{black}}
+
+\newcommand{\myLink}[2]{%
+    \hypersetup{linkcolor=linkColor}%
+    \hyperref[#1]{\bf{#2}}%
+    \hypersetup{linkcolor=blue}%
+}
+\newcommand{\myAc}[1]{\myLink{ch.glossary:gl.#1}{#1}}
+\newcommand{\myAcs}[1]{\myLink{ch.glossary:gl.#1}{#1s}}
+\newcommand{\myLongAc}[2]{{\it #2} (\hyperref[ch.glossary:gl.#1]{{\bf #1}})}
+\newcommand{\myLongAcs}[2]{{\it #2s} (\hyperref[ch.glossary:gl.#1]{{\bf #1}})}
+
+%---------------------------------------
+% DISPLAY VARIABLE
+%---------------------------------------
+
+% used to easily remove the jury from the emitted file
+\newcounter{anonymous}
+\setcounter{anonymous}{0}
+
+% used to remove acknowledgments from the emitted file
+\newcounter{personal}
+\setcounter{personal}{1}
+
+%---------------------------------------
+
+\def\exampletext{Example} % If English
+\newcounter{exmpl}[chapter]
+
+\NewDocumentEnvironment{exmpl}{ O{} }
+{
+    \renewcommand{\theexmpl}{{\thechapter.}\arabic{exmpl}}
+    \refstepcounter{exmpl}\addtocounter{exmpl}{-1}
+\let\labelorig\label
+\def\label##1{\labelorig{##1}}%
+\colorlet{colexam}{blue!55!black} % Global example color
+\newtcolorbox[use counter=exmpl]{exmplbox}{%
+    % Example Frame Start
+    empty,% Empty previously set parameters
+    title={\exampletext~\thechapter.\arabic{exmpl}: #1},% use \thetcbcounter to access the exmpl counter text
+    % Attaching a box requires an overlay
+    attach boxed title to top left,
+       % Ensures proper line breaking in longer titles
+       minipage boxed title,
+    % (boxed title style requires an overlay)
+    boxed title style={empty,size=minimal,toprule=0pt,top=4pt,left=3mm,overlay={}},
+    coltitle=colexam,fonttitle=\bfseries,
+    before=\par\medskip\noindent,parbox=false,boxsep=0pt,left=3mm,right=0mm,top=2pt,breakable,pad at break=0mm,
+       before upper=\csname @totalleftmargin\endcsname0pt, % Use instead of parbox=true. This ensures parskip is inherited by box.
+    % Handles box when it exists on one page only
+    overlay unbroken={\draw[colexam,line width=.5pt] ([xshift=-0pt]title.north west) -- ([xshift=-0pt]frame.south west); },
+    % Handles multipage box: first page
+    overlay first={\draw[colexam,line width=.5pt] ([xshift=-0pt]title.north west) -- ([xshift=-0pt]frame.south west); },
+    % Handles multipage box: middle page
+    overlay middle={\draw[colexam,line width=.5pt] ([xshift=-0pt]frame.north west) -- ([xshift=-0pt]frame.south west); },
+    % Handles multipage box: last page
+    overlay last={\draw[colexam,line width=.5pt] ([xshift=-0pt]frame.north west) -- ([xshift=-0pt]frame.south west); },%
+    }
+
+\begin{exmplbox}
+    }
+{\end{exmplbox}}
+
+% \newenvironment{dedication}
+%   {\clearpage           % we want a new page
+%    \thispagestyle{empty}% no header and footer
+%    \vspace*{\stretch{1}}% some space at the top
+%    \large               % adapt text size
+%    \itshape             % the text is in italics
+%    \raggedleft          % flush to the right margin
+%   }
+%   {\par % end the paragraph
+%   \vspace{\stretch{3}} % space at bottom is three times that at the top
+%   \clearpage           % finish off the page
+%  }
+
+\newenvironment{sectionBegin}
+  {	           % we want a new page
+   \thispagestyle{empty}% no header and footer
+   \vspace*{\stretch{2}}% some space at the top
+   \LARGE               % adapt text size
+   \centering
+   \bf
+  }
+  {\par % end the paragraph
+   \vspace{\stretch{3}} % space at bottom is three times that at the top
+   \clearpage           % finish off the page
+  }
+
+%---------------------------------------
+\pdfobjcompresslevel 0
+\begin{document}
+
+%---------------------------------------
+% Get actual ref when defining subparts
+%---------------------------------------
+
+\newcommand{\currentlabel}{}
+\let\oldlabel\label
+\renewcommand{\label}[1]{\oldlabel{#1}\renewcommand{\currentlabel}{#1}}
+
+\newcommand{\currentlabelchapter}{}
+\newcommand{\labelchapter}[1]{\label{#1}\renewcommand{\currentlabelchapter}{#1}}
+
+% \titleformat{\subsubsection}{\vspace{-0.2cm}}{}{0em}{\vspace{-0.05cm}\bfseries#1}
+% \titleformat{name=\subsubsection,numberless}[runin]{}{}{-.5em}{{\bf#1}\newline}[]
+
+\newcommand{\mySub}[2]{{\noindent\bf#2}\tabto*{#1}}
+
+%---------------------------------------
+
+\sloppy % be kind with spacing :)
+
+%---------------------------------------
+% Frontmatter : abstract, acknowledgments & toc
+%---------------------------------------
+\import{chapters/}{front.tex}
+%---------------------------------------
+
+%---------------------------------------
+% Mainmatter : chapters and appendices
+%---------------------------------------
+\mainmatter
+\pagestyle{fancy}
+%---------------------------------------
+\chapter*{Introduction}
+\import{chapters/Introduction/}{Introduction.tex}
+
+\chapter{Atmospheric and oceanic surface layers discretisation
+coherent with the physical theory}
+\import{chapters/ND/}{NewDiscretisation.tex}
+
+%---------------------------------------
+% Appendix
+%---------------------------------------
+%\appendix
+%\import{chapters/}{appendix.tex}
+
+%---------------------------------------
+% Backmatter : acronyms & biblio
+%---------------------------------------
+\backmatter
+%---------------------------------------
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
+\interlinepenalty=10000
+\Urlmuskip=0mu plus 1mu\relax
+\bibliographystyle{StyleThese}
+\bibliography{biblioComplete}
+%---------------------------------------
+\end{document}
+

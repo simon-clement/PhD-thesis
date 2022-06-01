@@ -1,0 +1,139 @@
+\pdfbookmark[0]{Front page}{frontpage}
+
+%----------------------------------------------------------------------
+% Title information
+%----------------------------------------------------------------------
+\Specialite{\textsc{Mathématiques Appliquées}}
+\Arrete{25 mai 2016}
+\Auteur{Simon CLEMENT}
+\Directeur{Eric \textsc{Blayo}}{Universit\'e Grenoble Alpes}
+\CoEncadrant{Florian \textsc{Lemarié}}{Inria}
+\Laboratoire{Laboratoire Jean Kuntzmann}
+\EcoleDoctorale{l'\'Ecole Doctorale Mathématiques, Sciences et Technologies de l'Information, Informatique}
+\Titre{Numerical analysis for the reconciliation in space and time of the discretizations of the air-sea exchanges and their parameterization\\~\\\normalsize{Analyse numérique pour la réconciliation des
+discrétisations des échanges air-mer et de leur paramétrisation}}
+
+\ifodd \value{anonymous}{
+}\else{
+    \Depot{XX novembre 2022}
+
+    \Jury{
+
+    \UGTPresidentRapporteur{John \textsc{Doe}}{Professeur, UGA}
+
+    %\UGTRapportrice{John \textsc{Doe}}{Maître de Conférences, UGA}
+
+    %\UGTExaminateur{John \textsc{Doe}}{Professeur, UGA}
+
+    %\UGTExaminateur{Régis \textsc{Doe}}{Professeur, UGA}
+
+    %\UGTExaminateur{Pierre-Henri \textsc{Doe}}{Proffesseur, UGA}
+
+    \UGTDirecteur{Eric \textsc{Blayo}}{Professeur, Université Grenoble Alpes}
+
+    \UGTCoEncadrant{Florian \textsc{Lemarié}}{Chargé de recherche Inria}
+    }
+}
+\fi
+
+\frontmatter
+\pagenumbering{Roman}
+
+%\maketitle %NE PAS LE METTRE
+\MakeUGthesePDG
+%----------------------------------------------------------------------
+
+% \ifodd \value{personal}{
+%     \clearpage
+%     \pagestyle{empty}
+%     ~\\
+%     \clearpage
+%     \begin{dedication}
+%	A ma grande soeur,
+%         Merci pour tout.
+%     \end{dedication}
+% }
+% \fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-------------------------------------------------------------------------------
+\clearpage
+\pagestyle{empty}
+~\\
+\clearpage
+\pagestyle{fancy}
+\phantomsection
+\pdfbookmark[0]{Acknowledgements}{acknowledgements}
+\chapter*{Remerciements}
+\ifodd \value{personal}{
+    {\small
+     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel arcu a est vehicula posuere. Etiam tortor nulla, faucibus quis porttitor et, sodales nec diam. Sed non magna a tellus tincidunt egestas eu vel elit. Phasellus molestie sem ac ultrices interdum. Nam accumsan venenatis fringilla. Aliquam eget neque eu turpis volutpat vehicula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent id leo ultrices, finibus orci sagittis, tempus sem. Nunc nunc elit, pellentesque ac metus id, pretium ornare dui. In lobortis vel massa in egestas. Aenean pellentesque sed dolor non molestie. Quisque finibus semper mi, nec pulvinar magna.
+
+Nunc orci nibh, semper a leo non, vulputate hendrerit mauris. Nullam egestas vel leo non blandit. Curabitur scelerisque eros eu erat maximus tincidunt. Pellentesque tempus ac nisl a dignissim. Phasellus luctus erat sed luctus fringilla. Proin erat nunc, laoreet et tincidunt vitae, molestie quis leo. Nulla eget nunc et lacus sagittis imperdiet sed eget lectus. Vivamus efficitur ac est molestie maximus. Suspendisse vel magna sodales, lacinia neque non, interdum purus. In egestas nisl nec velit sollicitudin, pharetra gravida ex egestas. Aliquam sed placerat augue. Phasellus in justo eleifend, semper nisl eu, congue libero. Mauris facilisis placerat urna non sagittis. Nulla facilisi. Sed ac turpis eget neque dapibus dictum egestas at turpis.
+
+Nunc at augue magna. Quisque vestibulum mattis nulla, in luctus elit blandit id. Morbi vulputate augue quis ipsum scelerisque mollis. Nulla eget felis a dolor rhoncus faucibus sed eu odio. Curabitur volutpat id dolor a dictum. Integer suscipit eu neque fermentum accumsan. Proin vestibulum ligula ut nunc congue scelerisque.
+    }
+}
+\fi
+
+%-------------------------------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-------------------------------------------------------------------------------
+\clearpage
+\phantomsection
+\pdfbookmark[0]{Abstract}{abstract}
+\chapter*{Abstract}
+\lettrine[lines=2]{L}{orem}
+ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel arcu a est vehicula posuere. Etiam tortor nulla, faucibus quis porttitor et, sodales nec diam. Sed non magna a tellus tincidunt egestas eu vel elit. Phasellus molestie sem ac ultrices interdum. Nam accumsan venenatis fringilla. Aliquam eget neque eu turpis volutpat vehicula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent id leo ultrices, finibus orci sagittis, tempus sem. Nunc nunc elit, pellentesque ac metus id, pretium ornare dui. In lobortis vel massa in egestas. Aenean pellentesque sed dolor non molestie. Quisque finibus semper mi, nec pulvinar magna.
+
+Nunc orci nibh, semper a leo non, vulputate hendrerit mauris. Nullam egestas vel leo non blandit. Curabitur scelerisque eros eu erat maximus tincidunt. Pellentesque tempus ac nisl a dignissim. Phasellus luctus erat sed luctus fringilla. Proin erat nunc, laoreet et tincidunt vitae, molestie quis leo. Nulla eget nunc et lacus sagittis imperdiet sed eget lectus. Vivamus efficitur ac est molestie maximus. Suspendisse vel magna sodales, lacinia neque non, interdum purus. In egestas nisl nec velit sollicitudin, pharetra gravida ex egestas. Aliquam sed placerat augue. Phasellus in justo eleifend, semper nisl eu, congue libero. Mauris facilisis placerat urna non sagittis. Nulla facilisi. Sed ac turpis eget neque dapibus dictum egestas at turpis.
+
+Nunc at augue magna. Quisque vestibulum mattis nulla, in luctus elit blandit id. Morbi vulputate augue quis ipsum scelerisque mollis. Nulla eget felis a dolor rhoncus faucibus sed eu odio. Curabitur volutpat id dolor a dictum. Integer suscipit eu neque fermentum accumsan. Proin vestibulum ligula ut nunc congue scelerisque.
+%-------------------------------------------------------------------------------
+
+%\cleardoublepage
+\clearpage
+\phantomsection
+\pdfbookmark[0]{Résumé (Français)}{resume}
+\chapter*{Résumé}
+{\fontsize{11.45pt}{13.5pt}\selectfont 
+\lettrine[lines=2]{L}{orem} ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel arcu a est vehicula posuere. Etiam tortor nulla, faucibus quis porttitor et, sodales nec diam. Sed non magna a tellus tincidunt egestas eu vel elit. Phasellus molestie sem ac ultrices interdum. Nam accumsan venenatis fringilla. Aliquam eget neque eu turpis volutpat vehicula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent id leo ultrices, finibus orci sagittis, tempus sem. Nunc nunc elit, pellentesque ac metus id, pretium ornare dui. In lobortis vel massa in egestas. Aenean pellentesque sed dolor non molestie. Quisque finibus semper mi, nec pulvinar magna.
+
+Nunc orci nibh, semper a leo non, vulputate hendrerit mauris. Nullam egestas vel leo non blandit. Curabitur scelerisque eros eu erat maximus tincidunt. Pellentesque tempus ac nisl a dignissim. Phasellus luctus erat sed luctus fringilla. Proin erat nunc, laoreet et tincidunt vitae, molestie quis leo. Nulla eget nunc et lacus sagittis imperdiet sed eget lectus. Vivamus efficitur ac est molestie maximus. Suspendisse vel magna sodales, lacinia neque non, interdum purus. In egestas nisl nec velit sollicitudin, pharetra gravida ex egestas. Aliquam sed placerat augue. Phasellus in justo eleifend, semper nisl eu, congue libero. Mauris facilisis placerat urna non sagittis. Nulla facilisi. Sed ac turpis eget neque dapibus dictum egestas at turpis.
+
+Nunc at augue magna. Quisque vestibulum mattis nulla, in luctus elit blandit id. Morbi vulputate augue quis ipsum scelerisque mollis. Nulla eget felis a dolor rhoncus faucibus sed eu odio. Curabitur volutpat id dolor a dictum. Integer suscipit eu neque fermentum accumsan. Proin vestibulum ligula ut nunc congue scelerisque.
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-------------------------------------------------------------------------------
+\phantomsection
+\pdfbookmark[0]{Table of Contents}{contents}
+\setcounter{tocdepth}{1}
+\dominitoc \tableofcontents
+
+%\cleardoublepage
+%\clearpage
+%\phantomsection
+%\pdfbookmark[0]{List of Figures}{listoffigures}
+%\dominilof 
+%\listoffigures
+
+
+% \clearpage
+% \begingroup
+% \makeatletter
+% \phantomsection
+% \pdfbookmark[0]{List of Tables and Listings}{listoftl}
+% \chapter*{\hspace{-2cm}List of Tables and Listings}
+% \section*{Tables}
+% \@starttoc{lot}
+% \let\clearpage\relax
+% \section*{Listings}
+% \@starttoc{lol}
+% \let\clearpage\relax
+% \makeatother
+% \endgroup
+% \clearpage
+
+% \pagestyle{empty}
