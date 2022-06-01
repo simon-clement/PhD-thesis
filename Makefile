@@ -15,22 +15,6 @@ GRAY=gray.pdf
 GRAYSCRIPT="./toGray.sh"
 SUB="tmp.pdf"
 
-# define chapters ranges, for easy extraction
-CHAPTERS="chapters"
-INTRODUCTION=13-14
-MOTIVATIONS=15-30
-STATE=31-50
-ESTIMATORS=51-68
-DSE=69-88
-EXPERIMENTS=89-118
-CONCLUSION=119-122
-
-APPENDIXES="appendixes"
-APP-CHISEL=125-133
-APP-BENCH=135-144
-APP-RESOURCE=145-149
-APP-QUICK=151-157
-
 # environment variables
 WRKDIR=tmp
 PWD!=pwd
@@ -61,7 +45,7 @@ SPELLOPT=-d en_GB -t
 all: $(TARGET_FILE)
 
 # documents
-$(TARGET_FILE): *.tex $(BIBSRC) $(STYLES) # $(FIGURES)
+$(TARGET_FILE): *.tex $(BIBSRC) $(STYLES) chapters/* chapters/*/*
 	# @make -s figure
 	@mkdir -p ${WRKDIR} 
 	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error -draftmode ${NAME} 
@@ -95,25 +79,6 @@ $(GRAY): $(TARGET_FILE)
 # usage: make extract RANGE=<first>-<last>
 extract: $(TARGET_FILE)
 	@pdftk $< cat $(RANGE) output $(SUB)
-
-# extract all the chapters into one folder, in separate files
-# chapters: $(TARGET_FILE) $(THIS)
-# 	@mkdir -p $(CHAPTERS)
-# 	@pdftk $< cat $(INTRODUCTION) output $(CHAPTERS)/introduction.pdf
-# 	@pdftk $< cat $(MOTIVATIONS) output $(CHAPTERS)/motivations.pdf
-# 	@pdftk $< cat $(STATE) output $(CHAPTERS)/stateOfTheArt.pdf
-# 	@pdftk $< cat $(ESTIMATORS) output $(CHAPTERS)/estimators.pdf
-# 	@pdftk $< cat $(DSE) output $(CHAPTERS)/designSpaceExploration.pdf
-# 	@pdftk $< cat $(EXPERIMENTS) output $(CHAPTERS)/experiments.pdf
-# 	@pdftk $< cat $(CONCLUSION) output $(CHAPTERS)/conclusion.pdf
-
-# extract all the appendices into one folder, in separate files
-appendixes: $(TARGET_FILE)
-	@mkdir -p $(APPENDIXES)
-	@pdftk $< cat $(APP-CHISEL) output $(APPENDIXES)/chisel.pdf
-	@pdftk $< cat $(APP-BENCH) output $(APPENDIXES)/benchmark.pdf
-	@pdftk $< cat $(APP-RESOURCE) output $(APPENDIXES)/resources.pdf
-	@pdftk $< cat $(APP-QUICK) output $(APPENDIXES)/pruning.pdf
 
 # check for spelling mistake against a word dictionary
 # usage: make spell FILE=chapterX.tex

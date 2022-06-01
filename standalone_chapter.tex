@@ -1,7 +1,9 @@
-\documentclass{article}
+\documentclass[twoside, openany]{book}
 \usepackage[utf8]{inputenc}
 \usepackage{amssymb,amsmath,mathrsfs,epsfig,color,url,calc,hyperref,nicefrac, amsthm}
 \usepackage{import}
+\usepackage{minitoc}
+\usepackage{titlesec}
 \usepackage[numbers]{natbib}
 %Citation-related commands:
 \bibliographystyle{abbrvnat}
@@ -22,14 +24,16 @@
 \evensidemargin 0 pt
 \linenumbers
 \newtheorem*{remark}{Remark}
+% \titleclass{\chapter}{top}
 
 \title{Single Chapter}
 \author{Simon Clement}
 \date{April 2022}
 
 \begin{document}
+\dominitoc
+
 \def\cal{\mathscr}
-\tableofcontents
 \import{chapters/ND/}{NewDiscretisation.tex}
 
 \bibliography{biblioComplete.bib}

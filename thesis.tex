@@ -34,14 +34,8 @@
 \usepackage{listings}
 \usepackage{textcomp}
 \usepackage{url}
-%\usepackage{afterpage} % conflicts with tcolorbox
 \usepackage{placeins}
 \usepackage{xparse}
-%\hyphenation{NMDAR
-%		      NMDARs
-%		      tri-he-te-ro-meric
-%		      iono-tropic
-%		      non-selective}
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{pifont}
@@ -51,12 +45,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage{multirow}
 \usepackage{lscape}
-%\usepackage{makeidx}
 \usepackage{enumitem}
 \usepackage{forest}
 \usepackage{ifdraft}
-% \usepackage{mychronogram}
-% \usepackage{minitoc}
 \newtheorem*{remark}{Remark}
 
 \usepackage{adjustbox}
@@ -95,17 +86,13 @@
 
 % These need to be after hyperref
 \usepackage{algorithm}
-% \usepackage{algorithmicx}
-%\usepackage[all]{hypcap}
 
 \newcommand{\Desc}[2]{\State \makebox[2em][l]{#1}#2}
 \newcommand{\MyComment}[1]{\hfill{{\tt// #1}}}
 \newcommand{\MyLineComment}[1]{\State{{\tt// #1}}}
 
-%\usepackage{mymath}
 \usepackage{amssymb,amsmath,mathrsfs,epsfig,color,url,calc,hyperref,nicefrac, amsthm}
 \usepackage{enumitem}
-%\RequirePackage{lineno}
 \usepackage{placeins}
 \usepackage{tikz}
 \usepackage{multirow}
@@ -138,81 +125,6 @@
 (Cited on pages #2.)
 \fi
 }
-
-%----------------------------------------------------------------------
-% Some more style
-%----------------------------------------------------------------------
-
-% \usepackage[Sonny]{fncychap}
-% \ChNameVar{\large}
-% \ChNumVar{\large}
-% \ChTitleVar{\huge\rm\centering}
-% \usepackage[Lenny]{fncychap}
-% \usepackage[Bjornstrup]{fncychap}
-
-%---------------------------------------------------------------------
-%                   Chapter title style
-%---------------------------------------------------------------------
-
-%\usepackage{titlesec}
-%
-%\definecolor{headercolor}{HTML}{3690E9}
-%\definecolor{headergray}{HTML}{BEC0C2}
-%
-%\usepackage{epigraph}
-%\usepackage{tikz}
-%\usepackage{tikzpagenodes}
-%\titleformat{\chapter}[display]
-%  {\normalfont\huge}
-%  {}
-%  {20pt}
-%  {%
-%  \begin{tikzpicture}[remember picture,overlay]
-%\fill[color=headercolor] (-10,20) rectangle (18.5,-0.9);
-%\fill[top color=black, bottom color=headergray] (-10, -0.9) rectangle (18.5, -1.1);
-%\node[
-%    anchor=east,
-%    font=\color{white},
-%    % text width=\textwidth+3.0cm]
-%    text width=\textwidth+4.5cm]
-%at ([xshift=-1.5cm,yshift=5pt]titlerect.east) {\fontsize{30}{36}\sffamily\selectfont#1};
-%% at ([yshift=5pt]titlerect.east) {\fontsize{30}{36}\textsc{#1}};
-%\node[](chapterpos) at ([yshift=3cm]current page.east|-titlerect.east){};
-%\fill[color=white] 
-%      ([xshift=-3.7cm, yshift=-0.8cm] chapterpos.north west) rectangle ([xshift=4.5cm, yshift=0.8cm]chapterpos.south west);
-%\node[
-%    anchor= east,
-%    inner xsep=3cm,
-%    outer sep=0pt,
-%    font=\color{headercolor}](chapter)%,
-%at (chapterpos.center) {\fontsize{80}{86}\bfseries\thechapter};
-%  \end{tikzpicture}%
-%}
-%\titleformat{name=\chapter,numberless}[display]
-%  {\normalfont\huge}
-%  {}
-%  {20pt}
-%  {%
-%  \begin{tikzpicture}[remember picture,overlay]
-%  \node[
-%   anchor=west,
-%    rectangle,
-%    minimum height=4cm,
-%    text width=\paperwidth,
-%    xshift=-\the\dimexpr\oddsidemargin+1in\relax,
-%    outer sep=0pt] (titlerect) {};
-%\node[
-%    anchor=south west,
-%    xshift=6cm,
-%    yshift=2cm,
-%    text width=\textwidth]
-%at (titlerect.south west) {\fontsize{80}{86}\bfseries#1};
-%  \end{tikzpicture}%
-%  }[]
-%\titlespacing*{\chapter}
-%  {0pt}{-90pt}{60pt}
-%
-%---------------------------------------------------------------------
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -297,7 +209,6 @@
 \renewcommand{\mtctitle}{Table of contents}
 \usepackage[framemethod=TikZ]{mdframed}
 \usepackage[english]{babel}
-\usepackage{titlesec}
 \usepackage{xassoccnt}
 \usepackage{lettrine}
 \usepackage{tikz}
@@ -306,18 +217,6 @@
 \pgfplotsset{width=10cm,compat=1.15}
 \usepackage{physics}
 \usepgfplotslibrary{fillbetween}
-\makeatletter
-%\newcommand{\finalpage}[1]{%
-%    \clearpage%
-%    \SuspendCounters{page}
-%    \pagestyle{empty}
-%    \ifodd\c@page
-%    \null
-%    \clearpage
-%    \fi
-%    #1
-%}
-\makeatother
 
 % useful macros for english writing
 \newcommand{\eg}{{\it e.g. }}
@@ -359,60 +258,8 @@
 \newcounter{personal}
 \setcounter{personal}{1}
 
-%---------------------------------------
-
-\def\exampletext{Example} % If English
-\newcounter{exmpl}[chapter]
-
-\NewDocumentEnvironment{exmpl}{ O{} }
-{
-    \renewcommand{\theexmpl}{{\thechapter.}\arabic{exmpl}}
-    \refstepcounter{exmpl}\addtocounter{exmpl}{-1}
-\let\labelorig\label
-\def\label##1{\labelorig{##1}}%
-\colorlet{colexam}{blue!55!black} % Global example color
-\newtcolorbox[use counter=exmpl]{exmplbox}{%
-    % Example Frame Start
-    empty,% Empty previously set parameters
-    title={\exampletext~\thechapter.\arabic{exmpl}: #1},% use \thetcbcounter to access the exmpl counter text
-    % Attaching a box requires an overlay
-    attach boxed title to top left,
-       % Ensures proper line breaking in longer titles
-       minipage boxed title,
-    % (boxed title style requires an overlay)
-    boxed title style={empty,size=minimal,toprule=0pt,top=4pt,left=3mm,overlay={}},
-    coltitle=colexam,fonttitle=\bfseries,
-    before=\par\medskip\noindent,parbox=false,boxsep=0pt,left=3mm,right=0mm,top=2pt,breakable,pad at break=0mm,
-       before upper=\csname @totalleftmargin\endcsname0pt, % Use instead of parbox=true. This ensures parskip is inherited by box.
-    % Handles box when it exists on one page only
-    overlay unbroken={\draw[colexam,line width=.5pt] ([xshift=-0pt]title.north west) -- ([xshift=-0pt]frame.south west); },
-    % Handles multipage box: first page
-    overlay first={\draw[colexam,line width=.5pt] ([xshift=-0pt]title.north west) -- ([xshift=-0pt]frame.south west); },
-    % Handles multipage box: middle page
-    overlay middle={\draw[colexam,line width=.5pt] ([xshift=-0pt]frame.north west) -- ([xshift=-0pt]frame.south west); },
-    % Handles multipage box: last page
-    overlay last={\draw[colexam,line width=.5pt] ([xshift=-0pt]frame.north west) -- ([xshift=-0pt]frame.south west); },%
-    }
-
-\begin{exmplbox}
-    }
-{\end{exmplbox}}
-
-% \newenvironment{dedication}
-%   {\clearpage           % we want a new page
-%    \thispagestyle{empty}% no header and footer
-%    \vspace*{\stretch{1}}% some space at the top
-%    \large               % adapt text size
-%    \itshape             % the text is in italics
-%    \raggedleft          % flush to the right margin
-%   }
-%   {\par % end the paragraph
-%   \vspace{\stretch{3}} % space at bottom is three times that at the top
-%   \clearpage           % finish off the page
-%  }
-
 \newenvironment{sectionBegin}
-  {	           % we want a new page
+  {	           % we want no new page
    \thispagestyle{empty}% no header and footer
    \vspace*{\stretch{2}}% some space at the top
    \LARGE               % adapt text size
@@ -421,9 +268,11 @@
   }
   {\par % end the paragraph
    \vspace{\stretch{3}} % space at bottom is three times that at the top
-   \clearpage           % finish off the page
+              % finish off the page
   }
 
+% \newcounter{mychapter}
+%\renewcommand{\thesubchapter}{\Alph{subchapter}}
 %---------------------------------------
 \pdfobjcompresslevel 0
 \begin{document}
@@ -458,13 +307,10 @@
 % Mainmatter : chapters and appendices
 %---------------------------------------
 \mainmatter
-\pagestyle{fancy}
+%\pagestyle{fancy}
 %---------------------------------------
-\chapter*{Introduction}
 \import{chapters/Introduction/}{Introduction.tex}
 
-\chapter{Atmospheric and oceanic surface layers discretisation
-coherent with the physical theory}
 \import{chapters/ND/}{NewDiscretisation.tex}
 
 %---------------------------------------
