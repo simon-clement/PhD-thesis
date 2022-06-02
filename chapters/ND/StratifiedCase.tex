@@ -388,53 +388,78 @@ $l_{down}$ in the surface layer is detailed in
 subsection \ref{sec:ND_StratifiedCase_mixing_lengths_match}.
 %
 \paragraph{Turbulent Kinetic Energy in the computational domain}
-Let us assume that in each cell, $e$ is not varying too much and
-$l_\epsilon$ is constant.
+The discretisation of the turbulent kinetic energy
+requires some care. The Finite Volume scheme used for
+$u$ and $\theta$ is not used and we use instead a Finite Differences
+method which has a positivity conservation property.
+The energy $e$ and the lengths scales
+$l_m, l_\epsilon$ are evaluated at the interfaces
+$z_m$ between the cells:
+\begin{equation}
+\label{eq:ND_StratifiedCase_SemiDiscreteTKE}
+    \left(
+    \frac{c_\epsilon \sqrt{e^n_m}}{l_\epsilon}
+    + \partial_t
+    \right) e_m
+    =\frac{K_{e,m+1/2} (\partial_z e)_{m+1/2} -
+    K_{e,m-1/2} (\partial_z e)_{m-1/2}}{h_{m}}
+    + K_u ||\partial_z u||^2
+    - K_\theta N^2
+\end{equation}
+The implicit dissipation ensures the conservation
+of the positivity of $e$, as long as
+$K_u ||\partial_z u||^2 - K_\theta N^2$ is positive.
+In the cells where the buoyancy is stronger than the shear,
+$K_\theta N^2$ is multiplied by
+$\frac{e^{n+1}}{e^n}$. This implicit buoyancy term is known
+as the "Patankar's trick" \citep{lemarie_simplified_2021}.
+% Let us assume that in each cell, $e$ is not varying too much and
+% $l_\epsilon$ is constant.
 % We use Patankar's trick
 % \footnote{
 % 	multiplying buoyancy by $\frac{\overline{e}^{n+1}}{\overline{e}^n}$ when buoyancy is greater than shear
 % to ensure positivity preservation of $\overline{e}$ {\color{red}[ref ?]
 % }} even if it does not guarantee positivity of TKE when
 % dealing with Finite Volumes.
-Shear and buoyancy are also assumed to be constant in each cell:
-\begin{equation}
-\label{eq:ND_StratifiedCase_SemiDiscreteTKE}
-    \left(
-    \frac{c_\epsilon \sqrt{\overline{e}^n}}{l_\epsilon}
-    + \partial_t
-    \right) \overline{e}
-    =\frac{K_{e,m+1} (\partial_z e)_{m+1} -
-    K_{e,m} (\partial_z e)_{m}}{h_{m+1/2}}
-    + K_u ||\partial_z u||^2
-    - K_\theta N^2
-\end{equation}
-Similarly to $\theta$ and $u$, the prognostic equation
-to find the spatial derivative of the TKE at 
-the borders of the cells is
-\begin{equation}
-\label{eq:ND_StratifiedCase_prognosticTKE_FV}
-\begin{aligned}
-&\partial_t
-\left(
-    h_{m-1/2}\frac{(\partial_z e)_{m-1}}{6}+
-    h_m\frac{2(\partial_z e)_{m}}{3}+
-    h_{m+1/2}\frac{(\partial_z e)_{m+1}}{6}
-\right)
-\\&-
-    \left(\frac{K_{e,m+1} (\partial_z e)_{m+1} -
-        K_{e,m} (\partial_z e)_{m}}{h_{m+1/2}}
--
-    \frac{K_{e,m} (\partial_z e)_{m} -
-        K_{e,m-1} (\partial_z e)_{m-1}}{h_{m-1/2}}
-        \right)
-\\
-&- \left(K_{u} ||\partial_z u||^2
--  K_\theta N^2 
-- \frac{c_\epsilon \sqrt{\overline{e}}}{l_\epsilon} \overline{e}
-\right)_{dm} = 0
-\end{aligned}
-\end{equation}
-where the index $X_{dm}$ is a shortcut for $X_{m+1/2} - X_{m-1/2}$.
+% Shear and buoyancy are also assumed to be constant in each cell:
+% \begin{equation}
+% \label{eq:ND_StratifiedCase_SemiDiscreteTKE}
+%     \left(
+%     \frac{c_\epsilon \sqrt{\overline{e}^n}}{l_\epsilon}
+%     + \partial_t
+%     \right) \overline{e}
+%     =\frac{K_{e,m+1} (\partial_z e)_{m+1} -
+%     K_{e,m} (\partial_z e)_{m}}{h_{m+1/2}}
+%     + K_u ||\partial_z u||^2
+%     - K_\theta N^2
+% \end{equation}
+% Similarly to $\theta$ and $u$, the prognostic equation
+% to find the spatial derivative of the TKE at 
+% the borders of the cells is
+% \begin{equation}
+% \label{eq:ND_StratifiedCase_prognosticTKE_FV}
+% \begin{aligned}
+% &\partial_t
+% \left(
+%     h_{m-1/2}\frac{(\partial_z e)_{m-1}}{6}+
+%     h_m\frac{2(\partial_z e)_{m}}{3}+
+%     h_{m+1/2}\frac{(\partial_z e)_{m+1}}{6}
+% \right)
+% \\&-
+%     \left(\frac{K_{e,m+1} (\partial_z e)_{m+1} -
+%         K_{e,m} (\partial_z e)_{m}}{h_{m+1/2}}
+% -
+%     \frac{K_{e,m} (\partial_z e)_{m} -
+%         K_{e,m-1} (\partial_z e)_{m-1}}{h_{m-1/2}}
+%         \right)
+% \\
+% &- \left(K_{u} ||\partial_z u||^2
+% -  K_\theta N^2 
+% - \frac{c_\epsilon \sqrt{\overline{e}}}{l_\epsilon} \overline{e}
+% \right)_{dm} = 0
+% \end{aligned}
+% \end{equation}
+% where the index $X_{dm}$ is a shortcut for $X_{m+1/2} - X_{m-1/2}$.
 
 \paragraph{Boundary conditions}
 In the surface layer because of the strong mixing $e$
