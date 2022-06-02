@@ -29,7 +29,7 @@
 \usepackage{layout}
 \usepackage{setspace}
 \usepackage{import}
-
+\usepackage{pdfpages}
 \usepackage{longtable}
 \usepackage{listings}
 \usepackage{textcomp}
@@ -49,6 +49,7 @@
 \usepackage{forest}
 \usepackage{ifdraft}
 \newtheorem*{remark}{Remark}
+\newtheorem*{proposition}{Proposition}
 
 \usepackage{adjustbox}
 \usepackage{tabto}
@@ -90,6 +91,18 @@
 \newcommand{\Desc}[2]{\State \makebox[2em][l]{#1}#2}
 \newcommand{\MyComment}[1]{\hfill{{\tt// #1}}}
 \newcommand{\MyLineComment}[1]{\State{{\tt// #1}}}
+
+%%%%% To include papers with page numering: %%%%%%
+\newcommand\invisiblesection[1]{%
+  \refstepcounter{section}%
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
+  \sectionmark{#1}
+  }
+\newcommand\invisiblesubsection[1]{%
+  \refstepcounter{subsection}%
+  \addcontentsline{toc}{subsection}{
+	  \protect\numberline{\thesubsection}#1}%
+  \sectionmark{#1}}
 
 \usepackage{amssymb,amsmath,mathrsfs,epsfig,color,url,calc,hyperref,nicefrac, amsthm}
 \usepackage{enumitem}
@@ -140,6 +153,8 @@
 %----------------------------------------------------------------------
 % Macros
 %----------------------------------------------------------------------
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\modified}{modif.}
 
 % mdframed
 \newcommand{\mdr}[1]{\begin{mdframed}[roundcorner=5pt]#1\end{mdframed}}
@@ -217,6 +232,7 @@
 \pgfplotsset{width=10cm,compat=1.15}
 \usepackage{physics}
 \usepgfplotslibrary{fillbetween}
+\usetikzlibrary{arrows}
 
 % useful macros for english writing
 \newcommand{\eg}{{\it e.g. }}
@@ -310,6 +326,8 @@
 %\pagestyle{fancy}
 %---------------------------------------
 \import{chapters/Introduction/}{Introduction.tex}
+
+\import{chapters/discreteSchwarzAnalysis/}{discreteSchwarzAnalysis.tex}
 
 \import{chapters/ND/}{NewDiscretisation.tex}
 

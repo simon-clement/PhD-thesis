@@ -55,6 +55,13 @@ $(TARGET_FILE): *.tex $(BIBSRC) $(STYLES) chapters/* chapters/*/*
 	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error ${NAME} 
 	@mv ${WRKDIR}/$@ $@
 
+# documents
+fast: *.tex $(BIBSRC) $(STYLES) chapters/* chapters/*/*
+	# @make -s figure
+	@mkdir -p ${WRKDIR}
+	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error ${NAME}
+	@mv ${WRKDIR}/${NAME}.pdf ${NAME}.pdf
+
 chapters: *.tex $(BIBSRC) $(STYLES) chapters/ND/*.tex
 	@mkdir -p ${WRKDIR} 
 	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error -draftmode ${NAME_CHAP} 
