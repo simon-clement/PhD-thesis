@@ -1,45 +1,13 @@
-\documentclass[twoside, openany]{book}
-\usepackage[utf8]{inputenc}
-\usepackage{amssymb,amsmath,mathrsfs,epsfig,color,url,calc,hyperref,nicefrac, amsthm}
-\usepackage{import}
-\usepackage{minitoc}
-\usepackage{titlesec}
-\usepackage[numbers]{natbib}
-%Citation-related commands:
-\bibliographystyle{abbrvnat}
-% \setcitestyle{authoryear,open={(},close={)}}
-\setcitestyle{authoryear}
-%
-\usepackage{enumitem}
-%\RequirePackage{lineno}
-\usepackage{placeins}
-\usepackage{tikz}
-\usepackage{multirow}
-\usepackage{subcaption}
-\usepackage{lineno}% line numbersk
-\usetikzlibrary{arrows}
-\setlength{\textwidth}{16.5cm}
-\setlength{\textheight}{25cm}
-\topmargin -2.5 cm
-\oddsidemargin 0 pt
-\evensidemargin 0 pt
-\linenumbers
-\newtheorem*{remark}{Remark}
-\DeclareMathOperator*{\argmin}{argmin}
-\DeclareMathOperator*{\modified}{modif.}
-% \titleclass{\chapter}{top}
-
-\title{Single Chapter}
-\author{Simon Clement}
-\date{April 2022}
-
+\input{allpackages.tex}
 \begin{document}
 \dominitoc
 \faketableofcontents
 
 \def\cal{\mathscr}
 \setcounter{chapter}{3}
+
 \import{chapters/ND/}{NewDiscretisation.tex}
 
+\bibliographystyle{StyleThese}
 \bibliography{biblioComplete.bib}
 \end{document}

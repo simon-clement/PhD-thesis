@@ -1,0 +1,290 @@
+%----------------------------------------------------------------------
+% Document class
+%----------------------------------------------------------------------
+% \documentclass[a4paper,twoside,openany,final,12pt,table]{book}
+\documentclass[draft,a4paper,twoside,openany,final,12pt,table]{book}
+
+%What to include (useful if you want to send certain portions for review).
+%\includeonly{
+%  title,
+%  abstract,
+%  acknowledgements,
+%  contents,
+%  ch1,
+%  ch2,
+%  0_backmatter
+%}
+%----------------------------------------------------------------------
+
+
+%----------------------------------------------------------------------
+% Packages and macros
+%----------------------------------------------------------------------
+\usepackage[a4paper]{meta-donnees}
+
+% \usepackage[top=1in,bottom=1in]{geometry}
+% \usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2cm]{geometry}
+% \usepackage[top=4cm, bottom=3cm, inner=3.5cm, outer=2.5cm]{geometry}
+% \usepackage[strict]{changepage}
+\usepackage{layout}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage{pdfpages}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{url}
+\usepackage{placeins}
+\usepackage{xparse}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{pifont}
+\usepackage[figuresleft]{rotating}
+\usepackage{latexsym}
+\usepackage{verbatim}
+\usepackage[utf8]{inputenc}
+\usepackage{multirow}
+\usepackage{lscape}
+\usepackage{enumitem}
+\usepackage{forest}
+\usepackage{ifdraft}
+\newtheorem*{remark}{Remark}
+\newtheorem*{proposition}{Proposition}
+
+\usepackage{adjustbox}
+\usepackage{tabto}
+
+\usepackage{bibentry}
+\usepackage[numbers]{natbib}
+\usepackage{etoc}
+\nobibliography*
+
+%\makeindex
+% This should be after most packages
+\usepackage[%ps2pdf, %debug,
+            pdftitle            = {{Numerical analysis for the reconciliation in space and time of the discretizations of the air-sea exchanges and their parameterization}},
+            pdfsubject          = {Ph.D. Thesis},
+            pdfauthor           = {Simon CLEMENT},
+            pdfkeywords         = {{Schwarz methods, Semi-Discrete, Discrete}},
+            pdfpagemode         = {UseOutlines},
+            colorlinks          = true,
+            linkcolor           = {blue},
+            citecolor           = {blue},
+            %urlcolor            = {black},
+            pdfstartview        = {FitH},
+            pdfdisplaydoctitle  = true,
+            bookmarks           = true,
+            bookmarksopen       = false,
+            bookmarksnumbered   = true,
+            bookmarkstype       = {toc},
+            raiselinks          = false,
+            breaklinks          = true,
+            pageanchor          = true,
+            backref             = page]{hyperref}
+
+\usepackage{breakurl}
+\def\UrlBreaks{\do\/\do-}
+
+% These need to be after hyperref
+\usepackage{algorithm}
+
+\newcommand{\Desc}[2]{\State \makebox[2em][l]{#1}#2}
+\newcommand{\MyComment}[1]{\hfill{{\tt// #1}}}
+\newcommand{\MyLineComment}[1]{\State{{\tt// #1}}}
+
+%%%%% To include papers with page numering: %%%%%%
+\newcommand\invisiblesection[1]{%
+  \refstepcounter{section}%
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
+  \sectionmark{#1}
+  }
+\newcommand\invisiblesubsection[1]{%
+  \refstepcounter{subsection}%
+  \addcontentsline{toc}{subsection}{
+	  \protect\numberline{\thesubsection}#1}%
+  \sectionmark{#1}}
+
+\usepackage{amssymb,amsmath,mathrsfs,epsfig,color,url,calc,hyperref,nicefrac, amsthm}
+\usepackage{enumitem}
+\usepackage{placeins}
+\usepackage{tikz}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{lineno}% line numbersk
+\usepackage{subcaption}
+\usepackage[format=hang,font=small,labelfont=bf]{caption}
+\setlength{\textwidth}{16.5cm}
+%\setlength{\textheight}{23cm}
+\topmargin 0 pt
+\oddsidemargin 0 pt
+\evensidemargin 0 pt
+\linenumbers
+
+\usepackage{minitoc}
+
+\usepackage[obeyDraft,colorinlistoftodos,bordercolor=white,color=green!40,textwidth=2cm]{todonotes}
+
+\usepackage[noabbrev,sort]{cleveref} % nameinlink,
+
+% This needs to be after backref, which is included by hyperref if backref is
+% enabled.  The command is used to list locations of citations.
+\renewcommand*{\backref}[1]{}
+\renewcommand*{\backrefalt}[4]{
+\ifcase #1
+(No cited.)
+\or
+(Cited on page #2.)
+\else
+(Cited on pages #2.)
+\fi
+}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\textsc{\nouppercase{\leftmark}}}
+\fancyhead[RO]{\textsc{\nouppercase{\rightmark}}}
+\fancyfoot[C]{\thepage}
+
+
+%----------------------------------------------------------------------
+
+
+%----------------------------------------------------------------------
+% Macros
+%----------------------------------------------------------------------
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\modified}{modif.}
+
+% mdframed
+\newcommand{\mdr}[1]{\begin{mdframed}[roundcorner=5pt]#1\end{mdframed}}
+\newcommand{\lmdr}[1]{\begin{mdframed}[roundcorner=5pt,linewidth=2pt]{\bf #1}\end{mdframed}}
+
+% todo
+\newcommand{\myTD}[1]{\textcolor{red}{{\bf #1}}}
+\newcommand{\tdf}[1]{\missingfigure[color=red!30]{[\currentlabelchapter]: #1}}
+\newcommand{\tdt}[1]{\missingfigure[color=red!30]{TABLE[\currentlabelchapter]: #1}}
+\newcommand{\needed}[1]{\todo[inline,noline,color=red!70]{[\currentlabelchapter]: #1}}
+\newcommand{\appNeeded}[1]{\todo[color=red!70]{[app]: #1}}
+\newcommand{\major}[1]{\todo[color=orange!50]{[\currentlabelchapter]: #1}}
+\newcommand{\minor}[1]{\todo[color=yellow!50]{[\currentlabelchapter]: #1}}
+\newcommand{\question}[1]{\todo[color=blue!50]{[\currentlabelchapter]: #1}}
+
+% name of a variable, software ...
+\newcommand{\sn}[1]{{\ttfamily #1}}
+
+% term
+\newcommand{\tn}[1]{\emph{#1}}
+%----------------------------------------------------------------------
+
+
+\setcounter{secnumdepth}{3}
+
+% crossreferences -- cases when capital letter should be used
+\crefname{table}{Table}{Tables}%
+\crefname{subtable}{Table}{Tables}%
+\crefname{part}{Part}{Parts}%
+\crefname{chapter}{Chapter}{Chapters}%
+\crefname{section}{Section}{Sections}%
+\crefname{subsection}{Subsection}{Subsections}%
+\crefname{subsubsection}{Subsection}{Subsections}%
+\crefname{appendix}{Appendix}{Appendices}%
+\crefname{subappendix}{Appendix}{Appendices}%
+\crefname{subsubappendix}{Appendix}{Appendices}%
+\crefname{subsubsubappendix}{Appendix}{Appendices}%
+\crefname{theorem}{Theorem}{Theorems}%
+\crefname{lemma}{Lemma}{Lemmas}%
+\crefname{algorithm}{Algorithm}{Algorithms}%
+\crefname{listing}{Listing}{Listings}%
+\crefname{figure}{Figure}{Figures}%
+\crefname{Hierarchy}{Hierarchy}{Hierarchies}%
+\crefname{HierarchyLevel}{}{}%
+\crefname{Assumption}{Assumption}{Assumptions}%
+\crefname{equation}{}{}%
+\crefname{subequation}{}{}%
+\crefname{parentequation}{}{}%
+\crefformat{equation}{(#2#1#3)}
+\crefformat{subequation}{(#2#1#3)}
+\crefformat{parentequation}{(#2#1#3)}
+%----------------------------------------------------------------------
+
+% custom definition of different styles
+%\setlist[itemize]{itemsep=0pt, topsep=5pt}
+%\setlist[enumerate]{itemsep=0pt, topsep=5pt}
+%\setlist[description]{itemsep=0pt, topsep=5pt, labelwidth=1cm, labelindent=8pt, leftmargin=\labelindent+\labelwidth+\labelsep}
+
+% remove extra white space around long tables
+\setlength{\LTpre}{4pt}
+\setlength{\LTpost}{0pt}
+
+%\newcommand{\thesisHierarchyStyle}[1]{\changeHierarchyStyle{width=13cm,breakable,before=,after=\par}{#1}}
+%\thesisHierarchyStyle{}
+
+\renewcommand*{\lstlistlistingname}{Listing}
+\renewcommand{\mtctitle}{Table of contents}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage[english]{babel}
+\usepackage{xassoccnt}
+\usepackage{lettrine}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.15}
+\usepackage{physics}
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{arrows}
+
+% useful macros for english writing
+\newcommand{\eg}{{\it e.g. }}
+\newcommand{\ie}{{\it i.e. }}
+\newcommand{\etal}{et {\it al.}}
+\newcommand{\vs}{{\it vs }}
+\newcommand{\etc}{{\it etc}}
+
+%---------------------------------------
+% ACRONYM MACRO
+%---------------------------------------
+
+\usepackage{xcolor}
+\definecolor{linkColor}{RGB}{0,0,255}
+\definecolor{comment}{RGB}{0.0, 0.6, 0.2}
+
+\newcommand{\ccg}{\cellcolor{gray}}
+\newcommand{\inred}[1]{\color{red}#1\color{black}}
+
+\newcommand{\myLink}[2]{%
+    \hypersetup{linkcolor=linkColor}%
+    \hyperref[#1]{\bf{#2}}%
+    \hypersetup{linkcolor=blue}%
+}
+\newcommand{\myAc}[1]{\myLink{ch.glossary:gl.#1}{#1}}
+\newcommand{\myAcs}[1]{\myLink{ch.glossary:gl.#1}{#1s}}
+\newcommand{\myLongAc}[2]{{\it #2} (\hyperref[ch.glossary:gl.#1]{{\bf #1}})}
+\newcommand{\myLongAcs}[2]{{\it #2s} (\hyperref[ch.glossary:gl.#1]{{\bf #1}})}
+
+%---------------------------------------
+% DISPLAY VARIABLE
+%---------------------------------------
+
+% used to easily remove the jury from the emitted file
+\newcounter{anonymous}
+\setcounter{anonymous}{0}
+
+% used to remove acknowledgments from the emitted file
+\newcounter{personal}
+\setcounter{personal}{1}
+
+\newenvironment{sectionBegin}
+  {	           % we want no new page
+   \thispagestyle{empty}% no header and footer
+   \vspace*{\stretch{2}}% some space at the top
+   \LARGE               % adapt text size
+   \centering
+   \bf
+  }
+  {\par % end the paragraph
+   \vspace{\stretch{3}} % space at bottom is three times that at the top
+              % finish off the page
+  }
+
+\pdfobjcompresslevel 0
