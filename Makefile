@@ -112,5 +112,5 @@ realclean: clean
 	@cd $(FIGURE_DIR); make -s clean VERB=$(VERB)
 
 # force regeneration
-force: realclean
+force: clean
 	@make
