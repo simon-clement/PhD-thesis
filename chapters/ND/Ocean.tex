@@ -8,8 +8,8 @@ follow the discretization developed in the previous sections
 to handle the oceanic surface layer.
 %
 \par
-In the ocean modelling community, it is unusual to use
-wall modelling at the surface. The Sea Surface Temperature
+In the ocean modeling community, it is unusual to use
+wall modeling at the surface. The Sea Surface Temperature
 (SST) is often taken at the first grid level inside the
 ocean: this corresponds to the assumption that 
 the profiles are constant in the surface layer.
@@ -33,7 +33,7 @@ surface layer in the coupled setting.
 \label{sec:ND_Ocean_differencesWithAtmosphere}
 In this section, the numerical model of a stratified column
 of ocean is described. The objective is to obtain a model
-similar to the atmosphere while including the specificities
+similar to the atmosphere while including the specificity
 of the ocean.
 In particular, the main changes compared to the atmosphere
 model are:
@@ -117,7 +117,7 @@ with for $x = u, \theta$:
 \end{equation}
 Section \ref{sec:ND_Ocean_stabilityFunctionIntegration}
 gives the derivation of the explicit formula of $\tau_{sl}$
-with the oceanic univeral stability functions.
+with the oceanic universal stability functions.
 Let us define the non-dimensional number
 $\alpha_{sl, x} = \frac{\widetilde{h}}{h_{k-1/2}} +
 \tau_{sl, x}$.
@@ -388,10 +388,10 @@ $\frac{\kappa (\theta(\delta_a) - \theta(\delta_o))}
 	{Q_H} E(\delta_o).
 \end{equation}
 \subsubsection{Adding radiative fluxes: derivation without
-molecular sublayer}
+molecular sub-layer}
 As it was done in 
 \citep{zeng_prognostic_2005}, we use an evolution equation
-in the surface layer. We neglect the molecular sublayer and
+in the surface layer. We neglect the molecular sub-layer and
 integrate between $\delta_o$ and 0:
 the flux at $z=0$ is
 $K_\theta \partial_z \theta = \frac{Q_H - Q_{lw}}{\rho_0 c_p}$
@@ -420,7 +420,7 @@ where $\nu$ is a constant parameter that can be set to 1 to
 recover a linear reconstruction of $\theta(z)$.
 \cite{zeng_prognostic_2005} choose $\nu=0.3$ and argue that
 the choice of $\nu$ is linked to the size of the molecular
-sublayer.
+sub-layer.
 We formulate the reconstruction in terms of $\overline{\theta}_{sl}$
 and $\left.\partial_z \theta\right|_{\delta_o}$:
 \begin{equation}
@@ -563,7 +563,7 @@ K\partial_z \theta_{-1}
 Note that the reconstruction we are using is not differentiable
 in $z=0$.
 If greater regularity is needed, it is possible to link
-the reconstruction with a proper modeling of the molecular sublayer
+the reconstruction with a proper modeling of the molecular sub-layer
 (e.g. $\rho_0 c_p K_{mol} \partial_z \theta(z) =
 Q - Q_{lw} - \int_z^0 \partial_z Q_{sw}(z')dz'$ for $|z|<<|\delta_o|$)
 % It is hence more appealing to take into account

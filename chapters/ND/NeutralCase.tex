@@ -16,7 +16,7 @@ The Finite Volumes discretization using splines reconstruction
 is then recalled.
 Section \ref{sec:ND_NeutralCase_strategies}
 is an overview of several strategies used to deal
-with the coupling of the two zones mentioned precedently.
+with the coupling of the two zones mentioned previously.
 When it makes sense to do so, the strategies are applied to the
 Finite Volumes discretization so that they can be
 compared with each other.
@@ -51,7 +51,7 @@ the atmosphere column, $(\delta_{sl}, +\infty)$.
 The surface layer has two main characteristics:
 \begin{itemize}
 	\item it is well mixed. The governing equation
-		is usually stationnary because the surface layer
+		is usually stationary because the surface layer
 		immediately adjusts to the external parameters.
 		As a consequence (and because the Coriolis effect
 		and the geostrophic forcing are neglected),
@@ -468,10 +468,10 @@ that $\delta_{\rm sl} < z_1$ and then relax this hypothesis.
 In the first grid level, we assume that
 \eqref{eq:ND_NeutralCase_WallLaw} applies for $z<\delta_{sl}$
 and we separate the 
-first volume into two parts: the surface layer $[0,\delta_{\rm sl}]$ and the "subcell" $[\delta_{\rm sl}, z_1]$.
+first volume into two parts: the surface layer $[0,\delta_{\rm sl}]$ and the "sub-cell" $[\delta_{\rm sl}, z_1]$.
 This split corresponds to the change of governing equations
 in the continuous case \eqref{eq:ND_NeutralCase_continuousModel}.
-Let $\widetilde{h} = z_1 - \delta_{\rm sl}$  be the size of the subcell $[\delta_{\rm sl}, z_1]$
+Let $\widetilde{h} = z_1 - \delta_{\rm sl}$  be the size of the sub-cell $[\delta_{\rm sl}, z_1]$
 and $\widetilde{u} = \frac{1}{\widetilde{h}}\int_{\delta_{sl}}^{z_1}
 u(z)dz$ be the averaged value of $u$ on this interval.
 The following subgrid reconstruction is used:
@@ -488,7 +488,7 @@ The following subgrid reconstruction is used:
 \end{equation}
 The quadratic spline ${\cal S}_{1/2}$ used for reconstruction
 is computed with the averaged value $\widetilde{u}$, the
-size of the subcell $\widetilde{h}$ and the fluxes at the
+size of the sub-cell $\widetilde{h}$ and the fluxes at the
 extremities $\phi_{\delta}$ and $\phi_1$:
 ${\cal S}_{1/2}(\xi) = 
 \widetilde{u} + \frac{\phi_{1} + \phi_{\delta}}{2} \xi
@@ -779,7 +779,7 @@ to neither $(\partial_z u)(z_0)$ nor $(\partial_z u)(z_{\delta_{sl}})$.
 Let $k$ be such that $z_k \leq \delta_{\rm sl} < z_{k+1}$.
 The surface layer scheme "FV free" is identical to the case $k=0$, except that
 \begin{itemize}
-	\item the subcell of average $\widetilde{u}$ and of size
+	\item the sub-cell of average $\widetilde{u}$ and of size
 		$\widetilde{h}$ is $[\delta_{\rm sl}, z_{k+1}]$:
 		$k$ is added to the indices in 
 		\eqref{eq:ND_NeutralCase_boundaryCondFVfree} and
@@ -805,6 +805,6 @@ the stratified case in section \ref{sec:ND_StratifiedCase_FVfree}
 	\label{fig:ND_NeutralCase_nouvelle_dis_neutre_anydelta}
 \end{figure}
 Figure \ref{fig:ND_NeutralCase_nouvelle_dis_neutre_anydelta}
-shows how is handled the surface layer in this case: the part in grey
+shows how is handled the surface layer in this case: the part in gray
 is neutralized for the prognostic equation and is filled afterward
 with the help of the log law.
