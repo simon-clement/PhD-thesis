@@ -183,7 +183,7 @@ It is seen that the temperature and wind profiles are
 all similar.
 Two simulations are done: the first one uses 15 grid points
 in the 400m column and the second one uses 40 grid points and is then
-projected onto the first grid.
+projected onto the first grid for the comparison.
 \begin{figure}
 	\centering
 \includegraphics[scale=0.6]{images/consistency_comparisonStratified.pdf}
@@ -232,4 +232,38 @@ boundary conditions}".
 	}
 	\label{fig:ND_Consistency_comparisonUnstable}
 \end{figure}
-{\color{red} TODO expériences, quels plots ?}
+Figure \ref{fig:ND_Consistency_comparisonUnstable}
+shows the differences found between a high resolution simulation
+and a low resolution simulation in an unstable situation.
+\paragraph{Description of the test case}
+To design a test case with an unstable stratification
+the sea surface temperature is forced to follow a daily oscillation
+between $279$ K and $281$ K.
+The initial profiles of temperature and wind
+are set to constant values of respectively $280$ K and
+$8 \; {\rm m}.{\rm s}^{-1}$.
+As in the stable case the geostrophic wind is
+$u_G = 8 \;{\rm m}.{\rm s}^{-1}$
+and the time step is $\Delta t = 30 \;{\rm s}$.
+The "low resolution" is composed of 50 grid levels of $10 \; m$
+each; 15 additional stretched levels between $500 \; m$ and
+$1080 \; m$ make sure that the upper boundary condition
+is not involved in the results.
+The "high resolution" divides every space levels into
+3 space levels of equal size.
+\paragraph{Results}
+Figure \ref{fig:ND_Consistency_comparisonUnstable}
+shows that the "FV2" scheme is also less consistent
+in the unstable case.
+This time in the first $200$ meters the scheme "FV free" seems a lot
+more robust than the other.
+However, above this height the differences between the high
+resolution and the low resolution simulations oscillate and there
+is no clear conclusion that can be made.
+As in the stable case, the schemes that assume an evolution equation
+inside the surface layer are not very sensitive to the choice of
+the height of the surface layer.
+The main conclusion is hence that
+\textbf{if Monin-Obukhov profiles are enforced in the
+surface layer the importance of the choice of
+$\delta_{sl}$ increases.}.
