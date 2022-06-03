@@ -225,10 +225,12 @@ boundary conditions}".
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.6]{images/consistency_comparisonUnstable.pdf}
-	\caption{Differences in $u_\star, t_\star, |u|$ and $\theta$
+	\caption{Differences (right) in $u_\star, t_\star, |u|$ and $\theta$
 	between a high resolution and a low resolution
 	of the surface flux schemes presented in an unstable
-	stratification.
+	stratification. The corresponding profiles
+	with the low resolution simulations are shown in
+	the left panels.
 	}
 	\label{fig:ND_Consistency_comparisonUnstable}
 \end{figure}
@@ -256,7 +258,7 @@ Figure \ref{fig:ND_Consistency_comparisonUnstable}
 shows that the "FV2" scheme is also less consistent
 in the unstable case.
 This time in the first $200$ meters the scheme "FV free" seems a lot
-more robust than the other.
+more robust than the other schemes.
 However, above this height the differences between the high
 resolution and the low resolution simulations oscillate and there
 is no clear conclusion that can be made.
@@ -266,4 +268,8 @@ the height of the surface layer.
 The main conclusion is hence that
 \textbf{if Monin-Obukhov profiles are enforced in the
 surface layer the importance of the choice of
-$\delta_{sl}$ increases.}.
+$\delta_{sl}$ increases.}
+In both cases, the different profiles are very similar.
+A ocean-atmosphere coupled case is presented in Section
+\ref{sec:ND_Ocean}, where the surface scheme may be of a greater
+importance.
