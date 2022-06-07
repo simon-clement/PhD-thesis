@@ -6,7 +6,8 @@ BIB = bibtex
 VERB ?= 0
 
 # dummy targets
-.PHONY: all clean realclean spell force extract
+.PHONY: all clean realclean spell force extract \
+	chap0 chap1 chap2 chap3 chap4 chap5
 
 # useful custom variables
 THIS=Makefile
@@ -25,6 +26,7 @@ ENV=env \
 	LXDINPUTS=".:./Styles/:./Figures/:"
 NAME=thesis
 NAME_CHAP=standalone_chapter
+NAME_outCHAP=standalone_chapter
 BIBSRC = biblioComplete.bib
 
 # SOURCES
@@ -62,14 +64,40 @@ fast: *.tex $(BIBSRC) $(STYLES) chapters/* chapters/*/*
 	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error ${NAME}
 	@mv ${WRKDIR}/${NAME}.pdf ${NAME}.pdf
 
-chapters: *.tex $(BIBSRC) $(STYLES) chapters/ND/*.tex
+chapters: *.tex $(BIBSRC) $(STYLES)
 	@mkdir -p ${WRKDIR} 
-	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error -draftmode ${NAME_CHAP} 
+	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error ${NAME_CHAP} 
+	@mv ${WRKDIR}/${NAME_CHAP}.pdf ${NAME_outCHAP}.pdf
 	@cd ${WRKDIR}; ${ENV} ${BIB} ${NAME_CHAP} 
 	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error -draftmode ${NAME_CHAP} 
 	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error -draftmode ${NAME_CHAP} 
 	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error ${NAME_CHAP} 
-	@mv ${WRKDIR}/${NAME_CHAP}.pdf ${NAME_CHAP}.pdf
+	@mv ${WRKDIR}/${NAME_CHAP}.pdf ${NAME_outCHAP}.pdf
+
+# we put the setcounter to number of chapter-1
+chap0: chapters/Introduction/*.tex
+	@sed -i '2c \\\setcounter{chapter}{0}' standalone_chapter.tex
+	@make chapters NAME_outCHAP="chapter0"
+
+chap1: chapters/airseaSCM/*.tex
+	@sed -i '2c \\\setcounter{chapter}{0}' standalone_chapter.tex
+	@make chapters NAME_outCHAP="chapter1"
+
+chap2: chapters/discreteSchwarzAnalysis/*.tex
+	@sed -i '2c \\\setcounter{chapter}{1}' standalone_chapter.tex
+	@make chapters NAME_outCHAP="chapter2"
+
+chap3: chapters/approximatedDiscreteSchwarz/*.tex
+	@sed -i '2c \\\setcounter{chapter}{2}' standalone_chapter.tex
+	@make chapters NAME_outCHAP="chapter3"
+
+chap4: chapters/ND/*.tex
+	@sed -i '2c \\\setcounter{chapter}{3}' standalone_chapter.tex
+	@make chapters NAME_outCHAP="chapter4"
+
+chap5: chapters/OASchwarz/*.tex
+	@sed -i '2c \\\setcounter{chapter}{4}' standalone_chapter.tex
+	@make chapters NAME_outCHAP="chapter5"
 
 # sub makefile if anything needed to compile the Figures
 figure: $(FIGURES)
