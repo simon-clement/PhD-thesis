@@ -314,7 +314,7 @@ quadratic friction \textit{linearized} around equilibrium solutions.
     \label{fig:presentationDomains}
 \end{figure}
 \subsection{Schwarz Waveform Relaxation}
-As discussed for example in \cite{Marti_etal_2020},
+As discussed for example in \cite{marti_schwarz_2021},
 current ocean-atmosphere coupling methods can actually be seen as a 
 single iteration of a Schwarz Waveform Relaxation (SWR) algorithm. 
 %In SWR methods, equations on each subdomain are integrated in time 
@@ -380,18 +380,31 @@ the $\theta$ parameter appears thus here within a (close to Robin) condition
 $\nu_{\rm a} \phi_{\rm a}(0) - \alpha \theta U_{\rm a}(h_{\rm a}/2) = \ldots$,
 i.e. the relaxation is not performed directly on the converging variable
 which leads to convergence properties different from the DNWR case, 
-as shown in Sec. \ref{sec:conv-lin}.\par
+as shown in Sec. \ref{sec:conv-lin}.
+It is important to distinguish between the relaxation
+procedure described here and the choice of using an implicit or
+explicit interface condition discussed in Section
+\ref{sec:ND_NeutralCase_continuousModel}.
+The latter refers to changing the time step $t^n$ whereas the former
+refers to choosing the iteration step $k$.
+\par
 %
 In the following, centered finite difference schemes in space are used with constant space steps $h_j$.
-Derivatives are $\phi_j(z,t) = \frac{U_j(z+h_j/2,t) - U_j(z-h_j/2, t)}{h_j}$
+Derivatives are approximated as $\phi_j(z,t) = \frac{U_j(z+h_j/2,t) - U_j(z-h_j/2, t)}{h_j}$
 and the semi-discrete version of \eqref{eq:ref} in the homogeneous case is
 \begin{equation}\label{eq:spaceTimeScheme}
 (\partial_t + if) U_j (z, t) = \nu_j \frac{\phi_j(z+h_j/2,t) - \phi_j(z-h_j/2,t)}{h_j}
 \end{equation}
 
 \section{Discrete stationary state}
-Whenever $f=0$, the solution of this problem is 0 because of the infinite domain hypothesis and of the formulation of this problem. We hence interest us only on the case when $f\neq 0$. In this section, we assume that the
-space domain is sufficiently large ($H_j \rightarrow \infty$) but the results can be easily extended to finite domains.
+We now interest ourselves to the semi-discrete in space
+stationary state of \eqref{eq:SWRbulk} with $U_j^\infty = 0$.
+Whenever $f=0$ it is easy to show that the solution of this problem
+is 0;
+We hence interest us only on the case when $f\neq 0$.
+In this section, we assume that the space domain is sufficiently
+large ($H_j \rightarrow \infty$) but the results can be easily
+extended to finite domains.
 \subsection{Resolution in each subdomain}
 A discrete analysis of the finite difference scheme \eqref{eq:spaceTimeScheme} in the
 frequency domain (e.g. \cite{wu_optimized_2017}) leads to 
@@ -402,11 +415,12 @@ with $\lambda_j = \frac{1}{2}\left(\chi_j - \sqrt{\chi_j} \sqrt{\chi_j + 4}\righ
 $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$.
 %with $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$, 
 and $m$ the space index.
-The stationary state analysis is identical, except that $\omega$ is set to 0 and that it does not requires the transmission conditions to be linear. 
+The stationary state analysis is identical, except that $\omega$ is set to 0 and that the transmission conditions are not required
+to be linear. 
 We note $\widetilde{U_j}(z)$ the stationary solution (and $\widetilde{\phi}_j$ its finite difference derivative) and the space discretisation at the first grid level $h_j$ gives:
 $\widetilde{U}_j(\delta_j) = g_j \pm \frac{\nu_j\lambda_j}{if h_j} \{A_k, B_k\}_j$
 
-\begin{remark}[Sophie's notations, \S 5.1.3, \S 5.1.4]
+\begin{remark}[\cite{thery_etude_2021}, \S 5.1.3, \S 5.1.4]
 We retrieve a solution of the form
 $\widetilde{U}_a(\delta a) = g_a - \Psi_a (u^\star)^2 e^{i\theta}$
 but $\Psi_j = -\frac{\lambda_j}{if h_j}$ is simpler thanks to the hypotheses of constant diffusivities and infinite domains.
@@ -451,7 +465,7 @@ The problem is to find $\widetilde{x}\in \mathbb{C}$ such that
 \begin{remark}
 If the infinite domains hypothesis is relaxed, equation \eqref{eq:mainEqSimplified} is retrieved with slightly different $\widetilde{x}$ and $d$.
 \end{remark}
-We interest ourselves now to the real and imaginary parts: $\widetilde{x}=\widetilde{x}_R+i{\widetilde{x}_I}$ and $d={d_R}+i{d_I}$.
+Let us now study the real and imaginary parts of $\widetilde{x}=\widetilde{x}_R+i{\widetilde{x}_I}$ and $d={d_R}+i{d_I}$.
 \begin{equation}
     \begin{aligned}
     \widetilde{x}_R &= |\widetilde{x}|({d_R} \widetilde{x}_R - {d_I}{\widetilde{x}_I}) +g_{\rm a} - g_{\rm o} \\
@@ -678,8 +692,7 @@ In this section we conduct a convergence analysis of the SWR algorithm
 \eqref{eq:SWRbulk} first with $\alpha$ a constant and then in a more 
 complicated case where the problem is linearized around its 
 equilibrium solutions. In the following we systematically make the assumption 
-that the space domain is of infinite size (i.e. $H_j\to\infty$) for the 
-sake of simplicity.
+that the space domain is of infinite size (i.e. $H_j\to\infty$).
 %====================================================
 \subsection{Linear friction case ($\alpha = {\rm const}$)}
 %\\[3mm]
@@ -765,7 +778,14 @@ Note that the convergence factor \eqref{eq:cvBk} differs significantly from the 
 $\xi_{\rm DNWR} = \left|1 - \theta_{\rm DNWR} \left(
 1 - \epsilon h_{\rm a} \lambda_{\rm o} / (\lambda_{\rm a}h_{\rm o})\right) \right|$ of 
 the DNWR algorithm. 
-Moreover, it can be found that 
+Moreover, the asymptotic values of $\frac{\lambda_o}{\lambda_a}$
+and $\frac{\chi_a}{\lambda_a}$ when $(\omega+f) \rightarrow 0$
+are respectively $\sqrt{\frac{\chi_o}{\chi_a}}$ and 0.
+As $(\omega+f) \rightarrow \infty$ the denominator of
+\eqref{eq:cvBk} blows up as
+$\frac{\chi_a}{\lambda_a} \rightarrow \infty$. The asymptotes
+of $\xi$ for$(\omega+f) \rightarrow 0$ and
+$(\omega+f) \rightarrow \infty$ are finally
 \[
  \underset{(\omega+f) \rightarrow 0}{\mathrm{lim}} \xi = \frac{1}{\theta} \left| 1-\theta+\epsilon \sqrt{\frac{\nu_{\rm a}}{\nu_{\rm o}}}  \right| = \xi_0, \qquad
  \underset{(\omega+f) \rightarrow \infty}{\mathrm{lim}} \xi = 0.
@@ -779,7 +799,17 @@ When $\omega\to \infty$, the convergence factor tends to zero
 \textbf{$\xi_0$ is an upper bound of the convergence factor in the linear friction case.}\hspace*{5mm} %\label{sec:lin-analysis}
 \begin{itemize}
     \item From the definition of $\lambda_j$, we get that $\mathfrak{R}(\frac{\nu_{\rm a}\chi_{\rm a}}{\alpha_c h_{\rm a} \lambda_{\rm a}}) \leq 0$: the modulus of the denominator in \eqref{eq:cvBk} is hence greater than $\theta$.
-    \item For whatever frequency $\omega$, it seems that $\left|\frac{\lambda_j \sqrt{\nu_j}}{h_j}\right|$ increases with $\frac{\sqrt{\nu_j}}{h_j}$ (see Figure \ref{fig:figboundbulk}). It follows that if $\sqrt{\frac{\nu_{\rm o}}{\nu_{\rm a}}} \leq \frac{h_{\rm o}}{h_{\rm a}}$
+    \item For whatever frequency $\omega$, it seems that $\left|\frac{\lambda_j \sqrt{\nu_j}}{h_j}\right|$ increases with $\frac{\sqrt{\nu_j}}{h_j}$.
+    Indeed, we have that
+	\begin{equation}
+	\left|\frac{\lambda_j \sqrt{\nu_j}}{h_j}\right|^2
+		= 2|\omega + f| \frac{|i-\sqrt{i}\sqrt{i+x}|^2}{|x|},
+		~~~~~ x = \frac{4}{i \chi_j} \in \mathbb{R}
+	\end{equation}
+	and the function
+	$x \mapsto \frac{|i-\sqrt{i}\sqrt{i+x}|^2}{|x|}$
+		seems to increase for $x \in \mathbb{R}$.
+    (see Figure \ref{fig:figboundbulk}). It follows that if $\sqrt{\frac{\nu_{\rm o}}{\nu_{\rm a}}} \leq \frac{h_{\rm o}}{h_{\rm a}}$
 \begin{equation}
     |1-\theta+\epsilon \frac{h_a \lambda_o}{h_o \lambda_a}| \leq | 1 - \theta| + \epsilon |\frac{h_a \lambda_o}{h_o \lambda_a}| \leq 
     |1 - \theta| + \epsilon \frac{\sqrt{\nu_{\rm a}}}{\sqrt{\nu_{\rm o}}}.
@@ -788,7 +818,8 @@ When $\omega\to \infty$, the convergence factor tends to zero
 \begin{figure}
     \centering
     \includegraphics[scale=0.6]{Figure_boundbulk.png}
-    \caption{evolution of $|\frac{\lambda_j \sqrt{\nu_j}}{h_j}|$ with respect to $\frac{\sqrt{\nu_j}}{h}$ for multiple frequencies.}
+    \caption{evolution of $|\frac{\lambda_j \sqrt{\nu_j}}{h_j}|$ with respect to $\frac{\sqrt{\nu_j}}{h}$ for multiple frequencies.
+	{\color{red} TODO plutôt plot $x \mapsto \frac{|i-\sqrt{i}\sqrt{i+x}|^2}{|x|}$.}}
     \label{fig:figboundbulk}
 \end{figure}
 For $\theta \leq 1$ and if 
@@ -823,7 +854,7 @@ The optimal parameter $\theta_{\rm opt}$ for low frequencies is $1 +  \epsilon\s
 \subsection{Linearized quadratic friction case}
 %\label{subsec:linearized}
 The analysis of the nonlinear quadratic friction case (i.e. with $\alpha = C_D\left|\right.U_{\rm a}\left(h_{\rm a} / 2, t\right) - U_{\rm o}\left(- h_{\rm o}/2, t\right)\left.\right|$)
-cannot be pursued through a Fourier transform.
+cannot be directly pursued through a Fourier transform.
 %Indeed $\alpha^k$ would still be expressed as a function of time while the variables $\widehat{\phi}$
 %would depend on the frequency.
 We thus consider the linearization of the problem 
@@ -851,7 +882,7 @@ After some algebra, the linearized transmission operator reads
 %==========================================
 with $\alpha^e=C_D\left|U_{\rm a}^e(h_{\rm a}/2) - U_{\rm o}^e(-h_{\rm o}/2)\right|$.
 Following the derivation in the previous paragraph,
-we find that the evolution of $B_k$ is: (warning, conjugate of Z transform is Z transform of conjugate with conjugate $z$)
+we find that the evolution of $B_k$ is:
 \begin{equation}
     \left(\frac{(s+if)h_{\rm a}}{\alpha} - \theta \lambda_{\rm a}\right)B_{k+1}(z)
     =
@@ -872,10 +903,13 @@ we find that the evolution of $B_k$ is: (warning, conjugate of Z transform is Z 
 with $\epsilon = \frac{\rho_{\rm a} h_{\rm a}}{\rho_{\rm o} h_{\rm o}}$ 
 and $\mathcal{O} = 
 \frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e - U_{\rm o}^e}} \frac{s+if}{s - if}$.
-
-The convergence factor $\xi^q$ in the linearized 
-quadratic friction case hence differs from one iteration to another 
-(it is indeed a function of $\frac{\overline{B_{k-1}(-\omega)}}{B_{k-1}(\omega)}$).
+Note that the variable $\overline{z}$ appears when using the Fourier
+transform on $\overline{\delta U_a^{k-1} - \delta U_o^{k-1}}$.
+As a consequence,
+the convergence factor $\xi^q$ in the linearized 
+quadratic friction case differs from one iteration to another:
+it is a function of
+$\frac{\overline{B_{k-1}(-\omega)}}{B_{k-1}(\omega)}$.
 \paragraph{Asymptotic ($\omega \rightarrow 0$) convergence}
 However, for $(\omega+f) \rightarrow 0$ the term 
 $ \frac{1}{2}\frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e - U_{\rm o}^e}}\,
@@ -906,6 +940,7 @@ such as
 \end{aligned}
 \end{equation}
 \begin{equation}
+	\label{eq:OASchwarz_transitionMatrixDD26}
 \begin{pmatrix}
 \Re (B(z)) \\ \Im (B(z)) \\ \Re(B(\overline{z})) \\ -\Im(B(\overline{z}))
 \end{pmatrix}_{k+1}
@@ -950,6 +985,12 @@ with:
     (a_{3r} + i a_{3i})(\overline{z})
 \end{aligned}
 \end{equation}
+When $\omega+f \rightarrow 0$
+the biggest eigenvalue of the matrix
+\eqref{eq:OASchwarz_transitionMatrixDD26}
+should be identical to the asymptotic case
+and the other ones should vanish. (?)
+{\color{red} TODO y réfléchir et valider numériquement}
 
 \section{Numerical experiments}
 \label{sec:num-exp}
