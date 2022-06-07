@@ -18,7 +18,7 @@ the implementation of coupling strategies. Such an iterative method
 has been recently applied in a state-of-the-art Earth 
 System Model (ESM) to evaluate the consequences of inaccuracies 
 in the usual ad-hoc ocean-atmosphere coupling algorithms 
-used in realistic models \cite{Marti_etal_2020}. For such 
+used in realistic models \cite{marti_schwarz_2021}. For such 
 a complex application it is challenging to have an a priori 
 knowledge of the convergence properties of the Schwarz method. 
 Indeed coupled problems arising in ESMs often 
@@ -68,10 +68,10 @@ meters close to the interface (in a region called
 \textit{surface layer}). The cost of an
 explicit representation of the surface layer in numerical simulations being 
 unaffordable, this region is numerically accounted for 
-using wall laws a.k.a. log laws (e.g. \cite{Mohammadi_etal_1998}). This approach, 
+using wall laws a.k.a. log laws (e.g. \cite{mohammadi_rough_1998}). This approach, 
 traditionally used to deal with solid walls, is also used
 in the ocean-atmosphere context, with additional complexity 
-arising from the stratification effects \cite{Pelletier_etal_2021}.
+arising from the stratification effects \cite{pelletier_two-sided_2021}.
 In this context wall laws are referred to as \textit{surface layer} 
 parameterizations. The role of such parameterizations is to provide 
 $\nu \partial_z \mathbf{u}$ on the upper and lower interfaces of the 
@@ -131,8 +131,8 @@ atmosphere, and leads to reasonable values of the solution $U$. \par
 %atmosphere and $0.1\;{\rm m.s^{-1}}$ in the ocean. Forcing term 
 %$g_j$ is set to $i f U_0 (z)$.\par
 The well-posedness of \eqref{eq:cplProblem} has been studied in 
-\cite{Thery_2021}
-%\cite{Thery_2021} studied the well-posedness of \eqref{eq:cplProblem}. 
+\cite{thery_etude_2021}
+%\cite{thery_etude_2021} studied the well-posedness of \eqref{eq:cplProblem}. 
 where it is proved that its stationary version admits a unique solution for realistic values of the parameters. The study of the nonstationary case is much more challenging: numerical experiments tend to confirm this well-posedness, but  with no theoretical proof.
 %
 %
@@ -149,7 +149,7 @@ where it is proved that its stationary version admits a unique solution for real
 %
 %\newpage 
 %
-%\cite{Thery_2021}
+%\cite{thery_etude_2021}
 %\cite{Pelletier_etal_2021}
 % 
 %The ocean-atmosphere system can be represented in the vertical direction by a coupling %between three main areas of interest: \textcolor{blue}{Simon: Plutôt un schéma comme dans %le début de la thèse de Sophie ?}
@@ -371,8 +371,8 @@ system which is a major constraint for climate models.
 In \eqref{eq:bulkInterfaceCondition},
 the presence of the parameter $\theta$ makes it resemble to a Dirichlet-Neumann Waveform Relaxation algorithm.
 Indeed, if \eqref{eq:bulkInterfaceCondition} is replaced
-by $U_{\rm a}^k = \theta U_{\rm o}^{k-1} + (1-\theta) U_{\rm a}^{k-1}$ the DNWR algorithm is retrieved, as examined in the continuous case in \cite{kwok2013} and in the discrete case in
-\cite{mongeMultirate2021}.
+by $U_{\rm a}^k = \theta U_{\rm o}^{k-1} + (1-\theta) U_{\rm a}^{k-1}$ the DNWR algorithm is retrieved, as examined in the continuous case in \cite{gander_dirichlet-neumann_2014} and in the discrete case in
+\cite{meisrimel_time_2020}.
 However \eqref{eq:bulkInterfaceCondition}
 involves both $\phi_{\rm a}^k$ and 
 $U_{\rm a}^{k-1+\theta}$:
@@ -394,7 +394,7 @@ Whenever $f=0$, the solution of this problem is 0 because of the infinite domain
 space domain is sufficiently large ($H_j \rightarrow \infty$) but the results can be easily extended to finite domains.
 \subsection{Resolution in each subdomain}
 A discrete analysis of the finite difference scheme \eqref{eq:spaceTimeScheme} in the
-frequency domain (e.g. \cite{Wu2017}) leads to 
+frequency domain (e.g. \cite{wu_optimized_2017}) leads to 
 $\widehat{\phi}_{\rm o}^k(-m h_{\rm o}) = A_k (\lambda_{\rm o}+1)^m$
 and
 $\widehat{\phi}_{\rm a}^k(m h_{\rm a}) = B_k (\lambda_{\rm a}+1)^m$ 
@@ -711,7 +711,7 @@ in terms of the $\widehat{\phi}_j$ is
 \end{equation}
 with $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$.
 A discrete analysis of the finite difference scheme \eqref{eq:spaceTimeScheme} in the
-frequency domain (e.g. \cite{Wu2017}) leads to 
+frequency domain (e.g. \cite{wu_optimized_2017}) leads to 
 $\widehat{\phi}_{\rm o}^k(-m h_{\rm o}) = A_k (\lambda_{\rm o}+1)^m$
 and
 $\widehat{\phi}_{\rm a}^k(m h_{\rm a}) = B_k (\lambda_{\rm a}+1)^m$ 
@@ -978,7 +978,7 @@ initialized at the interface with a white noise around the interface value
 of the initial condition.
 Figure \ref{fig:evolutionErrNonlinear} shows the evolution of the error for two choices of $\theta$. The theoretical
 convergence according to $\xi_0$ is
-also displayed: $\sup_\omega \xi$ is an upper bound of the $L^2$ convergence factor \cite{Thery_2021} and $\xi_0$ is an approximation of $\sup_\omega \xi$.
+also displayed: $\sup_\omega \xi$ is an upper bound of the $L^2$ convergence factor \cite{thery_etude_2021} and $\xi_0$ is an approximation of $\sup_\omega \xi$.
 Both $\xi_0$ and $\xi_0^q$ are close to the convergence rate, with the exception of
 $\xi_0^q$ that predicts much faster convergence than observed when $\theta=1.5$. This shows that the maximum of the convergence factor is not reached when $(\omega+f) \rightarrow 0$ in this case. Figure \ref{fig:evolutionErrNonlinear} confirms the results of Sec. \ref{sec:conv-lin}:
 when considering $\alpha=\alpha_c$ constant, the fastest convergence is achieved when $\theta$ is close to 1, similarly to the DNWR algorithm.
