@@ -910,13 +910,16 @@ the convergence factor $\xi^q$ in the linearized
 quadratic friction case differs from one iteration to another:
 it is a function of
 $\frac{\overline{B_{k-1}(-\omega)}}{B_{k-1}(\omega)}$.
-\paragraph{Asymptotic ($\omega \rightarrow 0$) convergence}
+\paragraph{Asymptotic ($\omega+f \rightarrow 0$) convergence}
+
 However, for $(\omega+f) \rightarrow 0$ the term 
 $ \frac{1}{2}\frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e - U_{\rm o}^e}}\,
 \overline{
 \delta U_{\rm a}^{k-1} - \delta U_{\rm o}^{k-1}}$
 vanishes, therefore the asymptotic convergence 
 rate $\xi_0^q$ is independent of the iterate:
+{\color{red} warning this asymptote is wrong, and it is published
+in DD26 proceeding}
 \[
  \underset{(\omega+f) \rightarrow 0}{\mathrm{lim}} \xi^q = \frac{1}{\theta} \left| \frac{3}{2}-\theta+\frac{3}{2}\epsilon\sqrt{\frac{\nu_{\rm a}}{\nu_{\rm o}}} \right| = \xi_0^q, \qquad
  \underset{(\omega+f) \rightarrow \infty}{\mathrm{lim}} \xi^q = 0.
@@ -924,50 +927,68 @@ rate $\xi_0^q$ is independent of the iterate:
 The convergence is fast for high frequencies,
 as in the linear friction case. However
 the optimal parameter for $(\omega+f) \rightarrow 0$ is
-here $\theta_{\rm opt}^q = \frac{3}{2} + \frac{3}{2}\epsilon\sqrt{\frac{\nu_{\rm a}}{\nu_{\rm o}}} $.
-It is different from the optimal parameter $\theta_{\rm opt}$ obtained with linear friction: for typical values of the ocean-atmosphere coupling problem, $\theta_{\rm opt}^q$ is close to $\frac{3}{2}$. The asymptotic value $\xi_0^q$ is not an upper bound of the convergence factor but it is  a good choice 
-for $\theta_{\rm opt}^q$.
+here $\theta_{\rm opt}^q = \frac{3}{2} +
+\frac{3}{2}\epsilon\sqrt{\frac{\nu_{\rm a}}{\nu_{\rm o}}}$.
+It is different from the optimal parameter $\theta_{\rm opt}$
+obtained with linear friction: for typical values of the
+ocean-atmosphere coupling problem, $\theta_{\rm opt}^q$
+is close to $\frac{3}{2}$.
+The asymptotic value $\xi_0^q$ is not an upper bound of the
+convergence factor but it is a good choice for $\theta_{\rm opt}^q$,
+as shown in the numerical experiments in Section \ref{sec:num-exp}.
+\par
+The asymptotic behavior for $\omega+f \rightarrow 0$ for
+multiple iterations can differ from the asymptotic convergence
+rate $\xi_0^q$ above
+because $B_{k+1}(i\omega)$ has a weak dependence on
+$B_k(- i\omega)$ which could explode because
+$|\mathcal{O}| \rightarrow \infty$
+
 
 \paragraph{Non-asymptotic convergence}
-We need to look at the $4\times 4$ transition matrix: let $z\in\mathbb{C}$, let $a_{1r}, a_{1i}, a_{2r}, a_{2i}, a_{3r}, a_{3i}, a_{4r}, a_{4i} \in \mathbb{R}$ 
-such as 
+We need to look at the $4\times 4$ transition matrix: let $z\in\mathbb{C}$,
+let $a_1, a_2 \in \mathbb{C}$ such as
 \begin{equation}
-\begin{aligned}
-    B_{k+1}(z) &= (a_{1r} + i a_{1i}) B_k(z)
-    + (a_{3r} + i a_{3i}) \overline{B_k(\overline{z})} \\
-    \overline{B_{k+1}(\overline{z})} &= (a_{2r} + i a_{2i}) \overline{B_k(\overline{z})}
-    + (a_{4r} + i a_{4i}) B_k(z)
-\end{aligned}
+	B_{k+1}(z) = a_1 B_{k}(z) + a_2 \overline{B_{k}(\overline{z})}.
 \end{equation}
+We examine the evolution of 4 simulaneously evolving quantities:
+$B_{k+1}(z), B_{k+1}(\overline{z})$ and their complex conjugate
+$\overline{B_{k+1}(z)}, \overline{B_{k+1}(\overline{z})}$:
 \begin{equation}
 	\label{eq:OASchwarz_transitionMatrixDD26}
 \begin{pmatrix}
-\Re (B(z)) \\ \Im (B(z)) \\ \Re(B(\overline{z})) \\ -\Im(B(\overline{z}))
+	B(z) \\
+	\overline{B(z)}\\
+	{B(\overline{z})}\\
+	\overline{B(\overline{z})}
 \end{pmatrix}_{k+1}
  =
 \begin{pmatrix}
-a_{1r} & - a_{1i} & a_{3r} & - a_{3i} \\
-a_{1i} & a_{1r} & a_{3i} & a_{3r} \\
-a_{4r} & a_{4i} & a_{2r} & a_{2i} \\
--a_{4i} & a_{4r} & - a_{2i} & a_{2r}
+	a_1(z) & 0 & 0 & a_2(z) \\
+	0 & \overline{a_1({z})} &
+		\overline{a_2({z})} & 0\\
+	0 & {a_2(\overline{z})} &
+		{a_1(\overline{z})} & 0\\
+	\overline{a_2(\overline{z})} & 0 & 0 &
+		\overline{a_1(\overline{z})} \\
 \end{pmatrix}
 \begin{pmatrix}
-\Re (B(z)) \\ \Im (B(z)) \\ \Re(B(\overline{z})) \\ -\Im(B(\overline{z}))
+	B(z) \\
+	\overline{B(z)}\\
+	{B(\overline{z})}\\
+	\overline{B(\overline{z})}
 \end{pmatrix}_{k}
 \end{equation}
 with:
 \begin{equation}
 \begin{aligned}
-    (a_{1r} + i a_{1i})(z)
+    a_1(z)
     &= \frac{\left(\left(\frac{3}{2} - \theta\right) 
     \lambda_{\rm a}
-    + \frac{3}{2} \epsilon \lambda_{\rm o} \right)}{\left(\frac{(s+if)h_{\rm a}}{\alpha} - \theta \lambda_{\rm a}\right)}
-    \\
-    (a_{2r} - i a_{2i})(z)
-    &=
-    (a_{1r} + i a_{1i})(\overline{z})
-    \\
-    (a_{3r} + i a_{3i})(z)
+    + \frac{3}{2} \epsilon \lambda_{\rm o} \right)}
+	{\left(\frac{(s+if)h_{\rm a}}{\alpha} -
+		\theta \lambda_{\rm a}\right)}, ~~~~~~~~~~
+    a_2(z)
     &= \frac{
  \frac{
     \mathcal{O}
@@ -979,18 +1000,22 @@ with:
     \epsilon\lambda_{\rm o}(\overline{z})}
     \right)   
     }{\left(\frac{(s+if)h_{\rm a}}{\alpha} - \theta \lambda_{\rm a}\right)}
-    \\
-    (a_{4r} - i a_{4i})(z)
-    &=
-    (a_{3r} + i a_{3i})(\overline{z})
 \end{aligned}
 \end{equation}
-When $\omega+f \rightarrow 0$
-the biggest eigenvalue of the matrix
+The biggest eigenvalue of the matrix
 \eqref{eq:OASchwarz_transitionMatrixDD26}
-should be identical to the asymptotic case
-and the other ones should vanish. (?)
-{\color{red} TODO y réfléchir et valider numériquement}
+can be studied instead as the "convergence factor".
+\begin{remark}
+In a semi-discrete in time setting, the Fourier transform
+$s=i\omega$ is used. However, since the expression contains
+divisions by $s\pm if$ the semi-discrete in space analysis
+is very sensitive to the frequency $\omega=f$. Using
+a discrete in time and space analysis is here more adapted
+to the optimization: $s^{\rm BE}=\frac{z-1}{z \Delta t}$.
+	{\color{red} c'est toujours incompréhensible: $\theta=1.5$
+	fait converger plus vite que $\theta=1.7$ alors que ce dernier
+	est meilleur que $1.5$ quand on regarde les valeurs propres...}
+\end{remark}
 
 \section{Numerical experiments}
 \label{sec:num-exp}
