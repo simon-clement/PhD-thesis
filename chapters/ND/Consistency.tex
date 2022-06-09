@@ -1,8 +1,8 @@
-\section{Consistency study}
+\section{Consistency study (atmosphere)}
 In this section, we investigate the effect of changing
 $\delta_{\rm sl}$ in the continuous, neutral model.
 In all this section we will assume that
-$z_0$ is constant.
+$z_u$ is constant.
 The main direct changes when $\delta_{\rm sl}$ becomes
 $\delta_{\rm sl}' < \delta_{\rm sl}$ are:
 \begin{itemize}
@@ -36,13 +36,13 @@ respectively $\delta_1, \delta_2$ for $\delta_{sl}$.
 
 \subsubsection{Analytical study assuming identical viscosities}
 First, note that inside the surface layer for $u_2$,
-since $u_2(z) = \frac{u_\star}{\kappa}\log(1+\frac{z}{z_0})
+since $u_2(z) = \frac{u_\star}{\kappa}\ln(1+\frac{z}{z_u})
 \frac{u_2(\delta_{2})}{||u_2(\delta_{2})||}$, assuming
 $||u_2(\delta_{2})||$ follows the same log low (it only works
 when the problem is continuous in time)
 \begin{equation}
-(\partial_t + if) u_2(z) = \frac{\log(1+\frac{z}{z_0})}
-{\log(1+\frac{\delta_2}{z_0})}(\partial_t + if) u_2(\delta_2), 
+(\partial_t + if) u_2(z) = \frac{\ln(1+\frac{z}{z_u})}
+{\ln(1+\frac{\delta_2}{z_u})}(\partial_t + if) u_2(\delta_2), 
 ~~~\forall z \leq \delta_2
 \end{equation}
 Let us assume that $K\partial_z u_2$ is $C^1$ at $\delta_2$;
@@ -50,15 +50,15 @@ then $\partial_z (K\partial_z u_2) = 0$ in all the interval
 $(0, \delta_2)$ and the evolution equation of $u_2$ in
 $(\delta_1, \delta_2)$ is
 \begin{equation}
-(\partial_t + if) u_2(z) = \frac{\log(1+\frac{z}{z_0})}
-{\log(1+\frac{\delta_2}{z_0})} i f u_G, 
+(\partial_t + if) u_2(z) = \frac{\ln(1+\frac{z}{z_u})}
+{\ln(1+\frac{\delta_2}{z_u})} i f u_G, 
 	~~~\forall z \in (\delta_1, \delta_2).
 \end{equation}
 The difference between $u_1$ and $u_2$ is governed by this interval:
 subtracting the two evolution equations gives
 \begin{equation}
-(\partial_t + if) (u_2 - u_1) = \left(\frac{\log(1+\frac{z}{z_0})}
-{\log(1+\frac{\delta_2}{z_0})} - 1\right)i f u_G 
+(\partial_t + if) (u_2 - u_1) = \left(\frac{\ln(1+\frac{z}{z_u})}
+{\ln(1+\frac{\delta_2}{z_u})} - 1\right)i f u_G 
 -
 \partial_z (K \partial_z u_1), ~~~\forall z \in (\delta_1, \delta_2).
 \end{equation}
@@ -74,11 +74,11 @@ $u_2$ and $u_1$ then
 	\begin{cases}
 		(\partial_t + if) w = \partial_z (K \partial_z w) ,
 		~~ \forall z > \delta_2 \\
-(\partial_t + if) w = \partial_z (K \partial_z w) + \left(\frac{\log(1+\frac{z}{z_0})}
-{\log(1+\frac{\delta_2}{z_0})} - 1\right)i f u_G 
+(\partial_t + if) w = \partial_z (K \partial_z w) + \left(\frac{\ln(1+\frac{z}{z_u})}
+{\ln(1+\frac{\delta_2}{z_u})} - 1\right)i f u_G 
 , ~~~\forall z \in (\delta_1, \delta_2) \\
 		K \partial_z w = \frac{\kappa}
-		{\log(1+\frac{\delta_1}{z_0})}\left(
+		{\ln(1+\frac{\delta_1}{z_u})}\left(
 		u_{\star, 2} u_2(\delta_1) -
 		u_{\star, 1} u_1(\delta_1)\right),
 		~~~ \forall z \leq \delta_1.
@@ -86,16 +86,16 @@ $u_2$ and $u_1$ then
 \end{equation}
 Apart from the bulk sensitivity in the surface condition,
 the difference is hence from the forcing
-$\left(\frac{\log(1+\frac{z}{z_0})}
-{\log(1+\frac{\delta_2}{z_0})} - 1\right)i f u_G$.
-This forcing is more important when $\frac{\delta}{z_0}$
+$\left(\frac{\ln(1+\frac{z}{z_u})}
+{\ln(1+\frac{\delta_2}{z_u})} - 1\right)i f u_G$.
+This forcing is more important when $\frac{\delta}{z_u}$
 is small.
 \subsubsection{Semi-Discrete Consistency (Finite Differences)}
 This subsection shows that the semi-discrete in space
 Finite Differences
 scheme is not sensitive to the value of $\delta_{\rm sl}$.
 We put aside the sensitivity of the bulk procedure by
-assuming that $z_{0M}$ is a constant.
+assuming that $z_{u}$ is a constant.
 %
 The approach used in Finite Differences consists in assuming
 $\delta_{\rm sl} = z_{1/2}$ and to use the flux at $z_0$ in
@@ -114,7 +114,7 @@ The implementation of such a boundary condition would be
 K_0\phi_0 = 
 \kappa^2 ||u_{1/2} - (\partial_z u)(\delta_{\rm sl})\epsilon ||
 	\frac{u_{1/2} - (\partial_z u)(\delta_{\rm sl})\epsilon 
-}{\log(1+\frac{\delta_{sl}}{z_{0M}})^2}
+}{\ln(1+\frac{\delta_{sl}}{z_{u}})^2}
 \end{equation}
 and it becomes convenient to compute the difference between
 $\delta_{sl}=z_{1/2}$ and $\delta_{sl}'=z_{1/2}-\epsilon$.
@@ -130,19 +130,19 @@ u\frac{\mathfrak{R}(\overline{u} \partial_z u)}{|u|}
 \right)
 + O(\epsilon^2)$.
 Using the wall law
-$\partial_z u=\frac{u(\delta_{\rm sl})}{(\delta_{\rm sl} + z_0)
-\log(1+\frac{\delta_{sl}}{z_0})}$ we obtain 
+$\partial_z u=\frac{u(\delta_{\rm sl})}{(\delta_{\rm sl} + z_u)
+\ln(1+\frac{\delta_{sl}}{z_u})}$ we obtain 
 \begin{equation}
 |u - (\partial_z u) \epsilon|(u - (\partial_z u) \epsilon) - |u|u =
 	- \epsilon \left(\frac{2|u_{1/2}|u_{1/2}}
-	{(\delta_{\rm sl} + z_0) \log(1+\frac{\delta_{sl}}{z_0})}
+	{(\delta_{\rm sl} + z_u) \ln(1+\frac{\delta_{sl}}{z_u})}
 	\right)+ O(\epsilon^2)
 \end{equation}
-Combining with $\frac{\kappa^2}{\log(1+\frac{\delta_{sl}}{z_0})}$,
+Combining with $\frac{\kappa^2}{\ln(1+\frac{\delta_{sl}}{z_u})}$,
 we find the derivative of the right-hand side of
 \eqref{eq:ND_Consistency_SemiDiscreteBdCond} with respect to
 $\delta_{sl}$ to be equal to zero.
-In conclusion, if $z_{0M}$ does not depend on $u$ and if
+In conclusion, if $z_{u}$ does not depend on $u$ and if
 the evolution equation is integrated in time at $z_\frac{1}{2}$,
 then for the Finite Differences scheme
 \begin{equation}

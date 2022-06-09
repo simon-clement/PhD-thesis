@@ -1,4 +1,4 @@
-\section{Stratified case}
+\section{Stratified case (atmosphere)}
 Now that all the ideas have been presented in the Neutral case,
 we extend the discussion to the case of a stratified column.
 A stratified fluid has layers of different densities.
@@ -60,7 +60,7 @@ profiles for $u$ and $\theta$ are
 \begin{aligned}
 	||u(z)-u(0)|| = \frac{u_\star}{\kappa}
     \left(
-	\log(1+\frac{z}{z_{0M}})
+	\ln(1+\frac{z}{z_{0M}})
     - \psi_u(\frac{z}{L_{MO}})
 	+ \psi_u(\frac{z_{0M}}{L_{MO}})
     \right)
@@ -68,18 +68,18 @@ profiles for $u$ and $\theta$ are
     \theta(z) - \theta_s = 
     \frac{\theta_\star}{\kappa}
     \left(
-	\log(1+\frac{z}{z_{0H}})
+	\ln(1+\frac{z}{z_{u}})
     - \psi_\theta(\frac{z}{L_{MO}})
-	+ \psi_\theta(\frac{z_{0H}}{{L_{MO}}})
+	+ \psi_\theta(\frac{z_{u}}{{L_{MO}}})
     \right)
 \end{aligned}
 \end{equation}
 where $L_{MO} = \frac{\theta(\delta_{\rm sl})
 u_\star^2}{\theta_\star \kappa g }$. We will use
 $C_H|u(\delta_{sl})- u(0)| = 
-\frac{u_\star \kappa}{\log(+1\frac{z}{z_{0H}})
+\frac{u_\star \kappa}{\ln(+1\frac{z}{z_{u}})
     - \psi_\theta(\frac{z}{L_{MO}})
-    + \psi_\theta(\frac{z_{0H}}{{L_{MO}}})}$
+    + \psi_\theta(\frac{z_{u}}{{L_{MO}}})}$
 Similarly to the neutral case, the semi-discrete in time
 boundary condition is not explicit:
 $C_H^n|u^n(\delta_{sl})- u(0)|$ is computed with the values
@@ -243,22 +243,22 @@ $\widetilde{u},\widetilde{\theta}$ is, similarly to the neutral case:
 where the non-dimensional numbers $\tau_{sl, u}, \tau_{sl, \theta}$
 depend on the stratification. For $x=u, \theta$,
 \begin{equation}
-\tau_{sl, x} = \frac{\frac{1}{{h_{1/2}}}\int_{z_k}^{\delta_{sl}} \log(1+\frac{z}{z_{0x}})- \psi_x(\frac{z}{L_{MO}})
-	dz}{\log(1+\frac{\delta_{sl}}{z_{0x}})- \psi_x(\frac{\delta_{sl}}{L_{MO}})
+\tau_{sl, x} = \frac{\frac{1}{{h_{1/2}}}\int_{z_k}^{\delta_{sl}} \ln(1+\frac{z}{z_{0x}})- \psi_x(\frac{z}{L_{MO}})
+	dz}{\ln(1+\frac{\delta_{sl}}{z_{0x}})- \psi_x(\frac{\delta_{sl}}{L_{MO}})
     }
     =
  \frac{\frac{1}{{h_{1/2}}}
     \left[
-	    (z+z_{0x})\log(1+\frac{z}{z_{0x}})-z
+	    (z+z_{0x})\ln(1+\frac{z}{z_{0x}})-z
     +
     z \Psi_x(\frac{z}{L_{MO}}) \right]_{z_k}^{\delta_{sl}}
-    }{\log(1+\frac{\delta_{sl}}{z_{0x}})- \psi_x(\frac{\delta_{sl}}{L_{MO}})
+    }{\ln(1+\frac{\delta_{sl}}{z_{0x}})- \psi_x(\frac{\delta_{sl}}{L_{MO}})
     }.
 \end{equation}
 Note that we used $\Psi_x$, the averaged form of the universal
 profile stability functions defined in \citep{nishizawa_surface_2018}.
 %
-Since $\log(1+\frac{z}{z_{0x}})-
+Since $\ln(1+\frac{z}{z_{0x}})-
 \psi_x(\frac{z}{L_{MO}})$ is non-negative and increase with $z$ even
 in strongly unstable situations,
 $0 \leq \tau_{sl, x} < 1$ and as in the neutral case
@@ -514,7 +514,7 @@ for $z\leq \delta_{\rm sl}$
 	% \end{equation}
 	% \begin{equation}
 	% 	\label{eq:ND_StratifiedCase_partial_z_theta}
-	% 	\partial_z \theta = \theta_\star \frac{\phi_h(z/L_{MO})}{\kappa (z + z_{0H})}, ~~~ K_\theta \partial_z \theta = u_\star \theta_\star
+	% 	\partial_z \theta = \theta_\star \frac{\phi_h(z/L_{MO})}{\kappa (z + z_{u})}, ~~~ K_\theta \partial_z \theta = u_\star \theta_\star
 	% \end{equation}
 	% \end{subequations}
 	% Leading to 

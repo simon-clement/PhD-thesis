@@ -2,7 +2,8 @@
 {\color{red} [J'ai pas encore rédigé l'intro]}
 \begin{itemize}
 \item The solution obtained with a discretization
-	should be similar to the continuous solution.
+	should be similar {\color{red} en quel sens ? }
+		to the continuous solution.
 \item The continuous solution should be recovered when
 	the space step tends to 0.
 \item The height of the surface layer
@@ -10,23 +11,27 @@
 \item This chapter presents a discretization such that
 	the surface layer can be chosen for physical reasons,
 	in addition to numerical ones.
-\item We want the discretization to be robust with regards to
+\item We want the discretization to be robust with regard to
 	the space step. In particular, when the space step
 	tends to 0, the surface layer should still
 	be parametrized with the same wall law.
-	\cite{basu_cautionary_2017} warn that
+	\cite{basu_cautionary_2017} warns that
 	using a small space step while keeping
-	the same boundary treatment in LES contradict the Monin-Obukhov
+	the same boundary treatment in LES contradicts
+		the Monin-Obukhov
 	hypothesis of being above the roughness sub-layer.
+		{\color{red} TODO dire en chap1 que M-O
+		n'est pas universellement admis, et détailler
+		un peu plus ici ce que veut dire Basu2017}
 \item Since the characteristic
 	size of the turbulent eddies in the surface layer are
 		proportional to the distance to the surface (\cite{kawai_wall-modeling_2012}),
 		it should not be assumed that we solve
 		correctly the mechanisms in the first levels
-		of a finite differences classical approach.
+		of a finite difference classical approach.
 		\cite{kawai_wall-modeling_2012} propose to use other
-		levels than the first to parameterize the
-		wall law in the Neutral case.
+		levels than the first one to parameterize the
+		wall law in the neutral case.
 	\item \cite{maronga_improved_2020} proposed an improved
 		boundary condition for stratified Large-Eddy Simulations
 		which consists in using as the bulk input
@@ -41,12 +46,13 @@
 \item \cite{nishizawa_surface_2018} have shown that a bias is created
 	in some models
 	because of an underlying assumption that the log layer
-		is linear.
+		is linear. {\color{red} dit comme ça ça fait étrange}
 	\item The model used to derive this discretization is a 1D Ekman
 	equation, with a forcing representing a geostrophic guide.
 		The turbulent viscosity is computed with a
 		one-equation turbulence closure model. It was
 		tested against the code used in \cite{lemarie_simplified_2021}
+\item {\color{red} objectifs du chapitre}
 \item We begin with a neutral stratification for pedagogical purposes,
 	then apply the same concepts to a stratified column of
 		atmosphere.

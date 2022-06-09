@@ -302,20 +302,20 @@ and for $\theta$:
 	\tau_{sl, \theta} =  \frac{1}{{h_{k-1/2}}}\frac{(Q_H -
 		Q_{lw})
     \left[
-	    (-z+z_{0H})\ln(1+\frac{-z}{z_{0H}})+z
+	    (-z+z_{\theta})\ln(1+\frac{-z}{z_{\theta}})+z
     -
     z \Psi_m(\frac{-z}{L_{MO}}) \right]_{\delta_{sl}}^{z_k}
 	- Q_{sw} \int_{\delta_o}^{z_k}
 		E(z) dz
     }{(Q_H - Q_{lw})
-	    \left(\ln(1+\frac{-\delta_{sl}}{z_{0H}})-
+	    \left(\ln(1+\frac{-\delta_{sl}}{z_{\theta}})-
 	    \psi_\theta(\frac{-\delta_{sl}}{L_{MO}})\right)
 	    -Q_{sw} E(\delta_{sl})
     }
 \end{equation}
 where $E(z) = \int_{z}^0 \frac{\phi^h_o(-x/L_o)
 		\sum A_i \exp (k_i x)
-		}{-x + z_{0M}}dx$
+		}{-x + z_{u}}dx$
 and $Q_H = \theta_o^{\star}u_o^{\star}\rho_0 c_p$.
 In practice, $\tau_{sl, \theta}$ will not be used: in Section
 \ref{sec:ND_Ocean_radiativeFluxes} we describe a better way to
@@ -325,26 +325,26 @@ include the radiative fluxes in the surface layer.
 % similarly to the MOST theory:
 % \begin{equation}
 % 	E(z) = \sum_i A_i\int_z^0
-% 	\frac{\exp(k_i x)}{-x + z_{0M}}
+% 	\frac{\exp(k_i x)}{-x + z_{u}}
 % 	- \exp(k_i x)\frac{1 - \phi_0^h(\frac{-x}{L_{MO}})}
-% 	{-x + z_{0M}}
+% 	{-x + z_{u}}
 % 	dx
 % \end{equation}
 % \begin{equation}
-% 	E(z) = \sum_i A_i \exp(k_i z_{0M}) \left(E1(k_i z_{0M})
-% 	- E1(k_i (-z+z_{0M)})\right)
+% 	E(z) = \sum_i A_i \exp(k_i z_{u}) \left(E1(k_i z_{u})
+% 	- E1(k_i (-z+z_{u)})\right)
 % 	- \int_{z}^0 \sum_i A_i \exp(k_i x)
-% 	\frac{1-\phi(\frac{-x}{L_{MO}})}{-x+z_{0M}} dx
+% 	\frac{1-\phi(\frac{-x}{L_{MO}})}{-x+z_{u}} dx
 % \end{equation}
 % where $E1=\int_x^\infty \frac{\exp(-t)}{t}dt$ is the exponential
 % integral.
-% The left part $\sum_i A_i \exp(k_i z_{0M}) \left(E1(k_i z_{0M})
-% 	- E1(k_i (-z+z_{0M)})\right)$ should be smaller than
-% $\int_z^0 \frac{1}{-x + z_{0M}}dx$
+% The left part $\sum_i A_i \exp(k_i z_{u}) \left(E1(k_i z_{u})
+% 	- E1(k_i (-z+z_{u)})\right)$ should be smaller than
+% $\int_z^0 \frac{1}{-x + z_{u}}dx$
 % and the second part $\int_{z}^0 \sum_i A_i \exp(k_i x)
-% 	\frac{1-\phi(\frac{-x}{L_{MO}})}{-x+z_{0M}} dx$
+% 	\frac{1-\phi(\frac{-x}{L_{MO}})}{-x+z_{u}} dx$
 % 	should be smaller than $\int_{z}^0
-% 	\frac{1-\phi(\frac{-x}{L_{MO}})}{-x+z_{0M}} dx$
+% 	\frac{1-\phi(\frac{-x}{L_{MO}})}{-x+z_{u}} dx$
 \subsection{Radiative fluxes, another surface flux scheme}
 \label{sec:ND_Ocean_radiativeFluxes}
 We note $Q_{sw}$ and $Q_{lw}$ the shortwave and longwave (positive
@@ -383,7 +383,7 @@ $\frac{\kappa (\theta(\delta_a) - \theta(\delta_o))}
 	\frac{\kappa (\theta(0) - \theta(\delta_o))}
 	{\theta_o^{\star}} = (1 -
 	\frac{Q_{lw}}{Q_H})
-	\left(\ln (1 - \frac{\delta_o}{z_{0H}}) -
+	\left(\ln (1 - \frac{\delta_o}{z_{\theta}}) -
 	\psi_h(\frac{-\delta_o}{L_o})\right)
 	- \frac{\lambda_\theta Q_{sw}(0)}
 	{Q_H} E(\delta_o).
@@ -601,10 +601,10 @@ Q - Q_{lw} - \int_z^0 \partial_z Q_{sw}(z')dz'$ for $|z|<<|\delta_o|$)
 % \subsubsection{Description of the two-sided bulk algorithm}
 % \begin{equation}
 % 	C_D^{a+o} = \left(\frac{\kappa} {
-% 		\ln(1 + \frac{\delta_a}{z_{0M}}) -
+% 		\ln(1 + \frac{\delta_a}{z_{u}}) -
 % 		\psi_m^a(\frac{\delta_a}{L_a})
 % 		+ \lambda_u \left(
-% 		\ln(1 - \frac{\delta_o}{z_{0M}}) -
+% 		\ln(1 - \frac{\delta_o}{z_{u}}) -
 % 		\psi_m^o(-\frac{\delta_o}{L_o})
 % 		\right)
 % 	} \right)^2
@@ -612,14 +612,14 @@ Q - Q_{lw} - \int_z^0 \partial_z Q_{sw}(z')dz'$ for $|z|<<|\delta_o|$)
 % \begin{equation}
 % 	C_H^{a+o} = \frac{\kappa \sqrt{C_D}} {
 % 		\left(
-% 			\ln(1 + \frac{\delta_a}{z_{0H}}) -
+% 			\ln(1 + \frac{\delta_a}{z_{\theta}}) -
 % 			\psi_h^a(\frac{\delta_a}{L_a})
 % 		\right)
 % 		+
 % 		(1 - \frac{Q_{lw}}
 % 		{Q_H})
 % 		\lambda_\theta \left(
-% 			\ln(1 - \frac{\delta_o}{z_{0H}}) -
+% 			\ln(1 - \frac{\delta_o}{z_{\theta}}) -
 % 			\psi_h^o(-\frac{\delta_o}{L_o})
 % 		\right)
 % 		- \frac{\lambda_\theta Q_{sw}(0)}
