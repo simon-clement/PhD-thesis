@@ -77,27 +77,27 @@ chapters: *.tex $(BIBSRC) $(STYLES)
 # we put the setcounter to number of chapter-1
 chap0: chapters/Introduction/*.tex
 	@sed -i '2c \\\setcounter{chapter}{0}' standalone_chapter.tex
-	@make chapters NAME_outCHAP="chapter0"
+	@make chapters NAME_outCHAP="standalone_chap0"
 
 chap1: chapters/airseaSCM/*.tex
 	@sed -i '2c \\\setcounter{chapter}{0}' standalone_chapter.tex
-	@make chapters NAME_outCHAP="chapter1"
+	@make chapters NAME_outCHAP="standalone_chap1"
 
 chap2: chapters/discreteSchwarzAnalysis/*.tex
 	@sed -i '2c \\\setcounter{chapter}{1}' standalone_chapter.tex
-	@make chapters NAME_outCHAP="chapter2"
+	@make chapters NAME_outCHAP="standalone_chap2"
 
 chap3: chapters/approximatedDiscreteSchwarz/*.tex
 	@sed -i '2c \\\setcounter{chapter}{2}' standalone_chapter.tex
-	@make chapters NAME_outCHAP="chapter3"
+	@make chapters NAME_outCHAP="standalone_chap3"
 
 chap4: chapters/ND/*.tex
 	@sed -i '2c \\\setcounter{chapter}{3}' standalone_chapter.tex
-	@make chapters NAME_outCHAP="chapter4"
+	@make chapters NAME_outCHAP="standalone_chap4"
 
 chap5: chapters/OASchwarz/*.tex
 	@sed -i '2c \\\setcounter{chapter}{4}' standalone_chapter.tex
-	@make chapters NAME_outCHAP="chapter5"
+	@make chapters NAME_outCHAP="standalone_chap5"
 
 # sub makefile if anything needed to compile the Figures
 figure: $(FIGURES)
