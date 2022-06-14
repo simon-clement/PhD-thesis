@@ -1,4 +1,4 @@
-%% Creator: Inkscape 1.1.2 (1:1.1+202202050950+0a00cf5339), www.inkscape.org
+%% Creator: Inkscape 1.2 (1:1.2+202206011327+fc4e4096c5), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'sf_scheme_strategies.pdf' (pdf, eps, ps)
 %%
@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{528.79305858bp}%
+    \setlength{\unitlength}{470.18469057bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,26 +50,42 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.41434225)%
+  \begin{picture}(1,0.92699828)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{sf_scheme_strategies.pdf}}%
-    \put(0.07711833,0.17945904){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u^n(\delta_{\rm sl})={\cal S}^n_{\frac{1}{2}}(0)$\end{tabular}}}}%
-    \put(-0.000192,0.07050831){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_0$\end{tabular}}}}%
-    \put(-0.00047093,0.17856272){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{\frac{1}{2}}$\end{tabular}}}}%
-    \put(-0.000192,0.27758086){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_1$\end{tabular}}}}%
-    \put(-0.000192,0.35416933){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_2$\end{tabular}}}}%
-    \put(0.08433962,0.04679248){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_{u,0}\phi_0^{n+1}-u_{\star}^2\frac{{\cal S}_{\frac{1}{2}}^{n+1}(0)}{||u^n(\delta_{\rm sl})||}=0$\end{tabular}}}}%
+    \put(-0.00021593,0.54030336){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_0$\end{tabular}}}}%
+    \put(-0.00052963,0.66182713){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{\frac{1}{2}}$\end{tabular}}}}%
+    \put(-0.00021593,0.77318838){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_1$\end{tabular}}}}%
+    \put(-0.00021593,0.85932393){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_2$\end{tabular}}}}%
+    \put(0.09166224,0.51044127){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_{u,0}\phi_0^{n+1}=u_{\star}^2 e_{\tau}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{sf_scheme_strategies.pdf}}%
-    \put(0.36645462,0.17945904){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u^n(\delta_{\rm sl})=\overline{u}_{\frac{1}{2}}$\end{tabular}}}}%
+    \put(0.41068373,0.51044127){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_{u,0}\phi_0^{n+1}= u_{\star}^2 e_{\tau}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{sf_scheme_strategies.pdf}}%
-    \put(0.36516592,0.04679248){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_{u,0}\phi_0^{n+1}-u_{\star}^2 \frac{\overline{u}_{\frac{1}{2}}^{n+1}}{||u^n(\delta_{\rm sl})||}=0$\end{tabular}}}}%
+    \put(0.16323206,0.46530741){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}FD\end{tabular}}}}%
+    \put(0.49806895,0.46665734){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}"FV1"\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{sf_scheme_strategies.pdf}}%
-    \put(0.61195101,0.28790435){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_{u,1}\phi_1^{n+1}-u_{\star}^2 \frac{{\cal S}_{\frac{3}{2}}^{n+1}(-\frac{h_{\frac{3}{2}}}{2})}{||u^n(\delta_{\rm sl})||}=0$\end{tabular}}}}%
-    \put(0.7481083,0.19713282){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u^n(\delta_{\rm sl})= {\cal S}_{\frac{3}{2}}^{n+1}(-\frac{h_{\frac{3}{2}}}{2})$\end{tabular}}}}%
+    \put(0.71694224,0.51044127){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_{u,0}\phi_0^{n+1}=u_{\star}^2 e_{\tau}$\end{tabular}}}}%
+    \put(0.75901836,0.46612192){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}"FV pure"\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{sf_scheme_strategies.pdf}}%
-    \put(0.12175223,0.00454821){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}FD and "FV pure"\end{tabular}}}}%
-    \put(0.44286586,0.00502423){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}"FV1"\end{tabular}}}}%
-    \put(0.71850837,0.00636134){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}"FV2"\end{tabular}}}}%
+    \put(0.16911937,0.57526403){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u_{\star}={\rm BULK}(u_{\frac{1}{2}}^n)$ \end{tabular}}}}%
+    \put(0.52340215,0.57526346){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}${\rm BULK}(\overline{u}_{\frac{1}{2}}^n)$ \end{tabular}}}}%
+    \put(0.84242278,0.57526346){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}${\rm BULK}({\cal S}^n_{\frac{1}{2}}(0))$ \end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{sf_scheme_strategies.pdf}}%
+    \put(-0.00021593,0.07452924){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_0$\end{tabular}}}}%
+    \put(-0.00052963,0.19605287){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{\frac{1}{2}}$\end{tabular}}}}%
+    \put(-0.00021593,0.30741354){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_1$\end{tabular}}}}%
+    \put(-0.00021593,0.39354916){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{sf_scheme_strategies.pdf}}%
+    \put(0.12037462,0.04466732){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_{u,0}\phi_0^{n+1}=u_{\star}^2 e_{\tau}$\end{tabular}}}}%
+    \put(0.16245006,0.00034821){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}"FV Nishizawa"\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{sf_scheme_strategies.pdf}}%
+    \put(0.28094647,0.10629872){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\overline{\rm BULK}(\overline{u}^n_{\frac{1}{2}})$ \end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{sf_scheme_strategies.pdf}}%
+    \put(0.63028388,0.22289505){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_{u,1}\phi_1^{n+1}=u_{\star}^2 e_{\tau}$\end{tabular}}}}%
+    \put(0.66012187,0.00034821){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}"FV2"\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{sf_scheme_strategies.pdf}}%
+    \put(0.58045234,0.14036499){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\overline{\rm BULK}(\overline{u}_{\frac{1}{2}}) = {\rm BULK}({\cal S}^n_{\frac{3}{2}}(-\frac{h_{\frac{3}{2}}}{2}))$ \end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{sf_scheme_strategies.pdf}}%
   \end{picture}%
 \endgroup%
