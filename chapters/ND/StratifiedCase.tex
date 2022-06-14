@@ -1,5 +1,5 @@
 \section{Stratified case (atmosphere)}
-Now that all the ideas have been presented in the Neutral case,
+Now that all the ideas have been presented in the neutral case,
 we extend the discussion to the case of a stratified column.
 A stratified fluid has layers of different densities.
 We assume for simplicity that the atmosphere
@@ -32,12 +32,13 @@ profile of viscosities depending on the turbulent kinetic energy
 The continuous equations stay the same for $u$
 (see \eqref{eq:ND_NeutralCase_continuousModel}),
 except that the turbulent viscosity and the
-friction scale $u*$ depends on the temperature $\theta$:
+friction scale $u_\star$ depends on the potential temperature
+$\theta$, which is governed by:
 \begin{subequations}
 	\label{eq:ND_StratifiedCase_continuousModel}
 	\begin{equation}
 	\label{eq:ND_StratifiedCase_EkmanEq}
-\partial_t \theta -\partial_z (\partial_z K_{\theta} \theta)
+\partial_t \theta -\partial_z (K_{\theta} \partial_z \theta)
 	= F_{\theta},~~~~~~~~~~~~~~ z \geq \delta_{sl}
 	\end{equation}
 	\begin{equation}
