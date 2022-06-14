@@ -70,5 +70,6 @@
     \put(0,0){\includegraphics[width=\unitlength,page=2]{nouvelle_dis_neutre.pdf}}%
     \put(0.35025645,0.15293434){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}${\rm BULK}({\cal S}^n_{\frac{1}{2}}(-\frac{\widetilde{h}}{2}))$ \end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{nouvelle_dis_neutre.pdf}}%
+    \put(0.13464121,0.23638447){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(\partial_t + if)\widetilde{u} - \frac{K_{u,1}\phi_1 - K_{u,\delta}\phi_\delta}{\widetilde{h}} = i f u_G$\end{tabular}}}}%
   \end{picture}%
 \endgroup%

@@ -50,6 +50,11 @@
 \usepackage{ifdraft}
 \newtheorem*{remark}{Remark}
 \newtheorem*{proposition}{Proposition}
+%REMOVING "." after "remark" or "definition".
+\usepackage{xpatch}
+\makeatletter
+\xpatchcmd{\@thm}{\thm@headpunct{.}}{\thm@headpunct{}}{}{}
+\makeatother
 
 \usepackage{adjustbox}
 \usepackage{tabto}

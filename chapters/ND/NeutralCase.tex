@@ -81,7 +81,7 @@ The equations in the atmosphere column are hence (see Figure
 where $u_G$ is a constant value representing the geostrophic guide,
 $f$ is the Coriolis parameter and $K_u$ the turbulent viscosity.
 The discretized profile of $K_u$ will be
-detailed in section \ref{sec:ND_StratifiedCase_turbulentVisc}.
+detailed in Section \ref{sec:ND_StratifiedCase_turbulentVisc}.
 The orientation of $\partial_z u$ is contained in
 $e_\tau = \frac{u(\delta_{\rm sl})-u(0)}
 	{||u(\delta_{\rm sl})-u(0)||}$
@@ -668,29 +668,14 @@ The notations are summed up in Figure
 	\caption{ Surface layer scheme "FV free".}
 	\label{fig:ND_NeutralCase_nouvelle_dis_neutre}
 \end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.6]{images/neutral_comparisonPlot.pdf}
-	\caption{Vertical profiles of $|u|$ (top) and $\arg(u)$ (bottom)
-	for the various surface flux schemes presented
-	after one day of integration in time in neutral conditions.
-	The time step is $\Delta t = 30 \;{\rm s}$
-	and the vertical levels are taken
-	on the ECMWF website as the
-	25 first of the 137 levels configuration.
-	}
-	\label{fig:ND_NeutralCase_comparisonPlot}
-\end{figure}
 \begin{remark}
 	The flux $K_u \phi$ is constant in the surface layer. Hence
 	$K_{u,\delta}\phi_{\delta} = K_{u,0} \phi_0$ and since the
 	viscosity at $z=0$ is the molecular viscosity we get
 	$\phi_{\delta} = \frac{K_{mol}}{K_{u,\delta}} \phi_0$.
-	However in our case since the transmission conditions of
-	the ocean-atmosphere coupled problem only involve
-	the constant flux
-	$K_{u} \phi$, we will only compute $\phi_{\delta}$.
-	This surface flux scheme is hence exactly equivalent
+	The implementation uses $\phi_{\delta}$ as a prognostic
+	variable instead of $\phi_0$:
+	this surface flux scheme is hence exactly equivalent
 	to using the "FV2" scheme with grid levels
 	$\{0, \delta_{sl}, z_1, z_2, ..., z_M\}$.
 \end{remark}
@@ -710,41 +695,55 @@ where the time indices in $e_\tau = \frac{u^{n+1}(\delta_{sl})-u(0)}
 {||u^n(\delta_{sl})-u(0)||}$ must be the same as in the
 bottom boundary condition
 \eqref{eq:ND_NeutralCase_bottomCondFVFree}.
-Let us inject the reconstruction $u(\delta_{sl}) = \widetilde{u} - \widetilde{h}(\phi_{\delta}/3 + \phi_1/6)$
-and the log law $||u^n(\delta_{sl})-u(0)|| = \frac{{u_\star}}{\kappa}\ln(1+\frac{\delta_{sl}}{z_{u}})$:
+Let us inject the reconstruction of
+$u(\delta_{sl}) = \widetilde{u} - \widetilde{h}(\phi_{\delta}/3 + \phi_1/6)$
+(obtained from \eqref{eq:ND_NeutralCase_fullReconstruction})
+and the log law $||u^n(\delta_{sl})-u(0)|| = \frac{{u_\star}}{\kappa}\ln(1+\frac{\delta_{sl}}{z_{u}})$. One then gets:
 \begin{equation}
 	\label{eq:ND_NeutralCase_utildeExpression}
-	\frac{\widetilde{h}}{h_{1/2}}\widetilde{u} = \overline{u}_{1/2} - \left(\widetilde{u} - \widetilde{h}(\phi_{\delta}/3 + \phi_1/6)
-	\right)\tau_{sl} +
-	(\tau_{sl} - \frac{h_{1/2} - \widetilde{h}}{h_{1/2}})u(0)
+	% \frac{\widetilde{h}}{h_{1/2}}\widetilde{u} = \overline{u}_{1/2} - \left(\widetilde{u} - \widetilde{h}(\phi_{\delta}/3 + \phi_1/6)
+	% \right)\tau_{sl} +
+	% (\tau_{sl} - \frac{h_{1/2} - \widetilde{h}}{h_{1/2}})u(0)
+	\left(\widetilde{u} - u(0)\right) \alpha_{sl} =
+	\overline{u}_{\frac{1}{2}} - u(0) - \widetilde{h}\left(
+	\frac{\phi_\delta}{3} + \frac{\phi_1}{6} \right)
+	\left(\alpha_{sl} - \frac{\widetilde{h}}{h_{\frac{1}{2}}}\right)
 \end{equation}
-with $\tau_{sl} = \frac{1}{{h_{1/2}}}\int_{z_0}^{\delta_{sl}}
+with $\alpha_{sl} =
+\frac{\widetilde{h}}{{h_{1/2}}} + \frac{1}{{h_{1/2}}}\int_{z_0}^{\delta_{sl}}
 \frac{\ln(1+\frac{z}{z_{u}})}{\ln(1+\frac{\delta_{sl}}{z_{u}})}dz
-= \frac{(\delta_{\rm sl} + z_{u})
+= \frac{(h_{1/2} + z_{u})
 \ln(1+\frac{\delta_{\rm sl}}{z_{u}}) - \delta_{\rm sl}}{
 	h_{1/2}\ln(1+\frac{\delta_{sl}}{z_{u}})}$ a non-dimensional
-number $0 \leq\tau_{sl} < 1$ which depends on the log law and
-on the values of $\widetilde{h}, h_{1/2}$.
-Note that $\tau_{\rm sl} = 0 \iff \widetilde{h}=h_{1/2}$ and that in
-this case \eqref{eq:ND_NeutralCase_utildeExpression} is equivalent to
-$\widetilde{u} = \overline{u}_{1/2}$.
+number $0 < \alpha_{sl} \leq 1$ which depends on the log law and
+on the values of $\widetilde{h}, h_{1/2}$. It decreases with
+$\delta_{sl}$; $\alpha_{\rm sl} = 1 \iff \widetilde{h}=h_{1/2}$.
+and in this case \eqref{eq:ND_NeutralCase_utildeExpression} is
+equivalent to $\widetilde{u} = \overline{u}_{1/2}$.
+Figure \ref{fig:ND_NeutralCase_alpha_sl} show the
+profile of $\alpha_{sl}$.
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.7]{images/alpha_sl.pdf}
+	\caption
+	{ Value of $\alpha_{sl}$
+	for several $z_u$ with $z_1=20\;{\rm m}$.
+	}
+	\label{fig:ND_NeutralCase_alpha_sl}
+\end{figure}
 \begin{remark}
-$\tau_{\rm sl}$ is a constant in the neutral case
-when $\delta_{\rm sl}$ and $z_{u}$ are constants. However,
+$\alpha_{\rm sl}$ is a constant in the neutral case
+only when $\delta_{\rm sl}$ and $z_{u}$ are constants. However,
 $z_{u}$ depends on $u_\star$ and will vary.
 In all this thesis we assume that $\delta_{\rm sl}$ does not
 change over time.
 \end{remark}
 %
-Let $\alpha_{\rm sl}(t) = \frac{\widetilde{h}}{h_{1/2}}+\tau_{sl}(t)$.
-It is straightforward to show that $\alpha_{\rm sl}$ increases with
-$\widetilde{h}$ and that $0<\alpha_{\rm sl} \leq 1$.
-Then $\widetilde{u}$ can be expressed in terms of the prognostic
+In the reconstruction \eqref{eq:ND_NeutralCase_fullReconstruction}
+$\widetilde{u}$ can be expressed in terms of the prognostic
 variables with \eqref{eq:ND_NeutralCase_utildeExpression}
-% $\widetilde{u} = \frac{1}{\alpha_{\rm sl}}\left(
-%\overline{u}_{1/2} + \widetilde{h}\tau_{sl}(\phi_0/3 + \phi_1/6)
-%+ (\alpha_{sl} - 1)  u(0)\right)$
-and we obtain
+and we obtain $u(\delta_{sl})$ which is used as input
+of the bulk routine and in the computation of $e_\tau$:
 \begin{equation}
 u(\delta_{sl})-u(0)=\frac{\overline{u}_{1/2} -
 	\frac{\widetilde{h}^2}{h_{1/2}}
@@ -757,12 +756,12 @@ is hence formulated as:
 	\label{eq:ND_NeutralCase_boundaryCondFVfree}
 	\underbrace{K_{u,\delta} \phi_{\delta}}_{
 		\text{Flux at } \delta_{sl}
-	} = {u_\star}^2
+	} = u_\star^2
 	\underbrace{\frac{\overline{u}_{1/2} -
 	\frac{\widetilde{h}^2}{h_{1/2}}
 	(\frac{\phi_{\delta}}{3} + \frac{\phi_1}{6})-u(0)}
 	{\alpha_{\rm sl}||u^n(\delta_{sl}) - u(0)||}}_{
-		\text{using reconstruction at } \delta_{sl}
+		e_\tau \text{ using reconstruction at } \delta_{sl}
 	}
 \end{equation}
 % 
@@ -804,11 +803,12 @@ $ (\partial_t+if) \widetilde{u}
 becomes
 \begin{equation}
 	\label{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree}
-	(\partial_t+if) (\frac{1}{\alpha_{\rm sl}}
-	\left(\overline{u}_{1/2} + \widetilde{h}\tau_{sl}
-	(\frac{\phi_{\delta}}{3} + \frac{\phi_1}{6})
+	(\partial_t+if) \left(\frac{1}{\alpha_{\rm sl}(t)}
+	\left(\overline{u}_{1/2} + \widetilde{h}
+	\left(\frac{\phi_{\delta}}{3} + \frac{\phi_1}{6}\right)
+	\left(\alpha_{sl} - \frac{\widetilde{h}}{h_{\frac{1}{2}}}\right)
 	+ (\alpha_{sl} - 1) u(0)
-	\right))
+	\right)\right)
 	= \frac{K_{u, 1}\phi_1 - K_{u,\delta} \phi_{\delta}}{\widetilde{h}}.
 \end{equation}
 The prognostic equation \eqref{eq:ND_NeutralCase_continuityEquationFV}
@@ -817,16 +817,33 @@ is also changed for $m=1$: $h_{m-1/2}$ is replaced
 with $\widetilde{h}$ and $K_{u, m-1}\phi_{m-1}$ is replaced by
 $K_{u,\delta}\phi_{\delta}$.
 %
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[scale=0.6]{images/neutral_comparisonPlot.pdf}
+	\caption[Vertical profiles of $|u|$ and $\arg(u)$]
+	{Vertical profiles of $|u|$ (top) and $\arg(u)$ (bottom)
+	for the various surface flux schemes presented
+	after one day of integration in time in neutral conditions.
+	The time step is $\Delta t = 30 \;{\rm s}$
+	and the vertical levels are taken
+	on the ECMWF website\footnotemark ~ as the 25 first
+	of the 137 levels configuration of IFS.
+	}
+	\label{fig:ND_NeutralCase_comparisonPlot}
+\end{figure}
+\footnotetext{
+\url{https://confluence.ecmwf.int/display/OIFS/4.4+OpenIFS\%3A+Vertical+Resolution+and+Configurations} }
 \par
 Figure \ref{fig:ND_NeutralCase_comparisonPlot} is a snapshot of
 the vertical profiles of $|u|$ and $\arg(u)$ close to the surface
 for the surface flux schemes presented.
 The profiles are obtained after 24 hours of integration in neutral
 conditions and with $u(0) = 0$.
-It is seen that the profiles of $|u|$ with the "FV free" and "FV2"
+One can see that the profiles of $|u|$ with the "FV free" and "FV2"
 follow a wall law. The "FV1" and "FV pure" discretizations
-present identical profiles that are close to the Finite Differences
-discretization. However, it is the case only when $K_0$ is
+present identical profiles that are close to the "FV Nishizawa" and
+Finite Difference discretizations.
+However, it is the case only when $K_0$ is
 replaced by $K_{\delta}$ in those discretizations
 (see the paragraph "On the value of $K_{u,0}$" below).
 The profile of $\arg(u)$ is significantly affected by the surface
@@ -839,12 +856,12 @@ by choosing $\delta_{sl}=z_1$, both profiles would have been
 rigorously identical
 (see the paragraph "in the general case where
 $\delta_{sl} \geq z_1$" below).
-\par
-Finally, a large part of the differences shown here come from
-the turbulent closure; having an explicit surface layer changes
-the turbulent kinetic energy in the first level. The discretization
-of the turbulent viscosities will be detailed in the stratified part
-(Section \ref{sec:ND_StratifiedCase_turbulentVisc}).
+%\par
+%Finally, a large part of the differences shown here come from
+%the turbulent closure; having an explicit surface layer changes
+%the turbulent kinetic energy in the first level. The discretization
+%of the turbulent viscosities will be detailed in the stratified part
+%(Section \ref{sec:ND_StratifiedCase_turbulentVisc}).
 % \begin{figure}
 % 	\centering
 % 	\includegraphics[scale=0.55]{images/consistency_comparison.pdf}
@@ -904,34 +921,42 @@ does not behave the same way with Finite Differences and Finite
 Volumes.
 \begin{itemize}
 	\item \textbf{Finite Differences}:
-Injecting the boundary condition in the first grid level gives
+Injecting the boundary condition at the first grid level gives
 		\begin{equation}
-			\partial_t u_{1/2} = \frac{1}{h_{1/2}}
+			(\partial_t+if) u_{1/2} = \frac{1}{h_{1/2}}
 			\left(K_{u,1}\frac{u_{3/2} - u_{1/2}}{h_1}
 			 - u_\star^2 e_\tau \right).
 		\end{equation}
 The value of $K_0$ does not intervene in the equation.
-\item \textbf{Finite Volumes} ("FV pure" and "FV1"):
-In the continuity equation at $z=z_1$, it is implicitly used that
-	\begin{equation}
-		\partial_t u(z_1) =
+\item \textbf{Finite Volumes} ("FV pure", "FV1" and "FV Nishizawa"):
+Combining the equation \eqref{eq:ND_NeutralCase_prognosticEqFV}
+and the reconstruction
+\eqref{eq:ND_NeutralCase_quadraticReconstruction} in the second cell
+$u(z_1) = {\cal S}_{\frac{3}{2}}(-\frac{h_\frac{3}{2}}{2})$
+the discretisations "FV pure", "FV1" and "FV Nishizawa"
+implicitly use that
+\begin{equation}
+		(\partial_t+if) u(z_1) =
 		\frac{K_{u,1} \phi_1 - u_\star^2 e_\tau} {h_{1/2}}
-		+ \frac{h \phi_1}{3}
-		+ \frac{h u_\star^2 e_\tau}{6 K_{u,0}}
-	\end{equation}
+		+ (\partial_t+if)\left(\frac{\phi_1}{3}
+		+ \frac{u_\star^2 e_\tau}{6 K_{u,0}}\right)h_{1/2}.
+\end{equation}
 The (small) value of $K_{u,0}$ directly appears when we assume the
-parabolic profile inside the first grid level.
-As a result, $\partial_t u(z_1)$ scales with $\frac{1}{K_0}$ and
+parabolic profile inside the first grid cell.
+As a result, $u(z_1)$ scales with $\frac{1}{K_0}$ and
 as it is seen in Figure \ref{fig:ND_NeutralCase_comparisonPlot}
 exhibits unreasonable values.
 To obtain physically plausible profiles,
-by copying the expression $\phi_{\delta} = \frac{K_{mol}}{K_{u,\delta}}\phi_0$ of the "FV free" scheme, the surface
-viscosity will be multiplied by $\frac{K_{u,\delta}}{K_{mol}}$.
-However, it does not correspond to the original discretisation choice.
-The consequence is that $\phi_0$ really corresponds
-to neither $(\partial_z u)(z_0)$ nor $(\partial_z u)(z_{\delta_{sl}})$.
-{\color{red} J'aimerais avoir une idée de si ce genre de trucs
-		arrive dans des modèles + sophistiqués}
+by mimicking the relation
+$\phi_{\delta} = \frac{K_{mol}}{K_{u,\delta}}\phi_0$ of the
+"FV free" scheme, we choose to multiply the surface
+viscosity by $\frac{K_{u,\delta}}{K_{mol}}$.
+As a consequence, the law of the wall is denied and
+$(\partial_z u)(z_0)$ is multiplied
+by $\frac{K_{mol}}{K_{u,\delta}}$.
+Note that this problem is specific to schemes where
+$\frac{\phi_0}{K_{u,0}}$ is involved and
+is not characteristic of Finite Volume schemes.
 \end{itemize}
 
 \paragraph{In the general case where $\delta_{\rm sl} \geq z_k$.}
@@ -943,20 +968,23 @@ The surface layer scheme "FV free" is identical to the case $k=0$, except that
 		$k$ is added to the indices in 
 		\eqref{eq:ND_NeutralCase_boundaryCondFVfree} and
 		\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree};
-	\item $\tau_{sl} = \frac{1}{{h_{1/2}}}\int_{z_k}^{\delta_{sl}} \frac{\ln(1+\frac{z}{z_{u}})}{\ln(1+\frac{\delta_{sl}}{z_{u}})} dz$ and $\alpha_{\rm sl} = \frac{\widetilde{h}}{h_{k+1/2}} + \tau_{\rm sl}$;
+	\item $\alpha_{sl} = \frac{\widetilde{h}}{h_{k+\frac{1}{2}}} +
+		\frac{1}{h_{k+\frac{1}{2}}}\int_{z_k}^{\delta_{sl}}
+		\frac{\ln(1+\frac{z}{z_{u}})}
+			{\ln(1+\frac{\delta_{sl}}{z_{u}})} dz$;
 	\item for $m < k$, the cell $[z_m, z_{m+1}]$ is filled with
 		$K_{u,m} \phi_m = K_{u,k}\phi_k =
 	{u_\star}^2e_\tau$
 		and the average $\overline{u}_{m+1/2}$
 		is computed with the integrated wall law
 		between $z_m$ and $z_{m+1}$.
-		The subgrid reconstruction in those cells are directly
+		The subgrid reconstruction in those cells is directly
 		the wall law.
 \end{itemize}
 It is straightforward to check that for $\delta_{sl} = z_1$
 the "FV2" scheme is rigorously recovered.
 The derivation for any $\delta_{\rm sl} \geq 0$ is detailed for
-the stratified case in section \ref{sec:ND_StratifiedCase_FVfree}
+the stratified case in Section \ref{sec:ND_StratifiedCase_FVfree}.
 \begin{figure}
 	\subimport{images/}{nouvelle_dis_neutre_anydelta.pdf_tex}
 	\caption{ Surface layer scheme "FV free" with
@@ -964,6 +992,6 @@ the stratified case in section \ref{sec:ND_StratifiedCase_FVfree}
 	\label{fig:ND_NeutralCase_nouvelle_dis_neutre_anydelta}
 \end{figure}
 Figure \ref{fig:ND_NeutralCase_nouvelle_dis_neutre_anydelta}
-shows how is handled the surface layer in this case: the part in gray
+shows how the surface layer is handled in this case: the part in gray
 is neutralized for the prognostic equation and is filled afterward
 with the help of the log law.
