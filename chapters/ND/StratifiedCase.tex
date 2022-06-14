@@ -55,40 +55,42 @@ The viscosities $K_u, K_\theta$ will be detailed with
 the discretization of the turbulent kinetic energy in section
 \ref{sec:ND_StratifiedCase_turbulentVisc}.
 In the surface layer, Monin-Obukhov Similarity Theory (MOST)
-profiles for $u$ and $\theta$ are
+profiles for $u$ and $\theta$ are {\color{red} TODO introduire $z_\theta$ et $\theta_\star$}
 \begin{equation}
 \label{eq:ND_StratifiedCase_MOST}
 \begin{aligned}
 	||u(z)-u(0)|| = \frac{u_\star}{\kappa}
     \left(
-	\ln(1+\frac{z}{z_{0M}})
-    - \psi_u(\frac{z}{L_{MO}})
-	+ \psi_u(\frac{z_{0M}}{L_{MO}})
+	\ln(1+\frac{z}{z_{u}})
+    - \psi_u\left(\frac{z}{L_{MO}}\right)
+	+ \psi_u\left(\frac{z_{u}}{L_{MO}}\right)
     \right)
     \\
     \theta(z) - \theta_s = 
     \frac{\theta_\star}{\kappa}
     \left(
-	\ln(1+\frac{z}{z_{u}})
-    - \psi_\theta(\frac{z}{L_{MO}})
-	+ \psi_\theta(\frac{z_{u}}{{L_{MO}}})
+	\ln(1+\frac{z}{z_{\theta}})
+    - \psi_\theta\left(\frac{z}{L_{MO}}\right)
+	+ \psi_\theta\left(\frac{z_{\theta}}{{L_{MO}}}\right)
     \right)
 \end{aligned}
 \end{equation}
 where $L_{MO} = \frac{\theta(\delta_{\rm sl})
 u_\star^2}{\theta_\star \kappa g }$. We will use
-$C_H|u(\delta_{sl})- u(0)| = 
-\frac{u_\star \kappa}{\ln(+1\frac{z}{z_{u}})
-    - \psi_\theta(\frac{z}{L_{MO}})
-    + \psi_\theta(\frac{z_{u}}{{L_{MO}}})}$
+$C_H||u(\delta_{sl})- u(0)|| = 
+\frac{u_\star \kappa}{\ln\left(1+\frac{z}{z_{u}}\right)
+    - \psi_\theta\left(\frac{z}{L_{MO}}\right)
+    + \psi_\theta\left(\frac{z_{u}}{{L_{MO}}}\right)}$
 Similarly to the neutral case, the semi-discrete in time
 boundary condition is not explicit:
-$C_H^n|u^n(\delta_{sl})- u(0)|$ is computed with the values
+$C_H^n||u^n(\delta_{sl})- u(0)||$ is computed with the values
 at the current time step whereas the temperature variation
-is taken in the time $n+1$: the boundary condition for temperature
+is taken at time $t^{n+1}$: the boundary condition for temperature
 is
 \begin{equation}
-	K_\theta \partial_z \theta = C_H^n|u^n(\delta_{sl})- u(0)| (\theta^{n+1}(\delta_{\rm sl}) - \theta_s), ~~~~ z < \delta_{\rm sl}
+	K_\theta \partial_z \theta = C_H^n||u^n(\delta_{sl})- u(0)||
+	(\theta^{n+1}(\delta_{\rm sl}) - \theta_s),
+	~~~~ z < \delta_{\rm sl}
 \end{equation}
 
 \subsubsection{Finite Volumes discretization}
@@ -107,14 +109,14 @@ And the derivative of temperature at $z_{m-1}, z_m, z_{m+1}$ solves
 \begin{equation}
 \begin{aligned}
 \label{eq:ND_StratifiedCase_prognosticPT_FV}
-\partial_t \left( \frac{h_{m-1/2}}{6} {(\partial_z \theta)}_{m-1} 
+\partial_t &\left( \frac{h_{m-1/2}}{6} {(\partial_z \theta)}_{m-1} 
 + \frac{2h_m}{3} {(\partial_z \theta)}_m  
-+ \frac{h_{m+1/2}}{6} {(\partial_z \theta)}_{m+1} \right)& \\
--
++ \frac{h_{m+1/2}}{6} {(\partial_z \theta)}_{m+1} \right) \\
+	&-
     \left(
 	\frac{K_{\theta, m+1}}{ h_{m+1/2}}{(\partial_z \theta)}_{m+1} - \frac{2 h_m K_{\theta, m}}{h_{m-1/2} h _{m+1/2}}{(\partial_z \theta)}_m + \frac{K_{\theta, m-1}}{ h_{m-1/2}}{(\partial_z \theta)}_{m-1}
     \right)
-	&= \overline{F}_{\theta, m+1/2} - \overline{F}_{\theta, m-1/2}
+	= \overline{F}_{\theta, m+1/2} - \overline{F}_{\theta, m-1/2}
 \end{aligned}
 \end{equation}
 We also extend the surface scheme strategies for the temperature:
@@ -126,27 +128,28 @@ We also extend the surface scheme strategies for the temperature:
 			\partial_z \theta_0^{n+1}}_{\text{
 				Surface flux
 			}} =
-			\underbrace{C_H|u^n_{\frac{1}{2}}- u(0)|
+			\underbrace{C_H||u^n_{\frac{1}{2}}- u(0)||
 			(\theta_{\frac{1}{2}}^{n+1}
 			- \theta_s)}_{\text{FD values at }
 			z_{\frac{1}{2}}}.
 		\end{equation}
-	\item With "FV pure" the evolution equation is solved in all
-		the first grid level with the reconstructed
+	\item With "FV pure" the evolution equation is solved in 
+		the whole first grid cell with the reconstructed
 		value $\theta(\delta_{sl}) = {\cal T}_{1/2}(0)$:
+		{\color{red} TODO introduire ${\cal T}$}
 		\begin{equation}
 			\underbrace{K_\theta
 			\partial_z \theta_0^{n+1}}_{\text{
 				Surface flux
 			}} =
 			\underbrace{C_H
-			|{\cal S}_{1/2}^{n}(0)- u(0)|
+			||{\cal S}_{1/2}^{n}(0)- u(0)||
 			({\cal T}_{1/2}^{n+1}(0)
 			- \theta_s)}_{\text{Reconstructions at }
 			z_{\frac{1}{2}}}.
 		\end{equation}
-	\item With "FV1" the evolution equation is solved in all
-		the first grid level with the averaged-value
+	\item With "FV1" the evolution equation is solved in
+		the whole first grid cell with the averaged-value
 		assumption that $\theta(\delta_{sl}) =
 		\overline{\theta}_{\frac{1}{2}}$:
 		\begin{equation}
@@ -155,12 +158,12 @@ We also extend the surface scheme strategies for the temperature:
 				Surface flux
 			}} =
 			\underbrace{C_H
-			|\overline{u}_{\frac{1}{2}}^n- u(0)|
+			||\overline{u}_{\frac{1}{2}}^n- u(0)||
 			(\overline{\theta}_{\frac{1}{2}}^{n+1}(0)
 			- \theta_s)}_{\text{Averaged values around }
 			z_{\frac{1}{2}}}.
 		\end{equation}
-	\item With "FV2" in the first grid level
+	\item With "FV2" in the first grid cell
 		the MOST profile for $\theta$ is assumed as in
 		\cite{nishizawa_surface_2018}.
 		The boundary condition is the flux at the top of the
@@ -172,8 +175,8 @@ We also extend the surface scheme strategies for the temperature:
 				Flux at
 			} z_1} =
 			\underbrace{C_H
-			|{\cal S}_{3/2}^{n}(-\frac{h_\frac{3}{2}}{2})
-			- u(0)|
+			||{\cal S}_{3/2}^{n}(-\frac{h_\frac{3}{2}}{2})
+			- u(0)||
 			({\cal T}_{3/2}^{n+1}
 			(-\frac{h_\frac{3}{2}}{2})
 			- \theta_s)}_{\text{Reconstructions at }
@@ -184,7 +187,7 @@ The limitations of the strategies shown in the neutral case are the
 same for the temperature: the "FV1" approach is biased because
 of the approximation
 $\overline{\theta}_{\frac{1}{2}}=\theta(\delta_{\rm sl})$ and
-both "FV1" and "FV pure" assume that the evolution equation occurs
+both "FV1" and "FV pure" assume that the evolution equation stands
 in the surface layer and approximate a MOST profile with
 a quadratic spline.
 The value of $K_\theta$ at $z_0$ cannot be set to the molecular
@@ -217,7 +220,7 @@ and of sub-grid reconstructions
 	\frac{\phi_{k+1} + \phi_{k}}{2} \xi
 + \frac{\phi_{k+1} - \phi_{k}}{2\widetilde{h}}
 	\left(\xi^2 - \frac{\widetilde{h}^2}{12}\right) \\
-{\cal T}_{k+1/2}(\xi) = \widetilde{\theta}_{1/2} +
+{\cal T}_{k+1/2}(\xi) = \widetilde{\theta} +
 	\frac{{(\partial_z \theta)}_{k+1} + 
 		{(\partial_z \theta)}_{k}}{2} \xi
 + \frac{{(\partial_z \theta)}_{k+1} - {(\partial_z \theta)}_{k}}
@@ -230,66 +233,60 @@ for $\delta_{\rm sl} < z < z_{k+1}$.
 The relation between
 $\overline{u}_{k+1/2}, \overline{\theta}_{k+1/2}$ and
 $\widetilde{u},\widetilde{\theta}$ is, similarly to the neutral case:
-\begin{equation} \label{eq:ND_StratifiedCase_tmprelation_tilde_bar}
-\begin{aligned}
-	\frac{\widetilde{h}}{h_{k+1/2}} (\widetilde{u}-u(0)) &=
-	\overline{u}_{k+1/2}-u(0) - 
-	(u(\delta_{sl})-u(0)) \tau_{sl, u}\\
-	\frac{\widetilde{h}}{h_{k+1/2}}
-	(\widetilde{\theta} - \theta_s) &=
-	(\overline{\theta}_{k+1/2}-\theta_s) -
-	(\theta(\delta_{sl})-\theta_s)\tau_{sl, \theta}
-\end{aligned}
-\end{equation}
-where the non-dimensional numbers $\tau_{sl, u}, \tau_{sl, \theta}$
-depend on the stratification. For $x=u, \theta$,
-\begin{equation}
-\tau_{sl, x} = \frac{\frac{1}{{h_{1/2}}}\int_{z_k}^{\delta_{sl}} \ln(1+\frac{z}{z_{0x}})- \psi_x(\frac{z}{L_{MO}})
-	dz}{\ln(1+\frac{\delta_{sl}}{z_{0x}})- \psi_x(\frac{\delta_{sl}}{L_{MO}})
-    }
-    =
- \frac{\frac{1}{{h_{1/2}}}
-    \left[
-	    (z+z_{0x})\ln(1+\frac{z}{z_{0x}})-z
-    +
-    z \Psi_x(\frac{z}{L_{MO}}) \right]_{z_k}^{\delta_{sl}}
-    }{\ln(1+\frac{\delta_{sl}}{z_{0x}})- \psi_x(\frac{\delta_{sl}}{L_{MO}})
-    }.
-\end{equation}
-Note that we used $\Psi_x$, the averaged form of the universal
-profile stability functions defined in \citep{nishizawa_surface_2018}.
-%
-Since $\ln(1+\frac{z}{z_{0x}})-
-\psi_x(\frac{z}{L_{MO}})$ is non-negative and increase with $z$ even
-in strongly unstable situations,
-$0 \leq \tau_{sl, x} < 1$ and as in the neutral case
-$\tau_{sl, x}=0 \iff \widetilde{h}=h_{k+1/2}$. This let us retrieve
-the "FV2" surface flux scheme by setting the height of the surface
-layer to exactly $z_1$.
-We define the non-dimensional number
-$\alpha_{sl, x} = \frac{\widetilde{h}_{1/2}}{h_{1/2}} + \tau_{sl, x}$.
-The increasing nature of MOST profiles gives that
-$0 < \alpha_{sl, x} \leq 1$ increases with $\widetilde{h}$.
-Let us inject $u(\delta_{sl}) =
-{\cal S}(-\frac{\widetilde{h}}{2})$ and
-$\theta(\delta_{sl}) = {\cal T}(-\frac{\widetilde{h}}{2})$:
 \begin{equation}
 \begin{aligned}
 \label{eq:ND_StratifiedCase_relation_tilde_bar}
-	\alpha_{sl, u}\widetilde{u} &= \overline{u}_{k+1/2} +
-	\tau_{sl, u}
-\widetilde{h}
-	(\frac{\phi_k}{3} + \frac{\phi_{k+1}}{6})
-	- (1- \alpha_{sl, u}) u(0)\\
-\alpha_{sl, \theta}
-\widetilde{\theta}
-	&= \overline{\theta}_{k+1/2} + \tau_{sl, \theta}
-	\widetilde{h}(\frac{{(\partial_z \theta)}_k}{3} + \frac{{(\partial_z \theta)}_{k+1}}{6})
- - (1 - \alpha_{sl, \theta})\theta_s
+	\left(\widetilde{u} - u(0)\right)\alpha_{sl, u}
+	&= \overline{u}_{k+1/2} - u(0) + \widetilde{h}
+	\left(\frac{\phi_\delta}{3} + \frac{\phi_{k+1}}{6}\right)
+	\left(\alpha_{sl, u} -
+	\frac{\widetilde{h}}{h_{k+\frac{1}{2}}}
+	\right)\\
+	\left(\widetilde{\theta} - \theta_s\right)
+	\alpha_{sl, \theta}
+	&= \overline{\theta}_{k+1/2} - \theta_s +
+	\widetilde{h}\left(
+		\frac{{(\partial_z \theta)}_\delta}{3} +
+		\frac{{(\partial_z \theta)}_{k+1}}{6}
+	\right)\left(\alpha_{sl, u} -
+	\frac{\widetilde{h}}{h_{k+\frac{1}{2}}}
+	\right)
 \end{aligned}
 \end{equation}
+where the non-dimensional numbers $\alpha_{sl, u},
+\alpha_{sl, \theta}$ depend on the stratification. For $x=u, \theta$,
+\begin{equation}
+	\begin{aligned}
+	\alpha_{sl, x} &= \frac{\widetilde{h}}{h_{k+\frac{1}{2}}} +
+	\frac{\frac{1}{h_{k+\frac{1}{2}}}\int_{z_k}^{\delta_{sl}}
+	\ln(1+\frac{z}{z_{x}})- \psi_x\left(\frac{z}{L_{MO}}\right)
+	dz}{\ln(1+\frac{\delta_{sl}}{z_{x}})- \psi_x\left(\frac{\delta_{sl}}{L_{MO}}\right)
+    } \\
+		&=\frac{\widetilde{h}}{h_{k+\frac{1}{2}}} +
+ \frac{\frac{1}{{h_{k+\frac{1}{2}}}}
+    \left[
+	    (z+z_{x})\ln(1+\frac{z}{z_{x}})-z
+    +
+    z \Psi_x\left(\frac{z}{L_{MO}}\right) \right]_{z_k}^{\delta_{sl}}
+    }{\ln(1+\frac{\delta_{sl}}{z_{x}})- \psi_x\left(\frac{\delta_{sl}}{L_{MO}}\right)
+    }.
+\end{aligned}
+\end{equation}
+Note that instead of $\psi_x$ we used $\Psi_x$,
+the averaged form of the universal
+profile stability functions defined in \citep{nishizawa_surface_2018}.
+%
+Since $\ln(1+\frac{z}{z_{x}})-
+\psi_x(\frac{z}{L_{MO}})$ is non-negative and increases with $z$ even
+in strongly unstable situations,
+$0 < \alpha_{sl, x} \leq 1$ and as in the neutral case
+$\alpha_{sl, x}=1 \iff \widetilde{h}=h_{k+1/2}$. This let us retrieve
+the "FV2" surface flux scheme by setting the height of the surface
+layer to exactly $z_1$.
+\par
 Finally, equations \eqref{eq:ND_NeutralCase_boundaryCondFVfree} and
-\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree} can be used for
+\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree} of the
+neutral case can be used for
 $u$ and the equations for $\theta$ are similar:
 the boundary condition of "FV free" is
 \begin{equation}
@@ -297,7 +294,7 @@ the boundary condition of "FV free" is
 	\underbrace{K_{\theta, \delta} (\partial_z \theta)_\delta}_{
 		\text{Flux at } \delta_{sl}
 	} = 
-	C_H |u(\delta_{sl})-u(0)|
+	C_H ||u(\delta_{sl})-u(0)||
 	\underbrace{
 	\frac{
   \overline{\theta}_{k+1/2} - \frac{\widetilde{h}^2}{h_{k+1/2}}
@@ -307,30 +304,36 @@ the boundary condition of "FV free" is
 }{\alpha_{sl, \theta}}
 	}_{\text{Reconstruction at } \delta_{sl}}
 \end{equation}
-and the evolution equation of the first active grid level is
+and the evolution equation in the first active grid cell is
 \begin{equation}
     \begin{aligned}
 	\label{eq:ND_StratifiedCase_semiDiscreteEkmanEqPTFVfree}
 	    \partial_t \left(\frac{1}{\alpha_{\rm sl, \theta}}
 	    \left(
-	    \overline{\theta}_{k+1/2} + \tau_{sl, \theta}
-	\widetilde{h}(\frac{{(\partial_z \theta)}_k}{3} +
-	\frac{{(\partial_z \theta)}_{k+1}}{6})
+	    \overline{\theta}_{k+\frac{1}{2}} +
+	\widetilde{h}\left(\frac{{(\partial_z \theta)}_\delta}{3} +
+	\frac{{(\partial_z \theta)}_{k+1}}{6}\right)
+		\left(\alpha_{sl, \theta} -
+	    	\frac{\widetilde{h}}{h_{k+\frac{1}{2}}}\right)
 	 - (1 - \alpha_{sl, \theta})\theta_s
 	    \right) \right)&
 	= \\
 	    \frac{K_{\theta, k+1}{(\partial_z \theta)}_{k+1} -
-	K_{\theta,k} {(\partial_z \theta)}_k}{\widetilde{h}}
+	K_{\theta,\delta} {(\partial_z \theta)}_\delta}{\widetilde{h}}
 	    + &\overline{F}_{\theta, k+1/2}.
     \end{aligned}
 \end{equation}
 The prognostic equation \eqref{eq:ND_StratifiedCase_prognosticPT_FV}
 for $\partial_z \theta$ is also adjusted for the first
-level to replace $h_{k+1/2}$ by $\widetilde{h}$.
+cell to replace $h_{k+1/2}$ by $\widetilde{h}$.
 \subsection{Turbulent viscosities}
 \label{sec:ND_StratifiedCase_turbulentVisc}
+{\color{red} TODO dire où on va}\\
+{\color{red} TODO ref au chap1}
 \subsubsection{Finite Volumes discretization of TKE}
 The Turbulent Kinetic Energy (TKE) evolves with the equation
+{\color{red} TODO parler de mixing length}
+{\color{red} TODO etapes 3 et 4 pas claires}
 \begin{equation}
 \label{eq:ND_StratifiedCase_TKE}
     \begin{aligned}
@@ -347,8 +350,8 @@ The turbulent viscosities $K_u, K_{\theta}$ and $K_e$ are computed
 with $(K_u, K_\theta, K_e) = (C_m , C_s \phi_z, C_e)l_m \sqrt{e}$.
 $l_m = \sqrt{l_{\rm up} l_{\rm down}}$ and
 $l_\epsilon = \min{(l_{\rm up}, l_{\rm down})}$
-are obtained with the fourth method described in
-\cite{lemarie_simplified_2021} named $l^\star_{\rm D80}$:
+are obtained with the method named $l^\star_{\rm D80}$ described in
+\cite{lemarie_simplified_2021} that we explain here:
 \begin{enumerate}
 	\item Define
 		\begin{equation}
@@ -376,10 +379,10 @@ are obtained with the fourth method described in
 	\includegraphics[scale=0.6]{images/mixing_lengths.pdf}
 	\caption{Typical vertical profiles of the mixing lengths
 	(left) reported with the corresponding TKE (right).
-	It is seen that $l_{up}$ is limited for
-	$z\in (100 \; {\rm m}, 230\; {\rm m})$ whereas
-	$l_{down}$ is limited for $z<200 \;{\rm m}$. The surface flux
-	scheme used is "FV free" which is why the
+	It is seen that $\partial_z l_{up}$ is limited by $-1$
+	for $z\in (50 \; {\rm m}, 150\; {\rm m})$ whereas
+	$\partial_z l_{down}$ is limited by 1 for $z<100 \;{\rm m}$.
+	The surface flux scheme used is "FV free" which is why the
 	profiles start at $\delta_{sl} = 10\;{\rm m}$.}
 	\label{fig:ND_StratifiedCase_mixing_lengths}
 \end{figure}
@@ -392,7 +395,7 @@ subsection \ref{sec:ND_StratifiedCase_mixing_lengths_match}.
 The discretisation of the turbulent kinetic energy
 requires some care. The Finite Volume scheme used for
 $u$ and $\theta$ is not used and we use instead a Finite Differences
-method which has a positivity conservation property.
+method which has a positivity preserving property.
 The energy $e$ and the lengths scales
 $l_m, l_\epsilon$ are evaluated at the interfaces
 $z_m$ between the cells:
@@ -407,6 +410,7 @@ $z_m$ between the cells:
     + K_u ||\partial_z u||^2
     - K_\theta N^2
 \end{equation}
+{\color{red} expliquer les implicit}
 The implicit dissipation ensures the conservation
 of the positivity of $e$, as long as
 $K_u ||\partial_z u||^2 - K_\theta N^2$ is positive.
@@ -463,21 +467,24 @@ as the "Patankar's trick" \citep{lemarie_simplified_2021}.
 % where the index $X_{dm}$ is a shortcut for $X_{m+1/2} - X_{m-1/2}$.
 
 \paragraph{Boundary conditions}
-In the surface layer because of the strong mixing $e$
-is at the equilibrium between shear, buoyancy and dissipation.
+In the surface layer, because of the strong mixing, $e$ is
+quasi-stationary ($\partial_t e = 0$). The energy is given by
+an equilibrium between shear, buoyancy and dissipation:
 $e(z<\delta_{sl}) = \left(\frac{l_\epsilon}{c_\epsilon}
 (K_u||\partial_z u||^2 - K_\theta N^2)\right)^{2/3}$, where
 $\partial_z u$ and $N^2$ are given by MOST.
-A homogeneous Neumann boundary condition is used at the top.
+A homogeneous Neumann boundary condition is used at the top:
+$\partial_z e (z_{\rm top}) = 0$
 
 \subsubsection{Matching viscosities at the surface layer}
 \label{sec:ND_StratifiedCase_mixing_lengths_match}
 In order to obtain a regular solution out of the "FV free"
 discretization, we derive here the constraints on mixing length
 and on TKE inside the surface layer.
-A sub-grid model that suit both
+A sub-grid model that suits both
 surface layer and free turbulence was proposed by
-\citep{redelsperger_simple_2001}, motivated by measurements.
+\citep{redelsperger_simple_2001},
+{\color{red}motivated by measurements (?)}.
 In the neutral case, this sub-grid model leads to linear
 mixing lengths $l_m, l_{\epsilon}$ in the surface layer;
 with stratified fluids, the formulation is more sophisticated
@@ -511,7 +518,7 @@ for $z\leq \delta_{\rm sl}$
 	% \end{equation}
 	% \begin{equation}
 	% 	\label{eq:ND_StratifiedCase_partial_z_u}
-	% 	\partial_z u = u_\star \frac{\phi_m(z/L_{MO})}{\kappa (z + z_{0M})}\frac{u(\delta_{sl})-u(0)}{|u^n(\delta_{sl})-u(0)|}
+	% 	\partial_z u = u_\star \frac{\phi_m(z/L_{MO})}{\kappa (z + z_{u})}\frac{u(\delta_{sl})-u(0)}{|u^n(\delta_{sl})-u(0)|}
 	% \end{equation}
 	% \begin{equation}
 	% 	\label{eq:ND_StratifiedCase_partial_z_theta}
@@ -522,8 +529,8 @@ for $z\leq \delta_{\rm sl}$
 	Monin-Obukhov viscosity profiles in the surface layer:
 \begin{equation}
 	\label{eq:ND_StratifiedCase_viscosities_SL}
-	K_m = \kappa u_\star\frac{z+ z_{0M}}{\phi_m(z/L_{MO})} ~~\text{and}~~
-K_\theta = \kappa u_\star\frac{z+ z_{0M}}{\phi_h(z/L_{MO})}
+	K_m = \kappa u_\star\frac{z+ z_{u}}{\phi_m(z/L_{MO})} ~~\text{and}~~
+K_\theta = \kappa u_\star\frac{z+ z_{u}}{\phi_h(z/L_{MO})}
 \end{equation}
 \eqref{eq:ND_StratifiedCase_viscosities_assumption}
 together with \eqref{eq:ND_StratifiedCase_viscosities_SL} put
@@ -557,7 +564,7 @@ with previous equations gives:
 	e = \min(l_{up}^{2/3}, l_{down}^{2/3})\left(
 	\frac{u_\star}{c_\epsilon} 
 	\left({u}_\star^2
-	\frac{\phi_m(z/L_{MO})}{\kappa (z+z_{0M})}
+	\frac{\phi_m(z/L_{MO})}{\kappa (z+z_{u})}
 	- \frac{g}{\theta_{\rm ref}}\theta_\star
 	\right)
 	\right)^{2/3}
@@ -568,7 +575,7 @@ Now, \eqref{eq:ND_StratifiedCase_viscosities_SL} gives
 	\label{eq:ND_StratifiedCase_solution_l_down1}
 	l_{down}(e) = \frac{1}{l_{up} e} \left(
 	\frac{\kappa u_\star}{C_m}
-	\frac{z + z_{0M}}{\phi_m(z/L_{MO})}
+	\frac{z + z_{u}}{\phi_m(z/L_{MO})}
 \right)^2
 \end{equation}
 $l_{down}$ is limited by the distance to the bottom only
@@ -583,18 +590,18 @@ into the previous equation and get
 	\begin{cases}
 	l_{down}^{5/3} = \frac{1}{l_{up}} \frac{u_\star^{4/3}\left(
 	\frac{\kappa}{C_m}
-	\frac{z + z_{0M}}{\phi_m(z/L_{MO})}
+	\frac{z + z_{u}}{\phi_m(z/L_{MO})}
 	\right)^2}{
 	\left({u}_\star^2
-	\frac{\phi_m(z/L_{MO})}{c_\epsilon\kappa (z+z_{0M})}
+	\frac{\phi_m(z/L_{MO})}{c_\epsilon\kappa (z+z_{u})}
 	- \frac{g}{\theta_{\rm ref}c_\epsilon}\theta_\star
 	\right)^{2/3}} ~~~ {\rm if } ~~l_{down} < l_{up}\\
 	l_{down} = \frac{1}{l_{up}^{5/3}} \frac{u_\star^{4/3}\left(
 	\frac{\kappa}{C_m}
-	\frac{z + z_{0M}}{\phi_m(z/L_{MO})}
+	\frac{z + z_{u}}{\phi_m(z/L_{MO})}
 	\right)^2}{
 	\left({u}_\star^2
-	\frac{\phi_m(z/L_{MO})}{c_\epsilon\kappa (z+z_{0M})}
+	\frac{\phi_m(z/L_{MO})}{c_\epsilon\kappa (z+z_{u})}
 	- \frac{g}{\theta_{\rm ref}c_\epsilon}\theta_\star
 	\right)^{2/3}} ~~~ {\rm otherwise}\\
 	\end{cases}
