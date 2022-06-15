@@ -26,14 +26,34 @@ problem:
 \end{itemize}
 
 \subsection{Study of the consistency: neutral case}
+Figure \ref{fig:ND_Consistency_sensitivity_delta_sl} shows
+three vertical profiles of $u$ obtained with
+$\delta_{sl} = 5, 10$ and $20 \; {\rm m}$.
+As expected, the angle Arg$(u)$
+is constant in the surface layer because
+the Coriolis effect is not taken into
+account: changing $\delta_{sl}$
+has an effect on the orientation of the wind.
+Moreover, the vertical profile of $||u||$ above the
+surface layer do not follow the law of the wall.
+Consequently, the profile of $||u||$ depends strongly
+on the choice of $\delta_{sl}$.
+%
+\begin{figure}
+	\centering
+\includegraphics[scale=0.6]{images/sensitivity_delta_sl.pdf}
+	\caption{Typical profiles of $|u|$ and Arg$(u)$ for several
+	choices of $\delta_{sl}$, obtained with the "FV free"
+	discretisation.}
+	\label{fig:ND_Consistency_sensitivity_delta_sl}
+\end{figure}
+\par
 Let $\delta_1$,$\delta_2$ two
 different heights of surface layer
-such that $\delta_1 < \delta_2$.
-
-Let $u_1$, $u_2$, be solutions of 
+such that $\delta_1 < \delta_2$;
+let $u_1$, $u_2$, be solutions of 
 \eqref{eq:ND_NeutralCase_continuousModel} using
 respectively $\delta_1, \delta_2$ for $\delta_{sl}$.
-
 \subsubsection{Analytical study assuming identical viscosities}
 First, note that inside the surface layer for $u_2$,
 since $u_2(z) = \frac{u_\star}{\kappa}\ln(1+\frac{z}{z_u})
