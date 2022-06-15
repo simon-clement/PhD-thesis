@@ -15,6 +15,8 @@ TARGET_FILE=thesis.pdf
 GRAY=gray.pdf
 GRAYSCRIPT="./toGray.sh"
 SUB="tmp.pdf"
+COMMIT=HEAD
+ND_FOLDER=chapters/ND/
 
 # environment variables
 WRKDIR=tmp
@@ -74,6 +76,16 @@ chapters: *.tex $(BIBSRC) $(STYLES)
 	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error ${NAME_CHAP} 
 	@mv ${WRKDIR}/${NAME_CHAP}.pdf ${NAME_outCHAP}.pdf
 
+chapters-diff: *.tex $(BIBSRC) $(STYLES)
+	@mkdir -p ${WRKDIR} 
+	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error ${NAME_CHAP}-diff${COMMIT}
+	@mv ${WRKDIR}/${NAME_CHAP}-diff${COMMIT}.pdf ${NAME_outCHAP}.pdf
+	@cd ${WRKDIR}; ${ENV} ${BIB} ${NAME_CHAP}-diff${COMMIT}
+	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error -draftmode ${NAME_CHAP}-diff${COMMIT}
+	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error -draftmode ${NAME_CHAP}-diff${COMMIT}
+	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error ${NAME_CHAP}-diff${COMMIT}
+	@mv ${WRKDIR}/${NAME_CHAP}-diff${COMMIT}.pdf ${NAME_outCHAP}.pdf
+
 # we put the setcounter to number of chapter-1
 chap0: chapters/Introduction/*.tex
 	@sed -i '2c \\\setcounter{chapter}{0}' standalone_chapter.tex
@@ -94,6 +106,21 @@ chap3: chapters/approximatedDiscreteSchwarz/*.tex
 chap4: chapters/ND/*.tex
 	@sed -i '2c \\\setcounter{chapter}{3}' standalone_chapter.tex
 	@make chapters NAME_outCHAP="standalone_chap4"
+
+# to use: make chap4-diff COMMIT=<your-tag-without-"~">
+chap4-diff: chapters/ND/*.tex
+	@cd chapters/ND/ && latexdiff-git *.tex -r ${COMMIT}
+	@sed -i 's/Intro/&-diff${COMMIT}/g' ${ND_FOLDER}NewDiscretisation-diff${COMMIT}.tex
+	@sed -i 's/NeutralCase/&-diff${COMMIT}/g' ${ND_FOLDER}NewDiscretisation-diff${COMMIT}.tex
+	@sed -i 's/StratifiedCase/&-diff${COMMIT}/g' ${ND_FOLDER}NewDiscretisation-diff${COMMIT}.tex
+	@sed -i 's/Consistency/&-diff${COMMIT}/g' ${ND_FOLDER}NewDiscretisation-diff${COMMIT}.tex
+	@sed -i 's/Ocean/&-diff${COMMIT}/g' ${ND_FOLDER}NewDiscretisation-diff${COMMIT}.tex
+	@latexdiff-git standalone_chapter.tex -r ${COMMIT}
+	@sed -i '2c \\\setcounter{chapter}{3}' standalone_chapter-diff${COMMIT}.tex
+	@sed -i 's/NewDiscretisation/&-diff${COMMIT}/g' standalone_chapter-diff${COMMIT}.tex
+	@make chapters-diff NAME_outCHAP="diff-chap4" COMMIT=${COMMIT}
+	@rm ${ND_FOLDER}*-diff${COMMIT}.tex
+	@rm standalone_chapter-diff${COMMIT}.tex
 
 chap5: chapters/OASchwarz/*.tex
 	@sed -i '2c \\\setcounter{chapter}{4}' standalone_chapter.tex
