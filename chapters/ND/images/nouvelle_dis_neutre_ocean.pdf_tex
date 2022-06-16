@@ -1,4 +1,4 @@
-%% Creator: Inkscape 1.2 (1:1.2+202205241504+da316b6974), www.inkscape.org
+%% Creator: Inkscape 1.2 (1:1.2+202206011327+fc4e4096c5), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'nouvelle_dis_neutre_ocean.pdf' (pdf, eps, ps)
 %%
@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{506.86356761bp}%
+    \setlength{\unitlength}{499.33817074bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,21 +50,24 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.5727054)%
+  \begin{picture}(1,0.711228)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{nouvelle_dis_neutre_ocean.pdf}}%
-    \put(0.00208129,0.56479448){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_k$\end{tabular}}}}%
-    \put(0.00208129,0.24561126){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{k-1}$\end{tabular}}}}%
-    \put(0.00208129,0.14481548){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{k-2}$\end{tabular}}}}%
-    \put(0.00208129,0.10281724){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{k-3}$\end{tabular}}}}%
-    \put(-0.00055779,0.19496492){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$h_{k-3/2}$\end{tabular}}}}%
-    \put(0.01983782,0.35391695){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\widetilde{h}$\end{tabular}}}}%
-    \put(0.01327401,0.46568009){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{\rm sl}$\end{tabular}}}}%
-    \put(0.09118232,0.18016802){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(\partial_t + if)\overline{u}_{k-3/2} - \frac{K_{u,k-1}\phi_{k-1} - K_{u,k-2}\phi_{k-2}}{h_{k-3/2}} = 0$\end{tabular}}}}%
-    \put(0.09118232,0.35477141){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(\partial_t + if)\widetilde{u} - \frac{K_{u,\delta}\phi_{\delta} - K_{u,k-1}\phi_{k-1}}{\widetilde{h}} = 0$\end{tabular}}}}%
-    \put(0.10893834,0.4671982){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_{u,\delta}\phi_{\delta} = u_{\star}^2 \frac{u(0)-{\cal S}_{k-1/2}^{n+1}(\frac{\widetilde{h}}{2})}{||u(0)-{\cal S}_{k-1/2}^{n}(\frac{\widetilde{h}}{2})||}$\end{tabular}}}}%
-    \put(0.17404383,0.52934515){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$||u(z=0) - u(z>\delta_{\rm sl})|| = \frac{u_\star}{\kappa} \log(1+\frac{-z}{z_\star})$\end{tabular}}}}%
-    \put(0.51381301,0.41074102){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\overline{u}_{k-\frac{1}{2}} = \frac{1}{h_{k-\frac{1}{2}}} \left( \widetilde{h} \widetilde{u} + \int_{\delta_{\rm sl}}^{z_k}u(z) dz\right) $\end{tabular}}}}%
+    \put(0.00211265,0.57330635){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_k$\end{tabular}}}}%
+    \put(0.00211265,0.24931281){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{k-1}$\end{tabular}}}}%
+    \put(0.00211265,0.14699795){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{k-2}$\end{tabular}}}}%
+    \put(0.00211265,0.10436678){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{k-3}$\end{tabular}}}}%
+    \put(-0.00056619,0.19790318){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$h_{k-3/2}$\end{tabular}}}}%
+    \put(0.02013679,0.35925074){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\widetilde{h}$\end{tabular}}}}%
+    \put(0.01347406,0.47269824){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{o}$\end{tabular}}}}%
+    \put(0.09255651,0.18288329){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(\partial_t + if)\overline{u}_{k-3/2} - \frac{K_{u,k-1}\phi_{k-1} - K_{u,k-2}\phi_{k-2}}{h_{k-3/2}} = 0$\end{tabular}}}}%
+    \put(0.09255651,0.36011808){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(\partial_t + if)\widetilde{u} - \frac{K_{u,\delta_o}\phi_{\delta_o} - K_{u,k-1}\phi_{k-1}}{\widetilde{h}} = 0$\end{tabular}}}}%
+    \put(0.11058012,0.47423923){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_{u,\delta_o}\phi_{\delta_o} = (u^o_{\star})^2 e_\tau^o$\end{tabular}}}}%
+    \put(0.10757628,0.53732278){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u(0) - u(z) = \frac{u^o_\star}{\kappa} \log(1+\frac{-z}{z_{u,o}})e_\tau^o$\end{tabular}}}}%
+    \put(0.52155655,0.4169312){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\overline{u}_{k-\frac{1}{2}} = \frac{1}{h_{k-\frac{1}{2}}} \left( \widetilde{h} \widetilde{u} + \int_{\delta_{o}}^{z_k}u(z) dz\right) $\end{tabular}}}}%
+    \put(0.15830974,0.70170685){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u_\star = {\rm BULK}(u(\delta_{sl}), {\cal S}_{k-1/2}^{n}(\frac{\widetilde{h}}{2}))$\end{tabular}}}}%
+    \put(0.15769898,0.60532305){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\rho_o (u_\star^o)^2 = \rho_a u_\star^2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{nouvelle_dis_neutre_ocean.pdf}}%
   \end{picture}%
 \endgroup%
