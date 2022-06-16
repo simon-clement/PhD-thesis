@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{94.28538476bp}%
+    \setlength{\unitlength}{97.66446935bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,15 +50,16 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.75087556)%
+  \begin{picture}(1,0.87409748)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{Nishizawa_bias.pdf}}%
-    \put(-0.00285363,0.01231316){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$0$\end{tabular}}}}%
-    \put(-0.00701831,0.65476293){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z$\end{tabular}}}}%
+    \put(0.01097543,0.01188714){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$0$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{Nishizawa_bias.pdf}}%
-    \put(0.47745981,0.30920185){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\overline{u}_{\frac{1}{2}}$\end{tabular}}}}%
-    \put(0.84336851,0.30920185){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}${u}(z_{\frac{1}{2}})$\end{tabular}}}}%
+    \put(0.48319732,0.37219873){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\overline{u}_{\frac{1}{2}}$\end{tabular}}}}%
+    \put(0.83644598,0.37219873){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}${u}(z_{\frac{1}{2}})$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{Nishizawa_bias.pdf}}%
+    \put(-0.00286706,0.71486757){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_1$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{Nishizawa_bias.pdf}}%
   \end{picture}%
 \endgroup%

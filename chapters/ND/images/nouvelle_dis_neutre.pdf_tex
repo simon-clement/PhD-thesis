@@ -63,7 +63,7 @@
     \put(0.06133747,0.09738814){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{\rm sl}$\end{tabular}}}}%
     \put(0.12653228,0.35531714){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(\partial_t + if)\overline{u}_{3/2} - \frac{K_{u,2}\phi_2 - K_{u,1}\phi_1}{h_{3/2}} = i f u_G$\end{tabular}}}}%
     \put(0.13464121,0.23638447){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(\partial_t + if)\widetilde{u} - \frac{K_{u,1}\phi_1 - K_{u,\delta}\phi_\delta}{\widetilde{h}} = i f u_G$\end{tabular}}}}%
-    \put(0.17248288,0.07420361){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_{u,\delta}\phi^{n+1}_\delta = u_{\star}^2 e_\tau$\end{tabular}}}}%
+    \put(0.16707692,0.10934284){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_{u,\delta}\phi^{n+1}_\delta = u_{\star}^2 e_\tau$\end{tabular}}}}%
     \put(0.15551833,0.01705857){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u(z)-u(0) = \frac{u_\star}{\kappa} \log(1+\frac{z}{z_\star}) e_\tau$\end{tabular}}}}%
     \put(0.56711755,0.14988803){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\overline{u}_{\frac{1}{2}} = \frac{1}{h_{\frac{1}{2}}} \left( \widetilde{h} \widetilde{u} + \int_{z_0}^{\delta_{\rm sl}}u(z) dz\right) $\end{tabular}}}}%
     \put(-0.00050947,0.14718498){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$h_\frac{1}{2}$\end{tabular}}}}%

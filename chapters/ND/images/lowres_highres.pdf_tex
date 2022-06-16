@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{300.56770756bp}%
+    \setlength{\unitlength}{234.51251238bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,21 +50,22 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.31642787)%
+  \begin{picture}(1,0.59060862)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{lowres_highres.pdf}}%
-    \put(-0.00091832,0.19519823){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_0^{\rm LR}$\end{tabular}}}}%
-    \put(0.14147256,0.19526839){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_1^{\rm LR}$\end{tabular}}}}%
-    \put(0.47085135,0.19526839){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_2^{\rm LR}$\end{tabular}}}}%
-    \put(0.79523728,0.19526839){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_3^{\rm LR}$\end{tabular}}}}%
+    \put(0.3040701,0.4839941){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_2^{\rm LR}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{lowres_highres.pdf}}%
-    \put(0.00407226,0.09538626){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_0^{\rm HR}$\end{tabular}}}}%
-    \put(0.14380829,0.09538626){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_3^{\rm HR}$\end{tabular}}}}%
-    \put(0.4781746,0.09538626){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_6^{\rm HR}$\end{tabular}}}}%
-    \put(0.79756853,0.09538626){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_9^{\rm HR}$\end{tabular}}}}%
-    \put(0.27583758,0.25830177){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Low resolution\end{tabular}}}}%
-    \put(0.26079725,0.03248782){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}High resolution\end{tabular}}}}%
+    \put(-0.0043482,0.31462226){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Low resolution\end{tabular}}}}%
+    \put(0.66130678,0.33213182){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}High resolution\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{lowres_highres.pdf}}%
+    \put(0.29674535,0.0066322){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_0$\end{tabular}}}}%
+    \put(0.29300315,0.15239439){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_1^{\rm LR}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{lowres_highres.pdf}}%
+    \put(0.5796161,0.14948191){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_3^{\rm HR}$\end{tabular}}}}%
+    \put(0.58971421,0.48705442){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_6^{\rm HR}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{lowres_highres.pdf}}%
+    \put(0.59097122,0.0066322){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_0$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{lowres_highres.pdf}}%
   \end{picture}%
 \endgroup%

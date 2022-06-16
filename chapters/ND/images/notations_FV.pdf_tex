@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{389.29743431bp}%
+    \setlength{\unitlength}{389.29741522bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,28 +50,29 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.23262678)%
+  \begin{picture}(1,0.39765966)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{notations_FV.pdf}}%
-    \put(-0.00183814,0.17566204){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_0$\end{tabular}}}}%
-    \put(0.30255606,0.17180893){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_1$\end{tabular}}}}%
-    \put(0.3988837,0.17180893){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{m-1}$\end{tabular}}}}%
-    \put(0.790065,0.17479115){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{m}$\end{tabular}}}}%
+    \put(-0.00183814,0.05988634){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_0$\end{tabular}}}}%
+    \put(0.30255606,0.06463242){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_1$\end{tabular}}}}%
+    \put(0.39888373,0.06463242){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{m-1}$\end{tabular}}}}%
+    \put(0.79006505,0.06095904){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{m}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{notations_FV.pdf}}%
-    \put(0.15881314,0.14434814){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{\frac{1}{2}}$\end{tabular}}}}%
+    \put(0.15881316,0.11192508){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{\frac{1}{2}}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{notations_FV.pdf}}%
-    \put(0.15881314,0.2137036){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$h_{\frac{1}{2}}$\end{tabular}}}}%
-    \put(0.90368166,0.17419775){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{M}$\end{tabular}}}}%
+    \put(0.15881315,0.01108384){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$h_{\frac{1}{2}}$\end{tabular}}}}%
+    \put(0.90368169,0.06168997){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{M}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{notations_FV.pdf}}%
-    \put(0.81981274,0.05603497){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\phi_m$\end{tabular}}}}%
+    \put(0.81981278,0.22342813){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\phi_m$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{notations_FV.pdf}}%
-    \put(0.59619803,0.14565293){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{m-\frac{1}{2}}$\end{tabular}}}}%
+    \put(0.59619804,0.10516152){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{m-\frac{1}{2}}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=6]{notations_FV.pdf}}%
-    \put(0.06023518,0.00570296){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u(z) = {\cal S}_{m-\frac{1}{2}}(z-z_{m-\frac{1}{2}})$\end{tabular}}}}%
+    \put(0.06023518,0.37179067){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u(z) = {\cal S}_{m-\frac{1}{2}}(z-z_{m-\frac{1}{2}})$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=7]{notations_FV.pdf}}%
-    \put(0.61368804,0.00682767){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\overline{u}_{m-\frac{1}{2}}$\end{tabular}}}}%
+    \put(0.61368806,0.37829977){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\overline{u}_{m-\frac{1}{2}}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=8]{notations_FV.pdf}}%
-    \put(0.61190614,0.21370105){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$h_{m-\frac{1}{2}}$\end{tabular}}}}%
+    \put(0.61190619,0.00723481){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$h_{m-\frac{1}{2}}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{notations_FV.pdf}}%
   \end{picture}%
 \endgroup%

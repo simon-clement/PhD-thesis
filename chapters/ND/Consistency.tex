@@ -42,9 +42,10 @@ on the choice of $\delta_{sl}$.
 \begin{figure}
 	\centering
 \includegraphics[scale=0.6]{images/sensitivity_delta_sl.pdf}
-	\caption{Typical profiles of $|u|$ and Arg$(u)$ for several
+	\caption{Typical profiles of $||u||$ and Arg$(u)$ for several
 	choices of $\delta_{sl}$, obtained with the "FV free"
-	discretisation.}
+	discretisation. Notice the changes of horizontal
+	and vertical scales between the bottom and top panels.}
 	\label{fig:ND_Consistency_sensitivity_delta_sl}
 \end{figure}
 \par
@@ -54,7 +55,21 @@ such that $\delta_1 < \delta_2$;
 let $u_1$, $u_2$, be solutions of 
 \eqref{eq:ND_NeutralCase_continuousModel} using
 respectively $\delta_1, \delta_2$ for $\delta_{sl}$.
-\subsubsection{Analytical study assuming identical viscosities}
+\subsubsection{Analytical study of the sensitivity to $\delta_{sl}$}
+\label{sec:ND_Consistency_sensitivity_delta_sl}
+In this subsection we study the sensitivity of the continuous model
+\eqref{eq:ND_NeutralCase_continuousModel} to $\delta_{sl}$.
+We will assume that the viscosity $K_u$ is the same for both
+$u_1$ and $u_2$.
+\par
+In Figure \ref{fig:ND_Consistency_sensitivity_delta_sl} the value
+of $z_u$ for $\delta_{sl} = 5\;{\rm m},10\;{\rm m},20\;{\rm m}$
+is respectively $z_u = 3.8 \times 10^{-5} \;{\rm m},
+3.8 \times 10^{-5} \;{\rm m}$ and $3.6 \times 10^{-5} \;{\rm m}$.
+It seems reasonable to assume that $z_u$ do not depend on
+$\delta_{sl}$ for this analytical study of the sensitivity to
+$\delta_{sl}$.
+\par
 First, note that inside the surface layer for $u_2$,
 since $u_2(z) = \frac{u_\star}{\kappa}\ln(1+\frac{z}{z_u})
 \frac{u_2(\delta_{2})}{||u_2(\delta_{2})||}$, assuming
@@ -109,13 +124,71 @@ the difference is hence from the forcing
 $\left(\frac{\ln(1+\frac{z}{z_u})}
 {\ln(1+\frac{\delta_2}{z_u})} - 1\right)i f u_G$.
 This forcing is more important when $\frac{\delta}{z_u}$
-is small.
-\subsubsection{Semi-Discrete Consistency (Finite Differences)}
-This subsection shows that the semi-discrete in space
-Finite Differences
-scheme is not sensitive to the value of $\delta_{\rm sl}$.
+is small. As it can be seen on Figure
+\ref{fig:ND_Consistency_sensitivity_delta_sl}
+the effect of changing $\delta_{sl}$ is not limited to the surface:
+the differences between the profiles are seen up
+to $150$ meters.
+\subsubsection{Study of the consistency: neutral case}
+\begin{figure}
+	\centering
+	\subimport{images/}{lowres_highres.pdf_tex}
+	\caption{The "High resolution" has two additional grid levels
+	between each "Low resolution" levels.}
+	\label{fig:ND_Consistency_lowres_highres}
+\end{figure}
+We now compare the profiles of a high
+resolution simulation with the profiles
+of a simulation with lower resolution. To create the high resolution grid,
+two additional grid levels are added between each grid levels
+(see Figure \ref{fig:ND_Consistency_lowres_highres}).
+After the simulation ($\Delta t=30\;{\rm s}$,
+one day of integration in time) the high resolution ("HR") simulation
+is projected onto the low resolution ("LR") grid and the relative difference
+$\frac{||u^{\rm HR}(z) - u^{\rm LR}(z)||}{||u^{\rm LR}(z)||}$ is
+computed.
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.6]{images/consistency_comparisonNeutral.pdf}
+	\caption{ Evolution of $u_\star$, vertical profiles of $||u||$
+	and relative difference of $u$ between low and high resolutions.
+	Above 200m, the profiles are those of the initial condition.
+	}
+	\label{fig:ND_Consistency_Neutral}
+\end{figure}
+For each surface flux scheme, Figure \ref{fig:ND_Consistency_Neutral}
+shows the profile of $||u||$,
+the relative $u$ difference and the relative $u_\star$ difference
+between low and high resolutions.
+One can see that the difference between low and high resolution of
+the "FV free" scheme is small in low altitude.
+Two factors reduce the difference between low and high resolution
+for "FV free":
+\begin{itemize}
+	\item $\delta_{sl} = z_{\frac{1}{2}}^{LR}$ is the same
+		for both low and high resolution whereas for
+		the other surface flux schemes the continuous
+		equations changes with $\delta_{sl}$.
+	\item In the relative $u_\star$ difference, one can see
+		that the initial relative difference for
+		$u_\star$ is already smaller than with the
+		other schemes. This is a consequence of the
+		imposed wall law: at initialization, there
+		is already a logarithm profile in the
+		surface layer.
+\end{itemize}
+Figure \ref{fig:ND_Consistency_Neutral} shows that the
+Finite Difference discretisation is not very sensitive
+to the increase of the space step. We show in \S
+\ref{sec:ND_Consistency_S-DAnalyticalStudy} that
+the boundary condition is robust with regard to
+$\delta_{sl}$.
+\subsubsection{Semi-Discrete sensitivity to $\delta_{sl}$
+			(Finite Differences)}
+\label{sec:ND_Consistency_S-DAnalyticalStudy}
 We put aside the sensitivity of the bulk procedure by
-assuming that $z_{u}$ is a constant.
+assuming as in \S \ref{sec:ND_Consistency_sensitivity_delta_sl}
+that $z_{u}$ is a constant.
 %
 The approach used in Finite Differences consists in assuming
 $\delta_{\rm sl} = z_{1/2}$ and to use the flux at $z_0$ in
@@ -191,7 +264,7 @@ the time step is $\Delta t = 30 \;{\rm s}$.
 	\centering
 \includegraphics[scale=0.6]{images/Stratified.pdf}
 	\caption{ Evolution of $u_\star$ and
-		vertical profiles of $|u|$ and $\arg(u)$ for
+		vertical profiles of $||u||$ and $\arg(u)$ for
 		several surface flux schemes. Above 200m,
 		the profiles are those of the initial condition.
 	}
@@ -204,18 +277,12 @@ all similar.
 Two simulations are done: the first one ("Low resolution")
 uses 15 grid points
 in the 400m column and the second one ("High resolution")
-uses 45 grid points and is then
-projected onto the first grid for the comparison.
-\begin{figure}
-	\centering
-	\subimport{images/}{lowres_highres.pdf_tex}
-	\caption{The "High resolution" has two additional grid levels
-	between each "Low resolution levels".}
-\end{figure}
+uses 45 grid points (see Figure \ref{fig:ND_Consistency_lowres_highres})
+and is then projected onto the first grid for the comparison.
 \begin{figure}
 	\centering
 \includegraphics[scale=0.6]{images/consistency_comparisonStratified.pdf}
-	\caption{Differences in $u_\star, |u|$ and $\arg(u)$
+	\caption{Differences in $u_\star, ||u||$ and $\arg(u)$
 	between a high resolution and a low resolution
 	of the surface flux schemes presented in a stable
 	stratification.
@@ -253,12 +320,12 @@ boundary conditions}".
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.6]{images/consistency_comparisonUnstable.pdf}
-	\caption{Differences (right) in $u_\star, t_\star, |u|$ and $\theta$
+	\caption{Differences (bottom) in $u_\star, t_\star, ||u||$ and $\theta$
 	between a high resolution and a low resolution
 	of the surface flux schemes presented in an unstable
 	stratification. The corresponding profiles
 	with the low resolution simulations are shown in
-	the left panels.
+	the top panels.
 	}
 	\label{fig:ND_Consistency_comparisonUnstable}
 \end{figure}

@@ -28,7 +28,29 @@ Section \ref{sec:ND_StratifiedCase_turbulentVisc} gives the
 profile of viscosities depending on the turbulent kinetic energy
 (TKE).
 \subsection{Continuous model and Finite Volumes discretization}
+The stratification in the column is given by the
+potential temperature: it will be integrated in time
+together with $u$.
+The continuous equations are given in \S
+\ref{sec:ND_StratifiedCase_continuousModel}
+and their discretisation is detailed in
+\S \ref{sec:ND_StratifiedCase_FVDis}.
+As explained in Chapter \ref{ch:airseaSCM}
+the bulk routine in the stratified case
+also gives a friction scale $\theta_\star$
+for the potential temperature:
+\begin{equation}
+	u_\star, \theta_\star =
+	{\rm BULK}(\theta(\delta_{sl}),
+	u(\delta_{sl}))
+\end{equation}
+where we omitted the BULK dependency on
+$u(0)$ and on the surface temperature $\theta_s$.
+The bulk routine is based on equations
+\eqref{eq:ND_StratifiedCase_MOST} of
+\S \ref{sec:ND_StratifiedCase_continuousModel}.
 \subsubsection{Continuous model}
+\label{sec:ND_StratifiedCase_continuousModel}
 The continuous equations stay the same for $u$
 (see \eqref{eq:ND_NeutralCase_continuousModel}),
 except that the turbulent viscosity and the
@@ -55,7 +77,7 @@ The viscosities $K_u, K_\theta$ will be detailed with
 the discretization of the turbulent kinetic energy in section
 \ref{sec:ND_StratifiedCase_turbulentVisc}.
 In the surface layer, Monin-Obukhov Similarity Theory (MOST)
-profiles for $u$ and $\theta$ are {\color{red} TODO introduire $z_\theta$ et $\theta_\star$}
+profiles for $u$ and $\theta$ are
 \begin{equation}
 \label{eq:ND_StratifiedCase_MOST}
 \begin{aligned}
@@ -63,7 +85,6 @@ profiles for $u$ and $\theta$ are {\color{red} TODO introduire $z_\theta$ et $\t
     \left(
 	\ln(1+\frac{z}{z_{u}})
     - \psi_u\left(\frac{z}{L_{MO}}\right)
-	+ \psi_u\left(\frac{z_{u}}{L_{MO}}\right)
     \right)
     \\
     \theta(z) - \theta_s = 
@@ -71,16 +92,11 @@ profiles for $u$ and $\theta$ are {\color{red} TODO introduire $z_\theta$ et $\t
     \left(
 	\ln(1+\frac{z}{z_{\theta}})
     - \psi_\theta\left(\frac{z}{L_{MO}}\right)
-	+ \psi_\theta\left(\frac{z_{\theta}}{{L_{MO}}}\right)
-    \right)
+\right)
 \end{aligned}
 \end{equation}
-where $L_{MO} = \frac{\theta(\delta_{\rm sl})
-u_\star^2}{\theta_\star \kappa g }$. We will use
-$C_H||u(\delta_{sl})- u(0)|| = 
-\frac{u_\star \kappa}{\ln\left(1+\frac{z}{z_{u}}\right)
-    - \psi_\theta\left(\frac{z}{L_{MO}}\right)
-    + \psi_\theta\left(\frac{z_{u}}{{L_{MO}}}\right)}$
+where $z_\theta=z_u$ and $L_{MO} = \frac{\theta(\delta_{\rm sl})
+u_\star^2}{\theta_\star \kappa g }$.
 Similarly to the neutral case, the semi-discrete in time
 boundary condition is not explicit:
 $C_H^n||u^n(\delta_{sl})- u(0)||$ is computed with the values
@@ -94,6 +110,7 @@ is
 \end{equation}
 
 \subsubsection{Finite Volumes discretization}
+\label{sec:ND_StratifiedCase_FVDis}
 The discretization of $u$ is exactly the same as in the
 neutral case (\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEq} and \eqref{eq:ND_NeutralCase_prognosticEqFV}) and the discretization of 
 the potential temperature is very similar:
@@ -119,7 +136,16 @@ And the derivative of temperature at $z_{m-1}, z_m, z_{m+1}$ solves
 	= \overline{F}_{\theta, m+1/2} - \overline{F}_{\theta, m-1/2}
 \end{aligned}
 \end{equation}
-We also extend the surface scheme strategies for the temperature:
+Identically to the reconstruction of $u(z)$,
+inside the $m$-th cell
+$\theta(z) = {\cal T}_{m-\frac{1}{2}}(z-z_{m-\frac{1}{2}})$
+where \eqref{eq:ND_NeutralCase_quadraticReconstruction}
+gives ${\cal T}$ by replacing $\overline{u}, \phi$
+with $\overline{\theta}, \partial_z \theta$.
+We also extend the surface flux scheme strategies for the temperature:
+the ideas of those strategies stay the same
+(see Figure \ref{fig:ND_NeutralCase_summary_sfscheme}) and we only
+need to introduce the bottom boundary condition for $\theta$.
 \begin{itemize}
 	\item With Finite Differences the evolution equation is
 		solved at $z_{\frac{1}{2}}$ with the surface flux:
@@ -128,40 +154,50 @@ We also extend the surface scheme strategies for the temperature:
 			\partial_z \theta_0^{n+1}}_{\text{
 				Surface flux
 			}} =
-			\underbrace{C_H||u^n_{\frac{1}{2}}- u(0)||
-			(\theta_{\frac{1}{2}}^{n+1}
-			- \theta_s)}_{\text{FD values at }
-			z_{\frac{1}{2}}}.
+			C_H|\Delta u|(
+			\theta_{\frac{1}{2}}^{n+1} - \theta_s),
+			~~~ \text{using } {\rm BULK}
+			(\underbrace{\theta_{\frac{1}{2}}^{n},
+			u_{\frac{1}{2}}^{n}}_{
+				\text{FD values at } z_{\frac{1}{2}}
+			})
 		\end{equation}
+		where 
+$C_H|\Delta u| = C_H||u^n(\delta_{sl})- u(0)|| = 
+\frac{u_\star \kappa}{\ln\left(1+\frac{z}{z_{u}}\right)
+    - \psi_\theta\left(\frac{z}{L_{MO}}\right) }$.
+
 	\item With "FV pure" the evolution equation is solved in 
 		the whole first grid cell with the reconstructed
 		value $\theta(\delta_{sl}) = {\cal T}_{1/2}(0)$:
-		{\color{red} TODO introduire ${\cal T}$}
 		\begin{equation}
 			\underbrace{K_\theta
 			\partial_z \theta_0^{n+1}}_{\text{
 				Surface flux
 			}} =
-			\underbrace{C_H
-			||{\cal S}_{1/2}^{n}(0)- u(0)||
-			({\cal T}_{1/2}^{n+1}(0)
-			- \theta_s)}_{\text{Reconstructions at }
-			z_{\frac{1}{2}}}.
+			C_H|\Delta u|({\cal T}_{1/2}^{n+1}(0)
+			- \theta_s),
+			~~~ \text{using } {\rm BULK}
+			(\underbrace{{\cal T}_{1/2}^{n}(0),
+			{\cal S}_{1/2}^{n}(0)}_{
+			\text{Reconstructions at } z_{\frac{1}{2}}
+			})
 		\end{equation}
-	\item With "FV1" the evolution equation is solved in
-		the whole first grid cell with the averaged-value
-		assumption that $\theta(\delta_{sl}) =
-		\overline{\theta}_{\frac{1}{2}}$:
+	\item With "FV Nishizawa" the evolution equation is solved in
+		the whole first grid cell and the adapted bulk
+		for averaged values is used:
 		\begin{equation}
 			\underbrace{K_\theta
 			\partial_z \theta_0^{n+1}}_{\text{
 				Surface flux
 			}} =
-			\underbrace{C_H
-			||\overline{u}_{\frac{1}{2}}^n- u(0)||
-			(\overline{\theta}_{\frac{1}{2}}^{n+1}(0)
-			- \theta_s)}_{\text{Averaged values around }
-			z_{\frac{1}{2}}}.
+			C_H|\Delta u| (
+			\overline{\theta}_{\frac{1}{2}}^{n+1}
+			- \theta_s),
+			~~~ \text{using } \overline{\rm BULK}
+			(\underbrace{\overline{\theta}_{\frac{1}{2}}^{n},
+			\overline{u}_{\frac{1}{2}}^{n}}_{
+			\text{Averages around } z_\frac{1}{2}})
 		\end{equation}
 	\item With "FV2" in the first grid cell
 		the MOST profile for $\theta$ is assumed as in
@@ -174,35 +210,37 @@ We also extend the surface scheme strategies for the temperature:
 			\partial_z \theta^{n+1}_1}_{\text{
 				Flux at
 			} z_1} =
-			\underbrace{C_H
-			||{\cal S}_{3/2}^{n}(-\frac{h_\frac{3}{2}}{2})
-			- u(0)||
-			({\cal T}_{3/2}^{n+1}
-			(-\frac{h_\frac{3}{2}}{2})
-			- \theta_s)}_{\text{Reconstructions at }
-			z_{1}}.
+			C_H|\Delta u|(
+			{\cal T}_{3/2}^{n+1}
+			(-\frac{h_\frac{3}{2}}{2}) - \theta_s),
+			~~~ \text{using } {\rm BULK}
+			(\underbrace{{\cal T}_{3/2}^{n}
+			(-\frac{h_\frac{3}{2}}{2}),
+			{\cal S}_{3/2}^{n}
+			(-\frac{h_\frac{3}{2}}{2})}_{
+			\text{Reconstructions at } z_1 })
 		\end{equation}
 \end{itemize}
 The limitations of the strategies shown in the neutral case are the
-same for the temperature: the "FV1" approach is biased because
-of the approximation
-$\overline{\theta}_{\frac{1}{2}}=\theta(\delta_{\rm sl})$ and
-both "FV1" and "FV pure" assume that the evolution equation stands
+same for the temperature: the "FV pure" and "FV Nishizawa" schemes
+assume that the evolution equation stands
 in the surface layer and approximate a MOST profile with
 a quadratic spline.
 The value of $K_\theta$ at $z_0$ cannot be set to the molecular
-diffusivity in those cases for the same reason as in the neutral case.
+diffusivity in those cases for the same reason as the
+viscosity $K_{u,0}$ in the neutral case.
 %
 Moreover, the discretizations force $\delta_{sl}$ to the first
-grid level $z_{\frac{1}{2}}$ (or $z_1$ in the case of "FV2").
-We now extend the "FV free" surface scheme to eliminate those
-limitations.
+grid level $z_{\frac{1}{2}}$ (or $z_1$ in the case of "FV2" and
+"FV Nishizawa").
+We now derive the stratified version of the "FV free" surface scheme
+to eliminate those limitations.
 \subsection{FV free}
 \label{sec:ND_StratifiedCase_FVfree}
-In this section \ref{sec:ND_StratifiedCase_FVfree} we follow
+In this \S \ref{sec:ND_StratifiedCase_FVfree} we follow
 step by step the derivation of the neutral "FV free" scheme and
 apply it to this stratified case. The stratification adds no
-complexity: we hence present the derivation directly for
+complexity: we hence present directly the derivation directly for
 any $\delta_{\rm sl} \geq 0$.
 Let $k$ such that $z_k \leq \delta_{\rm sl} < z_{k+1}$.
 As in the neutral case, the cell $[z_k, z_{k+1}]$ is split
@@ -326,14 +364,32 @@ and the evolution equation in the first active grid cell is
 The prognostic equation \eqref{eq:ND_StratifiedCase_prognosticPT_FV}
 for $\partial_z \theta$ is also adjusted for the first
 cell to replace $h_{k+1/2}$ by $\widetilde{h}$.
-\subsection{Turbulent viscosities}
+\subsection{Turbulent viscosities and diffusivities}
 \label{sec:ND_StratifiedCase_turbulentVisc}
-{\color{red} TODO dire où on va}\\
-{\color{red} TODO ref au chap1}
+As it was explained in Chapter \ref{ch:airseaSCM} the
+viscosity $K_u$ and diffusivity $K_\theta$ follow the
+Monin-Obukhov theory in the surface layer and are parameterized
+above the surface layer by the turbulent kinetic energy with a
+one-equation closure.
+The objective of this section is to derive the discretised
+turbulent closure:
+\begin{enumerate}
+\item
+The vertical profiles of $u$ and $\theta$ depend strongly on
+the discretisation of the Turbulent Kinetic Energy (TKE)
+and of the mixing lengths. Those discretisations are detailed in
+\S \ref{sec:ND_StratifiedCase_TKE}.
+\item To obtain smooth solutions, the viscosity and
+the diffusivity must also be smooth.
+At the top of the surface layer, the parameterization
+of $K_u, K_\theta$ with the TKE should follow Monin-Obukhov
+similarity theory:
+the link is done through the mixing lengths in \S
+\ref{sec:ND_StratifiedCase_mixing_lengths_match}.
+\end{enumerate}
 \subsubsection{Finite Volumes discretization of TKE}
+\label{sec:ND_StratifiedCase_TKE}
 The Turbulent Kinetic Energy (TKE) evolves with the equation
-{\color{red} TODO parler de mixing length}
-{\color{red} TODO etapes 3 et 4 pas claires}
 \begin{equation}
 \label{eq:ND_StratifiedCase_TKE}
     \begin{aligned}
@@ -348,7 +404,7 @@ The Turbulent Kinetic Energy (TKE) evolves with the equation
 \end{equation}
 The turbulent viscosities $K_u, K_{\theta}$ and $K_e$ are computed
 with $(K_u, K_\theta, K_e) = (C_m , C_s \phi_z, C_e)l_m \sqrt{e}$.
-$l_m = \sqrt{l_{\rm up} l_{\rm down}}$ and
+The mixing lengths $l_m = \sqrt{l_{\rm up} l_{\rm down}}$ and
 $l_\epsilon = \min{(l_{\rm up}, l_{\rm down})}$
 are obtained with the method named $l^\star_{\rm D80}$ described in
 \cite{lemarie_simplified_2021} that we explain here:
@@ -359,7 +415,7 @@ are obtained with the method named $l^\star_{\rm D80}$ described in
 			l^\star_{\rm D80} = \frac{2\sqrt{e}}
 			{c_0 ||\partial_z u|| + \sqrt{
 				c_0^2 ||\partial_z u||^2 + 2 N^2
-			}};
+			}}, ~~~ c_0=0.2
 		\end{equation}
 	\item initialize $l_{\rm up}$ and $l_{\rm down}$ to
 		$l^\star_{\rm D80}$;
@@ -386,10 +442,22 @@ are obtained with the method named $l^\star_{\rm D80}$ described in
 	profiles start at $\delta_{sl} = 10\;{\rm m}$.}
 	\label{fig:ND_StratifiedCase_mixing_lengths}
 \end{figure}
+Steps 3 and 4 are implemented by applying iteratively
+\begin{equation}
+	\begin{aligned}
+		l_{up}(z_m) &= min\left(l^\star_{D80}(z_m),
+		l_{up}(z_{m+1}) + h_{m+\frac{1}{2}}\right) \\
+		l_{down}(z_m) &= min\left(l^\star_{D80}(z_m),
+		l_{down}(z_{m-1}) + h_{m-\frac{1}{2}}\right)
+	\end{aligned}
+\end{equation}
+
 Figure \ref{fig:ND_StratifiedCase_mixing_lengths} shows vertical
 profiles of $l_{up}, l_{down}, l_m, l_{D80}^\star$. The value of
 $l_{down}$ in the surface layer is detailed in
-subsection \ref{sec:ND_StratifiedCase_mixing_lengths_match}.
+\S \ref{sec:ND_StratifiedCase_mixing_lengths_match} to link
+the Monin-Obukhov similarity theory to the turbulent
+parameterization based on the TKE.
 %
 \paragraph{Turbulent Kinetic Energy in the computational domain}
 The discretisation of the turbulent kinetic energy
@@ -410,69 +478,36 @@ $z_m$ between the cells:
     + K_u ||\partial_z u||^2
     - K_\theta N^2
 \end{equation}
-{\color{red} expliquer les implicit}
-The implicit dissipation ensures the conservation
+The discretisation of the dissipation term
+$\frac{c_\epsilon \sqrt{e_m^n}e_m^{n+1}}{l_\epsilon}$
+ensures the preservation
 of the positivity of $e$, as long as
 $K_u ||\partial_z u||^2 - K_\theta N^2$ is positive.
+Indeed, ignoring the diffusion term a backward-Euler
+discretisation of \eqref{eq:ND_StratifiedCase_SemiDiscreteTKE}
+gives
+\begin{equation}
+	e^{n+1} = \frac{e^n +
+	\left(K_u ||\partial_z u||^2 - K_\theta N^2\right)}
+	{1 + \Delta t \frac{c_\epsilon \sqrt{e^n}}{l_\epsilon}}
+\end{equation}
+which is non-negative if $e^n$ is non-negative.
 In the cells where the buoyancy is stronger than the shear,
 $K_\theta N^2$ is multiplied by
-$\frac{e^{n+1}}{e^n}$. This implicit buoyancy term is known
-as the "Patankar's trick" \citep{lemarie_simplified_2021}.
-% Let us assume that in each cell, $e$ is not varying too much and
-% $l_\epsilon$ is constant.
-% We use Patankar's trick
-% \footnote{
-% 	multiplying buoyancy by $\frac{\overline{e}^{n+1}}{\overline{e}^n}$ when buoyancy is greater than shear
-% to ensure positivity preservation of $\overline{e}$ {\color{red}[ref ?]
-% }} even if it does not guarantee positivity of TKE when
-% dealing with Finite Volumes.
-% Shear and buoyancy are also assumed to be constant in each cell:
-% \begin{equation}
-% \label{eq:ND_StratifiedCase_SemiDiscreteTKE}
-%     \left(
-%     \frac{c_\epsilon \sqrt{\overline{e}^n}}{l_\epsilon}
-%     + \partial_t
-%     \right) \overline{e}
-%     =\frac{K_{e,m+1} (\partial_z e)_{m+1} -
-%     K_{e,m} (\partial_z e)_{m}}{h_{m+1/2}}
-%     + K_u ||\partial_z u||^2
-%     - K_\theta N^2
-% \end{equation}
-% Similarly to $\theta$ and $u$, the prognostic equation
-% to find the spatial derivative of the TKE at 
-% the borders of the cells is
-% \begin{equation}
-% \label{eq:ND_StratifiedCase_prognosticTKE_FV}
-% \begin{aligned}
-% &\partial_t
-% \left(
-%     h_{m-1/2}\frac{(\partial_z e)_{m-1}}{6}+
-%     h_m\frac{2(\partial_z e)_{m}}{3}+
-%     h_{m+1/2}\frac{(\partial_z e)_{m+1}}{6}
-% \right)
-% \\&-
-%     \left(\frac{K_{e,m+1} (\partial_z e)_{m+1} -
-%         K_{e,m} (\partial_z e)_{m}}{h_{m+1/2}}
-% -
-%     \frac{K_{e,m} (\partial_z e)_{m} -
-%         K_{e,m-1} (\partial_z e)_{m-1}}{h_{m-1/2}}
-%         \right)
-% \\
-% &- \left(K_{u} ||\partial_z u||^2
-% -  K_\theta N^2 
-% - \frac{c_\epsilon \sqrt{\overline{e}}}{l_\epsilon} \overline{e}
-% \right)_{dm} = 0
-% \end{aligned}
-% \end{equation}
-% where the index $X_{dm}$ is a shortcut for $X_{m+1/2} - X_{m-1/2}$.
-
+$\frac{e^{n+1}}{e^n}$ to keep the positivity preserving property.
+This multiplication is known as the "Patankar's trick"
+\citep{lemarie_simplified_2021}.
+%
 \paragraph{Boundary conditions}
 In the surface layer, because of the strong mixing, $e$ is
 quasi-stationary ($\partial_t e = 0$). The energy is given by
 an equilibrium between shear, buoyancy and dissipation:
-$e(z<\delta_{sl}) = \left(\frac{l_\epsilon}{c_\epsilon}
-(K_u||\partial_z u||^2 - K_\theta N^2)\right)^{2/3}$, where
-$\partial_z u$ and $N^2$ are given by MOST.
+\begin{equation}
+	\label{eq:ND_StratifiedCase_TKE_SL_cond}
+e(z<\delta_{sl}) = \left(\frac{l_\epsilon}{c_\epsilon}
+(K_u||\partial_z u||^2 - K_\theta N^2)\right)^{2/3}
+\end{equation}
+where $K_u||\partial_z u||^2$ and $K_\theta N^2$ are given by MOST.
 A homogeneous Neumann boundary condition is used at the top:
 $\partial_z e (z_{\rm top}) = 0$
 
@@ -483,9 +518,9 @@ discretization, we derive here the constraints on mixing length
 and on TKE inside the surface layer.
 A sub-grid model that suits both
 surface layer and free turbulence was proposed by
-\citep{redelsperger_simple_2001},
-{\color{red}motivated by measurements (?)}.
-In the neutral case, this sub-grid model leads to linear
+\citep{redelsperger_simple_2001}, physically
+justified by measurements.
+in the neutral case, this sub-grid model leads to linear
 mixing lengths $l_m, l_{\epsilon}$ in the surface layer;
 with stratified fluids, the formulation is more sophisticated
 and depends strongly on the Obukhov length.
@@ -611,8 +646,15 @@ It is actually sufficient to use
 to compute $l_{down}$ explicitly. It also guarantees that
 the MOST viscosity and the MOST diffusivity numerically
 scale with $l_m\sqrt{e}$.
-However, by using \eqref{eq:ND_StratifiedCase_solution_l_down2}
-the boundary condition for $e(z \leq \delta_{\rm sl})$ is more
-stable. {\color{red} TODO justification empirique, j'avais
-vu ça sur un cas que je retrouve pas. Dans l'océan ça
-a pas l'air de poser problème}
+However, using \eqref{eq:ND_StratifiedCase_solution_l_down1}
+with the surface condition for the TKE
+\eqref{eq:ND_StratifiedCase_TKE_SL_cond}
+amounts to solving with a fixed point algorithm
+the system
+(\ref{eq:ND_StratifiedCase_TKE_quasi_equilibrium_simplified}-
+\ref{eq:ND_StratifiedCase_solution_l_down1})
+where each time step is an iteration.
+Using \eqref{eq:ND_StratifiedCase_solution_l_down2}
+directly solves the system
+(\ref{eq:ND_StratifiedCase_TKE_quasi_equilibrium_simplified}-
+\ref{eq:ND_StratifiedCase_solution_l_down1}).

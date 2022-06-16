@@ -27,7 +27,7 @@ within the surface layer.
 \par
 In this section \ref{sec:ND_NeutralCase},
 we assume that the stratification is neutral.
-As it was explained in chapter \ref{ch:airseaSCM},
+As it was explained in Chapter \ref{ch:airseaSCM},
 there is no effect of the stratification on the turbulent viscosity
 so the wind speed $u(z, t)$ can be integrated in time
 without the temperature and humidity profiles.
@@ -487,9 +487,8 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 				  \text{Adapted for averages}}
 			  \overline{u}^{n}_{\frac{1}{2}}~~).
 		  \end{equation}
-	\item "FV2": the "FV Nishizawa" scheme is adapted to
-		Finite Volume discretisation without spline
-		reconstruction. We extend it to the
+	\item "FV2": the "FV Nishizawa" scheme is not adapted to
+		spline reconstruction. We extend it to our
 		Finite Volume discretisation with the assumption
 		that the spline reconstruction $u(z)$ inside
 		the surface layer is given by the law of the wall.
@@ -540,8 +539,11 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 	numerical values.}
 	\label{fig:ND_NeutralCase_summary_sfscheme}
 \end{figure}
-Let us draw some comments that are summarized in Table
-\ref{tab:ND_NeutralCase_summary_sfscheme}
+The different strategies are summarized in Table
+\ref{tab:ND_NeutralCase_summary_sfscheme} together with the
+"FV free" scheme which will be presented in \S
+\ref{sec:ND_NeutralCase_newSFscheme}.
+Let us draw some comments and comparisons on the surface flux schemes:
 \begin{itemize}
 	\item "FV1" relies on the assumption that
 		$\overline{u}_{\frac{1}{2}} = u(z_{\frac{1}{2}})$;
