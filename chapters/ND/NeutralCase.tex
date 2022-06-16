@@ -108,7 +108,7 @@ It follows from \eqref{eq:ND_NeutralCase_ConstantFlux} that
 \begin{equation}
 \label{eq:ND_NeutralCase_WallLaw}
 	||u(z, t) - u(0, t)|| = \frac{{u_\star}}{\kappa}
-	\ln(1+\frac{z}{z_{u}}).
+	\ln(1+\frac{z}{z_{u}})
 \end{equation}
 A typical integration in time from $u(z, t^{n})$ to
 $u(z, t^{n+1})$ is:
@@ -172,7 +172,7 @@ the semi-discrete equation
 \label{eq:ND_NeutralCase_semiDiscreteEkmanEq}
 	(\partial_t + if) \overline{u}_{m+\frac{1}{2}} - 
 	\frac{K_{u, m+1} \phi_{m+1} - K_{u, m} \phi_{m}}
-		{h_{m+\frac{1}{2}}} = i f u_G.
+		{h_{m+\frac{1}{2}}} = i f u_G
 \end{equation}
 The reconstruction of $u(z) = {\cal S}_{m+\frac{1}{2}}
 				(z - z_{m+\frac{1}{2}})$
@@ -193,7 +193,7 @@ lead to the following system:
 		\left(-\frac{h_{m+1/2}}{2}\right)\\
 		\phi_{m+1} &=
 		\partial_z {\cal S}_{m+\frac{1}{2}}
-		\left(\frac{h_{m+1/2}}{2}\right).
+		\left(\frac{h_{m+1/2}}{2}\right)
 	\end{aligned}
 \end{equation}
 In matrix form, we obtain a system that can be inverted to
@@ -223,7 +223,7 @@ is then
 	\Bar{u}_{m+\frac{1}{2}} + 
 	\frac{\phi_{m+1}^{} + \phi_{m}^{}}{2} \xi
 	+ \frac{\phi_{m+1}^{} - \phi_{m}^{}}{2h_{m+1/2}}
-	\left(\xi^2 - \frac{h_{m+1/2}^2}{12}\right).
+	\left(\xi^2 - \frac{h_{m+1/2}^2}{12}\right)
 \end{equation}
 
 The continuity of the solution at cell interfaces (${\cal S}_{m-\frac{1}{2}}\left(\frac{h_{m-1/2}}{2}\right) = {\cal S}_{m+\frac{1}{2}}\left(-\frac{h_{m+1/2}}{2}\right)$) is then equivalent to
@@ -412,7 +412,7 @@ summarized in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
 			u_\star = {\rm BULK}(
 			\underbrace{u_{\frac{1}{2}}^{n}}_{
 				\text{FD value at }
-			z_{\frac{1}{2}}}).
+			z_{\frac{1}{2}}})
 		\end{equation}
 		  Note that using an other point further from
 		  the surface (e.g. $u_{\frac{7}{2}}^n$) instead
@@ -436,7 +436,7 @@ summarized in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
 			u_\star = {\rm BULK}(
 			\underbrace{{\cal S}_{1/2}^{n}(\xi=0)}_{
 				\text{Reconstruction at }
-			z_{\frac{1}{2}}}).
+			z_{\frac{1}{2}}})
 	\end{equation}
 		  Note that ${\cal S}_{1/2}^{n}(\xi=0)$ corresponds
 		  to the reconstruction of $u(z)$ at
@@ -456,7 +456,7 @@ summarized in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
 			u_\star = {\rm BULK}(
 			\underbrace{\overline{u}^{n}_{\frac{1}{2}}}_{
 				\text{Average around }
-			z_{\frac{1}{2}}}).
+			z_{\frac{1}{2}}})
 		  \end{equation}
 \end{itemize}
 We present now two additional strategies corresponding to
@@ -475,7 +475,7 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 		||\overline{u}_{\frac{1}{2}} - u(0)||
 		= \frac{u_\star}{\kappa}
 		\left(1+\frac{z_u}{\delta_{sl}}\right)
-		\left(\ln(1+\frac{z}{z_u})-1\right).
+		\left(\ln(1+\frac{z}{z_u})-1\right)
 	\end{equation}
 	However, the equation \eqref{eq:ND_NeutralCase_EkmanEq}
 	and the spline reconstruction is left unchanged in the
@@ -485,7 +485,7 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 		= u_\star^2 e_\tau, ~~~~~~~~
 			  u_\star = \underbrace{\overline{{\rm BULK}}(}_{
 				  \text{Adapted for averages}}
-			  \overline{u}^{n}_{\frac{1}{2}}~~).
+			  \overline{u}^{n}_{\frac{1}{2}}~~)
 		  \end{equation}
 	\item "FV2": the "FV Nishizawa" scheme is not adapted to
 		spline reconstruction. We extend it to our
@@ -519,7 +519,7 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 			\underbrace{{\cal S}_{3/2}^{n}
 			(\xi=-\frac{h_{\frac{3}{2}}}{2})}_{
 				\text{Reconstruction at }
-			z_{1}}).
+			z_{1}})
 		  \end{equation}
 	The first cell is inactive with this method:
 	the numerical computation domain matches with the continuous
@@ -626,7 +626,7 @@ with a free $\delta_{sl}$:
 			  u_\star = {\rm BULK}(
 			\underbrace{u^n(\delta_{\rm sl})}_{
 				\text{Reconstruction at }
-			\delta_{sl}}).
+			\delta_{sl}})
 \end{equation}
 We first assume
 that $\delta_{\rm sl} < z_1$ and then relax this hypothesis.
@@ -750,7 +750,7 @@ of the bulk routine and in the computation of $e_\tau$:
 u(\delta_{sl})-u(0)=\frac{\overline{u}_{1/2} -
 	\frac{\widetilde{h}^2}{h_{1/2}}
 	(\frac{\phi_{\delta}}{3} + \frac{\phi_1}{6}) - u(0)}
-	{\alpha_{\rm sl}}.
+	{\alpha_{\rm sl}}
 \end{equation}
 The boundary condition \eqref{eq:ND_NeutralCase_bottomCondFVFree}
 is hence formulated as:
@@ -766,39 +766,6 @@ is hence formulated as:
 		e_\tau \text{ using reconstruction at } \delta_{sl}
 	}
 \end{equation}
-% 
-% Similarly to \eqref{eq:ND_NeutralCase_continuityEquationFV}
-% the continuity of the subgrid reconstruction at $z_1$ requires that
-% \begin{equation}
-% 	\label{eq:ND_NeutralCase_continuityFVfree}
-%     \frac{\widetilde{h}}{6} 
-%     \phi_0
-%     +
-%     (\frac{\widetilde{h}}{3} 
-%     + \frac{h_{3/2}}{3})
-%     \phi_1
-%     + \frac{h_{3/2}}{6} \phi_2
-%      = \overline{u}_{3/2} - 
-%      \widetilde{u}.
-% \end{equation}
-% Finally, the scheme at the first grid level is
-% \begin{equation}
-% 	\label{eq:ND_NeutralCase_prognosticEqFVfree}
-%     \begin{aligned}
-% (\partial_t + if)
-%     \left(\frac{\widetilde{h}}{6} 
-%     \phi_0
-%     +
-%     \left(
-%     \frac{\widetilde{h}}{3} 
-%     + \frac{h_{3/2}}{3}
-%     \right)
-%     \phi_1
-%     + \frac{h_{3/2}}{6} \phi_2\right)
-%     =
-% 	    \frac{K_{u,2} \phi_2 - K_{u,1} \phi_1}{h_{3/2}} - \frac{K_{u,1} \phi_1 - K_{u,0} \phi_0 }{\widetilde{h}}
-%     \end{aligned}
-% \end{equation}
 and the evolution equation in the first grid level
 $ (\partial_t+if) \widetilde{u}
 = \frac{K_{u, 1}\phi_1 - K_{u,\delta} \phi_{\delta}}{\widetilde{h}}$
@@ -811,7 +778,7 @@ becomes
 	\left(\alpha_{sl} - \frac{\widetilde{h}}{h_{\frac{1}{2}}}\right)
 	+ (\alpha_{sl} - 1) u(0)
 	\right)\right)
-	= \frac{K_{u, 1}\phi_1 - K_{u,\delta} \phi_{\delta}}{\widetilde{h}}.
+	= \frac{K_{u, 1}\phi_1 - K_{u,\delta} \phi_{\delta}}{\widetilde{h}}
 \end{equation}
 The prognostic equation \eqref{eq:ND_NeutralCase_continuityEquationFV}
 used to integrate $\phi$ in time
@@ -927,7 +894,7 @@ Injecting the boundary condition at the first grid level gives
 		\begin{equation}
 			(\partial_t+if) u_{1/2} = \frac{1}{h_{1/2}}
 			\left(K_{u,1}\frac{u_{3/2} - u_{1/2}}{h_1}
-			 - u_\star^2 e_\tau \right).
+			 - u_\star^2 e_\tau \right)
 		\end{equation}
 The value of $K_0$ does not intervene in the equation.
 \item \textbf{Finite Volumes} ("FV pure", "FV1" and "FV Nishizawa"):
@@ -941,7 +908,7 @@ implicitly use that
 		(\partial_t+if) u(z_1) =
 		\frac{K_{u,1} \phi_1 - u_\star^2 e_\tau} {h_{1/2}}
 		+ (\partial_t+if)\left(\frac{\phi_1}{3}
-		+ \frac{u_\star^2 e_\tau}{6 K_{u,0}}\right)h_{1/2}.
+		+ \frac{u_\star^2 e_\tau}{6 K_{u,0}}\right)h_{1/2}
 \end{equation}
 The (small) value of $K_{u,0}$ directly appears when we assume the
 parabolic profile inside the first grid cell.

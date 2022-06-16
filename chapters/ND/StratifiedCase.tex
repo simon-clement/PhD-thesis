@@ -7,7 +7,7 @@ is dry and that the density variation is
 proportional to the variation of the temperature:
 \begin{equation}
 	\partial_z \rho \propto
-	- \partial_z \theta.
+	- \partial_z \theta
 \end{equation}
 The stratification is hence given by a temperature profile:
 if the temperature increases with $z$, the column is said
@@ -307,7 +307,7 @@ where the non-dimensional numbers $\alpha_{sl, u},
     +
     z \Psi_x\left(\frac{z}{L_{MO}}\right) \right]_{z_k}^{\delta_{sl}}
     }{\ln(1+\frac{\delta_{sl}}{z_{x}})- \psi_x\left(\frac{\delta_{sl}}{L_{MO}}\right)
-    }.
+    }
 \end{aligned}
 \end{equation}
 Note that instead of $\psi_x$ we used $\Psi_x$,
@@ -332,8 +332,7 @@ the boundary condition of "FV free" is
 	\underbrace{K_{\theta, \delta} (\partial_z \theta)_\delta}_{
 		\text{Flux at } \delta_{sl}
 	} = 
-	C_H ||u(\delta_{sl})-u(0)||
-	\underbrace{
+	C_H|\Delta u|\underbrace{
 	\frac{
   \overline{\theta}_{k+1/2} - \frac{\widetilde{h}^2}{h_{k+1/2}}
 	(\frac{{(\partial_z \theta)}_k}{3} +
@@ -358,7 +357,7 @@ and the evolution equation in the first active grid cell is
 	= \\
 	    \frac{K_{\theta, k+1}{(\partial_z \theta)}_{k+1} -
 	K_{\theta,\delta} {(\partial_z \theta)}_\delta}{\widetilde{h}}
-	    + &\overline{F}_{\theta, k+1/2}.
+	    + &\overline{F}_{\theta, k+1/2}
     \end{aligned}
 \end{equation}
 The prognostic equation \eqref{eq:ND_StratifiedCase_prognosticPT_FV}
@@ -399,7 +398,7 @@ The Turbulent Kinetic Energy (TKE) evolves with the equation
     + \underbrace{K_u ||\partial_z u||^2}_{\text{shear}} 
     - \underbrace{K_{\theta} N^2 }_{\text{buoyancy}}
     - \underbrace{c_{\epsilon}
-    \frac{e^{3/2}}{l_{\epsilon}(z)}}_{\text{dissipation}}.
+    \frac{e^{3/2}}{l_{\epsilon}(z)}}_{\text{dissipation}}
     \end{aligned}
 \end{equation}
 The turbulent viscosities $K_u, K_{\theta}$ and $K_e$ are computed
@@ -544,24 +543,7 @@ K_\theta = C_s l_m \phi_z \sqrt{e}
 for $z\leq \delta_{\rm sl}$
 \begin{enumerate}
 \item
-	% 	Constant flux layer hypothesis and Robin boundary condition:
-	% \begin{subequations}
-	% \begin{equation}
-	% 	\label{eq:ND_StratifiedCase_K_partial_z_u}
-	% 	K_m \partial_z u = u_\star^2
-	% 	\frac{u(\delta_{sl})-u(0)}{|u^n(\delta_{sl})-u(0)|}
-	% \end{equation}
-	% \begin{equation}
-	% 	\label{eq:ND_StratifiedCase_partial_z_u}
-	% 	\partial_z u = u_\star \frac{\phi_m(z/L_{MO})}{\kappa (z + z_{u})}\frac{u(\delta_{sl})-u(0)}{|u^n(\delta_{sl})-u(0)|}
-	% \end{equation}
-	% \begin{equation}
-	% 	\label{eq:ND_StratifiedCase_partial_z_theta}
-	% 	\partial_z \theta = \theta_\star \frac{\phi_h(z/L_{MO})}{\kappa (z + z_{u})}, ~~~ K_\theta \partial_z \theta = u_\star \theta_\star
-	% \end{equation}
-	% \end{subequations}
-	% Leading to 
-	Monin-Obukhov viscosity profiles in the surface layer:
+Monin-Obukhov viscosity profiles in the surface layer:
 \begin{equation}
 	\label{eq:ND_StratifiedCase_viscosities_SL}
 	K_m = \kappa u_\star\frac{z+ z_{u}}{\phi_m(z/L_{MO})} ~~\text{and}~~

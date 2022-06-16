@@ -68,7 +68,7 @@ except that the geostrophic momentum is not included in the ocean:
     + \underbrace{K_u ||\partial_z u||^2}_{\text{shear}} 
     - \underbrace{K_{\theta} N^2 }_{\text{buoyancy}}
     - \underbrace{c_{\epsilon}
-    \frac{e^{3/2}}{l_{\epsilon}(z)}}_{\text{dissipation}}.
+    \frac{e^{3/2}}{l_{\epsilon}(z)}}_{\text{dissipation}}
 	\end{aligned}
 \end{equation}
 In the first grid level below the surface, $F_\theta$ includes a
@@ -114,7 +114,7 @@ The same relation can be written here:
 with for $x = u, \theta$:
 \begin{equation}
 	\tau_{sl, x} = \frac{\frac{1}{{h_{k-1/2}}}\int_{\delta_{sl}}^{z_k} x(0) - x(z)
-	dz}{x(0) - x(\delta_{sl})}.
+	dz}{x(0) - x(\delta_{sl})}
 \end{equation}
 Section \ref{sec:ND_Ocean_stabilityFunctionIntegration}
 gives the derivation of the explicit formula of $\tau_{sl}$
@@ -142,27 +142,6 @@ $\theta(\delta_{sl}) = {\cal T}(\frac{\widetilde{h}}{2})$:
 \end{equation}
 Finally, the scheme at the first grid level above
 the surface layer is:
-%\begin{equation}
-%\label{eq:ND_Ocean_prognosticu_FVfree}
-%    \begin{aligned}
-%(\partial_t + if)
-%	    \left(\frac{\widetilde{h}}{6h_{k-1}} 
-%    \phi_k
-%    +
-%    \left(
-%	    \frac{\widetilde{h}}{3h_{k-1}} 
-%	    + \frac{h_{k-3/2}}{3h_{k-1}}
-%    \right)
-%	    \phi_{k-1}
-%	    + \frac{h_{k-3/2}}{6h_{k-1}} \phi_{k-2}\right)
-%    = \\
-%	     \frac{K_{u, k} \phi_{k} -
-%	    K_{u,k-1} \phi_{k-1} }{\widetilde{h}h_{k-1}} -
-%\frac{K_{u, k-1} \phi_{k-1} - K_{u, k-2} \phi_{k-2}}
-%	    {h_{k-3/2}h_{k-1}} + \frac{\widetilde{F} - F_{k-3/2}}
-%	    {h_{k-1}}
-%    \end{aligned}
-%\end{equation}
 \begin{equation}
 	\label{eq:ND_Ocean_semiDiscreteEkmanEqFVfree}
 	(\partial_t+if) \left(\frac{1}{\alpha_{\rm sl, u}}
@@ -171,27 +150,6 @@ the surface layer is:
 	(1-\alpha_{\rm sl, u})u(0)\right)\right)
 	= \frac{K_{u, k}\phi_{k} - K_{u,k-1} \phi_{k-1}}{\widetilde{h}}
 \end{equation}
-%\begin{equation}
-%\label{eq:ND_Ocean_prognosticPT_FVfree}
-%    \begin{aligned}
-%\partial_t \left(\frac{\widetilde{h}}{6h_{k-1}} 
-%	    {(\partial_z \theta)}_k
-%    +
-%    \left(
-%	    \frac{\widetilde{h}}{3h_{k-1}} 
-%	    + \frac{h_{k-3/2}}{3h_{k-1}}
-%    \right)
-%	    {(\partial_z \theta)}_{k-1}
-%	    + \frac{h_{k-3/2}}{6h_{k-1}} {(\partial_z \theta)}_{k-2}\right)
-%    = \\
-%	    \frac{K_{\theta, k} {(\partial_z \theta)}_{k} -
-%	    K_{\theta, k-1} {(\partial_z \theta)}_{k-1} }{\widetilde{h}h_{k-1}}
-%	    -\frac{K_{\theta, k-2} {(\partial_z \theta)}_{k-1} -
-%	    K_{\theta, k-2} {(\partial_z \theta)}_{k-2}}
-%	    {h_{k-3/2}h_{k-1}} + \frac{\widetilde{F}_\theta -
-%	    F_{\theta, k-3/2}}{h_{k-1}}
-%    \end{aligned}
-%\end{equation}
 \begin{equation}
 	\label{eq:ND_Ocean_semiDiscreteEkmanEqPTFVfree}
 	\partial_t \left(\frac{1}{\alpha_{\rm sl, \theta}}
@@ -274,7 +232,7 @@ Putting them together, we get
 	\\
 	-1 - \frac{3}{56\zeta}C_m^2 - \frac{3}{28\zeta}C_m
 	+\frac{3}{2}\ln (C_m^2+C_m+1)
-	+ \frac{{\rm const}}{\zeta}.
+	+ \frac{{\rm const}}{\zeta}
 \end{aligned}
 \end{equation}
 After simplification, using $\lim_\zeta\to0 \int_0^\zeta\psi(x)dx = 0$:
@@ -320,31 +278,6 @@ and $Q_H = \theta_o^{\star}u_o^{\star}\rho_0 c_p$.
 In practice, $\tau_{sl, \theta}$ will not be used: in Section
 \ref{sec:ND_Ocean_radiativeFluxes} we describe a better way to
 include the radiative fluxes in the surface layer.
-% \paragraph{Computing E(z)}
-% To be computed numerically, $E(z)$ is separated into two parts,
-% similarly to the MOST theory:
-% \begin{equation}
-% 	E(z) = \sum_i A_i\int_z^0
-% 	\frac{\exp(k_i x)}{-x + z_{u}}
-% 	- \exp(k_i x)\frac{1 - \phi_0^h(\frac{-x}{L_{MO}})}
-% 	{-x + z_{u}}
-% 	dx
-% \end{equation}
-% \begin{equation}
-% 	E(z) = \sum_i A_i \exp(k_i z_{u}) \left(E1(k_i z_{u})
-% 	- E1(k_i (-z+z_{u)})\right)
-% 	- \int_{z}^0 \sum_i A_i \exp(k_i x)
-% 	\frac{1-\phi(\frac{-x}{L_{MO}})}{-x+z_{u}} dx
-% \end{equation}
-% where $E1=\int_x^\infty \frac{\exp(-t)}{t}dt$ is the exponential
-% integral.
-% The left part $\sum_i A_i \exp(k_i z_{u}) \left(E1(k_i z_{u})
-% 	- E1(k_i (-z+z_{u)})\right)$ should be smaller than
-% $\int_z^0 \frac{1}{-x + z_{u}}dx$
-% and the second part $\int_{z}^0 \sum_i A_i \exp(k_i x)
-% 	\frac{1-\phi(\frac{-x}{L_{MO}})}{-x+z_{u}} dx$
-% 	should be smaller than $\int_{z}^0
-% 	\frac{1-\phi(\frac{-x}{L_{MO}})}{-x+z_{u}} dx$
 \subsection{Radiative fluxes, another surface flux scheme}
 \label{sec:ND_Ocean_radiativeFluxes}
 We note $Q_{sw}$ and $Q_{lw}$ the shortwave and longwave (positive
@@ -355,7 +288,7 @@ that is similar to a friction scale but depends on $z$:
 \begin{equation}
 \theta^\star_{o, \rm rad}(z) =
 	\theta^\star_{o}(z) -
-	\frac{Q_{sw}(z) + Q_{lw}}{u^{\star}_o\rho_0 c_p}.
+	\frac{Q_{sw}(z) + Q_{lw}}{u^{\star}_o\rho_0 c_p}
 \end{equation}
 This variable is used instead of $\theta^\star_{o}$
 in the two-sided bulk procedure to include the radiative fluxes.
@@ -386,7 +319,7 @@ $\frac{\kappa (\theta(\delta_a) - \theta(\delta_o))}
 	\left(\ln (1 - \frac{\delta_o}{z_{\theta}}) -
 	\psi_h(\frac{-\delta_o}{L_o})\right)
 	- \frac{\lambda_\theta Q_{sw}(0)}
-	{Q_H} E(\delta_o).
+	{Q_H} E(\delta_o)
 \end{equation}
 \subsubsection{Adding radiative fluxes: derivation without
 molecular sub-layer}
@@ -428,7 +361,7 @@ and $\left.\partial_z \theta\right|_{\delta_o}$:
     \overline{\theta}_{sl} = \frac{1}{\nu+1}
     (\theta_{\delta_o} + \nu \theta_s)
 , ~~~ \left.\partial_z \theta \right|_\delta
-= \frac{\nu}{h_{sl}} (\theta_s - \theta_{\delta_o}).
+= \frac{\nu}{h_{sl}} (\theta_s - \theta_{\delta_o})
 \end{equation}
 We get that the surface temperature
 is $\theta_s = \overline{\theta}_{sl}
@@ -441,7 +374,7 @@ $\theta_s - \theta_{\delta_o} =
     \theta(z) = \overline{\theta}_{sl} +
     \frac{h_{sl}}{\nu} \partial_z \theta_{\delta_o} \left(
     \frac{1}{\nu+1} + \left(\frac{z}{h_{sl}}\right)^\nu
-\right).
+\right)
 \end{equation}
 \begin{remark}
 It would be possible to consider that $\overline{\theta}_{sl}$ is
@@ -474,7 +407,7 @@ we link the surface layer profile with the spline:
     h_{sl}\overline{\theta}_{sl} +\widetilde{h}
     \widetilde{\theta}}_{
     \int_{z_{-1}}^{0}\theta(z) dz
-    }.
+    }
 \end{equation}
 The reconstruction for $|z|<|\delta_o|$ (inside the surface layer) is hence
 \begin{equation}
@@ -490,7 +423,7 @@ The reconstruction for $|z|<|\delta_o|$ (inside the surface layer) is hence
     \right)\right) \partial_z \theta_{\delta_o}
     +
 	\left(\frac{\widetilde{h}^2}{-6 z_{-1}}\right)
-    \partial_z \theta_{-1};
+    \partial_z \theta_{-1}
 \end{equation}
 for $|\delta_o| < |z| < |z_{-1}|$
 (in the quadratic region) we have
@@ -541,7 +474,7 @@ h_{-\frac{1}{2}}\partial_t
 \frac{Q - Q_{lw}}{\rho_0 c_p}
 - K_{\theta, -1} \partial_z \theta_{-1}
 - h_{-\frac{1}{2}}\int_{z_{-1}}^0
-\frac{\partial_z Q_{sw}}{\rho_0 c_p} dz.
+\frac{\partial_z Q_{sw}}{\rho_0 c_p} dz
 \end{equation}
 We need a last equation to close the system.
 Starting from \eqref{eq:formulaTildeTheta}, we get
@@ -559,7 +492,7 @@ Starting from \eqref{eq:formulaTildeTheta}, we get
 K\partial_z \theta_{-1}
 - \widetilde{h}
 \int^{\delta_o}_{z_{-1}}
-\frac{\partial_z Q_{sw}}{\rho_0 c_p} dz.
+\frac{\partial_z Q_{sw}}{\rho_0 c_p} dz
 \end{equation}
 Note that the reconstruction we are using is not differentiable
 in $z=0$.
