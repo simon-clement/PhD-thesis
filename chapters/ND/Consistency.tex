@@ -1,6 +1,6 @@
 \section{Consistency study (atmosphere)}
 In this section, we investigate the effect of changing
-$\delta_{\rm sl}$ in the continuous, neutral model.
+$\delta_{\rm sl}$ in the \textbf{continuous neutral} model.
 In all this section we will assume that
 $z_u$ is constant.
 Let $\delta_1$,$\delta_2$ two
@@ -75,8 +75,8 @@ since $u_2(z) = \frac{u_\star}{\kappa}\ln(1+\frac{z}{z_u})
 $||u_2(\delta_{2})||$ follows the same log low (it only works
 when the problem is continuous in time)
 \begin{equation}
-(\partial_t + if) u_2(z) = \frac{\ln(1+\frac{z}{z_u})}
-{\ln(1+\frac{\delta_2}{z_u})}(\partial_t + if) u_2(\delta_2), 
+	(\partial_t + if) u_2(z) = \frac{\ln(1+\frac{\emphase{z}}{z_u})}
+	{\ln(1+\frac{\emphase{\delta_2}}{z_u})}(\partial_t + if) u_2(\delta_2), 
 ~~~\forall z \leq \delta_2
 \end{equation}
 Let us assume that $K\partial_z u_2$ is $C^1$ at $\delta_2$;
@@ -85,14 +85,15 @@ $(0, \delta_2)$ and the evolution equation of $u_2$ in
 $(\delta_1, \delta_2)$ is
 \begin{equation}
 (\partial_t + if) u_2(z) = \frac{\ln(1+\frac{z}{z_u})}
-{\ln(1+\frac{\delta_2}{z_u})} i f u_G, 
+	{\ln(1+\frac{\delta_2}{z_u})} \emphase{i f u_G}, 
 	~~~\forall z \in (\delta_1, \delta_2)
 \end{equation}
 The difference between $u_1$ and $u_2$ is governed by this interval:
 subtracting the two evolution equations gives
 \begin{equation}
-(\partial_t + if) (u_2 - u_1) = \left(\frac{\ln(1+\frac{z}{z_u})}
-{\ln(1+\frac{\delta_2}{z_u})} - 1\right)i f u_G 
+	(\partial_t + if) (\emphase{u_2 - u_1}) =
+	\emphase{\left(\frac{\ln(1+\frac{z}{z_u})}
+	{\ln(1+\frac{\delta_2}{z_u})} - 1\right)i f u_G} 
 -
 \partial_z (K \partial_z u_1), ~~~\forall z \in (\delta_1, \delta_2)
 \end{equation}
@@ -108,8 +109,9 @@ $u_2$ and $u_1$ then
 	\begin{cases}
 		(\partial_t + if) w = \partial_z (K \partial_z w) ,
 		~~ \forall z > \delta_2 \\
-(\partial_t + if) w = \partial_z (K \partial_z w) + \left(\frac{\ln(1+\frac{z}{z_u})}
-{\ln(1+\frac{\delta_2}{z_u})} - 1\right)i f u_G 
+(\partial_t + if) w = \partial_z (K \partial_z w)
+		+ \emphase{\left(\frac{\ln(1+\frac{z}{z_u})}
+		{\ln(1+\frac{\delta_2}{z_u})} - 1\right)i f u_G}
 , ~~~\forall z \in (\delta_1, \delta_2) \\
 		K \partial_z w = \frac{\kappa}
 		{\ln(1+\frac{\delta_1}{z_u})}\left(
@@ -204,9 +206,11 @@ The implementation of such a boundary condition would be
 \begin{equation}
 	\label{eq:ND_Consistency_SemiDiscreteBdCond}
 K_0\phi_0 = 
-\kappa^2 ||u_{1/2} - (\partial_z u)(\delta_{\rm sl})\epsilon ||
-	\frac{u_{1/2} - (\partial_z u)(\delta_{\rm sl})\epsilon 
-}{\ln(1+\frac{\delta_{sl}}{z_{u}})^2}
+	\kappa^2 ||u_{1/2} -
+	\emphase{(\partial_z u)(\delta_{\rm sl})\epsilon} ||
+	\frac{u_{1/2} -
+	\emphase{(\partial_z u)(\delta_{\rm sl})\epsilon 
+	}}{\ln(1+\frac{\emphase{\delta_{sl}}}{z_{u}})^2}
 \end{equation}
 and it becomes convenient to compute the difference between
 $\delta_{sl}=z_{1/2}$ and $\delta_{sl}'=z_{1/2}-\epsilon$.
@@ -230,7 +234,8 @@ $\partial_z u=\frac{u(\delta_{\rm sl})}{(\delta_{\rm sl} + z_u)
 	{(\delta_{\rm sl} + z_u) \ln(1+\frac{\delta_{sl}}{z_u})}
 	\right)+ O(\epsilon^2)
 \end{equation}
-Combining with $\frac{\kappa^2}{\ln(1+\frac{\delta_{sl}}{z_u})}$,
+Combining with the derivative of
+$\frac{\kappa^2}{\ln(1+\frac{\delta_{sl}}{z_u})}$,
 we find the derivative of the right-hand side of
 \eqref{eq:ND_Consistency_SemiDiscreteBdCond} with respect to
 $\delta_{sl}$ to be equal to zero.

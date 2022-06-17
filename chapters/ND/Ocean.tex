@@ -101,76 +101,66 @@ gives the relation between the averaged variables
 $\overline{u}, \overline{\theta}$ over the volume $(z_{k-1}, z_{k})$.
 The same relation can be written here:
 \begin{equation}
-	\label{eq:ND_Ocean_tmprelation_tilde_bar}
 \begin{aligned}
-	\frac{\widetilde{h}}{h_{k-1/2}} (u(0) - \widetilde{u}) =
-	(u(0) - \overline{u}_{k-1/2}) -
-	(u(0) - u(\delta_{sl}))\tau_{sl, u} \\
-\frac{\widetilde{h}}{h_{k-1/2}} (\theta_s - \widetilde{\theta}) =
-	(\theta_s - \overline{\theta}_{k-1/2}) -
-	(\theta_s - \theta(\delta_{sl}))\tau_{sl, \theta}
+\label{eq:ND_Ocean_relation_tilde_bar}
+\alpha_{sl, u}\widetilde{u} = \overline{u}_{k-1/2} -
+\widetilde{h}
+	\left(\frac{\phi_{\delta}}{3} + \frac{\phi_{k-1}}{6}\right)
+	\left(\alpha_{sl, u} - \frac{\widetilde{h}}{h_{k-1/2}}\right)
+	- (1 - \alpha_{sl, u})u(0)\\
+\alpha_{sl, \theta}
+\widetilde{\theta}
+= \overline{\theta}_{k-1/2} -
+	\widetilde{h}\left(\frac{{(\partial_z \theta)}_{\delta}}{3}
+	+ \frac{{(\partial_z \theta)}_{k-1}}{6}\right)
+	\left(\alpha_{sl, \theta}-\frac{\widetilde{h}}{h_{k-1/2}}\right)
+ - (1 - \alpha_{sl, \theta})\theta_s
 \end{aligned}
 \end{equation}
 with for $x = u, \theta$:
 \begin{equation}
-	\tau_{sl, x} = \frac{\frac{1}{{h_{k-1/2}}}\int_{\delta_{sl}}^{z_k} x(0) - x(z)
+	\alpha_{sl, x} = \frac{\widetilde{h}}{h_{k-1/2}} +
+	\frac{\frac{1}{{h_{k-1/2}}}\int_{\delta_{sl}}^{z_k} x(0) - x(z)
 	dz}{x(0) - x(\delta_{sl})}
 \end{equation}
 Section \ref{sec:ND_Ocean_stabilityFunctionIntegration}
-gives the derivation of the explicit formula of $\tau_{sl}$
+gives the derivation of the explicit formula of $\alpha_{sl}$
 with the oceanic universal stability functions.
-Let us define the non-dimensional number
-$\alpha_{sl, x} = \frac{\widetilde{h}}{h_{k-1/2}} +
-\tau_{sl, x}$.
-We inject $u(\delta_{sl}) =
-{\cal S}(\frac{\widetilde{h}}{2})$ and
-$\theta(\delta_{sl}) = {\cal T}(\frac{\widetilde{h}}{2})$:
-\begin{equation}
-\begin{aligned}
-\label{eq:ND_Ocean_relation_tilde_bar}
-\alpha_{sl, u}\widetilde{u} = \overline{u}_{k-1/2} -
-	\tau_{sl, u}
-\widetilde{h}
-	(\phi_{\delta}/3 + \phi_{k-1}/6) - (1 - \alpha_{sl, u})u(0)\\
-\alpha_{sl, \theta}
-\widetilde{\theta}
-= \overline{\theta}_{k-1/2} - \tau_{sl, \theta}
-	\widetilde{h}(\frac{{(\partial_z \theta)}_{\delta}}{3}
-	+ \frac{{(\partial_z \theta)}_{k-1}}{6})
- - (1 - \alpha_{sl, \theta})\theta_s
-\end{aligned}
-\end{equation}
 Finally, the scheme at the first grid level above
 the surface layer is:
 \begin{equation}
 	\label{eq:ND_Ocean_semiDiscreteEkmanEqFVfree}
-	(\partial_t+if) \left(\frac{1}{\alpha_{\rm sl, u}}
-	\left(\overline{u}_{k-1/2} - \widetilde{h}\tau_{\rm sl, u}
-	(\frac{\phi_k}{3} + \frac{\phi_{k-1}}{6}) - 
-	(1-\alpha_{\rm sl, u})u(0)\right)\right)
-	= \frac{K_{u, k}\phi_{k} - K_{u,k-1} \phi_{k-1}}{\widetilde{h}}
+	(\partial_t+if) \widetilde{u}
+	= \frac{K_{u, \delta_o}\phi_{\delta_o}
+	- K_{u,k-1} \phi_{k-1}}{\widetilde{h}}
 \end{equation}
 \begin{equation}
 	\label{eq:ND_Ocean_semiDiscreteEkmanEqPTFVfree}
-	\partial_t \left(\frac{1}{\alpha_{\rm sl, \theta}}
-	\left(
-	\overline{\theta}_{k-1/2} - \tau_{sl, \theta}
-	\widetilde{h}(\frac{{(\partial_z \theta)}_k}{3} +
-	\frac{{(\partial_z \theta)}_{k-1}}{6})
-	 - (1 - \alpha_{sl, \theta})\theta_s
-	\right) \right)
-	= \frac{K_{\theta, k}{(\partial_z \theta)}_{k} -
+	\partial_t \widetilde{\theta}
+	= \frac{K_{\theta, \delta_o}{(\partial_z \theta)}_{\delta_o} -
 	K_{\theta,k-1} {(\partial_z \theta)}_{k-1}}{\widetilde{h}}
 	+ \widetilde{F}_\theta 
+\end{equation}
+where for $x=u,\theta$:
+\begin{equation}
+	\label{eq:ND_Ocean_semiDiscreteEkmanEqPTFVfree}
+	\widetilde{x} = \frac{1}{\alpha_{\rm sl, x}(t)}
+	\left(
+	\overline{x}_{k-1/2} -
+	\widetilde{h}(\frac{{(\partial_z x)}_{\delta_o}}{3} +
+	\frac{{(\partial_z x)}_{k-1}}{6})
+	\left(\alpha_{sl, x}-\frac{\widetilde{h}}{h_{k-1/2}}\right)
+	 - (1 - \alpha_{sl, x})x(0)
+	\right)
 \end{equation}
 The scheme uses as boundary conditions at the surface layer:
 \begin{equation}
 \label{eq:ND_Ocean_boundaryConditionFVfree}
 \begin{aligned}
-	K_{u,\delta} \phi_{\delta} &=
+	K_{u,\delta_o} \phi_{\delta_o} &=
 	u_\star^2 e_\tau
 	\\
-	K_{\theta, \delta} (\partial_z \theta)_\delta &= 
+	K_{\theta, \delta_o} (\partial_z \theta)_{\delta_o} &= 
 	\theta_\star u_\star - \frac{Q_{lw} + Q_{sw}(\delta_{sl})}{\rho_0 c_p}
   \end{aligned}
 \end{equation}
@@ -188,7 +178,7 @@ in Section \ref{sec:ND_Ocean_radiativeFluxes} this surface flux scheme
 does not correctly take into account the radiative fluxes and the
 interval $(\delta_o, z_k)$ needs an evolution equation for $\theta$.
 
-\subsubsection{Computing $\tau_{\rm sl}$: stability function integration}
+\subsubsection{Computing $\alpha_{\rm sl}$: stability function integration \myTD{en Appendice ?}}
 \label{sec:ND_Ocean_stabilityFunctionIntegration}
 In the ocean, we use the universal function of \citep{large_similarity_2019} (as in \citep{pelletier_two-sided_2021})
 \begin{equation}
@@ -247,7 +237,8 @@ After simplification, using $\lim_\zeta\to0 \int_0^\zeta\psi(x)dx = 0$:
 \end{equation}
 We finally get for $u$:
 \begin{equation}
-	\tau_{sl, u} = \frac{\frac{1}{{h_{k-1/2}}}
+	\alpha_{sl, u} = \frac{\widetilde{h}}{h_{k-1/2}} +
+	\frac{\frac{1}{{h_{k-1/2}}}
     \left[
 	    (-z+z_{0m})\ln(1+\frac{-z}{z_{0m}})+z
     -
@@ -257,7 +248,8 @@ We finally get for $u$:
 \end{equation}
 and for $\theta$:
 \begin{equation}
-	\tau_{sl, \theta} =  \frac{1}{{h_{k-1/2}}}\frac{(Q_H -
+	\alpha_{sl, \theta} =  \frac{\widetilde{h}}{h_{k-1/2}} +
+	\frac{1}{{h_{k-1/2}}}\frac{(Q_H -
 		Q_{lw})
     \left[
 	    (-z+z_{\theta})\ln(1+\frac{-z}{z_{\theta}})+z
@@ -275,7 +267,7 @@ where $E(z) = \int_{z}^0 \frac{\phi^h_o(-x/L_o)
 		\sum A_i \exp (k_i x)
 		}{-x + z_{u}}dx$
 and $Q_H = \theta_o^{\star}u_o^{\star}\rho_0 c_p$.
-In practice, $\tau_{sl, \theta}$ will not be used: in Section
+In practice, $\alpha_{sl, \emphase{\theta}}$ will not be used: in Section
 \ref{sec:ND_Ocean_radiativeFluxes} we describe a better way to
 include the radiative fluxes in the surface layer.
 \subsection{Radiative fluxes, another surface flux scheme}
@@ -346,6 +338,7 @@ temperature in the surface layer.
 We will use the following reconstruction of $\theta$
 inside the SL:
 \begin{equation}
+	\label{eq:ND_Ocean_reconstructionSimpleTheta}
     \theta(z) = \theta_s -
     \left(\frac{z}{\delta_{o}}\right)^\nu \left( \theta_s - 
     \theta_{\delta_o}\right)
@@ -381,7 +374,9 @@ It would be possible to consider that $\overline{\theta}_{sl}$ is
 the average in an interval $(\delta_o, z_k)$.
 However the radiative forcing would affect each individual cell
 inside the surface layer, leading to a contradiction with the simple
-reconstruction of the surface layer.
+reconstruction \eqref{eq:ND_Ocean_reconstructionSimpleTheta}
+of the surface layer.
+We instead assume here that $\delta_{sl} > z_{-1}$.
 \end{remark}
 Let us assume now that  $\theta(z)$ is a quadratic spline between
 $z_{-1}$ and $\delta_o$.
