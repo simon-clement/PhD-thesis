@@ -40,8 +40,8 @@ the bulk routine in the stratified case
 also gives a friction scale $\theta_\star$
 for the potential temperature:
 \begin{equation}
-	u_\star, \theta_\star =
-	{\rm BULK}(\theta(\delta_{sl}),
+	u_\star, \emphase{\theta_\star} =
+	{\rm BULK}(\emphase{\theta(\delta_{sl})},
 	u(\delta_{sl}))
 \end{equation}
 where we omitted the BULK dependency on
@@ -67,7 +67,7 @@ $\theta$, which is governed by:
 	\label{eq:ND_StratifiedCase_ConstantFlux}
 	\left.K_\theta \partial_z \theta
 	\right|_{z\leq \delta_{\rm sl}}
-	= \theta_\star u_\star = C_H
+		= \emphase{\theta_\star u_\star} = C_H
 	||u(\delta_{\rm sl}) - u(0)||
 	\left(\theta(\delta_{\rm sl}) - \theta_{s}\right)
 	,~~~ z < \delta_{sl}
@@ -84,14 +84,14 @@ profiles for $u$ and $\theta$ are
 	||u(z)-u(0)|| = \frac{u_\star}{\kappa}
     \left(
 	\ln(1+\frac{z}{z_{u}})
-    - \psi_u\left(\frac{z}{L_{MO}}\right)
+	\emphase{- \psi_u\left(\frac{z}{L_{MO}}\right)}
     \right)
     \\
     \theta(z) - \theta_s = 
-    \frac{\theta_\star}{\kappa}
+	\frac{\emphase{\theta_\star}}{\kappa}
     \left(
 	\ln(1+\frac{z}{z_{\theta}})
-    - \psi_\theta\left(\frac{z}{L_{MO}}\right)
+	\emphase{- \psi_\theta\left(\frac{z}{L_{MO}}\right)}
 \right)
 \end{aligned}
 \end{equation}
@@ -99,13 +99,13 @@ where $z_\theta=z_u$ and $L_{MO} = \frac{\theta(\delta_{\rm sl})
 u_\star^2}{\theta_\star \kappa g }$.
 Similarly to the neutral case, the semi-discrete in time
 boundary condition is not explicit:
-$C_H^n||u^n(\delta_{sl})- u(0)||$ is computed with the values
+$C_H^n||u^n(\delta_{sl})- u^n(0)||$ is computed with the values
 at the current time step whereas the temperature variation
 is taken at time $t^{n+1}$: the boundary condition for temperature
 is
 \begin{equation}
-	K_\theta \partial_z \theta = C_H^n||u^n(\delta_{sl})- u(0)||
-	(\theta^{n+1}(\delta_{\rm sl}) - \theta_s),
+	K_\theta \partial_z \theta = C_H^{\emphase{n}}||u^\emphase{n}(\delta_{sl})- u^{\emphase{n}}(0)||
+	(\theta^\emphase{n+1}(\delta_{\rm sl}) - \theta_s^\emphase{n+1}),
 	~~~~ z < \delta_{\rm sl}
 \end{equation}
 
@@ -151,7 +151,7 @@ need to introduce the bottom boundary condition for $\theta$.
 		solved at $z_{\frac{1}{2}}$ with the surface flux:
 		\begin{equation}
 			\underbrace{K_\theta
-			\partial_z \theta_0^{n+1}}_{\text{
+			\emphase{\partial_z \theta}^{n+1}_\emphase{0}}_{\text{
 				Surface flux
 			}} =
 			C_H|\Delta u|(
@@ -163,7 +163,7 @@ need to introduce the bottom boundary condition for $\theta$.
 			})
 		\end{equation}
 		where 
-$C_H|\Delta u| = C_H||u^n(\delta_{sl})- u(0)|| = 
+$C_H|\Delta u| = C_H||u^n(\delta_{sl})- u^n(0)|| = 
 \frac{u_\star \kappa}{\ln\left(1+\frac{z}{z_{u}}\right)
     - \psi_\theta\left(\frac{z}{L_{MO}}\right) }$.
 
@@ -172,7 +172,7 @@ $C_H|\Delta u| = C_H||u^n(\delta_{sl})- u(0)|| =
 		value $\theta(\delta_{sl}) = {\cal T}_{1/2}(0)$:
 		\begin{equation}
 			\underbrace{K_\theta
-			\partial_z \theta_0^{n+1}}_{\text{
+			\emphase{\partial_z \theta}^{n+1}_\emphase{0}}_{\text{
 				Surface flux
 			}} =
 			C_H|\Delta u|({\cal T}_{1/2}^{n+1}(0)
@@ -188,7 +188,7 @@ $C_H|\Delta u| = C_H||u^n(\delta_{sl})- u(0)|| =
 		for averaged values is used:
 		\begin{equation}
 			\underbrace{K_\theta
-			\partial_z \theta_0^{n+1}}_{\text{
+			\emphase{\partial_z \theta}^{n+1}_\emphase{0}}_{\text{
 				Surface flux
 			}} =
 			C_H|\Delta u| (
@@ -207,7 +207,7 @@ $C_H|\Delta u| = C_H||u^n(\delta_{sl})- u(0)|| =
 		using the reconstructed solution at $z_1$:
 		\begin{equation}
 			\underbrace{K_\theta
-			\partial_z \theta^{n+1}_1}_{\text{
+			\emphase{\partial_z \theta}^{n+1}_\emphase{1}}_{\text{
 				Flux at
 			} z_1} =
 			C_H|\Delta u|(
@@ -254,16 +254,16 @@ averages $\widetilde{u}, \widetilde{\theta}$
 and of sub-grid reconstructions
 \begin{equation}
 \begin{aligned}
-{\cal S}_{k+1/2}(\xi) = \widetilde{u} +
-	\frac{\phi_{k+1} + \phi_{k}}{2} \xi
-+ \frac{\phi_{k+1} - \phi_{k}}{2\widetilde{h}}
-	\left(\xi^2 - \frac{\widetilde{h}^2}{12}\right) \\
-{\cal T}_{k+1/2}(\xi) = \widetilde{\theta} +
+	{\cal S}_{k+1/2}(\xi) = \emphase{\widetilde{u}} +
+	\frac{\phi_{k+1} + \phi_\emphase{\delta}}{2} \xi
+	+ \frac{\phi_{k+1} - \phi_\emphase{\delta}}{2\emphase{\widetilde{\color{black} h}}}
+	\left(\xi^2 - \frac{\emphase{\widetilde{\color{black} h}}^2}{12}\right) \\
+	{\cal T}_{k+1/2}(\xi) = \emphase{\widetilde{\theta}} +
 	\frac{{(\partial_z \theta)}_{k+1} + 
-		{(\partial_z \theta)}_{k}}{2} \xi
-+ \frac{{(\partial_z \theta)}_{k+1} - {(\partial_z \theta)}_{k}}
-	{2\widetilde{h}}
-	\left(\xi^2 - \frac{\widetilde{h}^2}{12}\right)
+		{(\partial_z \theta)}_\emphase{\delta}}{2} \xi
++ \frac{{(\partial_z \theta)}_{k+1} - {(\partial_z \theta)}_\emphase{\delta}}
+	{2\emphase{\widetilde{\color{black} h}}}
+	\left(\xi^2 - \frac{\emphase{\widetilde{\color{black} h}}^2}{12}\right)
 \end{aligned}
 \end{equation}
 where $\xi = z - (z_{k+1} - \frac{\widetilde{h}}{2})$ is defined
@@ -274,18 +274,19 @@ $\widetilde{u},\widetilde{\theta}$ is, similarly to the neutral case:
 \begin{equation}
 \begin{aligned}
 \label{eq:ND_StratifiedCase_relation_tilde_bar}
-	\left(\widetilde{u} - u(0)\right)\alpha_{sl, u}
-	&= \overline{u}_{k+1/2} - u(0) + \widetilde{h}
-	\left(\frac{\phi_\delta}{3} + \frac{\phi_{k+1}}{6}\right)
+	\left(\emphase{\widetilde{u}} - u(0)\right)\alpha_{sl, u}
+	&= \emphase{\overline{u}_{k+1/2}} - u(0) + \widetilde{h}
+	\left(\frac{\emphase{\phi_\delta}}{3} +
+	\frac{\emphase{\phi_{k+1}}}{6}\right)
 	\left(\alpha_{sl, u} -
 	\frac{\widetilde{h}}{h_{k+\frac{1}{2}}}
 	\right)\\
-	\left(\widetilde{\theta} - \theta_s\right)
+	\left(\emphase{\widetilde{\theta}} - \theta_s\right)
 	\alpha_{sl, \theta}
-	&= \overline{\theta}_{k+1/2} - \theta_s +
+	&= \emphase{\overline{\theta}_{k+1/2}} - \theta_s +
 	\widetilde{h}\left(
-		\frac{{(\partial_z \theta)}_\delta}{3} +
-		\frac{{(\partial_z \theta)}_{k+1}}{6}
+		\frac{\emphase{(\partial_z \theta)_\delta}}{3} +
+		\frac{\emphase{{(\partial_z \theta)}_{k+1}}}{6}
 	\right)\left(\alpha_{sl, u} -
 	\frac{\widetilde{h}}{h_{k+\frac{1}{2}}}
 	\right)
@@ -297,17 +298,20 @@ where the non-dimensional numbers $\alpha_{sl, u},
 	\begin{aligned}
 	\alpha_{sl, x} &= \frac{\widetilde{h}}{h_{k+\frac{1}{2}}} +
 	\frac{\frac{1}{h_{k+\frac{1}{2}}}\int_{z_k}^{\delta_{sl}}
-	\ln(1+\frac{z}{z_{x}})- \psi_x\left(\frac{z}{L_{MO}}\right)
-	dz}{\ln(1+\frac{\delta_{sl}}{z_{x}})- \psi_x\left(\frac{\delta_{sl}}{L_{MO}}\right)
-    } \\
+	\ln(1+\frac{z}{z_{x}})
+		\emphase{- \psi_x\left(\frac{z}{L_{MO}}\right)}
+	dz}{\ln(1+\frac{\delta_{sl}}{z_{x}})
+		\emphase{- \psi_x\left(\frac{\delta_{sl}}{L_{MO}}\right)
+		}} \\
 		&=\frac{\widetilde{h}}{h_{k+\frac{1}{2}}} +
  \frac{\frac{1}{{h_{k+\frac{1}{2}}}}
     \left[
 	    (z+z_{x})\ln(1+\frac{z}{z_{x}})-z
-    +
-    z \Psi_x\left(\frac{z}{L_{MO}}\right) \right]_{z_k}^{\delta_{sl}}
-    }{\ln(1+\frac{\delta_{sl}}{z_{x}})- \psi_x\left(\frac{\delta_{sl}}{L_{MO}}\right)
-    }
+		+\emphase{ z \Psi_x\left(\frac{z}{L_{MO}}\right)}
+	\right]_{z_k}^{\delta_{sl}}
+    }{\ln(1+\frac{\delta_{sl}}{z_{x}})
+		\emphase{- \psi_x\left(\frac{\delta_{sl}}{L_{MO}}\right)
+		}}
 \end{aligned}
 \end{equation}
 Note that instead of $\psi_x$ we used $\Psi_x$,
@@ -345,7 +349,7 @@ and the evolution equation in the first active grid cell is
 \begin{equation}
     \begin{aligned}
 	\label{eq:ND_StratifiedCase_semiDiscreteEkmanEqPTFVfree}
-	    \partial_t \left(\frac{1}{\alpha_{\rm sl, \theta}}
+	    \partial_t \left(\frac{1}{\alpha_{\rm sl, \theta}(t)}
 	    \left(
 	    \overline{\theta}_{k+\frac{1}{2}} +
 	\widetilde{h}\left(\frac{{(\partial_z \theta)}_\delta}{3} +
@@ -419,13 +423,13 @@ are obtained with the method named $l^\star_{\rm D80}$ described in
 	\item initialize $l_{\rm up}$ and $l_{\rm down}$ to
 		$l^\star_{\rm D80}$;
 	\item limit $l_{\rm up}$ by the distance to the top and to
-		a strongly stratified area: this is done by
-		ensuring $-\partial_z l_{\rm up} < 1$ and
-		$l_{\rm up}(z_{\rm top}) \approx 0$.
+		a strongly stratified area of the air column:
+		this is done by ensuring $-\partial_z l_{\rm up} < 1$
+		and $l_{\rm up}(z_{\rm top}) \approx 0$.
 	\item limit $l_{\rm down}$ by the distance to the surface
-		and to a strongly stratified area: this is done by
-		ensuring $\partial_z l_{\rm down} < 1$ and
-		an appropriate surface layer value.
+		and to a strongly stratified area of the air column:
+		this is done by ensuring $\partial_z l_{\rm down} < 1$
+		and an appropriate surface layer value.
 		The value here is not zero so that the surface layer
 		links correctly with the computational domain.
 \end{enumerate}
@@ -444,9 +448,9 @@ are obtained with the method named $l^\star_{\rm D80}$ described in
 Steps 3 and 4 are implemented by applying iteratively
 \begin{equation}
 	\begin{aligned}
-		l_{up}(z_m) &= min\left(l^\star_{D80}(z_m),
+		l_{up}(z_m) &= \min\left(l^\star_{D80}(z_m),~~~
 		l_{up}(z_{m+1}) + h_{m+\frac{1}{2}}\right) \\
-		l_{down}(z_m) &= min\left(l^\star_{D80}(z_m),
+		l_{down}(z_m) &= \min\left(l^\star_{D80}(z_m),~
 		l_{down}(z_{m-1}) + h_{m-\frac{1}{2}}\right)
 	\end{aligned}
 \end{equation}
@@ -472,8 +476,8 @@ $z_m$ between the cells:
     \frac{c_\epsilon \sqrt{e^n_m}}{l_\epsilon}
     + \partial_t
     \right) e_m
-    =\frac{K_{e,m+1/2} (\partial_z e)_{m+1/2} -
-    K_{e,m-1/2} (\partial_z e)_{m-1/2}}{h_{m}}
+	=\frac{(K_{e} \partial_z e)_{m+1/2} -
+	(K_{e} \partial_z e)_{m-1/2}}{h_{m}}
     + K_u ||\partial_z u||^2
     - K_\theta N^2
 \end{equation}
@@ -574,8 +578,8 @@ using the MOST profiles for the shear and buoyancy.
 We derive the surface value of $l_{down}$ to link Monin-Obukhov
 Similarity Theory with the turbulent closure used here.
 \par
-Simplifying \eqref{eq:ND_StratifiedCase_TKE_quasi_equilibrium}
-with previous equations gives:
+Rewriting \eqref{eq:ND_StratifiedCase_TKE_quasi_equilibrium}
+with MOST and $l_{up}, l_{down}$ gives:
 \begin{equation}
 	\label{eq:ND_StratifiedCase_TKE_quasi_equilibrium_simplified}
 	e = \min(l_{up}^{2/3}, l_{down}^{2/3})\left(

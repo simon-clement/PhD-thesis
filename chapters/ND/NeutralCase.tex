@@ -122,7 +122,7 @@ $u(z, t^{n+1})$ is:
 		either explicitly: $\left.K_u \partial_z u
 		\right|_{z\leq \delta_{\rm sl}, t^{n+1}}
 		= u_\star^2 \frac{u(\delta_{\rm sl},
-		t^{\color{red} n})-u(0,t^n)}
+		t^{\emphase{n}})-u(0,t^n)}
 		{||u(\delta_{\rm sl}, t^n)-u(0,t^n)||}$
 		or implicitly:
 	\begin{equation}
@@ -130,7 +130,7 @@ $u(z, t^{n+1})$ is:
 		\left.K_u \partial_z u
 		\right|_{z\leq \delta_{\rm sl}, t^{n+1}}
 		= u_\star^2 \frac{u(\delta_{\rm sl},
-		t^{\color{red} n+1})-u(0,t^{n+1})}
+		t^{\emphase{n+1}})-u(0,t^{n+1})}
 		{||u(\delta_{\rm sl}, t^n)-u(0,t^n)||}
 	\end{equation}
 	\cite{lemarie_stability_2015} showed that the explicit
@@ -230,9 +230,9 @@ The continuity of the solution at cell interfaces (${\cal S}_{m-\frac{1}{2}}\lef
 %
 \begin{equation}
 \label{eq:ND_NeutralCase_continuityEquationFV}
-\frac{h_{m-1/2}}{6} \phi_{m-1} 
-+ \frac{2h_{m}}{3} \phi_m  
-+ \frac{h_{m+1/2}}{6} \phi_{m+1} = \Bar{u}_{m+\frac{1}{2}} - \Bar{u}_{m-\frac{1}{2}}
+	\frac{h_{m-1/2}}{\emphase{6}} \phi_{m-1} 
+	+ \frac{\emphase{2}h_{m}}{\emphase{3}} \phi_m  
+	+ \frac{h_{m+1/2}}{\emphase{6}} \phi_{m+1} = \Bar{u}_{m+\frac{1}{2}} - \Bar{u}_{m-\frac{1}{2}}
 \end{equation}
 where $h_m = \frac{h_{m-1/2} + h_{m+1/2}}{2}$.
 Combining \eqref{eq:ND_NeutralCase_semiDiscreteEkmanEq}
@@ -277,19 +277,22 @@ close to the one we are using.
 We assume that the reconstruction is the fourth degree
 polynomial
 ${\cal S}_{m+\frac{1}{2}}^4(\xi) = r_0^4 + r_1^4 \xi + r_2^4 \xi^2 
-+ r_3^4 \xi^3 + r_4^4 \xi^4$.
-The two additional degrees of freedom $r_3, r_4$ need to be
++ \emphase{r_3^4 \xi^3} + \emphase{r_4^4 \xi^4}$.
+The two additional degrees of freedom $\emphase{r_3^4},
+\emphase{r_4^4}$ need to be
 constrained. To recover the fourth-order compact scheme through
 the continuity constraint as in
 \eqref{eq:ND_NeutralCase_continuityEquationFV}
 we put as constraints that the
 reconstruction on the boundaries of the cell is
 ${\cal S}^4_{m+\frac{1}{2}}\left(\frac{h_{m+\frac{1}{2}}}{2}\right) =
-\overline{u}_{m+\frac{1}{2}} + \frac{h_{m+\frac{1}{2}}}{12}\left(
-\phi_m + 5\phi_{m+1}\right) $ and
+\overline{u}_{m+\frac{1}{2}} +
+\frac{h_{m+\frac{1}{2}}}{\emphase{12}}\left(
+\phi_m + \emphase{5}\phi_{m+1}\right) $ and
 ${\cal S}^4_{m+\frac{1}{2}}\left(-\frac{h_{m+\frac{1}{2}}}{2}\right) =
-\overline{u}_{m+\frac{1}{2}} - \frac{h_{m+\frac{1}{2}}}{12}\left(
-5\phi_m + \phi_{m+1}\right)$.
+\overline{u}_{m+\frac{1}{2}} -
+\frac{h_{m+\frac{1}{2}}}{\emphase{12}}\left(
+\emphase{5}\phi_m + \phi_{m+1}\right)$.
 Then the reconstruction is given by
 \begin{equation}
     \begin{pmatrix}
@@ -388,7 +391,7 @@ on spline reconstruction is particular:
 	the value at the center of the first cell is
 		\begin{equation}
 			{\cal S}_{1/2}(0) = \overline{u}_{1/2}
-			+ \frac{h_{1/2}}{24} (\phi_0-\phi_1)
+			+ \frac{h_{1/2}}{24} (\emphase{\phi_0-\phi_1})
 		\end{equation}
  If $\phi_0$ and $\phi_1$ are aligned with $e_\tau=1+0i$ then
 	$\phi_0 > \phi_1$ implies that $u(z)$ is concave and
@@ -426,7 +429,8 @@ summarized in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
 		  $u(\delta_{sl}) = u_{1/2}$ and the boundary
 		  condition is simply applied on the surface flux:
 		\begin{equation}
-		\underbrace{K_{u,0} \phi_0^{n+1}}_{\text{Surface flux}}
+			\underbrace{K_{u,0}
+			\emphase{\phi}^{n+1}_\emphase{0}}_{\text{Surface flux}}
 		= u_\star^2 e_\tau, ~~~~~~~~
 			u_\star = {\rm BULK}(
 			\underbrace{u_{\frac{1}{2}}^{n}}_{
@@ -450,7 +454,7 @@ summarized in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
 		  applied inside the surface layer.
 	The bottom boundary condition is
 	\begin{equation}
-		\underbrace{K_{u,0} \phi_0^{n+1}}_{\text{Surface flux}}
+		\underbrace{K_{u,0} \emphase{\phi}^{n+1}_\emphase{0}}_{\text{Surface flux}}
 		= u_\star^2 e_\tau, ~~~~~~~~
 			u_\star = {\rm BULK}(
 			\underbrace{{\cal S}_{1/2}^{n}(\xi=0)}_{
@@ -470,7 +474,7 @@ summarized in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
 		  also applied inside the surface layer.
 		The corresponding bottom boundary condition is
 		  \begin{equation}
-		\underbrace{K_{u,0} \phi_0^{n+1}}_{\text{Surface flux}}
+		\underbrace{K_{u,0} \emphase{\phi}^{n+1}_\emphase{0}}_{\text{Surface flux}}
 		= u_\star^2 e_\tau, ~~~~~~~~
 			u_\star = {\rm BULK}(
 			\underbrace{\overline{u}^{n}_{\frac{1}{2}}}_{
@@ -493,14 +497,14 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 	\begin{equation}
 		||\overline{u}_{\frac{1}{2}} - u(0)||
 		= \frac{u_\star}{\kappa}
-		\left(1+\frac{z_u}{\delta_{sl}}\right)
-		\left(\ln(1+\frac{z}{z_u})-1\right)
+		\left(1\emphase{+\frac{z_u}{\delta_{sl}}}\right)
+		\left(\ln(1+\frac{z}{z_u})\emphase{-1}\right)
 	\end{equation}
 	However, the equation \eqref{eq:ND_NeutralCase_EkmanEq}
 	and the spline reconstruction is left unchanged in the
 	surface layer.
 		  \begin{equation}
-		\underbrace{K_{u,0} \phi_0^{n+1}}_{\text{Surface flux}}
+		\underbrace{K_{u,0} \emphase{\phi}^{n+1}_\emphase{0}}_{\text{Surface flux}}
 		= u_\star^2 e_\tau, ~~~~~~~~
 			  u_\star = \underbrace{\overline{{\rm BULK}}(}_{
 				  \text{Adapted for averages}}
@@ -529,7 +533,7 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 	  -\frac{h_{3/2}}{2})$ and the boundary condition
 		  at $z_1$ is
 	  \begin{equation}
-		\underbrace{K_{u,1} \phi_1^{n+1}}_{\text{Flux at } z_1}
+		\underbrace{K_{u,1} \emphase{\phi}^{n+1}_\emphase{1}}_{\text{Flux at } z_1}
 		= u_\star^2 e_\tau, ~~~~~~~~
 			  u_\star = \underbrace{\overline{{\rm BULK}}(
 			  \overline{u}^{n}_{\frac{1}{2}})}_{
@@ -639,7 +643,8 @@ with the continuous model presented in
 with a free $\delta_{sl}$:
 \begin{equation}
 	\label{eq:ND_NeutralCase_bottomCondFVFree}
-	\underbrace{K_{u,\delta} \phi_{\delta}^{n+1}}_{\text{Flux at }
+	\underbrace{K_{u,\delta}
+	\emphase{\phi}^{n+1}_\emphase{\delta}}_{\text{Flux at }
 	\delta_{sl}}
 		= u_\star^2 e_\tau, ~~~~~~~~
 			  u_\star = {\rm BULK}(
@@ -662,7 +667,7 @@ The following subgrid reconstruction is used:
 \begin{equation}
 	\label{eq:ND_NeutralCase_fullReconstruction}
 	u(z) = \begin{cases}
-		{\cal S}_{1/2}\left(z - \frac{z_1 +
+		\emphase{{\cal S}_{1/2}}\left(z - \frac{z_1 +
 				\delta_{sl}}{2}\right),
 		~~~~~~~~~~~ z \geq \delta_{sl}
 		\\
@@ -671,17 +676,19 @@ The following subgrid reconstruction is used:
 		~~~ z < \delta_{sl}
 	\end{cases}
 \end{equation}
-The quadratic spline ${\cal S}_{1/2}$ used for reconstruction
+The quadratic spline $\emphase{{\cal S}_{1/2}}$ used for reconstruction
 is computed with the averaged value $\widetilde{u}$, the
 size of the sub-cell $\widetilde{h}$ and the fluxes at the
 extremities $\phi_{\delta}$ and $\phi_1$:
 a similar equation to
 \eqref{eq:ND_NeutralCase_quadraticReconstruction}
 is obtained:
-${\cal S}_{1/2}(\xi) = 
-\widetilde{u} + \frac{\phi_{1} + \phi_{\delta}}{2} \xi
-+ \frac{\phi_{1} - \phi_{\delta}}{2\widetilde{h}}
-\left(\xi^2 - \frac{\widetilde{h}^2}{12}\right)$.
+$\emphase{{\cal S}_{1/2}}(\xi) = 
+\emphase{\widetilde{\color{black} u}} +
+\frac{\phi_{1} + \phi_\emphase{\delta}}{2} \xi
++ \frac{\phi_{1} -
+\phi_\emphase{\delta}}{2\emphase{\widetilde{\color{black} h}}}
+\left(\xi^2 - \frac{\emphase{\widetilde{\color{black} h}}^2}{12}\right)$.
 The notations are summed up in Figure
 \ref{fig:ND_NeutralCase_nouvelle_dis_neutre}.
 \begin{figure}
@@ -701,33 +708,40 @@ The notations are summed up in Figure
 	$\{0, \delta_{sl}, z_1, z_2, ..., z_M\}$.
 \end{remark}
 \par
+We now rewrite the reconstruction
+\eqref{eq:ND_NeutralCase_fullReconstruction} in terms
+of the prognostic variables $\overline{u}_{1/2}$, $\phi_\delta$,
+$\phi_1$.
 The relation between $\overline{u}_{1/2}$ and $\widetilde{u}$ is 
 given by the Chasles' relation
 $ \int_{\delta_{sl}}^{z_1} u dz = \int_{z_0}^{z_1} u dz -
 \int_{z_0}^{\delta_{sl}} u dz$, which can be written as
 \begin{equation}
 \label{eq:ND_NeutralCase_Chasles}
-	\widetilde{h}\widetilde{u} = h_{1/2}\overline{u}_{1/2} -
-	e_\tau \frac{{u_\star}}{\kappa}\int_{z_0}^{\delta_{sl}}
+	\widetilde{h}\emphase{\widetilde{u}} =
+	h_{1/2}\emphase{\overline{u}_{1/2}} -
+	\emphase{e_\tau} \frac{{u_\star}}{\kappa}\int_{z_0}^{\delta_{sl}}
 	\ln(1+\frac{z}{z_{u}}) dz
 	+ (\delta_{sl}-z_0) u(0)
 \end{equation}
-where the time indices in $e_\tau = \frac{u^{n+1}(\delta_{sl})-u(0)}
-{||u^n(\delta_{sl})-u(0)||}$ must be the same as in the
+where the time indices in
+$e_\tau = \frac{u^\emphase{n+1}(\delta_{sl})-u^\emphase{n+1}(0)}
+{||u^\emphase{n}(\delta_{sl})-u^\emphase{n}(0)||}$ must be the same as in the
 bottom boundary condition
 \eqref{eq:ND_NeutralCase_bottomCondFVFree}.
 Let us inject the reconstruction of
 $u(\delta_{sl}) = \widetilde{u} - \widetilde{h}(\phi_{\delta}/3 + \phi_1/6)$
 (obtained from \eqref{eq:ND_NeutralCase_fullReconstruction})
-and the log law $||u^n(\delta_{sl})-u(0)|| = \frac{{u_\star}}{\kappa}\ln(1+\frac{\delta_{sl}}{z_{u}})$. One then gets:
+and the log law $||u^n(\delta_{sl})-u^n(0)|| = \frac{{u_\star}}{\kappa}\ln(1+\frac{\delta_{sl}}{z_{u}})$ in \eqref{eq:ND_NeutralCase_Chasles}.
+One then gets:
 \begin{equation}
 	\label{eq:ND_NeutralCase_utildeExpression}
 	% \frac{\widetilde{h}}{h_{1/2}}\widetilde{u} = \overline{u}_{1/2} - \left(\widetilde{u} - \widetilde{h}(\phi_{\delta}/3 + \phi_1/6)
 	% \right)\tau_{sl} +
 	% (\tau_{sl} - \frac{h_{1/2} - \widetilde{h}}{h_{1/2}})u(0)
-	\left(\widetilde{u} - u(0)\right) \alpha_{sl} =
-	\overline{u}_{\frac{1}{2}} - u(0) + \widetilde{h}\left(
-	\frac{\phi_\delta}{3} + \frac{\phi_1}{6} \right)
+	\left(\emphase{\widetilde{u}} - u(0)\right) \alpha_{sl} =
+	\emphase{\overline{u}_{\frac{1}{2}}} - u(0) + \widetilde{h}\left(
+	\frac{\emphase{\phi_\delta}}{3} + \frac{\emphase{\phi_1}}{6} \right)
 	\left(\alpha_{sl} - \frac{\widetilde{h}}{h_{\frac{1}{2}}}\right)
 \end{equation}
 with $\alpha_{sl} =
@@ -738,7 +752,7 @@ with $\alpha_{sl} =
 	h_{1/2}\ln(1+\frac{\delta_{sl}}{z_{u}})}$ a non-dimensional
 number $0 < \alpha_{sl} \leq 1$ which depends on the log law and
 on the values of $\widetilde{h}, h_{1/2}$. It decreases with
-$\delta_{sl}$; $\alpha_{\rm sl} = 1 \iff \widetilde{h}=h_{1/2}$.
+$\delta_{sl}$; $\alpha_{\rm sl} = 1 \iff \widetilde{h}=h_{1/2}$
 and in this case \eqref{eq:ND_NeutralCase_utildeExpression} is
 equivalent to $\widetilde{u} = \overline{u}_{1/2}$.
 Figure \ref{fig:ND_NeutralCase_alpha_sl} show the
@@ -775,7 +789,7 @@ The boundary condition \eqref{eq:ND_NeutralCase_bottomCondFVFree}
 is hence formulated as:
 \begin{equation}
 	\label{eq:ND_NeutralCase_boundaryCondFVfree}
-	\underbrace{K_{u,\delta} \phi_{\delta}}_{
+	\underbrace{K_{u,\delta} {\phi}^{n+1}_{\delta}}_{
 		\text{Flux at } \delta_{sl}
 	} = u_\star^2
 	\underbrace{\frac{\overline{u}_{1/2} -
@@ -785,8 +799,8 @@ is hence formulated as:
 		e_\tau \text{ using reconstruction at } \delta_{sl}
 	}
 \end{equation}
-and the evolution equation in the first grid level
-$ (\partial_t+if) \widetilde{u}
+and the evolution equation in the upper part of the first grid level
+$ (\partial_t+if) \emphase{\widetilde{u}}
 = \frac{K_{u, 1}\phi_1 - K_{u,\delta} \phi_{\delta}}{\widetilde{h}}$
 becomes
 \begin{equation}
@@ -913,7 +927,7 @@ Injecting the boundary condition at the first grid level gives
 		\begin{equation}
 			(\partial_t+if) u_{1/2} = \frac{1}{h_{1/2}}
 			\left(K_{u,1}\frac{u_{3/2} - u_{1/2}}{h_1}
-			 - u_\star^2 e_\tau \right)
+			 - \emphase{u_\star^2 e_\tau} \right)
 		\end{equation}
 The value of $K_0$ does not intervene in the equation.
 \item \textbf{Finite Volumes} ("FV pure", "FV1" and "FV Nishizawa"):
@@ -924,10 +938,10 @@ $u(z_1) = {\cal S}_{\frac{3}{2}}(-\frac{h_\frac{3}{2}}{2})$
 the discretisations "FV pure", "FV1" and "FV Nishizawa"
 implicitly use that
 \begin{equation}
-		(\partial_t+if) u(z_1) =
-		\frac{K_{u,1} \phi_1 - u_\star^2 e_\tau} {h_{1/2}}
-		+ (\partial_t+if)\left(\frac{\phi_1}{3}
-		+ \frac{u_\star^2 e_\tau}{6 K_{u,0}}\right)h_{1/2}
+	(\partial_t+if) u(z_1) =
+	\frac{K_{u,1} \phi_1 - \emphase{u_\star^2 e_\tau}}{h_{1/2}}
+	+ (\partial_t+if)\left(\frac{\phi_1}{3}
+	+ \emphase{\frac{u_\star^2 e_\tau}{6 K_{u,0}}}\right)h_{1/2}
 \end{equation}
 The (small) value of $K_{u,0}$ directly appears when we assume the
 parabolic profile inside the first grid cell.
@@ -952,12 +966,14 @@ Let $k$ be such that $z_k \leq \delta_{\rm sl} < z_{k+1}$.
 The surface layer scheme "FV free" is identical to the case $k=0$, except that
 \begin{itemize}
 	\item the sub-cell of average $\widetilde{u}$ and of size
-		$\widetilde{h}$ is $[\delta_{\rm sl}, z_{k+1}]$:
+		$\widetilde{h}$ is $[\delta_{\rm sl}, z_{\emphase{k+}1}]$:
 		$k$ is added to the indices in 
 		\eqref{eq:ND_NeutralCase_boundaryCondFVfree} and
 		\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree};
-	\item $\alpha_{sl} = \frac{\widetilde{h}}{h_{k+\frac{1}{2}}} +
-		\frac{1}{h_{k+\frac{1}{2}}}\int_{z_k}^{\delta_{sl}}
+	\item $\alpha_{sl} = \frac{\widetilde{h}}
+			{h_{\emphase{k+}\frac{1}{2}}} +
+		\frac{1}{h_{\emphase{k+}\frac{1}{2}}}
+		\int_{z_\emphase{k}}^{\delta_{sl}}
 		\frac{\ln(1+\frac{z}{z_{u}})}
 			{\ln(1+\frac{\delta_{sl}}{z_{u}})} dz$;
 	\item for $m < k$, the cell $[z_m, z_{m+1}]$ is filled with
