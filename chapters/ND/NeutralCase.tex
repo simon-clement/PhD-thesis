@@ -367,7 +367,7 @@ bias comes from the fact that these schemes assume that the
 volume-averaged variables are equal to the value in the center
 of the volume. The prognostic variables in the surface layer
 follow a logarithmic profile as shown in
-\eqref{eq:ND_NeutralCase_WallLaw}: the convexity of this profile thus
+\eqref{eq:ND_NeutralCase_WallLaw}: the concavity of this profile thus
 creates a systematic error when assuming that the average and the
 value at the center of the cell are equal
 (see Figure \ref{fig:ND_NeutralCase_nishizawaBias}).
@@ -382,8 +382,27 @@ value at the center of the cell are equal
 Finally, \cite{nishizawa_surface_2018} propose an alternative
 bulk formulation which uses the averaged variable in the surface layer
 instead of its value at the top.
+\begin{remark}
+The scheme \eqref{eq:ND_NeutralCase_prognosticEqFV} based
+on spline reconstruction is particular:
+	the value at the center of the first cell is
+		\begin{equation}
+			{\cal S}_{1/2}(0) = \overline{u}_{1/2}
+			+ \frac{h_{1/2}}{24} (\phi_0-\phi_1)
+		\end{equation}
+ If $\phi_0$ and $\phi_1$ are aligned with $e_\tau=1+0i$ then
+	$\phi_0 > \phi_1$ implies that $u(z)$ is concave and
+	that $\overline{u}_{1/2} < {\cal S}_{1/2}(0)$.
+	However, as it will be discussed in \S
+	\ref{sec:ND_NeutralCase_newSFscheme}
+	("On the value of $K_{u,0}$")
+	the wall law cannot be followed.
+	The modification of $K_{u,0}$ used in \S
+	\ref{sec:ND_NeutralCase_newSFscheme} reduces
+	the difference between $\overline{u}_{1/2}$
+	and ${\cal S}_{1/2}(0)$.
+\end{remark}
 %
-\par
 Our objective is to compare this surface flux scheme with the
 conventional ones
 and to introduce an other surface flux scheme that is more coherent
@@ -468,7 +487,7 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 		\cite{nishizawa_surface_2018} shows that the "FV1"
 		strategy systematically underestimate
 		$u(\delta_{\rm sl})$ because of the
-	  convexity of the logarithmic profile.
+	  concavity of the logarithmic profile.
 	  An alternative bulk algorithm is hence derived by averaging
 		\eqref{eq:ND_NeutralCase_WallLaw} in the first cell:
 	\begin{equation}
