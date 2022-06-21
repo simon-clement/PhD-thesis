@@ -1,0 +1,67 @@
+\subsubsection{Existence of solutions of the
+non-linear semi-discrete in space problem}
+In \citep{chacon-rebollo_existence_2014},
+the existence of unsteady solutions of
+non-linear turbulent models for oceanic surface mixing layers is
+proven.
+The proof relies on three main points:
+\begin{enumerate}
+	\item the existence of a steady-state;
+	\item the well-posedness of the linearized problem
+	around the equilibrium;
+	\item the use of the inverse function theorem;
+\end{enumerate}
+The method can be generalized to other types of
+non-linearities. In particular, we show the existence and
+uniqueness of problem \eqref{eq:SWRbulk}
+(ignoring the Schwarz iteration indices) close to the
+equilibrium state.
+\begin{enumerate}
+	\item The existence of a steady state is discussed in
+	Section \ref{sec:OASchwarz_DiscreteStationaryState}.
+	\item Studying the well-posedness of the linearized
+	problem is close to study the convergence of the SWR
+	algorithm.
+	First, we consider the following system obtained
+	by substracting the stationary state to
+		the linearized version of \eqref{eq:SWRbulk}:
+	\begin{subequations}
+	\label{eq:OASchwarz_DiscreteStationaryState_homogeneousEq}
+		\begin{align}
+		(\partial_t + if) &U_j - \nu_j\partial_z \phi_j=0, 
+			\hspace{3.4cm} \mbox{in}\;\widetilde{\Omega}_j \times (0,T)
+	\label{eq:OASchwarz_DiscreteStationaryState_homogeneousEq1}\\
+		U_j(z,0) &= U_0(z),   \hspace{4.8cm}  \forall z \in \widetilde{\Omega}_j  \\
+		U_j(H_j, t) &= 0, \hspace{5.1cm}  t \in [0,T]\\
+		\nu_{\rm a}\phi_{\rm a}(0,t) &= \frac{3\alpha^e}{2} 
+\left( \delta U_{\rm a} \right. - \delta U_{\rm o}
+			\left.+ \frac{{\cal O}}{3} \overline{
+	\delta U_{\rm a} - \delta U_{\rm o}} \right), 
+		\hspace{0.12cm} t \in [0,T]\\
+		\rho_{\rm o} \nu_{\rm o}\phi^k_{\rm o}(0,t) &= \rho_{\rm a}
+		\nu_{\rm a}\phi^k_{\rm a}(0,t), \hspace{3.98cm} t \in [0,T]
+		\end{align}
+		\end{subequations}
+	A Fourier transform of
+	\eqref{eq:OASchwarz_DiscreteStationaryState_homogeneousEq1}
+	can be solved with the discrete variation of parameters
+	(see appendix) and we
+	obtain under strict conditions on $U_0$:
+	\begin{equation}
+		\widehat{U}_1 &= A\lambda_a^m P_1(U_0, \omega) \\
+		\widehat{U}_2 &= B\lambda_o^{-m} P_2(U_0, \omega)
+	\end{equation}
+	where P \myTD{will be} defined in
+	\ref{sec:OASchwarz_appendix_discreteVariationParameters}.
+	To obtain only one degree of freedom in each domain,
+	the Dirichlet boundary condition at $x\rightarrow \pm \infty$
+	was used.
+	The linearized problem is well posed iff
+	the two interface conditions determine $A$ and $B$.
+	In the particular frequency of $\omega=-f$,
+	$\lambda_a=\lambda_o=1$. The two interfaces conditions
+	lead to a very strong constraint on $U_0$.
+	\myTD{développer}
+	The other frequencies do not impose such constraint on
+	$U_0$.
+\end{enumerate}

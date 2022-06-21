@@ -397,6 +397,7 @@ and the semi-discrete version of \eqref{eq:ref} in the homogeneous case is
 \end{equation}
 
 \section{Discrete stationary state}
+\label{sec:OASchwarz_DiscreteStationaryState}
 We now interest ourselves to the semi-discrete in space
 stationary state of \eqref{eq:SWRbulk} with $U_j^\infty = 0$.
 Whenever $f=0$ it is easy to show that the solution of this problem
@@ -884,6 +885,7 @@ with $\alpha^e=C_D\left|U_{\rm a}^e(h_{\rm a}/2) - U_{\rm o}^e(-h_{\rm o}/2)\rig
 Following the derivation in the previous paragraph,
 we find that the evolution of $B_k$ is:
 \begin{equation}
+	\label{eq:OASchwarz_ConvergenceAnalysis_linearizedCV}
     \left(\frac{(s+if)h_{\rm a}}{\alpha} - \theta \lambda_{\rm a}\right)B_{k+1}(z)
     =
     \left(\left(\frac{3}{2} - \theta\right) 
@@ -954,6 +956,7 @@ let $a_1, a_2 \in \mathbb{C}$ such as
 We examine the evolution of 4 simulaneously evolving quantities:
 $B_{k+1}(z), B_{k+1}(\overline{z})$ and their complex conjugate
 $\overline{B_{k+1}(z)}, \overline{B_{k+1}(\overline{z})}$:
+{\color{red} je dois être fatigué, mais pourquoi on peut pas juste utiliser $B_{k+1}(z), \overline{B_{k+1}(\overline{z})}$} ?
 \begin{equation}
 	\label{eq:OASchwarz_transitionMatrixDD26}
 \begin{pmatrix}
@@ -1021,6 +1024,8 @@ to the optimization: $s^{\rm BE}=\frac{z-1}{z \Delta t}$.
 	fait converger plus vite que $\theta=1.7$ alors que ce dernier
 	est meilleur que $1.5$ quand on regarde les valeurs propres...}
 \end{remark}
+
+\input{wellPosedness.tex}
 
 \section{Numerical experiments}
 \label{sec:num-exp}
