@@ -1,67 +1,86 @@
 \begin{appendix}
 \section{Discrete variation of parameters}
-	\label{sec:OASchwarz_appendix_discreteVariationParameters}
+\label{sec:OASchwarz_appendix_discreteVariationParameters}
 We look for the solutions of the Fourier transform of equation
-\label{eq:OASchwarz_DiscreteStationaryState_homogeneousEq1}:
+\eqref{eq:OASchwarz_DiscreteStationaryState_homogeneousEq1}:
 \begin{subequations}
 	\begin{align}
-	(i\omega + if) \widehat{u}((m+\frac{1}{2}) h_j) -
-		\nu_j \frac{\widehat{\phi}((m+1)h_j) -
-		\widehat{\phi}(m h_j)}{h_j}
+	(i\omega + if) \widehat{u}_{m+\frac{1}{2}} -
+		\nu_j \frac{\widehat{\phi}_{m+1} -
+		\widehat{\phi}_m}{h_j}
 		&=U_0
-	\hspace{1.4cm} \mbox{in}\;\widetilde{\Omega}_j \times
+	\hspace{1.2cm} \mbox{in}\;
 	(\omega_{\min},\omega_{\max})
 		\label{eq:OASchwarz_appendix_eqFourier}\\
-		U_j(z,t=0) &= U_0(z),   \hspace{2.8cm}
-		\forall z \in \widetilde{\Omega}_j  \\
-		\widehat{u}(x\rightarrow \pm \infty, \omega) &= 0,
-		\hspace{3.1cm}
+		u_m(t=0) &= U_0(z_m),   \hspace{1.8cm}
+		\forall m, M_o \leq m \leq M_a \\
+		\widehat{u}(H_j, \omega) &= 0,
+		\hspace{2.1cm}
 		\omega \in [\omega_{\min},\omega_{\max}]
-		\label{eq:OASchwarz_appendix_bdCond}
+		\label{eq:OASchwarz_appendix_bdCond}\\
+		\frac{3\alpha^e}{2} 
+		\left( \widehat{u}_{1/2} - \widehat{u}_{-1/2}
+		+ \frac{{\cal O}}{3} \overline{
+		\widehat{u}_{1/2}(-\omega) -
+		\widehat{u}_{-1/2}(-\omega)} \right) &=
+		\nu_{\rm a}\widehat{\phi}_{\rm a, 0},
+		\hspace{1.12cm} t \in [0,T]\\
+		\rho_{\rm o} \nu_{\rm o}\widehat{\phi}_{\rm o, 0}
+		&= \rho_{\rm a} \nu_{\rm a}\widehat{\phi}_{\rm a, 0},
+		\hspace{1.0cm} t \in [0,T]
 		\end{align}
 		\end{subequations}
-The set of solutions of the homogeneous version of
-\eqref{eq:OASchwarz_appendix_eqFourier} is given in the
-convergence analysis: $\widehat{\phi}_{\rm o}(-m h_{\rm o})
-	= A (\lambda_{\rm o}+1)^m$
-and
-$\widehat{\phi}_{\rm a}(m h_{\rm a}) = B (\lambda_{\rm a}+1)^m$ 
-with $\lambda_j = \frac{1}{2}\left(\chi_j - \sqrt{\chi_j} \sqrt{\chi_j + 4}\right)$, 
-$\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$ and $m$ the space index.
+% The set of solutions of the homogeneous version of
+% \eqref{eq:OASchwarz_appendix_eqFourier} is given in the
+% convergence analysis: $\widehat{\phi}_{\rm o}(-m h_{\rm o})
+% 	= A (\lambda_{\rm o}+1)^m$
+% and
+% $\widehat{\phi}_{\rm a}(m h_{\rm a}) = B (\lambda_{\rm a}+1)^m$ 
+% with $\lambda_j = \frac{1}{2}\left(\chi_j - \sqrt{\chi_j} \sqrt{\chi_j + 4}\right)$, 
+% $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$ and $m$ the space index.
+\begin{itemize}
+\item if $\omega=-f$:
+	\begin{equation}
+		\widehat{\phi}_{a, m+1} - \widehat{\phi}_{a,m} =
+		-\frac{h_a}{\nu_a} U_0(m h_a), ~~~~~~ m \geq 0
+	\end{equation}
+		$\widehat{\phi}_{a,m}= {C}_1^{-f} - \frac{h_a}{\nu_a}
+	\sum_{i=0}^{m-1} U_{0, i+1/2}$.
+	Since $U_{a, m+1/2}- U_{a, m-1/2} =
+	h_a \phi_{a, m}$ we obtain with the Dirichlet
+	boundary condition:
+	\begin{equation}
+		U_{a,m+1/2} = -h_a\sum_{i=m+1}^{H_a/h_a}
+		\widehat{\phi}_{a,i} =(m h_a - H_a){C}_1^{-f}+
+		\frac{h_a^2}{\nu_a}\sum_{i=m+1}^{H_a/h_a}
+		\sum_{k=0}^{i}U_{0,k+1/2}
+	\end{equation}
+	for $m<0$, we get:
+	\begin{equation}
+		U_{o,m+1/2} = h_o\sum_{i=H_o/h_o}^{m}
+		\widehat{\phi}_{o,i} =(H_o - (m+1) h_o){C}_2^{-f}+
+		\frac{h_o^2}{\nu_o}\sum_{i=H_o/h_o}^{m}
+		\sum_{k=i}^{-1}U_{0,k+1/2}
+	\end{equation}
+	and $(\widehat{\phi}_{a,0}, \widehat{\phi}_{o,0}) =
+		({C}_1^{-f},{C}_2^{-f})$.
+	\begin{remark}
+		having infinite domains with constant space step
+		leads to $U_{m\rightarrow \infty}=0 \Rightarrow
+		\phi_{(m\rightarrow \infty)}=0$, which overdetermines
+		the system. This is why we keep $H_j$ here.
+	\end{remark}
+	Note that with the help of the interface condition
+	$\rho_o \nu_o \phi_o = \rho_a \nu_a \phi_a$,
+	the jump of solutions
+	$\widehat{u}_{1/2} - \widehat{u}_{-1/2}$ can be written
+		$ \Delta H \times {C}_1^{-f} +S(U_0)$ where
+	$\Delta H = (|H_o|\epsilon \frac{\nu_o}{\nu_a} - H_a)$.
+\item if $\omega \neq -f$: \\
 We extend the well-known method of variation of parameters to the
 discrete case to compute a solution of
-\eqref{eq:OASchwarz_appendix_eqFourier}. 
-Assuming $B_m$ depends on $m$ (the case $z<0$ is identical
-to the case $z>0$ detailed here),
-\begin{itemize}
-\item if $\omega=-f$: $\lambda_o=0$ and
-	\begin{equation}
-		B_{m+1} - B_m = -\frac{h_j}{\nu_j} U_0(m h_j)
-	\end{equation}
-		$\widehat{\phi}(m h_2)= \frac{h_2}{\nu_2}
-		\sum_{i=m}^{\infty} U_0(i h_2)$ is a solution of
-		\eqref{eq:OASchwarz_appendix_eqFourier}
-		with $\omega=-f$ \myTD{condition of convergence
-		of series},
-		to the condition that this solution is compatible
-		with \eqref{eq:OASchwarz_appendix_bdCond}:
-		since $U_j((m+1/2)h_j) - U_j((m-1/2)h_j) =
-		h_j \phi_j(m h_j)$,
-		the condition is
-	\begin{equation}
-		\label{eq:OASchwarz_appendix_constraints}
-		u(\frac{h_2}{2}) +
-		h_2 \sum^\infty_{m=1} \widehat{\phi}_2(m h_2)
-		= u(-\frac{h_1}{2})-
-		h_1 \sum^{-1}_{-\infty} \widehat{\phi}_1(m h_1) = 0
-	\end{equation}
-	There are two equalities in
-	\eqref{eq:OASchwarz_appendix_constraints}: they
-	allow to prescribe $u$ everywhere in the domain.
-	We will end up with a constraint on $U_0$ when
-	introducing the linearized interface condition.
-\item if $\omega \neq -f$:
-	let $B^1, B^2$ and $\lambda_u$ such that
+\eqref{eq:OASchwarz_appendix_eqFourier}.
+	let $B_m^1, B_m^2$ and $\lambda_u$ such that
 	the solutions of the homogeneous version of
 	\eqref{eq:OASchwarz_appendix_eqFourier} are
 		$\widehat{u} = B^1_m \lambda_u^m +
@@ -123,9 +142,100 @@ B_m^2 - B_{m-1}^2
 The determinant of the inversed matrix is
 $\lambda_u^{-1} - \lambda_u$ which is not zero since
 $\omega\neq -f$.
-
-\myTD{Normalement ca met une contrainte du style $U_0$ doit
-décroitre plus vite que $\lambda_u^m$ pour avoir les conditions
-aux bords}
+Let us note 
+$\begin{pmatrix}
+	S_m^1(U_0) + {C}_3\\
+	S_m^2(U_0) + {C}_4
+\end{pmatrix}:=\begin{pmatrix}
+B_m^1\\
+B_m^2
+\end{pmatrix}$.
+Let $M_a=\frac{H_a}{h_a}$.
+The Dirichlet boundary condition is equivalent to
+$B_{M_a}^1 (\lambda_u)^{2M_a} = - B_{M_a}^2$ which determines
+${C}_4$:
+\begin{equation}
+- {C}_4 = \left(S_{M_a}^1(U_0) + {C}_3\right)
+	(\lambda_u)^{2M_a} + S_{M_a}^2(U_0)
+\end{equation}
+\begin{equation}
+	\begin{aligned}
+		\widehat{u}_{\frac{1}{2}} &= {C}_3 (1 - \lambda_u^{2M_a})
+	+ \underbrace{S_0^1+S_0^2 - S_{M_a}^1 \lambda_u^{2M_a}
+		-S_{M_a}^2}_{:=S_{u, a}^{m=1/2}(U_0)} \\
+		\chi_a \widehat{u}_{\frac{1}{2}} &= u_{\frac{3}{2}} - u_{\frac{1}{2}}
+		- \phi_0 + \frac{h^2_a}{\nu_a} U_0
+	\end{aligned}
+\end{equation}
+Those equations give
+\begin{equation}
+	\begin{aligned}
+		\widehat{\phi}_{a,0} ={C}_3 \left(
+			\underbrace{\lambda_u-\lambda_u^{2M_a-1}
+			- (\chi_a+1)(1-\lambda_u^{2M_a})}_{:=K_{1,a}}
+			\right)
+		-\left(\underbrace{(\chi_a + 1) S_{u,a}^{m=1/2}
+		- S_{u,a}^{m=3/2}
+		- \frac{h^2}{\nu} U_0}_{:=S_{\phi,a}^{m=0}}\right)
+	\end{aligned}
+\end{equation}
+We obtain similar equations in the ocean part:
+\begin{equation}
+	\begin{aligned}
+		\widehat{u}_{-\frac{1}{2}} &= {C}_5 (1 -
+			\lambda_{u_o}^{2M_o})
+			+ S_{u, o}^{m=-1/2}(U_0) \\
+		\widehat{\phi}_{o,0} &={C}_5 K_{1,o}
+		-S_{\phi,o}^{m=0}
+	\end{aligned}
+\end{equation}
+The continuity of the flux at interface
+$\rho_o \nu_o \phi_o = \rho_a \nu_a \phi_a$ lets us rewrite
+\begin{equation}
+{C}_5 = {C}_3 \times \epsilon
+	\frac{\nu_a}{\nu_o} \frac{K_{1,a}}{K_{1,o}} +
+	\frac{S_{\phi,o}^0 - S^0_{\phi, a}}{K_{1,o}}
+\end{equation}
+The jump between the solutions is
+\begin{equation}
+	\widehat{u}_{\frac{1}{2}} - \widehat{u}_{-\frac{1}{2}}
+	= {C}_3 K_{2} + \Delta S
+\end{equation}
+where $K_{2} = 1 - \lambda_{u_a}^{2M_a} - (1 - \lambda_{u_o}^{2M_o})
+\epsilon \frac{\nu_a}{\nu_o} \frac{K_{1,a}}{K_{1,o}}$.
+The friction law writes
+\begin{equation}
+	\underbrace{(\nu_a K_{1,a} - \frac{3\alpha^e K_{2}}{2})}_{
+		K_3(\omega)
+	}{C}_3
+	-\underbrace{
+		\alpha^e \frac{{\cal O} \overline{K_2}(-\omega)}{2}}_{
+		\overline{K_4(-\omega)}}
+	\times \overline{{C}_3(-\omega)}
+	= S_{\rm friction}
+\end{equation}
+where $S_{\rm friction} =
+	\frac{3\alpha^e}{2} \left(
+	\Delta S + \frac{\cal O}{3}
+	\overline{\Delta S(-\omega)}\right)
+	+\nu_a S_{\phi,a}^{m=0}$.
+The linearized problem is well posed if
+\begin{equation}
+	\begin{pmatrix}
+		K_3(\omega)& - \overline{K_4(-\omega)}\\
+		-K_4(\omega) & \overline{K_3(-\omega)}
+	\end{pmatrix}
+\end{equation}
+is inversible for $\omega \notin \{f, -f\}$ and
+the matrix
+\begin{equation}
+	\begin{pmatrix}
+		\nu_a - \frac{3 \alpha^e}{2}\Delta H &
+		\overline{K_4(f)} \\
+		-\frac{\alpha^e}{2}\overline{\cal O} \times \Delta H&
+		\overline{K_3(f)}
+	\end{pmatrix}
+\end{equation}
+is inversible.
 \end{itemize}
 \end{appendix}
