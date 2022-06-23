@@ -407,8 +407,8 @@ The Turbulent Kinetic Energy (TKE) evolves with the equation
 \end{equation}
 The turbulent viscosities $K_u, K_{\theta}$ and $K_e$ are computed
 with $(K_u, K_\theta, K_e) = (C_m , C_s \phi_z, C_e)l_m \sqrt{e}$.
-The mixing lengths $l_m = \sqrt{l_{\rm up} l_{\rm down}}$ and
-$l_\epsilon = \min{(l_{\rm up}, l_{\rm down})}$
+The mixing lengths $l_m = \min{(l_{\rm up}, l_{\rm down})}$ and
+$l_\epsilon = \sqrt{l_{\rm up} l_{\rm down}}$
 are obtained with the method named $l^\star_{\rm D80}$ described in
 \cite{lemarie_simplified_2021} that we explain here:
 \begin{enumerate}
@@ -568,8 +568,8 @@ We assume that $l_\epsilon$ in
 \eqref{eq:ND_StratifiedCase_TKE_quasi_equilibrium} is taken at
 time index $n$, so that the energy can be integrated in time
 with a proper boundary condition before computing the mixing
-length. Then, we assume that $l_m = \sqrt{l_{up}l_{down}}$ and
-$l_\epsilon = \min(l_{up}, l_{down})$.
+length. Then, we assume that $l_m = \min(l_{up}, l_{down})$ and
+$l_\epsilon = \sqrt{l_{up}l_{down}}$.
 The characteristic length $l_{up}$ (resp. $l_{down}$) indicates
 how much the turbulent mixing is acting upwards (resp. downward).
 In the surface layer, it is hence natural to follow the
@@ -582,7 +582,7 @@ Rewriting \eqref{eq:ND_StratifiedCase_TKE_quasi_equilibrium}
 with MOST and $l_{up}, l_{down}$ gives:
 \begin{equation}
 	\label{eq:ND_StratifiedCase_TKE_quasi_equilibrium_simplified}
-	e = \min(l_{up}^{2/3}, l_{down}^{2/3})\left(
+	e = \sqrt[3]{l_{up} l_{down}}\left(
 	\frac{u_\star}{c_\epsilon} 
 	\left({u}_\star^2
 	\frac{\phi_m(z/L_{MO})}{\kappa (z+z_{u})}
@@ -590,11 +590,12 @@ with MOST and $l_{up}, l_{down}$ gives:
 	\right)
 	\right)^{2/3}
 \end{equation}
-
+which is the bottom boundary condition of the TKE
+\eqref{eq:ND_StratifiedCase_TKE_SL_cond}.
 Now, \eqref{eq:ND_StratifiedCase_viscosities_SL} gives
 \begin{equation}
 	\label{eq:ND_StratifiedCase_solution_l_down1}
-	l_{down}(e) = \frac{1}{l_{up} e} \left(
+	\min (l_{down}^2, l_{up}^2) = \frac{1}{e} \left(
 	\frac{\kappa u_\star}{C_m}
 	\frac{z + z_{u}}{\phi_m(z/L_{MO})}
 \right)^2
@@ -609,7 +610,8 @@ into the previous equation and get
 \begin{equation}
 	\label{eq:ND_StratifiedCase_solution_l_down2}
 	\begin{cases}
-	l_{down}^{5/3} = \frac{1}{l_{up}} \frac{u_\star^{4/3}\left(
+	l_{down}^{7/3} = \frac{1}{l_{up}^{1/3}}
+		\frac{u_\star^{4/3}\left(
 	\frac{\kappa}{C_m}
 	\frac{z + z_{u}}{\phi_m(z/L_{MO})}
 	\right)^2}{
@@ -617,7 +619,8 @@ into the previous equation and get
 	\frac{\phi_m(z/L_{MO})}{c_\epsilon\kappa (z+z_{u})}
 	- \frac{g}{\theta_{\rm ref}c_\epsilon}\theta_\star
 	\right)^{2/3}} ~~~ {\rm if } ~~l_{down} < l_{up}\\
-	l_{down} = \frac{1}{l_{up}^{5/3}} \frac{u_\star^{4/3}\left(
+	l_{down}^{1/3} = \frac{1}{l_{up}^{7/3}}
+		\frac{u_\star^{4/3}\left(
 	\frac{\kappa}{C_m}
 	\frac{z + z_{u}}{\phi_m(z/L_{MO})}
 	\right)^2}{
@@ -628,7 +631,8 @@ into the previous equation and get
 	\end{cases}
 \end{equation}
 It is actually sufficient to use
-\eqref{eq:ND_StratifiedCase_solution_l_down1}
+\eqref{eq:ND_StratifiedCase_solution_l_down1} with
+the assumption $l_{down} < l_{up}$
 to compute $l_{down}$ explicitly. It also guarantees that
 the MOST viscosity and the MOST diffusivity numerically
 scale with $l_m\sqrt{e}$.
