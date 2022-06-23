@@ -20,6 +20,36 @@ equilibrium state.
 	\item The existence of a steady state is discussed in
 	Section \ref{sec:OASchwarz_DiscreteStationaryState}.
 	\item The well-posedness is discussed in Appendix
-	\ref{sec:OASchwarz_appendix_discreteVariationParameters}
-	\item the use of the inverse function theorem;
+	\ref{sec:OASchwarz_appendix_discreteVariationParameters}.
+	\item The use of the inverse function theorem can be
+		done in four steps:
+	\begin{enumerate}
+		\item concatenate $u_a, \phi_a, u_o, \phi_o$ in
+		a single vector $\mathbf{U}\in \mathbf{\cal U}$
+		where
+		\begin{equation}
+			\mathbf{\cal U} = L^2([0,T])^{M_o} \times
+			L^2([0,T])^{M_o} \times L^2([0,T])^{M_a}
+			\times L^2([0,T])^{M_a}
+		\end{equation}
+		\item
+		Define a mapping
+		$\mathbf{\Phi}: \mathbf{\cal U}\rightarrow \mathbf{Y}$
+		such that finding $\mathbf{\Phi}^{-1}(y)$ is equivalent
+		to solving the nonlinear semi-discrete problem
+			\eqref{eq:SWRbulk}.
+		\myTD{define $\mathbf{\Phi}$ explicitly}
+		\item Show that $\mathbf{\Phi}$ is $C^1$.
+			First, note that the mapping
+			$x \mapsto |x|x$ is analytic.
+			\myTD{Faudrait clarifier du coup:
+			on fait de l'analyse réelle ou complexe ?
+			comment on traduit le théorème de
+			l'inverse en analyse complexe ?}
+		\item Show that $D\mathbf{\Phi}(\mathbf{U}^e)$
+			is an isomorphism \myTD{de où vers Y?}.
+		$D\mathbf{\Phi}(\mathbf{U}^e)$ can
+		be inverted by solving the linearized problem which
+		is well-posed.
+	\end{enumerate}
 \end{enumerate}
