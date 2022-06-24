@@ -11,8 +11,10 @@
 %%%%%%% Command to choose the chapter
 \newcommand{\select}[1]
 {
-\ifthenelse{\equal{#1}{4}}{
+\ifthenelse{\equal{#1}{5}}{
 	\import{chapters/OASchwarz/}{OASchwarz.tex}}{}
+\ifthenelse{\equal{#1}{4}}{
+	\import{chapters/OceanND/}{OceanND.tex}}{}
 \ifthenelse{\equal{#1}{3}}{
 	\import{chapters/ND/}{NewDiscretisation.tex}}{}
 \ifthenelse{\equal{#1}{2}}{
