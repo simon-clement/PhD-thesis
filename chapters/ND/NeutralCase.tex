@@ -87,6 +87,9 @@ $e_\tau = \frac{u(\delta_{\rm sl})-u(0)}
 	{||u(\delta_{\rm sl})-u(0)||}$
 where the surface current $u(0, t)$ is set to 0 or given by
 the ocean model in a coupled situation.
+Setting $u(0,t)=0$ amounts to consider the "absolute" wind speed
+rather than the "relative" w.r.t. the surface currents. In
+the neutral case we assume $u(0,t)=0$ to shorten the expressions.
 %
 \begin{figure}
 	\centering
@@ -102,12 +105,13 @@ is proportional to the distance to the surface $z$
 is proportional to $u_\star z$, where the coefficient of
 proportionality is the Von Karman constant $\kappa = 0.40$.
 Combining molecular and turbulent viscosities in the surface layer
-gives $K_u(z\leq \delta_{sl}) = \kappa u_\star z + K_{u, {\rm mol}}
-= \kappa u_\star (z + z_{u})$ with $z_{u} = \frac{K_{u, {\rm mol}}}{\kappa u_\star}$.
+gives $K_u(z\leq \delta_{sl}) = \kappa u_\star (z + z_{u})$ where
+$z_{u} = z_u({K_{u, {\rm mol}}}, u_\star)$ depends on the
+geometry of the space domain.
 It follows from \eqref{eq:ND_NeutralCase_ConstantFlux} that
 \begin{equation}
 \label{eq:ND_NeutralCase_WallLaw}
-	||u(z, t) - u(0, t)|| = \frac{{u_\star}}{\kappa}
+	||u(z, t)|| = \frac{{u_\star}}{\kappa}
 	\ln(1+\frac{z}{z_{u}})
 \end{equation}
 A typical integration in time from $u(z, t^{n})$ to
@@ -115,23 +119,26 @@ $u(z, t^{n+1})$ is:
 \begin{enumerate}
 	\item Neutral Bulk: Use \eqref{eq:ND_NeutralCase_WallLaw}
 		to compute $u_\star = {\rm BULK}(u(\delta_{sl}, t^n))
-		:= \frac{\kappa ||u(\delta_{sl}, t^n)-u(0, t^n)||}
+		:= \displaystyle \frac{\kappa ||u(\delta_{sl}, t^n)||}
 			{\ln(1+\frac{\delta_{sl}}{z_{u}})}$
   \item Integrate in time \eqref{eq:ND_NeutralCase_EkmanEq}
   using \eqref{eq:ND_NeutralCase_ConstantFlux} as a boundary condition
-		either explicitly: $\left.K_u \partial_z u
+		either explicitly: 
+	\begin{equation}
+		\left.K_u \partial_z u
 		\right|_{z\leq \delta_{\rm sl}, t^{n+1}}
 		= u_\star^2 \frac{u(\delta_{\rm sl},
-		t^{\emphase{n}})-u(0,t^n)}
-		{||u(\delta_{\rm sl}, t^n)-u(0,t^n)||}$
+		t^{\emphase{n}})}
+		{||u(\delta_{\rm sl}, t^n)||}
+	\end{equation}
 		or implicitly:
 	\begin{equation}
 		\label{eq:ND_NeutralCase_implicitCond}
 		\left.K_u \partial_z u
 		\right|_{z\leq \delta_{\rm sl}, t^{n+1}}
 		= u_\star^2 \frac{u(\delta_{\rm sl},
-		t^{\emphase{n+1}})-u(0,t^{n+1})}
-		{||u(\delta_{\rm sl}, t^n)-u(0,t^n)||}
+		t^{\emphase{n+1}})}
+		{||u(\delta_{\rm sl}, t^n)||}
 	\end{equation}
 	\cite{lemarie_stability_2015} showed that the explicit
 	numerical interface condition is not necessarily
@@ -146,7 +153,7 @@ $u(z, t^{n+1})$ is:
 \subsubsection{Space discretization of
 \eqref{eq:ND_NeutralCase_EkmanEq} with Finite volumes}
 \label{sec:ND_NeutralCase_recallSplines}
-We recall here the Finite Volumes discretization used throughout
+We recall here the Finite Volume discretization used throughout
 this chapter. We focus on the space discretisation and the time
 dependency of $u(z, t)$ is hence omitted.
 \begin{figure}
@@ -259,13 +266,15 @@ integrated in time with \eqref{eq:ND_NeutralCase_semiDiscreteEkmanEq}.
 \eqref{eq:ND_NeutralCase_prognosticEqFV} and
 \eqref{eq:ND_NeutralCase_semiDiscreteEkmanEq} are hence the two 
 equations defining our finite volumes discretization.
-Note that we arrive naturally on compact schemes for advection
-(see e.g. \cite{piller_finite-volume_2004}), but with a different
-approach of imposing a spline reconstruction. This approach
-let us better control the vertical profiles and
-facilitate the derivation of the boundary conditions.
+Note that we arrive naturally on fourth-order compact schemes for
+the first derivative $\partial_z u$ and second-order for
+$\partial_z^2 u$ (see e.g. \cite{piller_finite-volume_2004}),
+but with a different approach of imposing a spline reconstruction.
+This approach lets us better control the vertical profiles
+than the usual compact methods and
+facilitates the derivation of the boundary conditions.
 \paragraph{Remark: fourth-order compact scheme}
-To get a more accurate scheme,
+To get a more accurate scheme for the second order derivative,
 a fourth degree polynomial can also be used.
 if $\frac{1}{12}, \frac{5}{6}$ are used in
 \eqref{eq:ND_NeutralCase_prognosticEqFV} instead of
@@ -325,8 +334,8 @@ Then the reconstruction is given by
 and we obtain a subgrid reconstruction corresponding to
 the fourth-order
 \footnote{
-In the domain boundaries there is no continuity constraint.
-${\cal S}^4_{\frac{1}{2}}(-\frac{h_{\frac{1}{2}}}{2})$
+On the domain boundaries there is no continuity constraint.
+${\cal S}^4_{\frac{1}{2}}\left(-\frac{h_{\frac{1}{2}}}{2}\right)$
 can be constrained by a special treatment
 (see \cite{piller_finite-volume_2004})
 to keep the fourth order accuracy on Dirichlet boundaries.
@@ -368,7 +377,7 @@ first part of the discretization and showed that there is a
 negative bias in conventional surface flux schemes. This
 bias comes from the fact that these schemes assume that the
 volume-averaged variables are equal to the value in the center
-of the volume. The prognostic variables in the surface layer
+of the volume. However the prognostic variables in the surface layer
 follow a logarithmic profile as shown in
 \eqref{eq:ND_NeutralCase_WallLaw}: the concavity of this profile thus
 creates a systematic error when assuming that the average and the
@@ -408,19 +417,19 @@ on spline reconstruction is particular:
 %
 Our objective is to compare this surface flux scheme with the
 conventional ones
-and to introduce an other surface flux scheme that is more coherent
+and to introduce another surface flux scheme that is more coherent
 with regard to the continuous model of Section
 \ref{sec:ND_NeutralCase_continuousModel}.
 We now present the strategies that are representative of
 what is done in actual models. The strategies are applied to
-the Finite Volumes scheme presented in Section
+the Finite Volume scheme presented in Section
 \ref{sec:ND_NeutralCase_continuousModel} and are
 summarized in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
   \begin{itemize}
 	  \item With Finite Differences:
 		  it is assumed that
 		  $\delta_{\rm sl} = z_{\frac{1}{2}}$.
-		A standard Finite Differences approximation applied to
+		A standard Finite Difference approximation applied to
 		  the evolution equation states that
 		  $(\partial_t+if) u_{\frac{1}{2}}
 		  =\frac{1}{h_{\frac{1}{2}}}(K_1\phi_1 - K_0\phi_0)
@@ -437,7 +446,7 @@ summarized in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
 				\text{FD value at }
 			z_{\frac{1}{2}}})
 		\end{equation}
-		  Note that using an other point further from
+		  Note that using another point further from
 		  the surface (e.g. $u_{\frac{7}{2}}^n$) instead
 		  of $u_{\frac{1}{2}}^n$ is the idea of the method
 		  given by \citep{kawai_wall-modeling_2012}
@@ -488,8 +497,9 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
     \item "FV Nishizawa":  unlike the other strategies,
 	    it is assumed that the first cell is entirely inside
 		the surface layer: $\delta_{\rm sl} = z_{1}$.
-		\cite{nishizawa_surface_2018} shows that the "FV1"
-		strategy systematically underestimate
+		We mentioned previously that
+		\cite{nishizawa_surface_2018} show that the "FV1"
+		strategy systematically underestimates
 		$u(\delta_{\rm sl})$ because of the
 	  concavity of the logarithmic profile.
 	  An alternative bulk algorithm is hence derived by averaging
@@ -501,8 +511,8 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 		\left(\ln(1+\frac{z}{z_u})\emphase{-1}\right)
 	\end{equation}
 	However, the equation \eqref{eq:ND_NeutralCase_EkmanEq}
-	and the spline reconstruction is left unchanged in the
-	surface layer.
+	and the spline reconstruction are left unchanged in the
+	surface layer:
 		  \begin{equation}
 		\underbrace{K_{u,0} \emphase{\phi}^{n+1}_\emphase{0}}_{\text{Surface flux}}
 		= u_\star^2 e_\tau, ~~~~~~~~
@@ -575,7 +585,7 @@ Let us draw some comments and comparisons on the surface flux schemes:
 		induced difference with "FV pure" is not important
 		in our case where the spline profile are less concave
 		than the logarithmic profile.
-		We will only consider "FV pure" to
+		We will thus only consider "FV pure" to
 		reduce the number of cases.
 	\item Some of the strategies assume
 		\eqref{eq:ND_NeutralCase_EkmanEq} inside the surface
@@ -593,7 +603,7 @@ Let us draw some comments and comparisons on the surface flux schemes:
 \end{itemize}
 As shown in Table \ref{tab:ND_NeutralCase_summary_sfscheme}
 the "FV2" surface flux scheme solves those problems.
-However for this scheme and all the others presented here
+However for this scheme and all the others presented here,
 changing the space step
 also changes the height of the surface layer $\delta_{\rm sl}$.
 This behaviour is not satisfactory: although
@@ -637,11 +647,11 @@ the advantages of the "FV2" scheme, but with a free $\delta_{\rm sl}$.
 	Section \ref{sec:ND_NeutralCase}}
 	\label{tab:ND_NeutralCase_summary_sfscheme}
 \end{table}
-\subsection{A surface flux scheme with a free $\delta_{\rm sl}<z_1$}
+\subsection{A surface flux scheme with a free $\delta_{\rm sl}$}
 \label{sec:ND_NeutralCase_newSFscheme}
 We now construct a boundary condition that is coherent
 with the continuous model presented in
-\ref{sec:ND_NeutralCase_continuousModel}
+\S \ref{sec:ND_NeutralCase_continuousModel}
 with a free $\delta_{sl}$:
 \begin{equation}
 	\label{eq:ND_NeutralCase_bottomCondFVFree}
@@ -655,7 +665,7 @@ with a free $\delta_{sl}$:
 			\delta_{sl}})
 \end{equation}
 We first assume
-that $\delta_{\rm sl} < z_1$ and then relax this hypothesis.
+that $\delta_{\rm sl} < z_1$ and will then relax this hypothesis.
 In the first grid cell, we assume that
 \eqref{eq:ND_NeutralCase_WallLaw} applies for $z<\delta_{sl}$
 and we separate the 
@@ -757,7 +767,7 @@ on the values of $\widetilde{h}, h_{1/2}$. It decreases with
 $\delta_{sl}$; $\alpha_{\rm sl} = 1 \iff \widetilde{h}=h_{1/2}$
 and in this case \eqref{eq:ND_NeutralCase_utildeExpression} is
 equivalent to $\widetilde{u} = \overline{u}_{1/2}$.
-Figure \ref{fig:ND_NeutralCase_alpha_sl} show the
+Figure \ref{fig:ND_NeutralCase_alpha_sl} shows the
 profile of $\alpha_{sl}$.
 \begin{figure}
 	\centering
@@ -770,7 +780,7 @@ profile of $\alpha_{sl}$.
 \end{figure}
 \begin{remark}
 $\alpha_{\rm sl}$ is a constant in the neutral case
-only when $\delta_{\rm sl}$ and $z_{u}$ are constants. However,
+only when $\delta_{\rm sl}$ and $z_{u}$ are constants. However
 $z_{u}$ depends on $u_\star$ and will vary.
 In all this thesis we assume that $\delta_{\rm sl}$ does not
 change over time.
@@ -825,7 +835,7 @@ $K_{u,\delta}\phi_{\delta}$.
 	\centering
 	\includegraphics[scale=0.6]{images/neutral_comparisonPlot.pdf}
 	\caption[Vertical profiles of $|u|$ and $\arg(u)$]
-	{Vertical profiles of $|u|$ (top) and $\arg(u)$ (bottom)
+	{Vertical profiles of $||u||$ (left) and $\arg(u)$ (right)
 	for the various surface flux schemes presented
 	after one day of integration in time in neutral conditions.
 	The time step is $\Delta t = 30 \;{\rm s}$
