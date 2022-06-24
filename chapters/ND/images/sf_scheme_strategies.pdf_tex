@@ -74,7 +74,7 @@
     \put(0,0){\includegraphics[width=\unitlength,page=6]{sf_scheme_strategies.pdf}}%
     \put(-0.00021593,0.07452924){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_0$\end{tabular}}}}%
     \put(-0.00052963,0.19605287){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{\frac{1}{2}}$\end{tabular}}}}%
-    \put(-0.00021593,0.30741354){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_1$\end{tabular}}}}%
+    \put(-0.00021593,0.3042233){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_1$\end{tabular}}}}%
     \put(-0.00021593,0.39354916){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_2$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=7]{sf_scheme_strategies.pdf}}%
     \put(0.12037462,0.04466732){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_{u,0}\phi_0^{n+1}=u_{\star}^2 e_{\tau}$\end{tabular}}}}%

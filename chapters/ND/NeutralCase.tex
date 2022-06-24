@@ -238,10 +238,10 @@ The continuity of the solution at cell interfaces (${\cal S}_{m-\frac{1}{2}}\lef
 \begin{equation}
 \label{eq:ND_NeutralCase_continuityEquationFV}
 	\frac{h_{m-1/2}}{\emphase{6}} \phi_{m-1} 
-	+ \frac{\emphase{2}h_{m}}{\emphase{3}} \phi_m  
+	+ \frac{\emphase{2}\frac{h_{m+1/2}+h_{m-1/2}}{2}}
+		{\emphase{3}} \phi_m  
 	+ \frac{h_{m+1/2}}{\emphase{6}} \phi_{m+1} = \Bar{u}_{m+\frac{1}{2}} - \Bar{u}_{m-\frac{1}{2}}
 \end{equation}
-where $h_m = \frac{h_{m-1/2} + h_{m+1/2}}{2}$.
 Combining \eqref{eq:ND_NeutralCase_semiDiscreteEkmanEq}
 and \eqref{eq:ND_NeutralCase_continuityEquationFV} finally gives
 the prognostic equation to integrate
@@ -249,14 +249,15 @@ $\partial_z u$ in time:
 \begin{equation}
 \begin{aligned}
 \label{eq:ND_NeutralCase_prognosticEqFV}
-(\partial_t + if) &\left( \frac{h_{m-1/2}}{6} \phi_{m-1} 
-+ \frac{2h_m}{3} \phi_m  
-+ \frac{h_{m+1/2}}{6} \phi_{m+1} \right) \\
+	(\partial_t + if) &\left( \frac{h_{m-\frac{1}{2}}}{6}
+				\phi_{m-1}
+	+ \frac{h_{m-\frac{1}{2}} + h_{m+\frac{1}{2}}}{3} \phi_m
+	+ \frac{h_{m+\frac{1}{2}}}{6} \phi_{m+1} \right) \\
 	&-
     \left(
-	\frac{K_{u, m+1}}{ h_{m+1/2}}\phi_{m+1} -
-	\frac{2 h_m K_{u,m}}{h_{m-1/2} h _{m+1/2}}\phi_m +
-	\frac{K_{u,m-1}}{h_{m-1/2}}\phi_{m-1}
+	\frac{K_{u, m+1}}{ h_{m+\frac{1}{2}}}\phi_{m+1} -
+	\frac{2 h_m K_{u,m}}{h_{m-\frac{1}{2}} h _{m+\frac{1}{2}}}\phi_m +
+	\frac{K_{u,m-1}}{h_{m-\frac{1}{2}}}\phi_{m-1}
     \right)
 = 0
 \end{aligned}
@@ -368,8 +369,8 @@ presented in Section \ref{sec:ND_NeutralCase_continuousModel}:
 		The values $u(\delta_{\rm sl}, \cdot)$ that intervene
 		in the bulk routine and in
 		$e_\tau= \frac{u(\delta_{\rm sl},
-		t^{n+1})-u(0,t^{n+1})}
-		{||u(\delta_{\rm sl}, t^n)-u(0,t^n)||}$
+		t^{n+1})}
+		{||u(\delta_{\rm sl}, t^n)||}$
 		are the same.
 \end{itemize}
 \cite{nishizawa_surface_2018} investigated the effect of the
@@ -505,7 +506,7 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 	  An alternative bulk algorithm is hence derived by averaging
 		\eqref{eq:ND_NeutralCase_WallLaw} in the first cell:
 	\begin{equation}
-		||\overline{u}_{\frac{1}{2}} - u(0)||
+		||\overline{u}_{\frac{1}{2}}||
 		= \frac{u_\star}{\kappa}
 		\left(1\emphase{+\frac{z_u}{\delta_{sl}}}\right)
 		\left(\ln(1+\frac{z}{z_u})\emphase{-1}\right)
@@ -567,9 +568,16 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 \begin{figure}
 	\centering
 	\subimport{images/}{sf_scheme_strategies.pdf_tex}
-	\caption{Summary of the surface flux schemes for $u(0)=0$.
-	The wind profiles shown here do not correspond to
-	numerical values.}
+	\caption{Summary of the surface flux schemes.
+	Averaged values are noted with vertical dotted lines;
+	Values considered in the Finite Difference
+	sense are encircled; implicit parts of the schemes
+	are represented as dashed lines; orange profiles
+	follow the wall law.
+	With "FV Nishizawa", the average is \textit{interpreted}
+	as the average of a wall law and is used in the
+	$\overline{\rm BULK}$ routine.
+	}
 	\label{fig:ND_NeutralCase_summary_sfscheme}
 \end{figure}
 The different strategies are summarized in Table
@@ -652,7 +660,8 @@ the advantages of the "FV2" scheme, but with a free $\delta_{\rm sl}$.
 We now construct a boundary condition that is coherent
 with the continuous model presented in
 \S \ref{sec:ND_NeutralCase_continuousModel}
-with a free $\delta_{sl}$:
+with a free $\delta_{sl}$, named "FV free" in Table
+\ref{tab:ND_NeutralCase_summary_sfscheme}:
 \begin{equation}
 	\label{eq:ND_NeutralCase_bottomCondFVFree}
 	\underbrace{K_{u,\delta}
@@ -684,7 +693,7 @@ The following subgrid reconstruction is used:
 		~~~~~~~~~~~ z \geq \delta_{sl}
 		\\
 		\frac{{u_\star}}{\kappa}
-		\ln(1+\frac{z}{z_{u}})e_\tau + u(0),
+		\ln(1+\frac{z}{z_{u}})e_\tau,% + u(0),
 		~~~ z < \delta_{sl}
 	\end{cases}
 \end{equation}
@@ -734,25 +743,25 @@ $ \int_{\delta_{sl}}^{z_1} u dz = \int_{z_0}^{z_1} u dz -
 	h_{1/2}\emphase{\overline{u}_{1/2}} -
 	\emphase{e_\tau} \frac{{u_\star}}{\kappa}\int_{z_0}^{\delta_{sl}}
 	\ln(1+\frac{z}{z_{u}}) dz
-	+ (\delta_{sl}-z_0) u(0)
+	%+ (\delta_{sl}-z_0) u(0)
 \end{equation}
 where the time indices in
-$e_\tau = \frac{u^\emphase{n+1}(\delta_{sl})-u^\emphase{n+1}(0)}
-{||u^\emphase{n}(\delta_{sl})-u^\emphase{n}(0)||}$ must be the same as in the
+$e_\tau = \frac{u^\emphase{n+1}(\delta_{sl})}
+{||u^\emphase{n}(\delta_{sl})||}$ must be the same as in the
 bottom boundary condition
 \eqref{eq:ND_NeutralCase_bottomCondFVFree}.
 Let us inject the reconstruction of
 $u(\delta_{sl}) = \widetilde{u} - \widetilde{h}(\phi_{\delta}/3 + \phi_1/6)$
 (obtained from \eqref{eq:ND_NeutralCase_fullReconstruction})
-and the log law $||u^n(\delta_{sl})-u^n(0)|| = \frac{{u_\star}}{\kappa}\ln(1+\frac{\delta_{sl}}{z_{u}})$ in \eqref{eq:ND_NeutralCase_Chasles}.
+and the log law $||u^n(\delta_{sl})|| = \frac{{u_\star}}{\kappa}\ln(1+\frac{\delta_{sl}}{z_{u}})$ in \eqref{eq:ND_NeutralCase_Chasles}.
 One then gets:
 \begin{equation}
 	\label{eq:ND_NeutralCase_utildeExpression}
 	% \frac{\widetilde{h}}{h_{1/2}}\widetilde{u} = \overline{u}_{1/2} - \left(\widetilde{u} - \widetilde{h}(\phi_{\delta}/3 + \phi_1/6)
 	% \right)\tau_{sl} +
 	% (\tau_{sl} - \frac{h_{1/2} - \widetilde{h}}{h_{1/2}})u(0)
-	\left(\emphase{\widetilde{u}} - u(0)\right) \alpha_{sl} =
-	\emphase{\overline{u}_{\frac{1}{2}}} - u(0) + \widetilde{h}\left(
+	\emphase{\widetilde{u}} \alpha_{sl} =
+	\emphase{\overline{u}_{\frac{1}{2}}} + \widetilde{h}\left(
 	\frac{\emphase{\phi_\delta}}{3} + \frac{\emphase{\phi_1}}{6} \right)
 	\left(\alpha_{sl} - \frac{\widetilde{h}}{h_{\frac{1}{2}}}\right)
 \end{equation}
@@ -792,9 +801,9 @@ variables with \eqref{eq:ND_NeutralCase_utildeExpression}
 and we obtain $u(\delta_{sl})$ which is used as input
 of the bulk routine and in the computation of $e_\tau$:
 \begin{equation}
-u(\delta_{sl})-u(0)=\frac{\overline{u}_{1/2} -
+u(\delta_{sl})=\frac{\overline{u}_{1/2} -
 	\frac{\widetilde{h}^2}{h_{1/2}}
-	(\frac{\phi_{\delta}}{3} + \frac{\phi_1}{6}) - u(0)}
+	(\frac{\phi_{\delta}}{3} + \frac{\phi_1}{6})}
 	{\alpha_{\rm sl}}
 \end{equation}
 The boundary condition \eqref{eq:ND_NeutralCase_bottomCondFVFree}
@@ -806,8 +815,8 @@ is hence formulated as:
 	} = u_\star^2
 	\underbrace{\frac{\overline{u}_{1/2} -
 	\frac{\widetilde{h}^2}{h_{1/2}}
-	(\frac{\phi_{\delta}}{3} + \frac{\phi_1}{6})-u(0)}
-	{\alpha_{\rm sl}||u^n(\delta_{sl}) - u(0)||}}_{
+	(\frac{\phi_{\delta}}{3} + \frac{\phi_1}{6})}
+	{\alpha_{\rm sl}||u^n(\delta_{sl}) ||}}_{
 		e_\tau \text{ using reconstruction at } \delta_{sl}
 	}
 \end{equation}
@@ -821,7 +830,7 @@ becomes
 	\left(\overline{u}_{1/2} + \widetilde{h}
 	\left(\frac{\phi_{\delta}}{3} + \frac{\phi_1}{6}\right)
 	\left(\alpha_{sl} - \frac{\widetilde{h}}{h_{\frac{1}{2}}}\right)
-	+ (\alpha_{sl} - 1) u(0)
+	%+ (\alpha_{sl} - 1) u(0)
 	\right)\right)
 	= \frac{K_{u, 1}\phi_1 - K_{u,\delta} \phi_{\delta}}{\widetilde{h}}
 \end{equation}
