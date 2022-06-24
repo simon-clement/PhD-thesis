@@ -372,3 +372,74 @@ In both cases, the different profiles are very similar.
 A ocean-atmosphere coupled case is presented in Section
 \ref{sec:ND_Ocean}, where the surface scheme may be of a greater
 importance.
+\subsection{Study of the consistency: coupled case}
+\begin{figure}
+	\centering
+	\subimport{images/}{algo_schwarz_ND_OA.pdf_tex}
+	\caption{Schwarz algorithm applied to ocean-atmosphere
+		coupling}
+	\label{fig:ND_Consistency_schwarz_algo}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.6]{images/consistency_comparisonCoupled.pdf}
+	\caption{Same as Figure
+	\ref{fig:ND_Consistency_comparisonUnstable} but the sea
+	surface temperature $\theta_s$ and surface currents
+	$u(0)$ are obtained with a coupled ocean column model.}
+	\label{fig:ND_Consistency_comparisonCoupled}
+\end{figure}
+We now introduce an oceanic column model below the
+atmospheric model.
+Figure \ref{fig:ND_Consistency_comparisonCoupled}
+shows the differences found between a high resolution simulation
+and a low resolution simulation in an unstable situation of
+this coupled system.
+\paragraph{Description of the test case}
+In this test case everything is identical to the
+unstable case except for the sea surface temperature
+$\theta_s$ and the surface current $u(0)$.
+Instead of prescribing these values directly,
+a Schwarz algorithm is used: the first iteration
+begins with the atmosphere and corresponds to
+the unstable test case.
+The atmosphere is integrated in time
+and sends its turbulent fluxes $u_\star^2$ and
+$u_\star \theta_\star$ to the ocean model, which
+returns the surface values $u(0)$, $\theta_s$.
+This process is iterated (see Figure
+\ref{fig:ND_Consistency_schwarz_algo}) and
+Figure \ref{fig:ND_Consistency_comparisonCoupled} shows
+the state of the atmospheric model after 3 iterations.
+\par
+The ocean model will be described in chapter
+\ref{ch:OceanND} (Finite Differences, $\delta_o=0$).
+It is forced with radiative fluxes
+to model a diurnal cycle:
+\begin{itemize}
+\item
+	a shortwave (positive downward) heat flux
+	\begin{equation}
+		Q_{sw}=\max(0,Q_{\max} \cos(2\pi d))
+	\end{equation}
+	penetrates in the first few levels of the ocean ($d$ is
+	the time in days and $Q_{\max} = 500 {\rm W}.{\rm m}^{-2}$);
+\item  a longwave (positive downward) heat flux
+	$Q_{lw} = -\frac{Q_{\max}}{\pi}$ is applied at the surface.
+	Its value corresponds to the daily-averaged $Q_{sw}$.
+\end{itemize}
+\paragraph{Results}
+Figure \ref{fig:ND_Consistency_comparisonCoupled}
+shows in its top panels $u_\star$, $\theta_\star$ and
+the vertical profiles of $||u||$, $\theta$ in the atmosphere
+after 3 Schwarz iterations with the ocean model.
+First, note that the oscillations of $u_\star$ and $\theta_\star$
+are of a smaller amplitude than in the unstable experiment.
+Then, in the bottom panel, one can see that the difference
+in $u_\star$ and $u$
+between high and low resolutions is far smaller when using
+the "FV free" scheme. Unlike the previous cases, the "FV2"
+scheme do not show a lot of differences between
+its high and low resolutions.
+Finally, the dependency of $t_\star$ on the resolution
+seems

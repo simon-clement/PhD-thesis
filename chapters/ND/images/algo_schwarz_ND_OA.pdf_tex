@@ -1,0 +1,73 @@
+%% Creator: Inkscape 1.2 (1:1.2+202206011327+fc4e4096c5), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'algo_schwarz_ND_OA.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{334.99366743bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.44321376)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{algo_schwarz_ND_OA.pdf}}%
+    \put(0.05201673,0.38734581){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\left.\theta_s\right|_{k=0}$:\end{tabular}}}}%
+    \put(-0.00120621,0.32501711){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\left.u(0)\right|_{k=0}=0$:\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{algo_schwarz_ND_OA.pdf}}%
+    \put(0.60202743,0.37377739){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Atmosphere\end{tabular}}}}%
+    \put(0.6310324,0.09370184){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Ocean\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{algo_schwarz_ND_OA.pdf}}%
+    \put(0.38138091,0.23845104){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\left. K_u \partial_z u\right|_k^{\rm ocean} = \frac{\rho_a}{\rho_o}u_\star^2 e_\tau $\end{tabular}}}}%
+    \put(0.35910012,0.17087111){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\left.K_\theta \partial_z \theta\right|_k^{\rm ocean} = \frac{\rho_a c_a^p}{\rho_o c_o^p}u_\star \theta_\star$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{algo_schwarz_ND_OA.pdf}}%
+    \put(0.83381843,0.31881034){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\left.\theta_s\right|_k$\end{tabular}}}}%
+    \put(0.83284067,0.26463888){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\left. u(0)\right|_k$\end{tabular}}}}%
+    \put(0.54326165,0.05609668){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$Q_{sw}$:\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{algo_schwarz_ND_OA.pdf}}%
+    \put(0.54326164,0.01579747){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$Q_{lw}$:\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{algo_schwarz_ND_OA.pdf}}%
+  \end{picture}%
+\endgroup%
