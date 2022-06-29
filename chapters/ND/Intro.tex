@@ -1,16 +1,202 @@
 \section{Introduction}
-{\color{red} [J'ai pas encore rédigé l'intro]}
+Schwarz methods have been studied in Chapters
+\ref{ch:discreteSchwarzAnalysis} and
+\ref{ch:approximatedDiscreteSchwarz}; we now focus
+on the discretisation of the surface layer above the
+ocean surface.
+The physics presented in chapter \ref{ch:airseaSCM} are
+recalled in \S \ref{sec:ND_Intro_continuousModel};
+the specific problem of the height of the surface layer
+is raised in \S \ref{sec:ND_Intro_heightSL} and the
+objectives of this chapter are detailed in
+\S \ref{sec:ND_Intro_objectives}.
+\subsection{Physical considerations}
+\label{sec:ND_Intro_continuousModel}
+We consider in this chapter the "Ekman+TKE" model presented
+in Chapter \ref{ch:airseaSCM}.
+This 1D vertical model includes the Coriolis effect
+and a vertical turbulent term (the stratification
+will be introduced later in \S\ref{sec:ND_StratifiedCase}):
+\begin{equation}
+	\label{eq:ND_Intro_physics_evolutionEq}
+	\partial_t u + i f u + \partial_z \langle w'u'\rangle = 0 
+\end{equation}
+As it was detailed in \S \ref{sec:airseaSCM_hierarchy_Ekman}
+$u$ is considered to be a complex-valued function for an easier
+representation of the Coriolis effect.
+The vector norm $||\cdot||$ is equivalent to the modulus
+$|\cdot|$.
+In \eqref{eq:ND_Intro_physics_evolutionEq}, the
+Boussinesq hypothesis is applied on the turbulent flux
+$\langle w'u' \rangle = - K_u \partial_z u$ where
+$K_u$ is the turbulent viscosity.
+In this chapter we focus on this flux and its bottom boundary
+condition.
+\par
+We present a continuous model which describes the atmosphere
+column as the coupling of two regions:
 \begin{itemize}
-\item The solution obtained with a discretization
-	should be similar {\color{red} en quel sens ? }
-		to the continuous solution.
+		\item the surface layer where the turbulent motion
+			comes from the proximity of the ocean surface;
+		\item the remainder of the atmosphere where other
+			processes can have a significant effect
+			on the vertical mixing.
+\end{itemize}
+In fluid dynamics, the presence of a rough surface makes strong
+gradients appear:
+due to the no-slip boundary condition
+the scales of motion close to the surface are much smaller than
+elsewhere in the domain and it is numerically
+intractable in most applications
+to refine the mesh enough for those small scales.
+The models hence exclude from the computational domain
+a part of the surface layer, using an adapted boundary
+condition.
+\cite{mohammadi_rough_1998} show that bulk boundary
+conditions can be derived with domain decomposition arguments;
+the computational domain is split into two parts:
+the surface layer $(0,\delta_{sl})$ and the remainder of
+the atmosphere column, $(\delta_{sl}, +\infty)$
+(see Figure \ref{fig:ND_NeutralCase_EkmanContinuous}).
+%
+\par
+The surface layer has two main characteristics:
+\begin{itemize}
+	\item it is well mixed. The governing equation
+		is usually stationary because the surface layer
+		immediately adjusts to the external parameters.
+		As a consequence (and because the Coriolis effect
+		and the geostrophic forcing are neglected),
+		the flux $K \partial_z u$
+		is a constant along the vertical axis.
+	\item It is close to the surface:
+		the vertical profile of $K$ strongly depends 
+		on $z$.
+\end{itemize}
+The equations in the atmosphere column are hence (see Figure
+\ref{fig:ND_NeutralCase_EkmanContinuous}):
+\begin{subequations}
+	\label{eq:ND_NeutralCase_continuousModel}
+	\begin{equation}
+	\label{eq:ND_NeutralCase_EkmanEq}
+  (\partial_t + if) u - \partial_z (K_u \partial_z u) = if u_G
+		,~~~~~ z \geq \delta_{sl}
+	\end{equation}
+	\begin{equation}
+	\label{eq:ND_NeutralCase_ConstantFlux}
+	K_u \partial_z u
+	= u_\star^2
+	e_\tau, ~~~~~~~~~~~ z < \delta_{sl}
+	\end{equation}
+\end{subequations}
+where $u_G$ is a constant value representing the geostrophic guide and
+$f$ is the Coriolis parameter.
+%The discretized profile of $K_u$ will be
+%detailed in Section \ref{sec:ND_StratifiedCase_turbulentVisc}.
+The orientation of $\partial_z u$ is contained in
+$e_\tau = \frac{u(\delta_{\rm sl})-u(0)}
+	{||u(\delta_{\rm sl})-u(0)||}$
+where the surface current $u(0, t)$ is set to 0 or given by
+the ocean model in a coupled situation.
+In the neutral case we assume $u(0,t)=0$ to shorten the expressions.
+\footnote{
+Setting $u(0,t)=0$ amounts to consider the "absolute" wind speed
+rather than the "relative" wind w.r.t. the surface currents:
+the implementation of current feedbacks in ocean-atmosphere
+coupled models is discussed in \cite{renault_implementation_2019}.
+}
+%
+\begin{figure}
+	\centering
+	\subimport{images/}{notations_EkmanContinuous.pdf_tex}
+	\caption{Continuous equations where the surface layer
+	is excluded from the computational domain.}
+	\label{fig:ND_NeutralCase_EkmanContinuous}
+\end{figure}
+\par
+% \myTD{ici on en dit trop ou pas assez: on peut citer
+% Schlichting (1960) ptet sur le proportional to $z$}
+% In the surface layer, the size of the turbulent eddies at height $z$
+% is proportional to the distance to the surface $z$
+% (e.g. \cite{kawai_wall-modeling_2012}).
+%The turbulent viscosity
+%linearly scales with $u_\star z$, where the coefficient of
+%proportionality is the Von Karman constant $\kappa = 0.40$.
+%Combining molecular and turbulent viscosities in the surface layer
+The viscosity in the surface layer is
+$K_u(z\leq \delta_{sl}) = \kappa u_\star (z + z_{u})$ where
+$z_{u} = z_u({K_{{\rm mol}}}, u_\star)$ depends on the
+geometry of the space domain and $\kappa=0.40$ is the Von
+Karman constant.
+It follows from \eqref{eq:ND_NeutralCase_ConstantFlux} that
+\begin{equation}
+\label{eq:ND_NeutralCase_WallLaw}
+	||u(z, t)|| = \frac{{u_\star}}{\kappa}
+	\ln(1+\frac{z}{z_{u}})
+\end{equation}
+which is called \textit{logarithmic profile} (or in the
+stratified case \textit{MOST profile}).
+The \textit{wall law} can refer to both the logarithmic profile,
+the surface layer viscosity $K_u(z\leq \delta_{sl})$
+and the boundary condition \eqref{eq:ND_NeutralCase_ConstantFlux}.
+\paragraph{BULK routines}
+The routine used to compute the friction velocity $u_\star$
+is called ${\rm BULK}$. It takes as parameters:
+\begin{itemize}
+	\item the (relative) wind speed $u(\delta_{sl})$;
+	\item the height of the surface layer $\delta_{sl}$;
+	\item the temperature difference
+		$\theta(\delta_{sl}) - \theta(0)$
+		(for the stratified case);
+\end{itemize}
+In the neutral case, it starts with a first guess of $z_u$ then
+uses \eqref{eq:ND_NeutralCase_WallLaw} to compute iteratively
+$u_\star$ and $z_u(K_{\rm mol}, u_\star)$ (see
+\cite{fairall_bulk_2003} for more precisions).
+\paragraph{Bottom boundary condition}
+A typical integration in time from $u(z, t^{n})$ to
+$u(z, t^{n+1})$ is:
+\begin{enumerate}
+	\item Neutral Bulk: Use \eqref{eq:ND_NeutralCase_WallLaw}
+		to compute $u_\star = {\rm BULK}(u(\delta_{sl}, t^n))
+		:= \displaystyle \frac{\kappa ||u(\delta_{sl}, t^n)||}
+			{\ln(1+\frac{\delta_{sl}}{z_{u}})}$
+  \item Integrate in time \eqref{eq:ND_NeutralCase_EkmanEq}
+  using \eqref{eq:ND_NeutralCase_ConstantFlux} as a boundary condition
+		either explicitly: 
+	\begin{equation}
+		\left.K_u \partial_z u
+		\right|_{z\leq \delta_{\rm sl}, t^{n+1}}
+		= u_\star^2 \frac{u(\delta_{\rm sl},
+		t^{\emphase{n}})}
+		{||u(\delta_{\rm sl}, t^n)||}
+	\end{equation}
+		or implicitly:
+	\begin{equation}
+		\label{eq:ND_NeutralCase_implicitCond}
+		\left.K_u \partial_z u
+		\right|_{z\leq \delta_{\rm sl}, t^{n+1}}
+		= u_\star^2 \frac{u(\delta_{\rm sl},
+		t^{\emphase{n+1}})}
+		{||u(\delta_{\rm sl}, t^n)||}
+	\end{equation}
+	\cite{lemarie_stability_2015} showed that the explicit
+	numerical interface condition is not necessarily
+	stable: we choose to use the implicit condition and note
+		$u_\star^2 e_\tau$ the right-hand side of
+		\eqref{eq:ND_NeutralCase_implicitCond}.
+	% citation: IFS Part IV end of page 48
+	This implicit implementation is used for instance in the
+	ECMWF model (see Section 3.5 of \citep{ecmwf_ifs_2020}).
+\end{enumerate}
+\subsection{Height of the surface layer}
+\label{sec:ND_Intro_heightSL}
+
+\begin{itemize}
 \item The continuous solution should be recovered when
 	the space step tends to 0.
 \item The height of the surface layer
 	is usually determined by the discretization.
-\item This chapter presents a discretization such that
-	the surface layer can be chosen for physical reasons,
-	in addition to numerical ones.
 \item We want the discretization to be robust with regard to
 	the space step. In particular, when the space step
 	tends to 0, the surface layer should still
@@ -32,8 +218,8 @@
 		\cite{kawai_wall-modeling_2012} propose to use other
 		levels than the first one to parameterize the
 		wall law in the neutral case.
-	\item \cite{maronga_improved_2020} proposed an improved
-		boundary condition for stratified Large-Eddy Simulations
+\item \cite{maronga_improved_2020} proposed an improved
+	boundary condition for stratified Large-Eddy Simulations
 		which consists in using as the bulk input
 		horizontally averaged values at
 		$\delta_{sl}$ chosen for physical and numerical
@@ -47,21 +233,20 @@
 	in some models
 	because of an underlying assumption that the log layer
 		is linear. {\color{red} dit comme ça ça fait étrange}
-	\item The model used to derive this discretization is a 1D Ekman
-	equation, with a forcing representing a geostrophic guide.
-		The turbulent viscosity is computed with a
-		one-equation turbulence closure model. It was
-		tested against the code used in \cite{lemarie_simplified_2021}
-\item Il faut insister sur le fait qu'on parle de flux $K\partial_z u$
-	et que ça correspond au tenseur de Reynolds et qu'on s'intéresse
-		particulièrement à sa cond. limite de surface.
-\item Harmoniser et définir ce que j'appelle log law/ wall law/ law of the wall
-\item On s'intéresse à une surface plane avec no-slip condition
-\item section théorie physique où on parle des trucs considérés comme
-	vrais.
-\item rappeler qu'on est avec des complexes
-\item {\color{red} objectifs du chapitre}
-\item We begin with a neutral stratification for pedagogical purposes,
-	then apply the same concepts to a stratified column of
-		atmosphere.
+	\item The model used to derive this discretization is a
+	1D Ekman equation, with a forcing representing a
+	geostrophic guide.  The turbulent viscosity is computed with a
+	one-equation turbulence closure model. It was
+	tested against the code used in \cite{lemarie_simplified_2021}
+\end{itemize}
+\subsection{Objectives}
+\label{sec:ND_Intro_objectives}
+\begin{itemize}
+\item The solution obtained with a discretization
+	should be similar {\color{red} en quel sens ? }
+		to the continuous solution.
+\item This chapter presents a discretization such that
+	the surface layer can be chosen for physical reasons,
+	in addition to numerical ones.
+\item We compare several strategies...
 \end{itemize}

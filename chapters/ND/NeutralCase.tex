@@ -1,19 +1,10 @@
-\section{Neutral case (atmosphere)}
+\section{Neutral case}
 \label{sec:ND_NeutralCase}
 This section introduces a method to discretize properly
 the surface layer of a simplified atmosphere column model.
-First in Section \ref{sec:ND_NeutralCase_continuousModel},
-we present a continuous model which describes the atmosphere
-column as the coupling of two regions:
-\begin{itemize}
-		\item the surface layer where the turbulent motion
-			comes from the proximity of the ocean surface;
-		\item the remainder of the atmosphere where other
-			processes can have a significant effect
-			on the vertical mixing.
-\end{itemize}
-The Finite Volume discretization using spline reconstruction
-is then recalled.
+First in \S \ref{sec:ND_NeutralCase_recallSplines},
+the Finite Volume discretization using spline reconstruction
+is recalled.
 \S \ref{sec:ND_NeutralCase_strategies}
 is an overview of several strategies used to deal
 with the coupling of the two zones mentioned previously.
@@ -31,129 +22,7 @@ As it was explained in Chapter \ref{ch:airseaSCM},
 there is no effect of the stratification on the turbulent viscosity
 so the wind speed $u(z, t)$ can be integrated in time
 without the temperature and humidity profiles.
-\subsection{Continuous model and Finite Volumes discretization}
-\label{sec:ND_NeutralCase_continuousModel}
-\subsubsection{Continuous equations: two separate domains}
-In fluid dynamics, the presence of a rough surface makes strong
-gradients appear:
-the scales of motion close to the surface are much smaller than
-elsewhere in the domain and it is numerically
-intractable in most applications
-to refine the mesh enough for those small scales.
-The models hence exclude from the computational domain
-a part of the surface layer, using an adapted boundary
-condition. \cite{mohammadi_rough_1998} show that bulk boundary
-conditions can be derived with domain decomposition arguments;
-the computational domain is split into two parts:
-the surface layer $(0,\delta_{sl})$ and the remainder of
-the atmosphere column, $(\delta_{sl}, +\infty)$
-(see Figure \ref{fig:ND_NeutralCase_EkmanContinuous}).
-%
-\par
-The surface layer has two main characteristics:
-\begin{itemize}
-	\item it is well mixed. The governing equation
-		is usually stationary because the surface layer
-		immediately adjusts to the external parameters.
-		As a consequence (and because the Coriolis effect
-		and the geostrophic forcing are neglected),
-		the flux $K \partial_z u$
-		is a constant along the vertical axis.
-	\item It is close to the surface:
-		the vertical profile of $K$ strongly depends 
-		on $z$.
-\end{itemize}
-The equations in the atmosphere column are hence (see Figure
-\ref{fig:ND_NeutralCase_EkmanContinuous}):
-\begin{subequations}
-	\label{eq:ND_NeutralCase_continuousModel}
-	\begin{equation}
-	\label{eq:ND_NeutralCase_EkmanEq}
-  (\partial_t + if) u - \partial_z (K_u \partial_z u) = if u_G
-		,~~~~~ z \geq \delta_{sl}
-	\end{equation}
-	\begin{equation}
-	\label{eq:ND_NeutralCase_ConstantFlux}
-	K_u \partial_z u
-	= u_\star^2
-	e_\tau, ~~~~~~~~~~~ z < \delta_{sl}
-	\end{equation}
-\end{subequations}
-where $u_G$ is a constant value representing the geostrophic guide,
-$f$ is the Coriolis parameter and $K_u$ the turbulent viscosity.
-The discretized profile of $K_u$ will be
-detailed in Section \ref{sec:ND_StratifiedCase_turbulentVisc}.
-The orientation of $\partial_z u$ is contained in
-$e_\tau = \frac{u(\delta_{\rm sl})-u(0)}
-	{||u(\delta_{\rm sl})-u(0)||}$
-where the surface current $u(0, t)$ is set to 0 or given by
-the ocean model in a coupled situation.
-Setting $u(0,t)=0$ amounts to consider the "absolute" wind speed
-rather than the "relative" wind w.r.t. the surface currents:
-the implementation of current feedbacks in ocean-atmosphere
-coupled models is discussed in \cite{renault_implementation_2019}.
-In the neutral case we assume $u(0,t)=0$ to shorten the expressions.
-%
-\begin{figure}
-	\centering
-	\subimport{images/}{notations_EkmanContinuous.pdf_tex}
-	\caption{Continuous equations where the surface layer
-	is excluded from the computational domain.}
-	\label{fig:ND_NeutralCase_EkmanContinuous}
-\end{figure}
-\par
-In the surface layer, the size of the turbulent eddies at height $z$
-is proportional to the distance to the surface $z$
-(e.g. \cite{kawai_wall-modeling_2012}). The turbulent viscosity
-is proportional to $u_\star z$, where the coefficient of
-proportionality is the Von Karman constant $\kappa = 0.40$.
-Combining molecular and turbulent viscosities in the surface layer
-gives $K_u(z\leq \delta_{sl}) = \kappa u_\star (z + z_{u})$ where
-$z_{u} = z_u({K_{{\rm mol}}}, u_\star)$ depends on the
-geometry of the space domain.
-It follows from \eqref{eq:ND_NeutralCase_ConstantFlux} that
-\begin{equation}
-\label{eq:ND_NeutralCase_WallLaw}
-	||u(z, t)|| = \frac{{u_\star}}{\kappa}
-	\ln(1+\frac{z}{z_{u}})
-\end{equation}
-A typical integration in time from $u(z, t^{n})$ to
-$u(z, t^{n+1})$ is:
-\begin{enumerate}
-	\item Neutral Bulk: Use \eqref{eq:ND_NeutralCase_WallLaw}
-		to compute $u_\star = {\rm BULK}(u(\delta_{sl}, t^n))
-		:= \displaystyle \frac{\kappa ||u(\delta_{sl}, t^n)||}
-			{\ln(1+\frac{\delta_{sl}}{z_{u}})}$
-  \item Integrate in time \eqref{eq:ND_NeutralCase_EkmanEq}
-  using \eqref{eq:ND_NeutralCase_ConstantFlux} as a boundary condition
-		either explicitly: 
-	\begin{equation}
-		\left.K_u \partial_z u
-		\right|_{z\leq \delta_{\rm sl}, t^{n+1}}
-		= u_\star^2 \frac{u(\delta_{\rm sl},
-		t^{\emphase{n}})}
-		{||u(\delta_{\rm sl}, t^n)||}
-	\end{equation}
-		or implicitly:
-	\begin{equation}
-		\label{eq:ND_NeutralCase_implicitCond}
-		\left.K_u \partial_z u
-		\right|_{z\leq \delta_{\rm sl}, t^{n+1}}
-		= u_\star^2 \frac{u(\delta_{\rm sl},
-		t^{\emphase{n+1}})}
-		{||u(\delta_{\rm sl}, t^n)||}
-	\end{equation}
-	\cite{lemarie_stability_2015} showed that the explicit
-	numerical interface condition is not necessarily
-	stable: we choose to use the implicit condition and note
-		$u_\star^2 e_\tau$ the right-hand side of
-		\eqref{eq:ND_NeutralCase_implicitCond}.
-	% citation: IFS Part IV end of page 48
-	This implicit implementation is used for instance in the
-	ECMWF model (see Section 3.5 of \citep{ecmwf_ifs_2020}).
-\end{enumerate}
-
-\subsubsection{Space discretization of
+\subsection{Space discretization of
 \eqref{eq:ND_NeutralCase_EkmanEq} with Finite volumes}
 \label{sec:ND_NeutralCase_recallSplines}
 We recall here the Finite Volume discretization used throughout
@@ -359,7 +228,7 @@ discretization of the surface layer (the corresponding equation
 is \eqref{eq:ND_NeutralCase_ConstantFlux}).
 A surface layer discretization consists in two parts,
 corresponding to the two steps of the integration in time
-presented in Section \ref{sec:ND_NeutralCase_continuousModel}:
+presented in Section \ref{sec:ND_Intro_continuousModel}:
 \begin{itemize}
 	\item how $u_\star$ is computed.
 		For instance, with Finite Differences
@@ -425,11 +294,11 @@ Our objective is to compare this surface flux scheme with the
 conventional ones
 and to introduce another surface flux scheme that is more coherent
 with regard to the continuous model of Section
-\ref{sec:ND_NeutralCase_continuousModel}.
+\ref{sec:ND_Intro_continuousModel}.
 We now present the strategies that are representative of
 what is done in actual models. The strategies are applied to
 the Finite Volume scheme presented in Section
-\ref{sec:ND_NeutralCase_continuousModel} and are
+\ref{sec:ND_NeutralCase_recallSplines} and are
 summarized in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
   \begin{itemize}
 	  \item With Finite Differences:
@@ -530,7 +399,7 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 		spline reconstruction. We extend it to our
 		Finite Volume discretisation with the assumption
 		that the spline reconstruction $u(z)$ inside
-		the surface layer is given by the law of the wall.
+		the surface layer is given by the wall law.
 	    The surface layer \textit{is} the first cell:
 	    the equation \eqref{eq:ND_NeutralCase_EkmanEq}
 	    is not integrated in time in this cell
@@ -625,7 +494,7 @@ reasons we aim to approximate the continuous equations
 \eqref{eq:ND_NeutralCase_continuousModel}.
 \cite{basu_cautionary_2017} warns that using a small space step
 while keeping the same treatment in LES goes against the
-range of validity of the Monin-Obukhokv profiles.
+range of validity of the MOST profiles.
 In the following, we derive a surface flux scheme that keeps
 the advantages of the "FV2" scheme, but with a free $\delta_{\rm sl}$.
 %
@@ -664,7 +533,7 @@ the advantages of the "FV2" scheme, but with a free $\delta_{\rm sl}$.
 \label{sec:ND_NeutralCase_newSFscheme}
 We now construct a boundary condition that is coherent
 with the continuous model presented in
-\S \ref{sec:ND_NeutralCase_continuousModel}
+\S \ref{sec:ND_Intro_continuousModel}
 with a free $\delta_{sl}$, named "FV free" in Table
 \ref{tab:ND_NeutralCase_summary_sfscheme}:
 \begin{equation}
@@ -979,7 +848,7 @@ by mimicking the relation
 $\phi_{\delta} = \frac{K_{mol}}{K_{u,\delta}}\phi_0$ of the
 "FV free" scheme, we choose to multiply the surface
 viscosity by $\frac{K_{u,\delta}}{K_{mol}}$.
-As a consequence, the law of the wall is denied and
+As a consequence, the wall law is denied and
 $(\partial_z u)(z_0)$ is multiplied
 by $\frac{K_{mol}}{K_{u,\delta}}$.
 Note that this problem is specific to schemes where
