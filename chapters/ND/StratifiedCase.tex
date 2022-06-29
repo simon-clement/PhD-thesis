@@ -95,7 +95,8 @@ profiles for $u$ and $\theta$ are
 \right)
 \end{aligned}
 \end{equation}
-where $z_\theta=z_u$ and $L_{MO} = \frac{\theta(\delta_{\rm sl})
+where $z_\theta$ typically depends on $u_\star$, $K_{{\rm mol}}$
+and $L_{MO} = \frac{\theta(\delta_{\rm sl})
 u_\star^2}{\theta_\star \kappa g }$.
 Similarly to the neutral case, the semi-discrete in time
 boundary condition is not explicit:
@@ -199,6 +200,26 @@ $C_H|\Delta u| = C_H||u^n(\delta_{sl})- u^n(0)|| =
 			\overline{u}_{\frac{1}{2}}^{n}}_{
 			\text{Averages around } z_\frac{1}{2}})
 		\end{equation}
+		The adapted bulk routines writes
+		\begin{equation}
+		\label{eq:ND_StratifiedCase_MOST}
+		\begin{aligned}
+			 ||\overline{u}_{frac{1}{2}}-u(0)||
+			 = \frac{u_\star}{\kappa}
+			\left(1\emphase{+\frac{z_u}{\delta_{sl}}}\right)
+		\left(\ln(1+\frac{z}{z_u})\emphase{-1}\right)
+		- \emphase{\Psi_u}\left(\frac{z_1}{L_{MO}}\right)
+		    \\
+		     \theta(z) - \theta_s=
+			\frac{\theta_\star}{\kappa}
+			\left(1\emphase{+\frac{z_\theta}
+					{\delta_{sl}}}\right)
+		\left(\ln(1+\frac{z}{z_\theta})\emphase{-1}\right)
+		- \emphase{\Psi_\theta}\left(\frac{z_1}{L_{MO}}\right)
+		\end{aligned}
+		\end{equation}
+		where $\Psi_x(z) = \int_0^z (\psi_x(z'))dz'$
+		for $x=u,\theta$.
 	\item With "FV2" in the first grid cell
 		the MOST profile for $\theta$ is assumed as in
 		\cite{nishizawa_surface_2018}.

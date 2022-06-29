@@ -154,6 +154,8 @@ computed.
 	\caption{ Evolution of $u_\star$, vertical profiles of $||u||$
 	and relative difference of $u$ between low and high resolutions.
 	Above 200m, the profiles are those of the initial condition.
+	In all the numerical experiments the bulk routine is based on
+	$z_u = z_\theta = \frac{K_{u, \rm mol}}{\kappa u_\star}$.
 	}
 	\label{fig:ND_Consistency_Neutral}
 \end{figure}
@@ -436,10 +438,10 @@ after 3 Schwarz iterations with the ocean model.
 First, note that the oscillations of $u_\star$ and $\theta_\star$
 are of a smaller amplitude than in the unstable experiment.
 Then, in the bottom panel, one can see that the difference
-in $u_\star$ and $u$
-between high and low resolutions is far smaller when using
-the "FV free" scheme. Unlike the previous cases, the "FV2"
+in $u_\star$ and $u$ between high and low resolutions when using
+the "FV free" scheme is smaller than with the other schemes.
+Unlike the previous cases, the "FV2"
 scheme do not show a lot of differences between
 its high and low resolutions.
-Finally, the dependency of $t_\star$ on the resolution
-seems
+Finally, the dependency of $t_\star$ and $\theta$ on the resolution
+was attenuated by the coupling with the ocean column.
