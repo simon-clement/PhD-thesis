@@ -127,14 +127,17 @@ And the derivative of temperature at $z_{m-1}, z_m, z_{m+1}$ solves
 \begin{equation}
 \begin{aligned}
 \label{eq:ND_StratifiedCase_prognosticPT_FV}
-\partial_t &\left( \frac{h_{m-1/2}}{6} {(\partial_z \theta)}_{m-1} 
-+ \frac{2h_m}{3} {(\partial_z \theta)}_m  
-+ \frac{h_{m+1/2}}{6} {(\partial_z \theta)}_{m+1} \right) \\
-	&-
+\partial_t \left( \frac{h_{m-1/2}}{6} {(\partial_z \theta)}_{m-1}
++ \frac{h_{m-1/2} + h_{m+1/2}}{3} {(\partial_z \theta)}_m
+	+ \frac{h_{m+1/2}}{6} {(\partial_z \theta)}_{m+1} \right)
+	~~~~~~~~~~& \\
+	-
     \left(
-	\frac{K_{\theta, m+1}}{ h_{m+1/2}}{(\partial_z \theta)}_{m+1} - \frac{2 h_m K_{\theta, m}}{h_{m-1/2} h _{m+1/2}}{(\partial_z \theta)}_m + \frac{K_{\theta, m-1}}{ h_{m-1/2}}{(\partial_z \theta)}_{m-1}
-    \right)
-	= \overline{F}_{\theta, m+1/2} - \overline{F}_{\theta, m-1/2}
+	\frac{K_{\theta, m+1}}{ h_{m+1/2}}{(\partial_z \theta)}_{m+1}
+	- \frac{(h_{m-1/2} + h_{m+1/2}) K_{\theta, m}}{h_{m-1/2} h _{m+1/2}}
+	{(\partial_z \theta)}_m + \frac{K_{\theta, m-1}}{ h_{m-1/2}}{(\partial_z \theta)}_{m-1}
+	\right)&\\
+	= \overline{F}_{\theta, m+1/2} - \overline{F}_{\theta, m-1/2}&
 \end{aligned}
 \end{equation}
 Identically to the reconstruction of $u(z)$,
@@ -204,13 +207,13 @@ $C_H|\Delta u| = C_H||u^n(\delta_{sl})- u^n(0)|| =
 		\begin{equation}
 		\label{eq:ND_StratifiedCase_MOST}
 		\begin{aligned}
-			 ||\overline{u}_{frac{1}{2}}-u(0)||
+			 ||\overline{u}_{\frac{1}{2}}-u(0)||
 			 = \frac{u_\star}{\kappa}
 			\left(1\emphase{+\frac{z_u}{\delta_{sl}}}\right)
 		\left(\ln(1+\frac{z}{z_u})\emphase{-1}\right)
 		- \emphase{\Psi_u}\left(\frac{z_1}{L_{MO}}\right)
 		    \\
-		     \theta(z) - \theta_s=
+			\overline{\theta}_{\frac{1}{2}} - \theta_s=
 			\frac{\theta_\star}{\kappa}
 			\left(1\emphase{+\frac{z_\theta}
 					{\delta_{sl}}}\right)
@@ -498,7 +501,9 @@ $z_m$ between the cells:
     + \partial_t
     \right) e_m
 	=\frac{(K_{e} \partial_z e)_{m+1/2} -
-	(K_{e} \partial_z e)_{m-1/2}}{h_{m}}
+	(K_{e} \partial_z e)_{m-1/2}}{
+	z_{m+1/2} - z_{m-1/2}
+	}
     + K_u ||\partial_z u||^2
     - K_\theta N^2
 \end{equation}

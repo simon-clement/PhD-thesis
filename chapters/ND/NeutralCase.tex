@@ -36,7 +36,7 @@ without the temperature and humidity profiles.
 \subsubsection{Continuous equations: two separate domains}
 In fluid dynamics, the presence of a rough surface makes strong
 gradients appear:
-the motion scales close to the surface are much smaller than
+the scales of motion close to the surface are much smaller than
 elsewhere in the domain and it is numerically
 intractable in most applications
 to refine the mesh enough for those small scales.
@@ -46,7 +46,8 @@ condition. \cite{mohammadi_rough_1998} show that bulk boundary
 conditions can be derived with domain decomposition arguments;
 the computational domain is split into two parts:
 the surface layer $(0,\delta_{sl})$ and the remainder of
-the atmosphere column, $(\delta_{sl}, +\infty)$.
+the atmosphere column, $(\delta_{sl}, +\infty)$
+(see Figure \ref{fig:ND_NeutralCase_EkmanContinuous}).
 %
 \par
 The surface layer has two main characteristics:
@@ -88,8 +89,10 @@ $e_\tau = \frac{u(\delta_{\rm sl})-u(0)}
 where the surface current $u(0, t)$ is set to 0 or given by
 the ocean model in a coupled situation.
 Setting $u(0,t)=0$ amounts to consider the "absolute" wind speed
-rather than the "relative" w.r.t. the surface currents. In
-the neutral case we assume $u(0,t)=0$ to shorten the expressions.
+rather than the "relative" wind w.r.t. the surface currents:
+the implementation of current feedbacks in ocean-atmosphere
+coupled models is discussed in \cite{renault_implementation_2019}.
+In the neutral case we assume $u(0,t)=0$ to shorten the expressions.
 %
 \begin{figure}
 	\centering
@@ -255,9 +258,11 @@ $\partial_z u$ in time:
 	+ \frac{h_{m+\frac{1}{2}}}{6} \phi_{m+1} \right) \\
 	&-
     \left(
-	\frac{K_{u, m+1}}{ h_{m+\frac{1}{2}}}\phi_{m+1} -
-	\frac{2 h_m K_{u,m}}{h_{m-\frac{1}{2}} h _{m+\frac{1}{2}}}\phi_m +
-	\frac{K_{u,m-1}}{h_{m-\frac{1}{2}}}\phi_{m-1}
+	%\frac{K_{u, m+1}}{ h_{m+\frac{1}{2}}}\phi_{m+1} -
+	%\frac{(h_{m-\frac{1}{2}} + h_{m+\frac{1}{2}}) K_{u,m}}{h_{m-\frac{1}{2}} h _{m+\frac{1}{2}}}\phi_m +
+	%\frac{K_{u,m-1}}{h_{m-\frac{1}{2}}}\phi_{m-1}
+	\frac{K_{u, m+1}\phi_{m+1} - K_{u, m}\phi_{m}}{ h_{m+\frac{1}{2}}} -
+	\frac{K_{u, m}\phi_{m} - K_{u,m-1}\phi_{m-1}}{h_{m-\frac{1}{2}}}
     \right)
 = 0
 \end{aligned}
