@@ -122,9 +122,13 @@ chap4-diff: chapters/ND/*.tex
 	@rm ${ND_FOLDER}*-diff${COMMIT}.tex
 	@rm standalone_chapter-diff${COMMIT}.tex
 
-chap5: chapters/OASchwarz/*.tex
+chap5: chapters/OceanND/*.tex
 	@sed -i '2c \\\setcounter{chapter}{4}' standalone_chapter.tex
 	@make chapters NAME_outCHAP="standalone_chap5"
+
+chap6: chapters/OASchwarz/*.tex
+	@sed -i '2c \\\setcounter{chapter}{5}' standalone_chapter.tex
+	@make chapters NAME_outCHAP="standalone_chap6"
 
 # sub makefile if anything needed to compile the Figures
 figure: $(FIGURES)
