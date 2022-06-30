@@ -28,7 +28,7 @@ Monin-Obukhov Similarity Theory (MOST).
 Section \ref{sec:ND_StratifiedCase_turbulentVisc} gives the
 profile of viscosities depending on the turbulent kinetic energy
 (TKE).
-\subsection{Continuous model and Finite Volumes discretization}
+\subsection{Continuous model and Finite Volume discretization}
 The stratification in the column is given by the
 potential temperature: it will be integrated in time
 together with $u$.
@@ -111,7 +111,7 @@ is
 	~~~~ z < \delta_{\rm sl}
 \end{equation}
 
-\subsubsection{Finite Volumes discretization}
+\subsubsection{Finite Volume discretization}
 \label{sec:ND_StratifiedCase_FVDis}
 The discretization of $u$ is exactly the same as in the
 neutral case (\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEq} and \eqref{eq:ND_NeutralCase_prognosticEqFV}) and the discretization of 
@@ -415,7 +415,7 @@ similarity theory:
 the link is done through the mixing lengths in \S
 \ref{sec:ND_StratifiedCase_mixing_lengths_match}.
 \end{enumerate}
-\subsubsection{Finite Volumes discretization of TKE}
+\subsubsection{Finite Volume discretization of TKE}
 \label{sec:ND_StratifiedCase_TKE}
 The Turbulent Kinetic Energy (TKE) evolves with the equation
 \begin{equation}
@@ -490,7 +490,7 @@ parameterization based on the TKE.
 \paragraph{Turbulent Kinetic Energy in the computational domain}
 The discretisation of the turbulent kinetic energy
 requires some care. The Finite Volume scheme used for
-$u$ and $\theta$ is not used and we use instead a Finite Differences
+$u$ and $\theta$ is not used and we use instead a Finite Difference
 method which has a positivity preserving property.
 The energy $e$ and the lengths scales
 $l_m, l_\epsilon$ are evaluated at the interfaces

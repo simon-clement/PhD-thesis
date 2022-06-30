@@ -4,12 +4,10 @@ Schwarz methods have been studied in Chapters
 \ref{ch:approximatedDiscreteSchwarz}; we now focus
 on the discretisation of the surface layer above the
 ocean surface.
-The physics presented in chapter \ref{ch:airseaSCM} are
-recalled in \S \ref{sec:ND_Intro_continuousModel};
-the specific problem of the height of the surface layer
-is raised in \S \ref{sec:ND_Intro_heightSL} and the
-objectives of this chapter are detailed in
-\S \ref{sec:ND_Intro_objectives}.
+The dynamics presented in chapter \ref{ch:airseaSCM} are
+recalled in \S \ref{sec:ND_Intro_continuousModel} and
+the specific problem of the treatment of the surface layer
+is raised in \S \ref{sec:ND_Intro_treatmentSL}.
 \subsection{Physical considerations}
 \label{sec:ND_Intro_continuousModel}
 We consider in this chapter the "Ekman+TKE" model presented
@@ -189,64 +187,73 @@ $u(z, t^{n+1})$ is:
 	This implicit implementation is used for instance in the
 	ECMWF model (see Section 3.5 of \citep{ecmwf_ifs_2020}).
 \end{enumerate}
-\subsection{Height of the surface layer}
-\label{sec:ND_Intro_heightSL}
-
-\begin{itemize}
-\item The continuous solution should be recovered when
-	the space step tends to 0.
-\item The height of the surface layer
-	is usually determined by the discretization.
-\item We want the discretization to be robust with regard to
-	the space step. In particular, when the space step
-	tends to 0, the surface layer should still
-	be parametrized with the same wall law.
-	\cite{basu_cautionary_2017} warns that
-	using a small space step while keeping
-	the same boundary treatment in LES contradicts
-		the Monin-Obukhov
-	hypothesis of being above the roughness sub-layer.
-		{\color{red} TODO dire en chap1 que M-O
-		n'est pas universellement admis, et détailler
-		un peu plus ici ce que veut dire Basu2017}
-\item Since the characteristic
-	size of the turbulent eddies in the surface layer are
-		proportional to the distance to the surface (\cite{kawai_wall-modeling_2012}),
-		it should not be assumed that we solve
+\subsection{Treatment of the surface layer}
+\label{sec:ND_Intro_treatmentSL}
+The exclusion of the surface layer from the computational
+domain is justified by the lack of numerical precision
+close to the surface: the continuous model
+\eqref{eq:ND_NeutralCase_continuousModel} is split
+according to the numerical ressources. The height
+of the surface layer $\delta_{sl]}$ is hence generally chosen as the
+first grid level.
+However, the evolution equation \eqref{eq:ND_NeutralCase_EkmanEq}
+is also solved inside the surface layer which contradicts the
+quasi-stationary hypothesis.
+we can identify three ways to improve
+the treatment of the surface layer (subjectively in decreasing
+order of importance and ease of correction):
+\begin{enumerate}
+	\item $\delta_{sl}$ is too small. This issue is well-known
+		in the LES community and is called
+		\textit{log-layer mismatch}.
+		Since the scales of motion
+		in the surface layer are proportional to the distance
+		to the surface, it should not be assumed that we solve
 		correctly the mechanisms in the first levels
 		of a finite difference classical approach.
 		\cite{kawai_wall-modeling_2012} propose to use other
 		levels than the first one to parameterize the
 		wall law in the neutral case.
-\item \cite{maronga_improved_2020} proposed an improved
-	boundary condition for stratified Large-Eddy Simulations
+		\cite{maronga_improved_2020} give an improved
+		boundary condition for stratified Large-Eddy Simulations
 		which consists in using as the bulk input
 		horizontally averaged values at
 		$\delta_{sl}$ chosen for physical and numerical
 		reasons (within the surface layer, above the
 		roughness sub-layer and in a region where flows are
 		well-resolved).
-\item Comment est gérée la condition de surface dans les modèles:
-	couches à flux constant, les mélanges entre paramétrisation
-	de couche limite et d'atm libre, etc.
-\item \cite{nishizawa_surface_2018} have shown that a bias is created
-	in some models
-	because of an underlying assumption that the log layer
-		is linear. {\color{red} dit comme ça ça fait étrange}
-	\item The model used to derive this discretization is a
-	1D Ekman equation, with a forcing representing a
-	geostrophic guide.  The turbulent viscosity is computed with a
-	one-equation turbulence closure model. It was
-	tested against the code used in \cite{lemarie_simplified_2021}
-\end{itemize}
-\subsection{Objectives}
-\label{sec:ND_Intro_objectives}
-\begin{itemize}
-\item The solution obtained with a discretization
-	should be similar {\color{red} en quel sens ? }
-		to the continuous solution.
-\item This chapter presents a discretization such that
-	the surface layer can be chosen for physical reasons,
-	in addition to numerical ones.
-\item We compare several strategies...
-\end{itemize}
+	\item The quasi-stationary hypothesis of the wall law is
+		not compatible with treating the first cell like
+		the other ones.
+		\cite{nishizawa_surface_2018} have shown that a
+		bias is created in some Finite Volume models
+		because the average of the first cell is considered
+		to be the value in its center.
+		The discretization should take into account the
+		surface layer and adapt to the wall law.
+	\item It is expected from most discretizations to be
+		\textit{consistent}: the continuous
+		model should be recovered when the space step tends
+		to zero.  In particular, the surface layer should
+		still be parametrized with the same wall law which
+		is not the case when $\delta_{sl}$ is the first grid
+		level. \cite{basu_cautionary_2017} warn that
+		in several recent LES studies the space step is
+		so small that the Monin-Obukhov hypotheses
+		(that the height of the roughness elements is small:
+		$z_u \ll \delta_{sl}$)
+		do not apply: the consistency problem is not only
+		a theoretical consideration.
+\end{enumerate}
+This chapter aims to study the treatment of
+the surface layer and to address those issues.
+In Section \ref{sec:ND_NeutralCase}, the Finite Volume
+discretisation used in Chapter \ref{ch:discreteSchwarzAnalysis}
+is recalled and we introduce several strategies to treat
+the surface layer.
+In particular, one of the strategies ("FV free") enforces
+the wall law in the surface layer and does not
+assume a specific $\delta_{sl}$.
+The discussion is extended to a stratified case
+in Section \ref{sec:ND_StratifiedCase} then
+the strategies are compared in Section \ref{sec:ND_Consistency}.
