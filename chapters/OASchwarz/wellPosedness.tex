@@ -2,11 +2,12 @@
 non-linear semi-discrete in space problem}
 \cite{lions_mathematical_1995} proved the existence
 of global in time weak solutions of the linear case in
-two dimensions.
+two dimensions with more sophisticated dynamics.
 \myTD{vérifier que ca correspond au cas constant ?
 les viscosités sont pas constantes il me semble ?}
 We focus here on showing the existence of strong
-unsteady solutions of the non-linear problem.
+unsteady solutions of the semi-discrete in space,
+non-linear problem.
 \myTD{Fibrillations biblio?}
 \\
 \myTD{Renault, Lemarié pour bien posé}
@@ -34,8 +35,9 @@ equilibrium state.
 	\item The use of the inverse function theorem can be
 		done in four steps:
 	\begin{enumerate}
-		\item concatenate $u_a, \phi_a, u_o, \phi_o$ in
-		a single vector $\mathbf{U}\in \mathbf{\cal U}$
+		\item concatenate the state vectors
+			in a single vector $\mathbf{U}=
+		\{u_a, \phi_a, u_o, \phi_o\} \in \mathbf{\cal U}$
 		where
 		\begin{equation}
 			\mathbf{\cal U} = L^2([0,T])^{M_o} \times
@@ -45,21 +47,79 @@ equilibrium state.
 		\item
 		Define a mapping
 		$\mathbf{\Phi}: \mathbf{\cal U}\rightarrow \mathbf{Y}$
-		such that finding $\mathbf{\Phi}^{-1}(y)$ is equivalent
-		to solving the nonlinear semi-discrete problem
-			\eqref{eq:SWRbulk}.
-		\myTD{define $\mathbf{\Phi}$ explicitly}
-		\item Show that $\mathbf{\Phi}$ is $C^1$.
+		such that
+\begin{equation}
+	\label{eq:OASchwarz_wellPosedness_Phi}
+\begin{aligned}
+	\mathbf{\Phi}(\mathbf{U}) =
+	\{&(\partial_t + if) u_a - \nu_a\partial_z \phi_a - g_a, ~~
+	\phi_a-\partial_z U_a, \\
+	&(\partial_t + if) u_o - \nu_o\partial_z \phi_o - g_o,
+	 ~~ \phi_o-\partial_z U_o, \\
+	&u_a(H_a, t) - u^\infty_a, ~~ u_o(H_o, t) - u^\infty_o, \\
+	&\nu_{\rm o}\left.\phi_{\rm o}\right|_{z=0} -
+	\epsilon \left.\nu_{\rm a}\phi_{\rm a}\right|_{z=0}, ~~
+	\nu_{\rm a}\left.\phi_{\rm a}\right|_{z=0} - \alpha
+	\left( U_{\rm a}\left(\frac{h_{\rm a}}{2},
+	t\right) - U_{\rm o}\left(-\frac{h_{\rm o}}{2},
+	t\right)\right) \\
+	&\left.u_a\right|_{t=0} - U^e_{a}, ~~
+	\left.u_o\right|_{t=0} - U^e_{o}\}
+\end{aligned}
+\end{equation}
+where $\partial_z$ is to be undertood as the finite difference
+operator which is applied only where it makes sense:
+for instance the first line of \eqref{eq:OASchwarz_wellPosedness_Phi}
+is not applied for $z=H_a$.
+Let us draw some important remarks about $\mathbf{\Phi}$:
+\begin{itemize}
+ \item $\mathbf{\Phi}(\mathbf{U}^e)=0$
+ 	where $\mathbf{U}^e$
+ 	is the steady-state;
+ \item the codomain $\mathbf{Y}$ is
+ 	\begin{equation}
+		\mathbf{Y}=\left(L^2([0,T])^{M_o-1}\right)^2 
+			\times \left(L^2([0,T])^{M_a-1}\right)^2
+ 			\times L^2([0,T])^{4}
+			\times \mathbb{R}^{M_a+M_o}
+ 	\end{equation}
+\item 
+finding $\mathbf{\Phi}^{-1}(y)$ is equivalent
+to solving the nonlinear semi-discrete problem
+\eqref{eq:SWRbulk} if the components of $y$ are zero except for the
+part $\left.u_a\right|_{t=0} - U^e_{a}, ~~
+	\left.u_o\right|_{t=0} - U^e_{o}$.
+The idea of the proof is that if $\mathbf{\Phi}$ is invertible
+around $\mathbf{U}^e$ then the nonlinear semi-discrete problem
+\eqref{eq:SWRbulk} is invertible.
+\end{itemize}
+		\item Show that $\mathbf{\Phi}$ is $C^1$ in a
+			neighborhood of $\mathbf{U}^e$.
 			First, note that the mapping
-			$x \mapsto |x|x$ is analytic.
-			\myTD{Faudrait clarifier du coup:
-			on fait de l'analyse réelle ou complexe ?
-			comment on traduit le théorème de
-			l'inverse en analyse complexe ?}
+			$x \mapsto |x|x$ is analytic in a
+			ball that does not contain zero.
+			Since the non-linear friction condition
+			is the only source of
+			non-linearity in $\mathbf{\Phi}$,
+			it directly follows that
+			$\mathbf{\Phi}$ is $C^1$ and that
+			its differential
+			$D\mathbf{\Phi}(\mathbf{U}^e)$ is given
+			by the linearized problem (for more
+			details see
+			\cite{chacon-rebollo_existence_2014}).
+			\myTD{Je suis pas ultra sûr de pouvoir
+			utiliser le théorème de la fonction
+			inverse dans $\mathbb{C}$ parceque
+			j'y connais pas grand chose en
+			analyse complexe}
 		\item Show that $D\mathbf{\Phi}(\mathbf{U}^e)$
-			is an isomorphism \myTD{de où vers Y?}.
+		is an isomorphism:
 		$D\mathbf{\Phi}(\mathbf{U}^e)$ can
 		be inverted by solving the linearized problem which
 		is well-posed.
+		\myTD{euh ça marche ça ? on a l'implication dans
+		l'autre sens mais linearized problem inversible
+		$=>D\mathbf{\Phi}(\mathbf{U}^e)$ inversible on a pas}
 	\end{enumerate}
 \end{enumerate}

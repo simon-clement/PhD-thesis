@@ -238,4 +238,24 @@ the matrix
 \end{equation}
 is inversible.
 \end{itemize}
+Let us approximate some of the terms for sufficiently big $M_a, M_o$:
+\begin{itemize}
+	\item $K_1 \approx \lambda_u - 1 - \chi_j \approx \chi_j/2$
+		\myTD{verifier ça}
+	\item $K_2 \approx 1 (- \epsilon\frac{\nu_a}{\nu_o}
+		\frac{K_{1,a}}{K_{1,o}})$
+	\item $K_3 \approx \nu_a \chi_a / 2 - 3 \alpha^e / 2$
+	\item $K_4 \approx \overline{\alpha^e {\cal O}(-\omega)} / 2$
+\end{itemize}
+Now, $\left|
+	\begin{pmatrix}
+		K_3(\omega)& - \overline{K_4(-\omega)}\\
+		-K_4(\omega) & \overline{K_3(-\omega)}
+	\end{pmatrix}\right|\approx
+	|\alpha^e|^2 \overline{ {\cal O}(-\omega)}
+	{\cal O}(\omega) / 4
+	$
+	and $\overline{ {\cal O}(-\omega)}
+	{\cal O}(\omega) = \frac{-\omega + f}{-\omega-f} \times
+	\frac{\omega + f}{\omega-f} = -1$
 \end{appendix}
