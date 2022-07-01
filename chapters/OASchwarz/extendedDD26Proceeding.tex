@@ -886,7 +886,8 @@ Following the derivation in the previous paragraph,
 we find that the evolution of $B_k$ is:
 \begin{equation}
 	\label{eq:OASchwarz_ConvergenceAnalysis_linearizedCV}
-    \left(\frac{(s+if)h_{\rm a}}{\alpha} - \theta \lambda_{\rm a}\right)B_{k+1}(z)
+    \left(\frac{i(\omega+f)h_{\rm a}}{\alpha} -
+	\theta \lambda_{\rm a}\right)B_{k+1}(z)
     =
     \left(\left(\frac{3}{2} - \theta\right) 
     \lambda_{\rm a}
@@ -904,7 +905,7 @@ we find that the evolution of $B_k$ is:
 \end{equation}
 with $\epsilon = \frac{\rho_{\rm a} h_{\rm a}}{\rho_{\rm o} h_{\rm o}}$ 
 and $\mathcal{O} = 
-\frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e - U_{\rm o}^e}} \frac{s+if}{s - if}$.
+\frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e - U_{\rm o}^e}} \frac{\omega+f}{\omega - f}$.
 Note that the variable $\overline{z}$ appears when using the Fourier
 transform on $\overline{\delta U_a^{k-1} - \delta U_o^{k-1}}$.
 As a consequence,
@@ -920,8 +921,6 @@ $ \frac{1}{2}\frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e - U_{\rm o}^
 \delta U_{\rm a}^{k-1} - \delta U_{\rm o}^{k-1}}$
 vanishes, therefore the asymptotic convergence 
 rate $\xi_0^q$ is independent of the iterate:
-{\color{red} warning this asymptote is wrong, and it is published
-in DD26 proceeding}
 \[
  \underset{(\omega+f) \rightarrow 0}{\mathrm{lim}} \xi^q = \frac{1}{\theta} \left| \frac{3}{2}-\theta+\frac{3}{2}\epsilon\sqrt{\frac{\nu_{\rm a}}{\nu_{\rm o}}} \right| = \xi_0^q, \qquad
  \underset{(\omega+f) \rightarrow \infty}{\mathrm{lim}} \xi^q = 0.
@@ -939,46 +938,43 @@ The asymptotic value $\xi_0^q$ is not an upper bound of the
 convergence factor but it is a good choice for $\theta_{\rm opt}^q$,
 as shown in the numerical experiments in Section \ref{sec:num-exp}.
 \par
-The asymptotic behavior for $\omega+f \rightarrow 0$ for
+The asymptotic behavior for $\omega+f \rightarrow 0$ with
 multiple iterations can differ from the asymptotic convergence
 rate $\xi_0^q$ above
-because $B_{k+1}(i\omega)$ has a weak dependence on
-$B_k(- i\omega)$ which could explode because
-$|\mathcal{O}| \rightarrow \infty$
+because $B_{k+1}(i\omega)$ depends on
+$\overline{B_k(- i\omega)}$ which could explode because
+$|\overline{\mathcal{O}(\omega\rightarrow f)}| \rightarrow \infty$.
 
 
 \paragraph{Non-asymptotic convergence}
-We need to look at the $4\times 4$ transition matrix: let $z\in\mathbb{C}$,
+We need to look at both $B_{k+1}(z), \overline{B_{k+1}(\overline{z})}$
+at the same time: let $z\in\mathbb{C}$,
 let $a_1, a_2 \in \mathbb{C}$ such as
 \begin{equation}
-	B_{k+1}(z) = a_1 B_{k}(z) + a_2 \overline{B_{k}(\overline{z})}.
+	\begin{aligned}
+		B_{k+1}(z) &= a_1 B_{k}(z) + a_2
+		\overline{B_{k}(\overline{z})}\\
+		\overline{B_{k+1}(\overline{z})} &=
+		\overline{a_1(\overline{z})
+			B_{k}(\overline{z})
+		+ {a_2(\overline{z})} \overline{B_{k}(z)}}
+	\end{aligned}
 \end{equation}
-We examine the evolution of 4 simulaneously evolving quantities:
-$B_{k+1}(z), B_{k+1}(\overline{z})$ and their complex conjugate
-$\overline{B_{k+1}(z)}, \overline{B_{k+1}(\overline{z})}$:
-{\color{red} je dois être fatigué, mais pourquoi on peut pas juste utiliser $B_{k+1}(z), \overline{B_{k+1}(\overline{z})}$} ?
+We examine the evolution of those two
+simulaneously evolving quantities:
 \begin{equation}
 	\label{eq:OASchwarz_transitionMatrixDD26}
 \begin{pmatrix}
 	B(z) \\
-	\overline{B(z)}\\
-	{B(\overline{z})}\\
 	\overline{B(\overline{z})}
 \end{pmatrix}_{k+1}
  =
 \begin{pmatrix}
-	a_1(z) & 0 & 0 & a_2(z) \\
-	0 & \overline{a_1({z})} &
-		\overline{a_2({z})} & 0\\
-	0 & {a_2(\overline{z})} &
-		{a_1(\overline{z})} & 0\\
-	\overline{a_2(\overline{z})} & 0 & 0 &
-		\overline{a_1(\overline{z})} \\
+	a_1(z) & a_2(z) \\
+	\overline{a_2(\overline{z})} & \overline{a_1(\overline{z})} \\
 \end{pmatrix}
 \begin{pmatrix}
 	B(z) \\
-	\overline{B(z)}\\
-	{B(\overline{z})}\\
 	\overline{B(\overline{z})}
 \end{pmatrix}_{k}
 \end{equation}
@@ -989,7 +985,7 @@ with:
     &= \frac{\left(\left(\frac{3}{2} - \theta\right) 
     \lambda_{\rm a}
     + \frac{3}{2} \epsilon \lambda_{\rm o} \right)}
-	{\left(\frac{(s+if)h_{\rm a}}{\alpha} -
+	{\left(\frac{i(\omega+f)h_{\rm a}}{\alpha} -
 		\theta \lambda_{\rm a}\right)}, ~~~~~~~~~~
     a_2(z)
     &= \frac{
@@ -1002,11 +998,11 @@ with:
     +
     \epsilon\lambda_{\rm o}(\overline{z})}
     \right)   
-    }{\left(\frac{(s+if)h_{\rm a}}{\alpha} - \theta \lambda_{\rm a}\right)}
+    }{\left(\frac{i(\omega+f)h_{\rm a}}{\alpha} - \theta \lambda_{\rm a}\right)}
 \end{aligned}
 \end{equation}
-The biggest eigenvalue of the matrix
-\eqref{eq:OASchwarz_transitionMatrixDD26}
+The biggest singular value of the $2\times 2$ matrix
+in \eqref{eq:OASchwarz_transitionMatrixDD26}
 can be studied instead as the "convergence factor".
 However, this eigenvalue is much bigger than the observed
 convergence factor in $L^2$ norm. The numerical
