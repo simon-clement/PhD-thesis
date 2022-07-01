@@ -803,14 +803,17 @@ When $\omega\to \infty$, the convergence factor tends to zero
     \item For whatever frequency $\omega$, it seems that $\left|\frac{\lambda_j \sqrt{\nu_j}}{h_j}\right|$ increases with $\frac{\sqrt{\nu_j}}{h_j}$.
     Indeed, we have that
 	\begin{equation}
-	\left|\frac{\lambda_j \sqrt{\nu_j}}{h_j}\right|^2
-		= 2|\omega + f| \frac{|i-\sqrt{i}\sqrt{i+x}|^2}{|x|},
+	\left|\frac{\lambda_j \sqrt{\nu_j}}{h_j}\right|
+		= |\omega + f| |x - \sqrt{x}\sqrt{x+i}|,
 		~~~~~ x = \frac{4}{i \chi_j} \in \mathbb{R}
 	\end{equation}
-	and the function
-	$x \mapsto \frac{|i-\sqrt{i}\sqrt{i+x}|^2}{|x|}$
-		seems to increase for $x \in \mathbb{R}$.
-    (see Figure \ref{fig:figboundbulk}). It follows that if $\sqrt{\frac{\nu_{\rm o}}{\nu_{\rm a}}} \leq \frac{h_{\rm o}}{h_{\rm a}}$
+	where the square root function is extended to the
+		negative axis with $\sqrt{-|x|} := i\sqrt{|x|}$.
+	The function $x \mapsto |x - \sqrt{x}\sqrt{x+i}|$
+		seems to increase with $|x|$
+    (see Figure \ref{fig:figboundbulk}). It follows that if
+	$\sqrt{\frac{\nu_{\rm o}}{\nu_{\rm a}}} \leq
+		\frac{h_{\rm o}}{h_{\rm a}}$
 \begin{equation}
     |1-\theta+\epsilon \frac{h_a \lambda_o}{h_o \lambda_a}| \leq | 1 - \theta| + \epsilon |\frac{h_a \lambda_o}{h_o \lambda_a}| \leq 
     |1 - \theta| + \epsilon \frac{\sqrt{\nu_{\rm a}}}{\sqrt{\nu_{\rm o}}}.
@@ -818,9 +821,17 @@ When $\omega\to \infty$, the convergence factor tends to zero
 \end{itemize}
 \begin{figure}
     \centering
-    \includegraphics[scale=0.6]{Figure_boundbulk.png}
-    \caption{evolution of $|\frac{\lambda_j \sqrt{\nu_j}}{h_j}|$ with respect to $\frac{\sqrt{\nu_j}}{h}$ for multiple frequencies.
-	{\color{red} TODO plutôt plot $x \mapsto \frac{|i-\sqrt{i}\sqrt{i+x}|^2}{|x|}$.}}
+    \includegraphics[scale=0.6]{boundbulk.pdf}
+    \caption{plot of the function $x \mapsto |x - \sqrt{x}\sqrt{x+i}|$:
+	 it decreases for $x<0$ and increases for $x>0$. A routine
+	 computation tells that its derivative is asymptotically
+	 positive for $x\rightarrow+\infty$.
+	 % to do the routine computation:
+	 % use that
+	 % |x - \sqrt{x}\sqrt{x+i}|^2 = (x - \sqrt{x}\sqrt{x+i}) \times
+	 %					(x - \sqrt{x}\sqrt{x-i})
+	 % develop, and differentiate.
+	 }
     \label{fig:figboundbulk}
 \end{figure}
 For $\theta \leq 1$ and if 
@@ -886,37 +897,39 @@ Following the derivation in the previous paragraph,
 we find that the evolution of $B_k$ is:
 \begin{equation}
 	\label{eq:OASchwarz_ConvergenceAnalysis_linearizedCV}
+	\begin{aligned}
     \left(\frac{i(\omega+f)h_{\rm a}}{\alpha} -
-	\theta \lambda_{\rm a}\right)B_{k+1}(z)
-    =
+	\theta \lambda_{\rm a}\right)B_{k+1}(\omega)
+		=&
     \left(\left(\frac{3}{2} - \theta\right) 
     \lambda_{\rm a}
-    + \frac{3}{2} \epsilon \lambda_{\rm o} \right) B_k(z)
-    + \frac{
+    + \frac{3}{2} \epsilon \lambda_{\rm o} \right) B_k(\omega)\\
+		&+ \frac{
     \mathcal{O}
     }{2}
     \left(
     \overline{
-    \lambda_{\rm a}(\overline{z})
+    \lambda_{\rm a}(-{\omega})
     +
-    \epsilon\lambda_{\rm o}(\overline{z})}
+    \epsilon\lambda_{\rm o}(-{\omega})}
     \right)
-    \overline{B_k(\overline{z})}
+    \overline{B_k(-{\omega})}
+\end{aligned}
 \end{equation}
 with $\epsilon = \frac{\rho_{\rm a} h_{\rm a}}{\rho_{\rm o} h_{\rm o}}$ 
 and $\mathcal{O} = 
 \frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e - U_{\rm o}^e}} \frac{\omega+f}{\omega - f}$.
-Note that the variable $\overline{z}$ appears when using the Fourier
+Note that the variable $\overline{i \omega}=-\omega$ appears when using the Fourier
 transform on $\overline{\delta U_a^{k-1} - \delta U_o^{k-1}}$.
 As a consequence,
 the convergence factor $\xi^q$ in the linearized 
 quadratic friction case differs from one iteration to another:
 it is a function of
 $\frac{\overline{B_{k-1}(-\omega)}}{B_{k-1}(\omega)}$.
-\paragraph{Asymptotic ($\omega+f \rightarrow 0$) convergence}
-
+\paragraph{Asymptotic ($\omega+f \rightarrow 0$) convergence for
+	one iteration}
 However, for $(\omega+f) \rightarrow 0$ the term 
-$ \frac{1}{2}\frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e - U_{\rm o}^e}}\,
+$\displaystyle \frac{1}{2}\frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e - U_{\rm o}^e}}\,
 \overline{
 \delta U_{\rm a}^{k-1} - \delta U_{\rm o}^{k-1}}$
 vanishes, therefore the asymptotic convergence 
@@ -939,25 +952,26 @@ convergence factor but it is a good choice for $\theta_{\rm opt}^q$,
 as shown in the numerical experiments in Section \ref{sec:num-exp}.
 \par
 The asymptotic behavior for $\omega+f \rightarrow 0$ with
-multiple iterations can differ from the asymptotic convergence
-rate $\xi_0^q$ above
-because $B_{k+1}(i\omega)$ depends on
-$\overline{B_k(- i\omega)}$ which could explode because
-$|\overline{\mathcal{O}(\omega\rightarrow f)}| \rightarrow \infty$.
-
-
+multiple iterations differs from the asymptotic convergence
+rate $\xi_0^q$ above:
+indeed, $B_{k+1}(\omega)$ depends on
+$\overline{B_k(- \omega)}$ which itself depends on
+$\overline{\mathcal{O}(-\omega)} B_{k-1}(i\omega)$
+which could explode because
+$|\overline{\mathcal{O}(-\omega+ f \rightarrow 0)}|
+\rightarrow \infty$.
 \paragraph{Non-asymptotic convergence}
-We need to look at both $B_{k+1}(z), \overline{B_{k+1}(\overline{z})}$
-at the same time: let $z\in\mathbb{C}$,
-let $a_1, a_2 \in \mathbb{C}$ such as
+If multiple iterations are performed, we need to look at both
+$B_{k+1}(\omega), \overline{B_{k+1}(-{\omega})}$
+at the same time: let $a_1, a_2 \in \mathbb{C}$ such as
 \begin{equation}
 	\begin{aligned}
-		B_{k+1}(z) &= a_1 B_{k}(z) + a_2
-		\overline{B_{k}(\overline{z})}\\
-		\overline{B_{k+1}(\overline{z})} &=
-		\overline{a_1(\overline{z})
-			B_{k}(\overline{z})
-		+ {a_2(\overline{z})} \overline{B_{k}(z)}}
+		B_{k+1}(\omega) &= a_1 B_{k}(\omega) + a_2
+		\overline{B_{k}(-{\omega})}\\
+		\overline{B_{k+1}(-{\omega})} &=
+		\overline{a_1(-{\omega})
+			B_{k}(-{\omega})
+		+ {a_2(-{\omega})} \overline{B_{k}(\omega)}}
 	\end{aligned}
 \end{equation}
 We examine the evolution of those two
@@ -965,62 +979,96 @@ simulaneously evolving quantities:
 \begin{equation}
 	\label{eq:OASchwarz_transitionMatrixDD26}
 \begin{pmatrix}
-	B(z) \\
-	\overline{B(\overline{z})}
+	B(\omega) \\
+	\overline{B(-{\omega})}
 \end{pmatrix}_{k+1}
  =
 \begin{pmatrix}
-	a_1(z) & a_2(z) \\
-	\overline{a_2(\overline{z})} & \overline{a_1(\overline{z})} \\
+	a_1(\omega) & a_2(\omega) \\
+	\overline{a_2(-{\omega})} & \overline{a_1(-{\omega})} \\
 \end{pmatrix}
 \begin{pmatrix}
-	B(z) \\
-	\overline{B(\overline{z})}
+	B(\omega) \\
+	\overline{B(-{\omega})}
 \end{pmatrix}_{k}
 \end{equation}
 with:
 \begin{equation}
 \begin{aligned}
-    a_1(z)
+    a_1(\omega)
     &= \frac{\left(\left(\frac{3}{2} - \theta\right) 
     \lambda_{\rm a}
     + \frac{3}{2} \epsilon \lambda_{\rm o} \right)}
 	{\left(\frac{i(\omega+f)h_{\rm a}}{\alpha} -
 		\theta \lambda_{\rm a}\right)}, ~~~~~~~~~~
-    a_2(z)
+    a_2(\omega)
     &= \frac{
  \frac{
     \mathcal{O}
     }{2}
     \left(
     \overline{
-    \lambda_{\rm a}(\overline{z})
+    \lambda_{\rm a}(-{\omega})
     +
-    \epsilon\lambda_{\rm o}(\overline{z})}
+    \epsilon\lambda_{\rm o}(-{\omega})}
     \right)   
     }{\left(\frac{i(\omega+f)h_{\rm a}}{\alpha} - \theta \lambda_{\rm a}\right)}
 \end{aligned}
 \end{equation}
-The biggest singular value of the $2\times 2$ matrix
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.65]{asymptote_linearized.pdf}
+	\caption{Singular values
+	$\widetilde{\xi}_1, \widetilde{\xi}_2$ of $\begin{pmatrix}
+	a_1(\omega) & a_2(\omega) \\
+	\overline{a_2(-\omega)} & \overline{a_1(-\omega)} \\
+	\end{pmatrix}$.
+	On the left panel, the singular values are maximized over the
+	set of discrete frequencies
+	$\{-\frac{\pi}{\Delta t}, ..., \frac{\pi}{T}, 0,
+	\frac{\pi}{T},..., \frac{\pi}{\Delta t}\}$.
+	On the right panel are shown
+	the asymptote of the singular values for $\omega+f \to 0$.
+	The vertical dashed line highlights the minimum
+	of $\max \widetilde{\xi}_1$.
+	The windows length $T$ is one day
+	and $\Delta t=60\;{\rm s}$ .
+	}
+    \label{fig:OASchwarz_nonasymptotic}
+\end{figure}
+The singular values (shown in Figure \ref{fig:OASchwarz_nonasymptotic})
+of the $2\times 2$ matrix
 in \eqref{eq:OASchwarz_transitionMatrixDD26}
-can be studied instead as the "convergence factor".
-However, this eigenvalue is much bigger than the observed
-convergence factor in $L^2$ norm. The numerical
+can be studied instead of the convergence factor.
+\par
+First, it is seen on the right panel of Figure
+\ref{fig:OASchwarz_nonasymptotic} that for
+$\omega+ f \rightarrow\to 0$,
+one of the singular values is always greater than one:
+\textbf{the continuous-in-time Schwarz method does not
+converge, whatever the parameter $\theta$.}
+However, the singular values are both smaller than one
+on the set of discrete frequencies
+$\{\frac{\pi l}{T},
+l \in [-\frac{T}{\Delta t},\frac{T}{\Delta t}]\}$
+(left panel of Figure \ref{fig:OASchwarz_nonasymptotic}).
+\textbf{The Schwarz method converges on discrete frequencies
+for the choice $f=10^{-4} \; {\rm s}^{-1}, T=1 \; {\rm day}$.}
+We will see in numerical experiments that the maximum of the
+singular value over the discrete frequencies do not reflect the $L^2$
+convergence rate:
+it is mostly affected by the proximity of $f$ in the discrete
+frequencies.
+The vertical dashed line indicates that the numerical
 optimisation of the biggest eigenvalue gives
-$\theta \approx 1.7$, which leads to a slower convergence.
-{\color{red} TODO figures to show that}
-\begin{remark}
-In a semi-discrete in time setting, the Fourier transform
-$s=i\omega$ is used. However, since the expression contains
-divisions by $s\pm if$ the semi-discrete in space analysis
-is very sensitive to the frequency $\omega=f$. Using
-a discrete in time and space analysis is here more adapted
-to the optimization: $s^{\rm BE}=\frac{z-1}{z \Delta t}$.
-	{\color{red} c'est toujours incompréhensible: $\theta=1.5$
-	fait converger plus vite que $\theta=1.7$ alors que ce dernier
-	est meilleur que $1.5$ quand on regarde les valeurs propres...}
-\end{remark}
-
+$\theta \approx 1.7$.
+% \begin{remark}
+% In a fully discrete setting, instead of the the Fourier transform
+% another frequency variable $s^{\rm time}(\omega)$ instead of $i\omega$ is used.
+% However, for frequencies as low as $10^{-4}\;{\rm s}^{-1}$ we generally
+% have $s^{\rm time}(\omega) \approx i \omega$ because the time discretisation
+% methods are usually very precise in low frequencies.
+% \end{remark}
 \input{wellPosedness.tex}
 
 \section{Numerical experiments}
