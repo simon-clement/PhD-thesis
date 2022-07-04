@@ -8,9 +8,9 @@ les viscosités sont pas constantes il me semble ?}
 We focus here on showing the existence of strong
 unsteady solutions of the semi-discrete in space,
 non-linear problem.
-\myTD{Fibrillations biblio?}
+\myTD{Note: je parle pas de fibrillation parceque c'est vraiment
+relié au schéma de turbulence, rien à voir avec ici.}
 \\
-\myTD{Renault, Lemarié pour bien posé}
 In \citep{chacon-rebollo_existence_2014},
 the existence of unsteady solutions of
 non-linear turbulent models for oceanic surface mixing layers is
@@ -37,29 +37,21 @@ equilibrium state.
 	\begin{enumerate}
 		\item concatenate the state vectors
 			in a single vector $\mathbf{U}=
-		\{u_a, \phi_a, u_o, \phi_o\} \in \mathbf{\cal U}$
-		where
-		\begin{equation}
-			\mathbf{\cal U} = L^2([0,T])^{M_o} \times
-			L^2([0,T])^{M_o} \times L^2([0,T])^{M_a}
-			\times L^2([0,T])^{M_a}
-		\end{equation}
+			\{u_a, u_o, \left.\phi_a\right|_{z=0}\}
+			\in \mathbf{\cal U}$
+		where $\mathbf{\cal U} = L^2([0,T])^{M_a+M_o+1}$.
 		\item
-		Define a mapping
-		$\mathbf{\Phi}: \mathbf{\cal U}\rightarrow \mathbf{Y}$
-		such that
+	Define a mapping
+	$\mathbf{\Phi}: \mathbf{\cal U}\rightarrow \mathbf{Y}$
+	such that
 \begin{equation}
 	\label{eq:OASchwarz_wellPosedness_Phi}
 \begin{aligned}
 	\mathbf{\Phi}(\mathbf{U}) =
-	\{&(\partial_t + if) u_a - \nu_a\partial_z \phi_a - g_a, ~~
-	\phi_a-\partial_z U_a, \\
-	&(\partial_t + if) u_o - \nu_o\partial_z \phi_o - g_o,
-	 ~~ \phi_o-\partial_z U_o, \\
+	\{&(\partial_t + if) u_a - \nu_a\partial_z \phi_a - g_a, \\
+	&(\partial_t + if) u_o - \nu_o\partial_z \phi_o - g_o, \\
 	&u_a(H_a, t) - u^\infty_a, ~~ u_o(H_o, t) - u^\infty_o, \\
-	&\nu_{\rm o}\left.\phi_{\rm o}\right|_{z=0} -
-	\epsilon \left.\nu_{\rm a}\phi_{\rm a}\right|_{z=0}, ~~
-	\nu_{\rm a}\left.\phi_{\rm a}\right|_{z=0} - \alpha
+	&\nu_{\rm a}\left.\phi_{\rm a}\right|_{z=0} - \alpha
 	\left( U_{\rm a}\left(\frac{h_{\rm a}}{2},
 	t\right) - U_{\rm o}\left(-\frac{h_{\rm o}}{2},
 	t\right)\right) \\
@@ -67,31 +59,37 @@ equilibrium state.
 	\left.u_o\right|_{t=0} - U^e_{o}\}
 \end{aligned}
 \end{equation}
-where $\partial_z$ is to be undertood as the finite difference
+where $\left.\phi_j\right|_{z\neq 0} = \partial_z u_j$
+and $\partial_z$ is to be undertood as the finite difference
 operator which is applied only where it makes sense:
 for instance the first line of \eqref{eq:OASchwarz_wellPosedness_Phi}
 is not applied for $z=H_a$.
 Let us draw some important remarks about $\mathbf{\Phi}$:
 \begin{itemize}
+ \item The equation $\phi_o = \epsilon \frac{\nu_a}{\nu_o}\phi_a$ is
+	 implicit;
  \item $\mathbf{\Phi}(\mathbf{U}^e)=0$
  	where $\mathbf{U}^e$
  	is the steady-state;
  \item the codomain $\mathbf{Y}$ is
  	\begin{equation}
-		\mathbf{Y}=\left(L^2([0,T])^{M_o-1}\right)^2 
-			\times \left(L^2([0,T])^{M_a-1}\right)^2
- 			\times L^2([0,T])^{4}
+		\mathbf{Y}=L^2([0,T])^{M_a-1}
+			\times L^2([0,T])^{M_o-1}
+ 			\times L^2([0,T])^{3}
 			\times \mathbb{R}^{M_a+M_o}
  	\end{equation}
 \item 
 finding $\mathbf{\Phi}^{-1}(y)$ is equivalent
 to solving the nonlinear semi-discrete problem
-\eqref{eq:SWRbulk} if the components of $y$ are zero except for the
-part $\left.u_a\right|_{t=0} - U^e_{a}, ~~
-	\left.u_o\right|_{t=0} - U^e_{o}$.
+\eqref{eq:SWRbulk} if the component of $y$ corresponding
+to the interface condition is zero.
 The idea of the proof is that if $\mathbf{\Phi}$ is invertible
 around $\mathbf{U}^e$ then the nonlinear semi-discrete problem
 \eqref{eq:SWRbulk} is invertible.
+\myTD{Note: normalement bien posé ça veut dire que la solution
+	dépend continuement des variables d'entrées:
+	faudra le rajouter quelque part dans l'appendice
+		et à la fin de cette démo.}
 \end{itemize}
 		\item Show that $\mathbf{\Phi}$ is $C^1$ in a
 			neighborhood of $\mathbf{U}^e$.
@@ -108,18 +106,13 @@ around $\mathbf{U}^e$ then the nonlinear semi-discrete problem
 			by the linearized problem (for more
 			details see
 			\cite{chacon-rebollo_existence_2014}).
-			\myTD{Je suis pas ultra sûr de pouvoir
-			utiliser le théorème de la fonction
-			inverse dans $\mathbb{C}$ parceque
-			j'y connais pas grand chose en
-			analyse complexe}
 		\item Show that $D\mathbf{\Phi}(\mathbf{U}^e)$
 		is an isomorphism:
 		$D\mathbf{\Phi}(\mathbf{U}^e)$ can
-		be inverted by solving the linearized problem which
-		is well-posed.
-		\myTD{euh ça marche ça ? on a l'implication dans
-		l'autre sens mais linearized problem inversible
-		$=>D\mathbf{\Phi}(\mathbf{U}^e)$ inversible on a pas}
+		be inverted by solving the linearized problem
+		with additional input data.
+		It is \myTD{not completely} shown
+		that it is well-posed in appendix
+		\ref{sec:OASchwarz_appendix_discreteVariationParameters}.
 	\end{enumerate}
 \end{enumerate}

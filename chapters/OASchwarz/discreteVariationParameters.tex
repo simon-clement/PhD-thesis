@@ -1,9 +1,10 @@
-\begin{appendix}
-\section{Discrete variation of parameters}
+\begin{subappendices}
+\section{Well-posedness of the linearized quadratic friction case}
 \label{sec:OASchwarz_appendix_discreteVariationParameters}
-We look for the solutions of the Fourier transform of equation
-\eqref{eq:OASchwarz_DiscreteStationaryState_homogeneousEq1}:
+We look for the solutions of the Fourier transform of our
+coupled problem (the steady state has been substracted from $u$):
 \begin{subequations}
+	\label{eq:OASchwarz_appendix_discreteVariationParameters}
 	\begin{align}
 	(i\omega + if) \widehat{u}_{m+\frac{1}{2}} -
 		\nu_j \frac{\widehat{\phi}_{m+1} -
@@ -24,12 +25,17 @@ We look for the solutions of the Fourier transform of equation
 		\widehat{u}_{1/2}(-\omega) -
 		\widehat{u}_{-1/2}(-\omega)} \right) &=
 		\nu_{\rm a}\widehat{\phi}_{\rm a, 0},
-		\hspace{1.12cm} t \in [0,T]\\
+		\hspace{1.12cm} t \in [0,T]
+		\label{eq:OASchwarz_appendix_linearizedCond}
+		\\
 		\rho_{\rm o} \nu_{\rm o}\widehat{\phi}_{\rm o, 0}
 		&= \rho_{\rm a} \nu_{\rm a}\widehat{\phi}_{\rm a, 0},
 		\hspace{1.0cm} t \in [0,T]
+		\label{eq:OASchwarz_appendix_continuityFlux}
 		\end{align}
 		\end{subequations}
+where ${\cal O} = \frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e
+	- U_{\rm o}^e}}$.
 % The set of solutions of the homogeneous version of
 % \eqref{eq:OASchwarz_appendix_eqFourier} is given in the
 % convergence analysis: $\widehat{\phi}_{\rm o}(-m h_{\rm o})
@@ -38,6 +44,23 @@ We look for the solutions of the Fourier transform of equation
 % $\widehat{\phi}_{\rm a}(m h_{\rm a}) = B (\lambda_{\rm a}+1)^m$ 
 % with $\lambda_j = \frac{1}{2}\left(\chi_j - \sqrt{\chi_j} \sqrt{\chi_j + 4}\right)$, 
 % $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$ and $m$ the space index.
+\begin{remark}
+	To show the well-posedness of the non-linear
+	problem, it is necessary to add external data
+	that does not depends on $\widehat{u}$
+	in \eqref{eq:OASchwarz_appendix_bdCond} and
+	\eqref{eq:OASchwarz_appendix_linearizedCond}.
+	It only complicates the derivation and do not need
+	any special treatment: we hence omit them.
+\end{remark}
+To show that there exists a unique solution to
+\eqref{eq:OASchwarz_appendix_discreteVariationParameters},
+we first compute the $\widehat{u}_{1/2} - \widehat{u}_{-1/2}$
+then prove that the friction law always has a unique solution.
+\subsection{Jump of the solution
+	$\widehat{u}_{1/2} - \widehat{u}_{-1/2}$}
+We first compute the jump of the solution
+$\widehat{u}_{1/2} - \widehat{u}_{-1/2}$.
 \begin{itemize}
 \item if $\omega=-f$:
 	\begin{equation}
@@ -70,7 +93,7 @@ We look for the solutions of the Fourier transform of equation
 		\phi_{(m\rightarrow \infty)}=0$, which overdetermines
 		the system. This is why we keep $H_j$ here.
 	\end{remark}
-	Note that with the help of the interface condition
+	With the help of the interface condition
 	$\rho_o \nu_o \phi_o = \rho_a \nu_a \phi_a$,
 	the jump of solutions
 	$\widehat{u}_{1/2} - \widehat{u}_{-1/2}$ can be written
@@ -84,21 +107,22 @@ discrete case to compute a solution of
 	the solutions of the homogeneous version of
 	\eqref{eq:OASchwarz_appendix_eqFourier} are
 		$\widehat{u} = B^1_m \lambda_u^m +
-			B^2_m \lambda_u^{-m}$.
+			B^2_m \lambda_u^{-m}$, where
+	$\lambda_u=1+\frac{\chi_2}{2} -\sqrt{\chi_2}\sqrt{\chi_2+4}$.
 	Equation \eqref{eq:OASchwarz_appendix_eqFourier}
 	can be rewritten as
 	\begin{equation}
 		(\widehat{u}_{m+1} - \widehat{u}_{m})
-		+\chi_2 \widehat{u}_{m}
+		-\chi_2 \widehat{u}_{m}
 		- (\widehat{u}_{m} - \widehat{u}_{m-1})
-		= U_0
+		= -U_0
 	\end{equation}
 	Injecting $\widehat{u} = B^1_m \lambda_u^m +
 	B^2_m \lambda_u^{-m}$ and rearranging terms gives
 \begin{equation}
 	\begin{aligned}
 	&B^1_m \underbrace{\left(
-		\lambda_u^{m+1} - \lambda_u^m + \chi_2 \lambda_u^m
+		\lambda_u^{m+1} - \lambda_u^m - \chi_2 \lambda_u^m
 		- (\lambda_u^{m} - \lambda_u^{m-1})
 		\right)}_{=0} ~~~~~~~+ B^2_m \times 0 \\
 	&+ \lambda_u^{m+1} (B_{m+1}^1 - B_m^1)
@@ -109,7 +133,7 @@ discrete case to compute a solution of
 	&+ (\lambda_u^m - \lambda_u^{m-1})(B_{m}^1 - B_{m-1}^1)
 		~~~~~~~~~~~~~~+ (\lambda_u^{-m} - \lambda_u^{-m+1})
 				(B_{m}^2 - B_{m-1}^2)\\
-		&~~~~~~~~~~~~= U_0
+		&~~~~~~~~~~~~= -U_0
 	\end{aligned}
 \end{equation}
 A particular solution of \eqref{eq:OASchwarz_appendix_eqFourier}
@@ -159,24 +183,27 @@ ${C}_4$:
 	(\lambda_u)^{2M_a} + S_{M_a}^2(U_0)
 \end{equation}
 \begin{equation}
-	\begin{aligned}
-		\widehat{u}_{\frac{1}{2}} &= {C}_3 (1 - \lambda_u^{2M_a})
+		\widehat{u}_{\frac{1}{2}} = {C}_3 (1 - \lambda_u^{2M_a})
 	+ \underbrace{S_0^1+S_0^2 - S_{M_a}^1 \lambda_u^{2M_a}
-		-S_{M_a}^2}_{:=S_{u, a}^{m=1/2}(U_0)} \\
-		\chi_a \widehat{u}_{\frac{1}{2}} &= u_{\frac{3}{2}} - u_{\frac{1}{2}}
-		- \phi_0 + \frac{h^2_a}{\nu_a} U_0
-	\end{aligned}
+		-S_{M_a}^2}_{:=S_{u, a}^{m=1/2}(U_0)}
+\end{equation}
+\eqref{eq:OASchwarz_appendix_eqFourier} at the first grid level is
+\begin{equation}
+	\chi_a \widehat{u}_{\frac{1}{2}} =
+	\widehat{u}_{\frac{3}{2}} - \widehat{u}_{\frac{1}{2}}
+	- h_a \phi_{a,0} + \frac{h^2_a}{\nu_a} U_0
 \end{equation}
 Those equations give
 \begin{equation}
 	\begin{aligned}
-		\widehat{\phi}_{a,0} ={C}_3 \left(
-			\underbrace{\lambda_u-\lambda_u^{2M_a-1}
-			- (\chi_a+1)(1-\lambda_u^{2M_a})}_{:=K_{1,a}}
-			\right)
-		-\left(\underbrace{(\chi_a + 1) S_{u,a}^{m=1/2}
+		\widehat{\phi}_{a,0} =&{C}_3 \underbrace{\frac{1}{h_a}
+		\left(
+			\lambda_u-\lambda_u^{2M_a-1}
+			- (\chi_a+1)(1-\lambda_u^{2M_a})
+			\right)}_{:=K_{1,a}}\\
+		&-\underbrace{\frac{1}{h_a}\left((\chi_a + 1) S_{u,a}^{m=1/2}
 		- S_{u,a}^{m=3/2}
-		- \frac{h^2}{\nu} U_0}_{:=S_{\phi,a}^{m=0}}\right)
+		- \frac{h_a^2}{\nu_a} U_0\right)}_{:=S_{\phi,a}^{m=0}}
 	\end{aligned}
 \end{equation}
 We obtain similar equations in the ocean part:
@@ -196,13 +223,15 @@ $\rho_o \nu_o \phi_o = \rho_a \nu_a \phi_a$ lets us rewrite
 	\frac{\nu_a}{\nu_o} \frac{K_{1,a}}{K_{1,o}} +
 	\frac{S_{\phi,o}^0 - S^0_{\phi, a}}{K_{1,o}}
 \end{equation}
-The jump between the solutions is
+The jump between the solutions for $\omega\neq -f$ is
 \begin{equation}
 	\widehat{u}_{\frac{1}{2}} - \widehat{u}_{-\frac{1}{2}}
 	= {C}_3 K_{2} + \Delta S
 \end{equation}
 where $K_{2} = 1 - \lambda_{u_a}^{2M_a} - (1 - \lambda_{u_o}^{2M_o})
 \epsilon \frac{\nu_a}{\nu_o} \frac{K_{1,a}}{K_{1,o}}$.
+\end{itemize}
+\subsection{Inverting the friction law}
 The friction law writes
 \begin{equation}
 	\underbrace{(\nu_a K_{1,a} - \frac{3\alpha^e K_{2}}{2})}_{
@@ -231,31 +260,60 @@ the matrix
 \begin{equation}
 	\begin{pmatrix}
 		\nu_a - \frac{3 \alpha^e}{2}\Delta H &
-		\overline{K_4(f)} \\
+		-\overline{K_4(f)} \\
 		-\frac{\alpha^e}{2}\overline{\cal O} \times \Delta H&
 		\overline{K_3(f)}
 	\end{pmatrix}
 \end{equation}
 is inversible.
-\end{itemize}
 Let us approximate some of the terms for sufficiently big $M_a, M_o$:
 \begin{itemize}
-	\item $K_1 \approx \lambda_u - 1 - \chi_j \approx \chi_j/2$
-		\myTD{verifier ça}
-	\item $K_2 \approx 1 (- \epsilon\frac{\nu_a}{\nu_o}
-		\frac{K_{1,a}}{K_{1,o}})$
-	\item $K_3 \approx \nu_a \chi_a / 2 - 3 \alpha^e / 2$
-	\item $K_4 \approx \overline{\alpha^e {\cal O}(-\omega)} / 2$
+	\item $K_1 \approx \frac{1 - \lambda_u^{-1}}{h}$
+	\item $K_2 \approx 1 - \epsilon\frac{\nu_a}{\nu_o}
+		\frac{K_{1,a}}{K_{1,o}}$
+	\item $K_3 = \nu_a K_{1,a} - \frac{3}{2} \alpha^e K_2$
+	\item $K_4 = \frac{\alpha^e \overline{{\cal O}}}
+		{2}K_2$
 \end{itemize}
-Now, $\left|
-	\begin{pmatrix}
-		K_3(\omega)& - \overline{K_4(-\omega)}\\
-		-K_4(\omega) & \overline{K_3(-\omega)}
-	\end{pmatrix}\right|\approx
-	|\alpha^e|^2 \overline{ {\cal O}(-\omega)}
-	{\cal O}(\omega) / 4
-	$
-	and $\overline{ {\cal O}(-\omega)}
-	{\cal O}(\omega) = \frac{-\omega + f}{-\omega-f} \times
-	\frac{\omega + f}{\omega-f} = -1$
-\end{appendix}
+First, we notice that $\overline{ {\cal O}(-\omega)}
+	{\cal O}(\omega) = 1$.
+We can compute the determinant
+\begin{equation}
+\left|
+\begin{pmatrix}
+	K_3(\omega)& - \overline{K_4(-\omega)}\\
+	-K_4(\omega) & \overline{K_3(-\omega)}
+\end{pmatrix}\right|=
+\frac{5}{2} (\alpha^e)^2 K_2 \overline{K_2(-\omega)}
++ \nu_a^2 K_1 \overline{K_1(-\omega)}
+- \frac{3}{2} \nu_a \alpha^e \left(K_2 \overline{K_1(-\omega)}
++ K_1 \overline{K_2(-\omega)}
+\right)
+\end{equation}
+Assuming that $f$ is small, let us separate our study into two zones:
+one is $(\omega, f) \rightarrow 0$, the other is $\omega \gg f$.
+\begin{itemize}
+ \item $(\omega, f) \rightarrow 0$
+	means that $K_{1,j} \rightarrow \frac{1}{h_j}$.
+	It follows that $K_2$ is close to the real axis and the determinant
+	is asymptotically
+	\begin{equation}
+		\label{eq:OASchwarz_appendix_det_asymptote}
+	\nu_a^2 K_1^2 \left(2 \left(\frac{\alpha^e K_2}{\nu_a K_1}\right)^2
+		- 3 \left(\frac{\alpha^e K_2}{\nu_a K_1}\right) + 1 \right)
+	\end{equation}
+	and we obtain the constraint
+	$\frac{\alpha^e K_2}{\nu_a K_1}
+	\notin \{\frac{1}{2},1\}$.
+		\myTD{trouver un truc à dire là dessus}
+ \item for $\omega \gg f$ we approximate $\omega+f \approx \omega$
+	 and we obtain $\overline{K_1(-\omega)} \approx K_1(\omega)$.
+	 The determinant is again asymptotically
+	\eqref{eq:OASchwarz_appendix_det_asymptote}
+	and we obtain the constraint that
+	$h_a\frac{\alpha^e K_2}{\nu_a} \notin \{\frac{1}{2},1\}$
+	Since $K_1 \rightarrow \chi_1$ we have that
+	$\frac{\alpha^e K_2}{\nu_a K_1}$ is on the imaginary axis for
+	high $\omega$ and the condition is fullfilled.
+\end{itemize}
+\end{subappendices}
