@@ -1041,6 +1041,15 @@ with:
 	}
     \label{fig:OASchwarz_nonasymptotic}
 \end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.65]{shannon_pedago.pdf}
+	\caption{Singular value $\widetilde{\xi}_1(\omega)$.
+	The set of discrete frequencies do not contain
+	with our parameters the peaks around $\{f, -f\}$.
+	}
+    \label{fig:OASchwarz_shannonPedago}
+\end{figure}
 The singular values (shown in Figure \ref{fig:OASchwarz_nonasymptotic})
 of the $2\times 2$ matrix
 in \eqref{eq:OASchwarz_transitionMatrixDD26}
@@ -1059,6 +1068,9 @@ l \in [-\frac{T}{\Delta t},\frac{T}{\Delta t}]\}$
 (left panel of Figure \ref{fig:OASchwarz_nonasymptotic}).
 \textbf{The Schwarz method converges on discrete frequencies
 for the choice $f=10^{-4} \; {\rm s}^{-1}, T=1 \; {\rm day}$.}
+The difference between the continuous and discrete frequencies
+is illustrated in Figure \ref{fig:OASchwarz_shannonPedago}.
+\myTD{figure 6.6 mais avec $f\approx 2e-4$}
 We will see in numerical experiments that the maximum of the
 singular value over the discrete frequencies do not reflect the $L^2$
 convergence rate:
