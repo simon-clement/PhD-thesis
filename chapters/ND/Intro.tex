@@ -2,8 +2,7 @@
 Schwarz methods have been studied in Chapters
 \ref{ch:discreteSchwarzAnalysis} and
 \ref{ch:approximatedDiscreteSchwarz}; we now focus
-on the discretisation of the surface layer above the
-ocean surface.
+on the discretisation of the atmospheric surface layer.
 The dynamics presented in chapter \ref{ch:airseaSCM} are
 recalled in \S \ref{sec:ND_Intro_continuousModel} and
 the specific problem of the treatment of the surface layer
@@ -17,19 +16,22 @@ and a vertical turbulent term (the stratification
 will be introduced later in \S\ref{sec:ND_StratifiedCase}):
 \begin{equation}
 	\label{eq:ND_Intro_physics_evolutionEq}
-	\partial_t u + i f u + \partial_z \langle w'u'\rangle = 0 
+	\partial_t u + i f u + \partial_z \langle w'u'\rangle
+	= i f u_G 
 \end{equation}
+\begin{remark}
 As it was detailed in \S \ref{sec:airseaSCM_hierarchy_Ekman}
 $u$ is considered to be a complex-valued function for an easier
 representation of the Coriolis effect.
 The vector norm $||\cdot||$ is equivalent to the modulus
 $|\cdot|$.
+\end{remark}
 In \eqref{eq:ND_Intro_physics_evolutionEq}, the
 Boussinesq hypothesis is applied on the turbulent flux
 $\langle w'u' \rangle = - K_u \partial_z u$ where
 $K_u$ is the turbulent viscosity.
 In this chapter we focus on this flux and its bottom boundary
-condition.
+expression.
 \par
 We present a continuous model which describes the atmosphere
 column as the coupling of two regions:
@@ -67,8 +69,7 @@ The surface layer has two main characteristics:
 		and the geostrophic forcing are neglected),
 		the flux $K \partial_z u$
 		is a constant along the vertical axis.
-	\item It is close to the surface:
-		the vertical profile of $K$ strongly depends 
+	\item The vertical profile of $K$ strongly depends 
 		on $z$.
 \end{itemize}
 The equations in the atmosphere column are hence (see Figure
@@ -96,13 +97,26 @@ $e_\tau = \frac{u(\delta_{\rm sl})-u(0)}
 	{||u(\delta_{\rm sl})-u(0)||}$
 where the surface current $u(0, t)$ is set to 0 or given by
 the ocean model in a coupled situation.
-In the neutral case we assume $u(0,t)=0$ to shorten the expressions.
-\footnote{
+In the neutral case (without stratification) we assume
+$u(0,t)=0$ to shorten the
+expressions\footnote{
 Setting $u(0,t)=0$ amounts to consider the "absolute" wind speed
 rather than the "relative" wind w.r.t. the surface currents:
 the implementation of current feedbacks in ocean-atmosphere
 coupled models is discussed in \cite{renault_implementation_2019}.
-}
+}.
+The initial and top boundary conditions are
+\begin{subequations}
+	\label{eq:ND_NeutralCase_initialBdCond}
+	\begin{equation}
+	\label{eq:ND_NeutralCase_initial}
+		\left.u\right|_{t=0} = u_G
+	\end{equation}
+	\begin{equation}
+	\label{eq:ND_NeutralCase_topBdcond}
+		\left.\partial_z u\right|_{z=z_{\rm top}} = 0
+	\end{equation}
+\end{subequations}
 %
 \begin{figure}
 	\centering
@@ -124,8 +138,8 @@ coupled models is discussed in \cite{renault_implementation_2019}.
 The viscosity in the surface layer is
 $K_u(z\leq \delta_{sl}) = \kappa u_\star (z + z_{u})$ where
 $z_{u} = z_u({K_{{\rm mol}}}, u_\star)$ depends on the
-geometry of the space domain and $\kappa=0.40$ is the Von
-Karman constant.
+geometry of the space domain; $\kappa=0.40$ is the Von
+Karman constant and $K_{\rm mol}$ is the molecular viscosity.
 It follows from \eqref{eq:ND_NeutralCase_ConstantFlux} that
 \begin{equation}
 \label{eq:ND_NeutralCase_WallLaw}
@@ -134,7 +148,8 @@ It follows from \eqref{eq:ND_NeutralCase_ConstantFlux} that
 \end{equation}
 which is called \textit{logarithmic profile} (or in the
 stratified case \textit{MOST profile}).
-The \textit{wall law} can refer to both the logarithmic profile,
+The expression \textit{wall law} can refer to either the
+logarithmic profile,
 the surface layer viscosity $K_u(z\leq \delta_{sl})$
 and the boundary condition \eqref{eq:ND_NeutralCase_ConstantFlux}.
 \paragraph{BULK routines}
@@ -190,18 +205,20 @@ $u(z, t^{n+1})$ is:
 \subsection{Treatment of the surface layer}
 \label{sec:ND_Intro_treatmentSL}
 The exclusion of the surface layer from the computational
-domain is justified by the lack of numerical precision
+domain is justified by the lack of numerical resolution
 close to the surface: the continuous model
 \eqref{eq:ND_NeutralCase_continuousModel} is split
 according to the numerical ressources. The height
-of the surface layer $\delta_{sl]}$ is hence generally chosen as the
+of the surface layer $\delta_{sl}$ is hence generally chosen as the
 first grid level.
-However, the evolution equation \eqref{eq:ND_NeutralCase_EkmanEq}
+However, in present numerical models,
+the evolution equation \eqref{eq:ND_NeutralCase_EkmanEq}
 is also solved inside the surface layer which contradicts the
 quasi-stationary hypothesis.
-we can identify three ways to improve
-the treatment of the surface layer (subjectively in decreasing
+In order to improve the treatment of the surface layer,
+we can identify three issues (subjectively in decreasing
 order of importance and ease of correction):
+\myTD{equation pour clarifier 1,2,3 ?}
 \begin{enumerate}
 	\item $\delta_{sl}$ is too small. This issue is well-known
 		in the LES community and is called
@@ -236,7 +253,8 @@ order of importance and ease of correction):
 		model should be recovered when the space step tends
 		to zero.  In particular, the surface layer should
 		still be parametrized with the same wall law which
-		is not the case when $\delta_{sl}$ is the first grid
+		is not the case when $\delta_{sl}$ is chosen
+		as the first grid
 		level. \cite{basu_cautionary_2017} warn that
 		in several recent LES studies the space step is
 		so small that the Monin-Obukhov hypotheses

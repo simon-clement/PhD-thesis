@@ -23,7 +23,7 @@ there is no effect of the stratification on the turbulent viscosity
 so the wind speed $u(z, t)$ can be integrated in time
 without the temperature and humidity profiles.
 \subsection{Space discretization of
-\eqref{eq:ND_NeutralCase_EkmanEq} with Finite volumes}
+\eqref{eq:ND_NeutralCase_EkmanEq} with Finite Volumes}
 \label{sec:ND_NeutralCase_recallSplines}
 We recall here the Finite Volume discretization used throughout
 this chapter. We focus on the space discretisation and the time
@@ -55,7 +55,7 @@ the semi-discrete equation
 \end{equation}
 The reconstruction of $u(z) = {\cal S}_{m+\frac{1}{2}}
 				(z - z_{m+\frac{1}{2}})$
-				inside a cell must be decided
+				inside a cell must be chosen
 to pursue the derivation of the scheme. A simple choice is
 a quadratic polynomial,
 ${\cal S}_{m+\frac{1}{2}}(\xi) = r_0 + r_1 \xi + r_2 \xi^2$ where
@@ -140,17 +140,19 @@ To reconstruct the solution, $\overline{u}$ should also be
 integrated in time with \eqref{eq:ND_NeutralCase_semiDiscreteEkmanEq}.
 \eqref{eq:ND_NeutralCase_prognosticEqFV} and
 \eqref{eq:ND_NeutralCase_semiDiscreteEkmanEq} are hence the two 
-equations defining our finite volumes discretization.
+equations defining our finite volume discretization.
 Note that we arrive naturally on fourth-order compact schemes for
-the first derivative $\partial_z u$ and second-order for
+the first derivative $\partial_z u$
+(eq \eqref{eq:ND_NeutralCase_continuityEquationFV})
+and second-order for
 $\partial_z^2 u$ (see e.g. \cite{piller_finite-volume_2004}),
 but with a different approach of imposing a spline reconstruction.
 This approach lets us better control the vertical profiles
 than the usual compact methods and
 facilitates the derivation of the boundary conditions.
 \paragraph{Remark: fourth-order compact scheme}
-To get a more accurate scheme for the second order derivative,
-a fourth degree polynomial can also be used.
+To get a more accurate scheme for the second-order derivative,
+a fourth degree polynomial could also be used.
 if $\frac{1}{12}, \frac{5}{6}$ are used in
 \eqref{eq:ND_NeutralCase_prognosticEqFV} instead of
 $\frac{1}{6}, \frac{2}{3}$, a fourth-order compact scheme
@@ -158,16 +160,16 @@ is obtained. This scheme is studied in the Finite Difference sense
 in \citep{adam_highly_1977} and was also used
 by \cite{piller_finite-volume_2004} in a Finite Volume framework
 close to the one we are using.
-We assume that the reconstruction is the fourth degree
+If one assumes that the reconstruction is the fourth degree
 polynomial
 ${\cal S}_{m+\frac{1}{2}}^4(\xi) = r_0^4 + r_1^4 \xi + r_2^4 \xi^2 
-+ \emphase{r_3^4 \xi^3} + \emphase{r_4^4 \xi^4}$.
-The two additional degrees of freedom $\emphase{r_3^4},
++ \emphase{r_3^4 \xi^3} + \emphase{r_4^4 \xi^4}$,
+the two additional degrees of freedom $\emphase{r_3^4},
 \emphase{r_4^4}$ need to be
 constrained. To recover the fourth-order compact scheme through
 the continuity constraint as in
 \eqref{eq:ND_NeutralCase_continuityEquationFV}
-we put as constraints that the
+one must put as constraints that the
 reconstruction on the boundaries of the cell is
 ${\cal S}^4_{m+\frac{1}{2}}\left(\frac{h_{m+\frac{1}{2}}}{2}\right) =
 \overline{u}_{m+\frac{1}{2}} +
@@ -206,22 +208,22 @@ Then the reconstruction is given by
 	    + \frac{5}{12} h_{m+\frac{1}{2}} \phi_{m+1}
     \end{pmatrix}
 \end{equation}
-and we obtain a subgrid reconstruction corresponding to
+and one obtains a subgrid reconstruction corresponding to
 the fourth-order
 \footnote{
 On the domain boundaries there is no continuity constraint.
 ${\cal S}^4_{\frac{1}{2}}\left(-\frac{h_{\frac{1}{2}}}{2}\right)$
 can be constrained by a special treatment
 (see \cite{piller_finite-volume_2004})
-to keep the fourth order accuracy on Dirichlet boundaries.
+to keep the fourth-order accuracy on Dirichlet boundaries.
 }
 compact scheme considered.
-This representation is heavier than using the quadratic splines:
-the fourth-order compact scheme will not be used in the
+However this representation is heavier than using the quadratic
+splines: the fourth-order compact scheme will not be used in the
 following.
 \subsection{State-of-the-art surface flux schemes}
 \label{sec:ND_NeutralCase_strategies}
-We show in this subsection several strategies to derive the
+We present in this subsection several strategies to derive the
 discretization of the surface layer (the corresponding equation
 is \eqref{eq:ND_NeutralCase_ConstantFlux}).
 A surface layer discretization consists in two parts,
@@ -238,12 +240,12 @@ presented in Section \ref{sec:ND_Intro_continuousModel}:
 		is implemented as
 		a boundary condition: in particular,
 		the height at which the flux is prescribed.
-		The values $u(\delta_{\rm sl}, \cdot)$ that intervene
+		The space discretisation of
+		$u(\delta_{\rm sl}, \cdot)$ is the same
 		in the bulk routine and in
 		$e_\tau= \frac{u(\delta_{\rm sl},
 		t^{n+1})}
-		{||u(\delta_{\rm sl}, t^n)||}$
-		are the same.
+		{||u(\delta_{\rm sl}, t^n)||}$.
 \end{itemize}
 \cite{nishizawa_surface_2018} investigated the effect of the
 first part of the discretization and showed that there is a
@@ -269,14 +271,15 @@ bulk formulation which uses the averaged variable in the surface layer
 instead of its value at the top.
 \begin{remark}
 The scheme \eqref{eq:ND_NeutralCase_prognosticEqFV} based
-on spline reconstruction is particular:
-	the value at the center of the first cell is
+	on quadratic spline reconstruction is particular. \myTD{ca veut dire quoi ???}
+The value at the center of the first cell is
 		\begin{equation}
 			{\cal S}_{1/2}(0) = \overline{u}_{1/2}
 			+ \frac{h_{1/2}}{24} (\emphase{\phi_0-\phi_1})
 		\end{equation}
  If $\phi_0$ and $\phi_1$ are aligned with $e_\tau=1+0i$ then
-	$\phi_0 > \phi_1$ implies that $u(z)$ is concave and
+	$\phi_0 > \phi_1$ implies that $u(z)$ is concave
+	(it is parabolic) and
 	that $\overline{u}_{1/2} < {\cal S}_{1/2}(0)$.
 	However, as it will be discussed in \S
 	\ref{sec:ND_NeutralCase_newSFscheme}
@@ -286,12 +289,15 @@ on spline reconstruction is particular:
 	\ref{sec:ND_NeutralCase_newSFscheme} reduces
 	the difference between $\overline{u}_{1/2}$
 	and ${\cal S}_{1/2}(0)$.
+	In the following, the
+	difference between "FV pure" and "FV1"
+	will be small for this reason.
 \end{remark}
 %
-Our objective is to compare this surface flux scheme with the
+Our objective is to compare this\myTD{lequel?} surface flux scheme with the
 conventional ones
 and to introduce another surface flux scheme that is more coherent
-with regard to the continuous model of Section
+with respect to the continuous model of Section
 \ref{sec:ND_Intro_continuousModel}.
 We now present the strategies that are representative of
 what is done in actual models. The strategies are applied to
@@ -493,7 +499,8 @@ reasons we aim to approximate the continuous equations
 \cite{basu_cautionary_2017} warns that using a small space step
 while keeping the same treatment in LES goes against the
 range of validity of the MOST profiles.
-In the following, we derive a surface flux scheme that keeps
+That is why in the following,
+we derive a surface flux scheme that keeps
 the advantages of the "FV2" scheme, but with a free $\delta_{\rm sl}$.
 %
 \begin{table}
@@ -553,17 +560,18 @@ and we separate the
 first volume into two parts: the surface layer $[0,\delta_{\rm sl}]$ and the "sub-cell" $[\delta_{\rm sl}, z_1]$.
 This split corresponds to the change of governing equations
 in the continuous case \eqref{eq:ND_NeutralCase_continuousModel}.
-Let $\widetilde{h} = z_1 - \delta_{\rm sl}$  be the size of the sub-cell $[\delta_{\rm sl}, z_1]$
+Let $\widetilde{h} = z_1 - \delta_{\rm sl}$  be the size of the
+upper sub-cell $[\delta_{\rm sl}, z_1]$
 and $\widetilde{u} = \frac{1}{\widetilde{h}}\int_{\delta_{sl}}^{z_1}
 u(z)dz$ be the averaged value of $u$ on this interval.
 The following subgrid reconstruction is used:
 \begin{equation}
 	\label{eq:ND_NeutralCase_fullReconstruction}
-	u(z) = \begin{cases}
+	u(z) = \begin{cases} \displaystyle
 		\emphase{{\cal S}_{1/2}}\left(z - \frac{z_1 +
 				\delta_{sl}}{2}\right),
 		~~~~~~~~~~~ z \geq \delta_{sl}
-		\\
+		\\ \displaystyle
 		\frac{{u_\star}}{\kappa}
 		\ln(1+\frac{z}{z_{u}})e_\tau,% + u(0),
 		~~~ z < \delta_{sl}
@@ -632,11 +640,12 @@ One then gets:
 	% \frac{\widetilde{h}}{h_{1/2}}\widetilde{u} = \overline{u}_{1/2} - \left(\widetilde{u} - \widetilde{h}(\phi_{\delta}/3 + \phi_1/6)
 	% \right)\tau_{sl} +
 	% (\tau_{sl} - \frac{h_{1/2} - \widetilde{h}}{h_{1/2}})u(0)
-	\emphase{\widetilde{u}} \alpha_{sl} =
+	\emphase{\widetilde{u}} \; \alpha_{sl} =
 	\emphase{\overline{u}_{\frac{1}{2}}} + \widetilde{h}\left(
 	\frac{\emphase{\phi_\delta}}{3} + \frac{\emphase{\phi_1}}{6} \right)
 	\left(\alpha_{sl} - \frac{\widetilde{h}}{h_{\frac{1}{2}}}\right)
 \end{equation}
+\myTD{J'aèrerais un peu}
 with $\alpha_{sl} =
 \frac{\widetilde{h}}{{h_{1/2}}} + \frac{1}{{h_{1/2}}}\int_{z_0}^{\delta_{sl}}
 \frac{\ln(1+\frac{z}{z_{u}})}{\ln(1+\frac{\delta_{sl}}{z_{u}})}dz
@@ -655,7 +664,7 @@ profile of $\alpha_{sl}$.
 	\includegraphics[scale=0.7]{images/alpha_sl.pdf}
 	\caption
 	{ Value of $\alpha_{sl}$
-	for several $z_u$ with $z_1=20\;{\rm m}$.
+	for several values of $z_u$ with $z_1=20\;{\rm m}$.
 	}
 	\label{fig:ND_NeutralCase_alpha_sl}
 \end{figure}
@@ -665,6 +674,7 @@ only when $\delta_{\rm sl}$ and $z_{u}$ are constants. However
 $z_{u}$ depends on $u_\star$ and will vary.
 In all this thesis we assume that $\delta_{\rm sl}$ does not
 change over time.
+	\myTD{d'autre part, + commentaires}
 \end{remark}
 %
 In the reconstruction \eqref{eq:ND_NeutralCase_fullReconstruction}
@@ -742,7 +752,7 @@ However, it is the case only when $K_0$ is
 replaced by $K_{\delta}$ in those discretizations
 (see the paragraph "On the value of $K_{u,0}$" below).
 The profile of $\arg(u)$ is significantly affected by the surface
-flux scheme: it is not surprising as the Coriolis effect is
+flux scheme: this is not surprising as the Coriolis effect is
 not taken into account in the surface layer for the "FV2" and
 "FV free" parameterizations.
 The differences between "FV2" and "FV free" only come from the
@@ -827,7 +837,7 @@ The value of $K_0$ does not intervene in the equation.
 Combining the equation \eqref{eq:ND_NeutralCase_prognosticEqFV}
 and the reconstruction
 \eqref{eq:ND_NeutralCase_quadraticReconstruction} in the second cell
-$u(z_1) = {\cal S}_{\frac{3}{2}}(-\frac{h_\frac{3}{2}}{2})$
+$u(z_1) = {\cal S}_{\frac{3}{2}}\left(-\frac{h_\frac{3}{2}}{2}\right)$
 the discretisations "FV pure", "FV1" and "FV Nishizawa"
 implicitly use that
 \begin{equation}
@@ -850,7 +860,7 @@ As a consequence, the wall law is denied and
 $(\partial_z u)(z_0)$ is multiplied
 by $\frac{K_{mol}}{K_{u,\delta}}$.
 Note that this problem is specific to schemes where
-$\frac{\phi_0}{K_{u,0}}$ is involved and
+$\frac{\phi_0}{K_{u,0}}$ is involved, and
 is not characteristic of Finite Volume schemes.
 \end{itemize}
 

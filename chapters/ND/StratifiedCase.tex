@@ -22,10 +22,10 @@ vertical mixing.
 Finally, if the temperature is a constant, the neutral case is
 recovered.
 \par
-We first discuss the continuous and semi-discrete in space
+In this section, we first discuss the continuous and semi-discrete in space
 equations, then extend the previous discussion on the wall law to
 Monin-Obukhov Similarity Theory (MOST).
-Section \ref{sec:ND_StratifiedCase_turbulentVisc} gives the
+Finally, Section \ref{sec:ND_StratifiedCase_turbulentVisc} derives the
 profile of viscosities depending on the turbulent kinetic energy
 (TKE).
 \subsection{Continuous model and Finite Volume discretization}
@@ -52,10 +52,10 @@ The bulk routine is based on equations
 \S \ref{sec:ND_StratifiedCase_continuousModel}.
 \subsubsection{Continuous model}
 \label{sec:ND_StratifiedCase_continuousModel}
-The continuous equations stay the same for $u$
+The continuous equations remain the same for $u$
 (see \eqref{eq:ND_NeutralCase_continuousModel}),
 except that the turbulent viscosity and the
-friction scale $u_\star$ depends on the potential temperature
+friction scale $u_\star$ depend on the potential temperature
 $\theta$, which is governed by:
 \begin{subequations}
 	\label{eq:ND_StratifiedCase_continuousModel}
@@ -148,7 +148,7 @@ where \eqref{eq:ND_NeutralCase_quadraticReconstruction}
 gives ${\cal T}$ by replacing $\overline{u}, \phi$
 with $\overline{\theta}, \partial_z \theta$.
 We also extend the surface flux scheme strategies for the temperature:
-the ideas of those strategies stay the same
+the ideas of those strategies remain the same
 (see Figure \ref{fig:ND_NeutralCase_summary_sfscheme}) and we only
 need to introduce the bottom boundary condition for $\theta$.
 \begin{itemize}
@@ -204,7 +204,7 @@ $C_H|\Delta u| = C_H||u^n(\delta_{sl})- u^n(0)|| =
 			\overline{u}_{\frac{1}{2}}^{n}}_{
 			\text{Averages around } z_\frac{1}{2}})
 		\end{equation}
-		The adapted bulk routines writes
+		The adapted bulk routines read
 		\begin{equation}
 		\label{eq:ND_StratifiedCase_MOST}
 		\begin{aligned}
@@ -235,15 +235,16 @@ $C_H|\Delta u| = C_H||u^n(\delta_{sl})- u^n(0)|| =
 			\emphase{\partial_z \theta}^{n+1}_\emphase{1}}_{\text{
 				Flux at
 			} z_1} =
-			C_H|\Delta u|(
+			C_H|\Delta u|\left(
 			{\cal T}_{3/2}^{n+1}
-			(-\frac{h_\frac{3}{2}}{2}) - \theta_s),
+			\left(-\frac{h_\frac{3}{2}}{2}\right)
+			- \theta_s\right),
 			~~~ \text{using } {\rm BULK}
-			(\underbrace{{\cal T}_{3/2}^{n}
-			(-\frac{h_\frac{3}{2}}{2}),
+			\left(\underbrace{{\cal T}_{3/2}^{n}
+			\left(-\frac{h_\frac{3}{2}}{2}\right),
 			{\cal S}_{3/2}^{n}
-			(-\frac{h_\frac{3}{2}}{2})}_{
-			\text{Reconstructions at } z_1 })
+			\left(-\frac{h_\frac{3}{2}}{2}\right)}_{
+			\text{Reconstructions at } z_1 }\right)
 		\end{equation}
 \end{itemize}
 The limitations of the strategies shown in the neutral case are the
@@ -323,8 +324,8 @@ where the non-dimensional numbers $\alpha_{sl, u},
 	\begin{aligned}
 	\alpha_{sl, x} &= \frac{\widetilde{h}}{h_{k+\frac{1}{2}}} +
 	\frac{\frac{1}{h_{k+\frac{1}{2}}}\int_{z_k}^{\delta_{sl}}
-	\ln(1+\frac{z}{z_{x}})
-		\emphase{- \psi_x\left(\frac{z}{L_{MO}}\right)}
+		\left(\ln(1+\frac{z}{z_{x}})
+		\emphase{- \psi_x\left(\frac{z}{L_{MO}}\right)}\right)
 	dz}{\ln(1+\frac{\delta_{sl}}{z_{x}})
 		\emphase{- \psi_x\left(\frac{\delta_{sl}}{L_{MO}}\right)
 		}} \\
@@ -339,7 +340,7 @@ where the non-dimensional numbers $\alpha_{sl, u},
 		}}
 \end{aligned}
 \end{equation}
-Note that instead of $\psi_x$ we used $\Psi_x$,
+Note that, instead of $\psi_x$, we used $\Psi_x$,
 the averaged form of the universal
 profile stability functions defined in \citep{nishizawa_surface_2018}.
 %
@@ -347,7 +348,7 @@ Since $\ln(1+\frac{z}{z_{x}})-
 \psi_x(\frac{z}{L_{MO}})$ is non-negative and increases with $z$ even
 in strongly unstable situations,
 $0 < \alpha_{sl, x} \leq 1$ and as in the neutral case
-$\alpha_{sl, x}=1 \iff \widetilde{h}=h_{k+1/2}$. This let us retrieve
+$\alpha_{sl, x}=1 \iff \widetilde{h}=h_{k+1/2}$. This lets us retrieve
 the "FV2" surface flux scheme by setting the height of the surface
 layer to exactly $z_1$.
 \par
@@ -364,8 +365,8 @@ the boundary condition of "FV free" is
 	C_H|\Delta u|\underbrace{
 	\frac{
   \overline{\theta}_{k+1/2} - \frac{\widetilde{h}^2}{h_{k+1/2}}
-	(\frac{{(\partial_z \theta)}_k}{3} +
-	\frac{{(\partial_z \theta)}_{k+1}}{6}) 
+	\left(\frac{{(\partial_z \theta)}_k}{3} +
+	\frac{{(\partial_z \theta)}_{k+1}}{6}\right) 
   - \theta_s
 }{\alpha_{sl, \theta}}
 	}_{\text{Reconstruction at } \delta_{sl}}
@@ -397,14 +398,14 @@ cell to replace $h_{k+1/2}$ by $\widetilde{h}$.
 As it was explained in Chapter \ref{ch:airseaSCM} the
 viscosity $K_u$ and diffusivity $K_\theta$ follow the
 Monin-Obukhov theory in the surface layer and are parameterized
-above the surface layer by the turbulent kinetic energy with a
+above the surface layer by the Turbulent Kinetic Energy (TKE) with a
 one-equation closure.
 The objective of this section is to derive the discretised
 turbulent closure:
 \begin{enumerate}
 \item
 The vertical profiles of $u$ and $\theta$ depend strongly on
-the discretisation of the Turbulent Kinetic Energy (TKE)
+the discretisation of the Turbulent Kinetic Energy
 and of the mixing lengths. Those discretisations are detailed in
 \S \ref{sec:ND_StratifiedCase_TKE}.
 \item To obtain smooth solutions, the viscosity and
@@ -415,9 +416,10 @@ similarity theory:
 the link is done through the mixing lengths in \S
 \ref{sec:ND_StratifiedCase_mixing_lengths_match}.
 \end{enumerate}
-\subsubsection{Finite Volume discretization of TKE}
+\subsubsection{Finite Volume discretization of TKE equation}
 \label{sec:ND_StratifiedCase_TKE}
 The Turbulent Kinetic Energy (TKE) evolves with the equation
+\myTD{définir $N^2$}
 \begin{equation}
 \label{eq:ND_StratifiedCase_TKE}
     \begin{aligned}
@@ -432,6 +434,7 @@ The Turbulent Kinetic Energy (TKE) evolves with the equation
 \end{equation}
 The turbulent viscosities $K_u, K_{\theta}$ and $K_e$ are computed
 with $(K_u, K_\theta, K_e) = (C_m , C_s \phi_z, C_e)l_m \sqrt{e}$.
+\paragraph{Mixing lengths} \myTD{expliciter les dépendances en z}
 The mixing lengths $l_m = \min{(l_{\rm up}, l_{\rm down})}$ and
 $l_\epsilon = \sqrt{l_{\rm up} l_{\rm down}}$
 are obtained with the method named $l^\star_{\rm D80}$ described in
@@ -443,7 +446,7 @@ are obtained with the method named $l^\star_{\rm D80}$ described in
 			l^\star_{\rm D80} = \frac{2\sqrt{e}}
 			{c_0 ||\partial_z u|| + \sqrt{
 				c_0^2 ||\partial_z u||^2 + 2 N^2
-			}}, ~~~ c_0=0.2
+			}}, ~~ \text{with } c_0=0.2
 		\end{equation}
 	\item initialize $l_{\rm up}$ and $l_{\rm down}$ to
 		$l^\star_{\rm D80}$;
@@ -455,7 +458,7 @@ are obtained with the method named $l^\star_{\rm D80}$ described in
 		and to a strongly stratified area of the air column:
 		this is done by ensuring $\partial_z l_{\rm down} < 1$
 		and an appropriate surface layer value.
-		The value here is not zero so that the surface layer
+		The value here is not zero, so that the surface layer
 		links correctly with the computational domain.
 \end{enumerate}
 \begin{figure}
@@ -463,34 +466,35 @@ are obtained with the method named $l^\star_{\rm D80}$ described in
 	\includegraphics[scale=0.6]{images/mixing_lengths.pdf}
 	\caption{Typical vertical profiles of the mixing lengths
 	(left) reported with the corresponding TKE (right).
-	It is seen that $\partial_z l_{up}$ is limited by $-1$
+	It is seen that $\partial_z l_{\rm up}$ is limited by $-1$
 	for $z\in (50 \; {\rm m}, 150\; {\rm m})$ whereas
-	$\partial_z l_{down}$ is limited by 1 for $z<100 \;{\rm m}$.
+	$\partial_z l_{\rm down}$ is limited by 1 for $z<100 \;{\rm m}$.
 	The surface flux scheme used is "FV free" which is why the
 	profiles start at $\delta_{sl} = 10\;{\rm m}$.}
 	\label{fig:ND_StratifiedCase_mixing_lengths}
 \end{figure}
-Steps 3 and 4 are implemented by applying iteratively
+Steps 3 and 4 are implemented by applying sequentially from top
+(for $l_{\rm up}$) and bottom (for $l_{\rm down}$):
 \begin{equation}
 	\begin{aligned}
-		l_{up}(z_m) &= \min\left(l^\star_{D80}(z_m),~~~
-		l_{up}(z_{m+1}) + h_{m+\frac{1}{2}}\right) \\
-		l_{down}(z_m) &= \min\left(l^\star_{D80}(z_m),~
-		l_{down}(z_{m-1}) + h_{m-\frac{1}{2}}\right)
+		l_{\rm up}(z_m) &= \min\left(l^\star_{D80}(z_m),~~~
+		l_{\rm up}(z_{m+1}) + h_{m+\frac{1}{2}}\right) \\
+		l_{\rm down}(z_m) &= \min\left(l^\star_{D80}(z_m),~
+		l_{\rm down}(z_{m-1}) + h_{m-\frac{1}{2}}\right)
 	\end{aligned}
 \end{equation}
 
 Figure \ref{fig:ND_StratifiedCase_mixing_lengths} shows vertical
-profiles of $l_{up}, l_{down}, l_m, l_{D80}^\star$. The value of
-$l_{down}$ in the surface layer is detailed in
+profiles of $l_{\rm up}, l_{\rm down}, l_m, l_{D80}^\star$. The value of
+$l_{\rm down}$ in the surface layer is detailed in
 \S \ref{sec:ND_StratifiedCase_mixing_lengths_match} to link
 the Monin-Obukhov similarity theory to the turbulent
 parameterization based on the TKE.
 %
 \paragraph{Turbulent Kinetic Energy in the computational domain}
 The discretisation of the turbulent kinetic energy
-requires some care. The Finite Volume scheme used for
-$u$ and $\theta$ is not used and we use instead a Finite Difference
+requires some care. Instead of choosing the Finite Volume scheme
+used for $u$ and $\theta$, we prefer a Finite Difference
 method which has a positivity preserving property.
 The energy $e$ and the lengths scales
 $l_m, l_\epsilon$ are evaluated at the interfaces
@@ -543,14 +547,14 @@ $\partial_z e (z_{\rm top}) = 0$
 
 \subsubsection{Matching viscosities at the surface layer}
 \label{sec:ND_StratifiedCase_mixing_lengths_match}
-In order to obtain a regular solution out of the "FV free"
+In order to obtain a regular solution from the "FV free"
 discretization, we derive here the constraints on mixing length
 and on TKE inside the surface layer.
 A sub-grid model that suits both
 surface layer and free turbulence was proposed by
 \citep{redelsperger_simple_2001}, physically
 justified by measurements.
-in the neutral case, this sub-grid model leads to linear
+In the neutral case, this sub-grid model leads to linear
 mixing lengths $l_m, l_{\epsilon}$ in the surface layer;
 with stratified fluids, the formulation is more sophisticated
 and depends strongly on the Obukhov length.
@@ -562,7 +566,7 @@ between the two regimes.
 Instead of following the latter method,
 we aim to keep the mixing lengths \eqref{eq:ND_StratifiedCase_lD80}
 of the computational domain and
-to set a particular boundary condition for $l_{down}$
+to set a particular boundary condition for $l_{\rm down}$
 to satisfy the Monin-Obukhov Similarity Theory.
 Assuming that 
 \begin{equation}
@@ -595,40 +599,38 @@ We assume that $l_\epsilon$ in
 \eqref{eq:ND_StratifiedCase_TKE_quasi_equilibrium} is taken at
 time index $n$, so that the energy can be integrated in time
 with a proper boundary condition before computing the mixing
-length. Then, we assume that $l_m = \min(l_{up}, l_{down})$ and
-$l_\epsilon = \sqrt{l_{up}l_{down}}$.
-The characteristic length $l_{up}$ (resp. $l_{down}$) indicates
+length. The characteristic length $l_{\rm up}$ (resp. $l_{\rm down}$) indicates
 how much the turbulent mixing is acting upwards (resp. downward).
 In the surface layer, it is hence natural to follow the
-procedure \eqref{eq:ND_StratifiedCase_lD80} for $l_{up}$,
+procedure \eqref{eq:ND_StratifiedCase_lD80} for $l_{\rm up}$,
 using the MOST profiles for the shear and buoyancy.
-We derive the surface value of $l_{down}$ to link Monin-Obukhov
+We derive the surface value of $l_{\rm down}$ to link Monin-Obukhov
 Similarity Theory with the turbulent closure used here.
 \par
 Rewriting \eqref{eq:ND_StratifiedCase_TKE_quasi_equilibrium}
-with MOST and $l_{up}, l_{down}$ gives:
+with MOST and $l_{\rm up}, l_{\rm down}$ gives:
 \begin{equation}
 	\label{eq:ND_StratifiedCase_TKE_quasi_equilibrium_simplified}
-	e = \sqrt[3]{l_{up} l_{down}}\left(
+	e = \left(l_{\rm up} l_{\rm down}\right^\frac{1}{3}\left(
 	\frac{u_\star}{c_\epsilon} 
 	\left({u}_\star^2
 	\frac{\phi_m(z/L_{MO})}{\kappa (z+z_{u})}
 	- \frac{g}{\theta_{\rm ref}}\theta_\star
 	\right)
-	\right)^{2/3}
+	\right)^\frac{2}{3}
 \end{equation}
 which is the bottom boundary condition of the TKE
 \eqref{eq:ND_StratifiedCase_TKE_SL_cond}.
 Now, \eqref{eq:ND_StratifiedCase_viscosities_SL} gives
 \begin{equation}
 	\label{eq:ND_StratifiedCase_solution_l_down1}
-	\min (l_{down}^2, l_{up}^2) = \frac{1}{e} \left(
+	\min (l_{\rm down}^2, l_{\rm up}^2) = \frac{1}{e} \left(
 	\frac{\kappa u_\star}{C_m}
 	\frac{z + z_{u}}{\phi_m(z/L_{MO})}
 \right)^2
 \end{equation}
-$l_{down}$ is limited by the distance to the bottom only
-in the free-turbulence zone. In the SL, it keeps its value
+$l_{\rm down}$ is limited by the distance to the bottom only
+in the free-turbulence zone. In the SL, it is given by
 \eqref{eq:ND_StratifiedCase_solution_l_down1}
 so that \eqref{eq:ND_StratifiedCase_viscosities_SL} is
 verified.
@@ -637,7 +639,7 @@ into the previous equation and get
 \begin{equation}
 	\label{eq:ND_StratifiedCase_solution_l_down2}
 	\begin{cases}
-	l_{down}^{7/3} = \frac{1}{l_{up}^{1/3}}
+	l_{\rm down}^{7/3} = \frac{1}{l_{\rm up}^{1/3}}
 		\frac{u_\star^{4/3}\left(
 	\frac{\kappa}{C_m}
 	\frac{z + z_{u}}{\phi_m(z/L_{MO})}
@@ -645,8 +647,8 @@ into the previous equation and get
 	\left({u}_\star^2
 	\frac{\phi_m(z/L_{MO})}{c_\epsilon\kappa (z+z_{u})}
 	- \frac{g}{\theta_{\rm ref}c_\epsilon}\theta_\star
-	\right)^{2/3}} ~~~ {\rm if } ~~l_{down} < l_{up}\\
-	l_{down}^{1/3} = \frac{1}{l_{up}^{7/3}}
+	\right)^{2/3}} ~~~ {\rm if } ~~l_{\rm down} < l_{\rm up}\\
+	l_{\rm down}^{1/3} = \frac{1}{l_{\rm up}^{7/3}}
 		\frac{u_\star^{4/3}\left(
 	\frac{\kappa}{C_m}
 	\frac{z + z_{u}}{\phi_m(z/L_{MO})}
@@ -659,19 +661,17 @@ into the previous equation and get
 \end{equation}
 It is actually sufficient to use
 \eqref{eq:ND_StratifiedCase_solution_l_down1} with
-the assumption $l_{down} < l_{up}$
-to compute $l_{down}$ explicitly. It also guarantees that
+the assumption $l_{\rm down} < l_{\rm up}$
+to compute $l_{\rm down}$ explicitly. It also guarantees that
 the MOST viscosity and the MOST diffusivity numerically
 scale with $l_m\sqrt{e}$.
 However, using \eqref{eq:ND_StratifiedCase_solution_l_down1}
 with the surface condition for the TKE
 \eqref{eq:ND_StratifiedCase_TKE_SL_cond}
-amounts to solving with a fixed point algorithm
-the system
+amounts to solving iteratively
 (\ref{eq:ND_StratifiedCase_TKE_quasi_equilibrium_simplified}-
-\ref{eq:ND_StratifiedCase_solution_l_down1})
-where each time step is an iteration.
-Using \eqref{eq:ND_StratifiedCase_solution_l_down2}
+\ref{eq:ND_StratifiedCase_solution_l_down1});
+using \eqref{eq:ND_StratifiedCase_solution_l_down2}
 directly solves the system
 (\ref{eq:ND_StratifiedCase_TKE_quasi_equilibrium_simplified}-
 \ref{eq:ND_StratifiedCase_solution_l_down1}).
