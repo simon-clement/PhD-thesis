@@ -532,20 +532,24 @@ Experimentally, it is seen that if it exists, it is the root corresponding to th
     }
 \end{equation}
 where the first $\pm$ and the
-third one are the same. Experimentally, for our parameters there is only one positive real solution that corresponds to the solution of the non-linear problem coupled with Schwarz algorithm. There should be an equivalence between the existence of a real positive root and the existence of a stationnary state of the coupled problem.
-{\color{red} However, it was seen in numerical experiments that the Schwarz method 
-seems to converge to a coupled, stationary case which corresponds
-rather well to the solution described here but where $|\widetilde{x}|$ would be a complex.}
+third one are the same. For our parameters there is only one positive real solution that corresponds to the solution of the non-linear problem coupled with Schwarz algorithm.
+% There should be an equivalence between the existence of a real positive root and the existence of a stationnary state of the coupled problem.
+% {\color{red} However, it was seen in numerical experiments that the Schwarz method 
+% seems to converge to a coupled, stationary case which corresponds
+% rather well to the solution described here but where $|\widetilde{x}|$ would be a complex.}
 %we will see in Figure \ref{fig:profile_bug} that it seems not to be the case.
-
+\par
 Finally, we recover $\widetilde{x}$ from \eqref{eq:mainEqSimplified}: $\widetilde{x} = \frac{g_{\rm a} - g_{\rm o}}{1 - d |\widetilde{x}|}$, then $A_\infty = \frac{C_D \rho_{\rm a}}{\rho_{\rm o} \nu_{\rm o} d}\left(\widetilde{x} - (g_{\rm a} - g_{\rm o})\right)$ 
 and
 $ B_\infty =  \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} \nu_{\rm a}}A_\infty$.
 Figure \ref{fig:validation} shows that this analysis fits the result of Schwarz algorithm.
 \begin{figure}
     \centering
-    \includegraphics[scale=0.55]{validation_stationary_state.png}
-    \caption{Stationary solution profile in ocean and atmosphere. Notice that the surface layer is not explicitly computed. The analysis exactly fits the result of Schwarz iterations. The profile is the same {\color{red} (or should be: some parameters may have changed, in particular the size of the domains are different)} as in Figure \ref{fig:presentationDomains}}
+    \includegraphics[scale=0.55]{profile_stationnaire.pdf}
+    \caption{Stationary solution profile in ocean and atmosphere;
+	the analysis exactly fits the result of Schwarz iterations.
+	Notice that the surface layer is not explicitly computed.
+	The profile is the same as in Figure \ref{fig:presentationDomains}.}
     \label{fig:validation}
 \end{figure}
 

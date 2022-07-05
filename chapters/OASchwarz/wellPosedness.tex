@@ -1,29 +1,29 @@
 \subsubsection{Existence of solutions of the
 non-linear semi-discrete in space problem}
 \cite{lions_mathematical_1995} proved the existence
-of global in time weak solutions of the linear case in
-two dimensions with more sophisticated dynamics.
-\myTD{vérifier que ca correspond au cas constant ?
-les viscosités sont pas constantes il me semble ?}
+of global in time weak solutions in
+two dimensions with non-linearities inside the
+computational domains but with a linear
+interface condition.
 We focus here on showing the existence of strong
-unsteady solutions of the semi-discrete in space,
-non-linear problem.
-\myTD{Note: je parle pas de fibrillation parceque c'est vraiment
-relié au schéma de turbulence, rien à voir avec ici.}
-\\
+unsteady solutions of the semi-discrete in space
+problem with a non-linear interface condition.
+%\myTD{Note: je parle pas de fibrillation parceque c'est vraiment
+%relié au schéma de turbulence, rien à voir avec ici.}
+%\\
 In \citep{chacon-rebollo_existence_2014},
 the existence of unsteady solutions of
 non-linear turbulent models for oceanic surface mixing layers is
-proven.
-The proof relies on three main points:
+proven with the help of the inverse function theorem.
+We will follow their method which is in three steps:
 \begin{enumerate}
-	\item the existence of a steady-state;
-	\item the well-posedness of the linearized problem
+	\item showing the existence of a steady-state;
+	\item showing the well-posedness of the linearized problem
 	around the equilibrium;
-	\item the use of the inverse function theorem;
+	\item using of the inverse function theorem;
 \end{enumerate}
 The method can be generalized to other types of
-non-linearities. In particular, we show the existence and
+non-linearities. In particular, we can show the existence and
 uniqueness of problem \eqref{eq:SWRbulk}
 (ignoring the Schwarz iteration indices) close to the
 equilibrium state.
@@ -66,8 +66,8 @@ for instance the first line of \eqref{eq:OASchwarz_wellPosedness_Phi}
 is not applied for $z=H_a$.
 Let us draw some important remarks about $\mathbf{\Phi}$:
 \begin{itemize}
- \item The equation $\phi_o = \epsilon \frac{\nu_a}{\nu_o}\phi_a$ is
-	 implicit;
+ \item The equation $\phi_o = \epsilon \frac{\nu_a}{\nu_o}\phi_a$
+	 at interface is implicit;
  \item $\mathbf{\Phi}(\mathbf{U}^e)=0$
  	where $\mathbf{U}^e$
  	is the steady-state;
@@ -86,10 +86,12 @@ to the interface condition is zero.
 The idea of the proof is that if $\mathbf{\Phi}$ is invertible
 around $\mathbf{U}^e$ then the nonlinear semi-discrete problem
 \eqref{eq:SWRbulk} is invertible.
-\myTD{Note: normalement bien posé ça veut dire que la solution
-	dépend continuement des variables d'entrées:
-	faudra le rajouter quelque part dans l'appendice
-		et à la fin de cette démo.}
+Moreover, the inverse function theorem also tells us that
+$\mathbf{\Phi}^{-1}$ is \myTD{(à vérifier)} continuous:
+this means that around
+the equilibrium state, the problem \eqref{eq:SWRbulk} is well-posed:
+it has a unique solution that depends continuously
+on the initial data.
 \end{itemize}
 		\item Show that $\mathbf{\Phi}$ is $C^1$ in a
 			neighborhood of $\mathbf{U}^e$.
