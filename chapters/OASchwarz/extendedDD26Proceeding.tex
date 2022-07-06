@@ -134,6 +134,8 @@ The well-posedness of \eqref{eq:cplProblem} has been studied in
 \cite{thery_etude_2021}
 %\cite{thery_etude_2021} studied the well-posedness of \eqref{eq:cplProblem}. 
 where it is proved that its stationary version admits a unique solution for realistic values of the parameters. The study of the nonstationary case is much more challenging: numerical experiments tend to confirm this well-posedness, but  with no theoretical proof.
+\myTD{In Section [..] we will give some elements to prove the well-posedness
+of the nonstationary case.}
 %
 %
 %
@@ -880,7 +882,59 @@ assuming that $U^k_j (\pm h_j/2, t)$ is in a neighborhood of $U^e(\pm h_j/2)$, t
 is non-zero and
 we can differentiate $\alpha$.
 Differences with the stationary state are noted $\delta \phi_j^k = \phi^k_j(0,t) - \phi_j^e(0)$ and $\delta U_j^k = U_j^k(\pm h_j/2, t) - U^e_j(\pm h_j/2)$.
-After some algebra, the linearized transmission operator reads
+\paragraph{linearization of the transmission condition}
+Let us first compute the total derivative of $x\mapsto |x|x$.
+The total derivative of $|\cdot|^2$ is
+\begin{equation}
+\langle D_x |\cdot|^2, \mu \rangle
+= \overline{x} \mu + x \overline{\mu}
+\end{equation}
+We then use the chain rule to differentiate $|x| = \sqrt{|x|^2}$ and
+obtain
+\begin{equation}
+\langle D_x |\cdot|, \mu \rangle =
+\frac{1}{2} \frac{\overline{x}}{|x|} \mu
++ \frac{1}{2} \frac{x}{|x|} \overline{\mu}
+\end{equation}
+Finally, the total derivative of the map $x\mapsto |x|x$ reads
+\begin{equation}
+	\langle D_x |\cdot|(\cdot), \mu \rangle =
+	\frac{1}{2} \underbrace{\frac{\overline{x}x}{|x|}}_{=|x|} \mu
+	+ \frac{1}{2}
+	\underbrace{\frac{x^2}{|x|}}_{=|x|\frac{x}{\overline{x}}}
+	\overline{\mu}
+	+ |x|\mu
+	= |x| \left(\frac{3}{2}\mu + \frac{1}{2}\frac{x}{\overline{x}}
+	\overline{\mu}\right)
+\end{equation}
+The transmission operator itself can now be linearized.
+First, $\alpha^{k-1} \left(\delta U_a^{k-1+\theta}
+- \delta U_o^{k-1}\right)$
+is split into two parts in the non-linear transmission condition:
+\begin{equation}
+	\nu_a \phi_a^k =
+	\underbrace{
+	\alpha^{k-1} \left(\left(U^e_{\rm a} - U^e_{\rm o}\right) +
+	\left(\delta U_a^{\emphase{k-1}}
+	- \delta U_o^{k-1}\right)\right)}_{C_D|\cdot|(\cdot)}
+	+ \emphase{\theta} \alpha^{k-1}
+	\left(\delta U_a^{\emphase{k}} - \delta U_a^{\emphase{k-1}}
+	\right)
+\end{equation}
+The transmission condition is linearized as
+\begin{equation}
+	\nu_a \delta \phi_a^k = \left\langle
+	D_{\left(U_{\rm a}^e - U_{\rm o}^e\right)}
+	C_D |\cdot|(\cdot),
+	\left(\delta U_{\rm a}^{k-1} -
+	\delta U_{\rm o}^{k-1}
+	\right)
+	\right\rangle
+	+ \theta \alpha^{k-1}
+	\left(\delta U_a^{k} - \delta U_a^{k-1}
+	\right)
+\end{equation}
+Finally, the linearized transmission operator reads
 %==========================================
 \begin{equation}
 \label{eq:linearised}
@@ -890,7 +944,8 @@ After some algebra, the linearized transmission operator reads
 &+ \theta\, \delta U_{\rm a}^{k}
 - \frac{3}{2} \delta U_{\rm o}^{k-1}
 \\
-&\left.+ \frac{1}{2}\frac{U_{\rm a}^{{\color{black} e}} - U_{\rm o}^{{\color{black} e}}}{\overline{U_{\rm a}^{{\color{black} e}} - U_{\rm o}^{{\color{black} e}}}}\,
+&\left.+ \frac{1}{2}\frac{U_{\rm a}^{{\color{black} e}} - U_{\rm o}^{{\color{black} e}}}
+	{\overline{U_{\rm a}^{{\color{black} e}} - U_{\rm o}^{{\color{black} e}}}}\,
 \overline{
 \delta U_{\rm a}^{k-1} - \delta U_{\rm o}^{k-1}}
 \right)
@@ -1064,7 +1119,7 @@ converge, whatever the parameter $\theta$.}
 However, the singular values are both smaller than one
 on the set of discrete frequencies
 $\{\frac{\pi l}{T},
-l \in [-\frac{T}{\Delta t},\frac{T}{\Delta t}]\}$
+l \in [-\frac{T}{\Delta t},\frac{T}{\Delta t}]\cap \mathbb{N}\}$
 (left panel of Figure \ref{fig:OASchwarz_nonasymptotic}).
 \textbf{The Schwarz method converges on discrete frequencies
 for the choice $f=10^{-4} \; {\rm s}^{-1}, T=1 \; {\rm day}$.}
