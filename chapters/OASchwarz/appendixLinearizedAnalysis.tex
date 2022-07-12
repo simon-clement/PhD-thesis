@@ -1,0 +1,165 @@
+\section{Detailed convergence study of the Linearized case}
+We interest ourselves to the linearization around a stationary state 
+$U^e_j, \phi^e_j$.
+
+\begin{equation*}
+\begin{array}{rcll}
+	(\partial_t +if) u^{{k}}_{j,m+\frac{1}{2}} &=&
+	\nu_j\frac{\phi^{{k}}_{j,m+1} - \phi^{{k}}_{j,m}}{h} \\
+	\left.u^{{k}}_j\right|_{t=0} &=& 0 \\
+	\left.u^{{k}}_j\right|_{z=H_j} &=& 0\\
+	\rho_{\rm o} \nu_{\rm o} \phi^{{k}}_{{\rm o}, 0} &=&
+	\rho_{\rm a} \nu_{\rm a} \phi^{{k}}_{{\rm a}, 0} \\
+	\nu_a \phi_{{\rm a},0}^{{k}}
+	&=& C_D \left|\Delta U^e\right| \left(\frac{3}{2} \Delta u^{
+		{k-1}}
+	+ \frac{1}{2} \frac{\Delta U^e}{\overline{\Delta U^e}}
+		\overline{\Delta u^{
+			{{k-1}}}}\right) \\
+		&&-{\theta \; C_D|\Delta U^e|
+		\left( u_a^{{k}} -
+		u_a^{{k-1}}\right)}
+\end{array}
+\end{equation*}
+The three first equations are used in a Fourier transform or
+z-transform to obtain
+\begin{equation}
+\label{eq:FourierTransform}
+\begin{array}{rcll}
+	(\emphase{s} +if) \widehat{u}^{{k}}_{j,m+\frac{1}{2}} &=&
+	\nu_j\frac{\widehat{\phi}^{{k}}_{j,m+1}
+	- \widehat{\phi}^{{k}}_{j,m}}{h} \\
+	\left.\widehat{u}^{{k}}_j\right|_{z=H_j} &=& 0\\
+\end{array}
+\end{equation}
+where $s$ is the frequency variable.
+Using the form of $\phi_{j, m \neq 0} = \frac{u_{j, m+1/2} -
+u_{j, m-1/2}}{h}$
+we obtain for $m>0$
+\begin{equation}
+\label{eq:diff_finies_on_u}
+	(\chi_j+2) \widehat{u}^{{k}}_{j,m+\frac{1}{2}} =
+	\widehat{u}_{j, m+3/2} + \widehat{u}_{j, m-1/2},
+	~~~~~~ \chi_j = h_j^2\frac{s + if}{\nu}
+\end{equation}
+We use the ansatz
+\begin{equation*}
+\begin{aligned}
+\widehat{u}_{a,m+1/2} &= A_k^a (1+\lambda_a)^m
++ \widetilde{A}_k^{a}(1+\widetilde{\lambda_a})^{m} \\
+\widehat{u}_{o,m-1/2} &= A_k^o (1+\lambda_o)^{m}
++ \widetilde{A}_k^{o}(1+\widetilde{\lambda_o})^{m}
+\end{aligned}
+\end{equation*}
+where $\lambda_j, \widetilde{\lambda_j}$ can be obtained by injecting
+the ansatz in \eqref{eq:diff_finies_on_u};
+\begin{equation*}
+\begin{aligned}
+\forall m>0,~~~ &A_k^j\left(1+\lambda_j\right)^{m-1}
+\left((\chi_j+2) (1+\lambda_j) - (1+\lambda_j)^2 - 1\right)\\
+=&
+\widetilde{A}_k^j\left(1+\widetilde{\lambda_j}\right)^{m-1}
+\left((\chi_j+2) (1+\widetilde{\lambda_j}) - (1+\widetilde{\lambda_j})^2 - 1\right) = 0
+\end{aligned}
+\end{equation*}
+The solutions of this equation are
+$\lambda_j=\widetilde{\lambda_j}=-1$ (corresponding to
+$\widehat{u}_j=0$) and
+$\lambda_j =
+\frac{1}{2}\left(\chi_j - \sqrt{\chi_j}\sqrt{\chi_j+4}\right),
+\widetilde{\lambda_j}=\chi_j - \lambda_j$. One can prove
+that $(1+\lambda_j)(1+\widetilde{\lambda_j}) = 1$.
+
+The boundary condition at $H_j = (M_j + \frac{1}{2}) h_j$ gives that
+$\widetilde{A}_k^j = - A_k^j \left(1+\lambda_j\right)^{2 M_j}$.
+Finally, the jump of the solution across interface is
+\begin{equation*}
+\widehat{u}_{a, 1/2} - 
+\widehat{u}_{o, -1/2} = A_k^a - A_k^o
+- A_k^a\left(1+\lambda_a\right)^{2M_a}
++ A_k^o\left(1+\lambda_o\right)^{2M_o}
+	:= A_k^a I_a^{-} - A_k^o I_o^{-}
+\end{equation*}
+and we also define $I_j^{+} = 2-I_j^{-}$. All the variables
+$I_j^{\pm}\rightarrow 1$ with the infinite domain hypothesis.
+The fluxes inside the domains are computed
+with the finite differences:
+\begin{equation}
+\phi_{a,m+1} = A_k^a \frac{\lambda_a}{h_a}
+	(1+\lambda_a)^m + \widetilde{A}_k^a \frac{\widetilde{\lambda_a}}{h_a}
+	(1+\widetilde{\lambda_a})^m
+\end{equation}
+\begin{equation}
+\phi_{o,m-1} = -A_k^o \frac{\widetilde{\lambda_o}}{h_o}
+	(1+\lambda_o)^m - \widetilde{A}_k^o \frac{{\lambda_o}}{h_o}
+	(1+\widetilde{\lambda_o})^m
+\end{equation}
+And the fluxes at interface are obtained 
+by using \eqref{eq:FourierTransform}:
+\begin{equation*}
+\begin{aligned}
+h_a\phi_{a,0}&= h_a\phi_{a,1} - \chi_a \widehat{u}_{a, 1/2}
+= A_k^a \left(\lambda_a - \chi_a\right) +
+	\widetilde{A}_k^a\left(\widetilde{\lambda_a} - \chi_j\right)
+	= A_k^a ({\lambda_a} I_a^{+} - \chi_a)
+\\
+h_o\phi_{o,0}&= h_o\phi_{o,-1} + \chi_o \widehat{u}_{o, -1/2}
+	= A_k^o \left(-\widetilde{\lambda_o} + \chi_o\right) +
+	\widetilde{A}_k^o\left(-{\lambda_o} + \chi_o\right)
+	=A_k^o(({\lambda_o}-\chi_o)I_o^{+} + \chi_o)
+\end{aligned}
+\end{equation*}
+We are now ready to study the transmission conditions.
+The continuity of the flux leads to
+\begin{equation}
+    h_o \widehat{\phi}_{o,0} = h_a \widehat{\phi}_{a,0}
+    \epsilon\frac{\nu_a h_o}
+    {\nu_o h_a}
+    \Rightarrow
+	A_k^o = A_k^a \frac{\lambda_a I_a^{+} - \chi_a}
+	{(\lambda_o - \chi_o)I_o^{+} + \chi_o}
+    \epsilon\frac{\nu_a h_o}
+    {\nu_o h_a}
+\end{equation}
+We inject this equality in the jump of the solution across
+the interface and obtain
+\begin{equation}
+    \widehat{u}_{a,\frac{1}{2}}^k - \widehat{u}_{o,-\frac{1}{2}}^k
+    = A_k^a \mu(s)
+\end{equation}
+where
+\begin{equation}
+	\mu(s) = I_a^{-} - I_o^{-}
+\frac{\lambda_a I_a^{+} - \chi_a}
+	{(\lambda_o - \chi_o)I_o^{+} + \chi_o}
+    \epsilon\frac{\nu_a h_o}
+    {\nu_o h_a}
+\end{equation}
+The second interface transmission condition which
+is linearized gives
+\begin{equation}
+\frac{\nu_{\rm a}}{h_a}A_k^a \left(\lambda_a I_a^{+} - \chi_a \right)
+	=  \alpha^e \left(\frac{3}{2}A_{k-1}^a \mu(s)
++\theta ( \widehat{u}_{\rm a}^{k} -  \widehat{u}_{\rm a}^{k-1})
++ \frac{1}{2}\frac{\Delta U^e}{\overline{\Delta U^e}}
+\overline{A_{k-1}^a(\overline{s}) \mu(\overline{s})}
+\right)
+\end{equation}
+where
+\begin{equation}
+	\widehat{u}_{\rm a}^{k} -  \widehat{u}_{\rm a}^{k-1} = (A_k^a - A_{k-1}^a)I_a^{-}
+\end{equation}
+We finally obtain
+\begin{equation}
+    A_k^a = a_1 A_{k-1}^a + a_2 \overline{A_{k-1}^a}
+\end{equation}
+where
+\begin{equation}
+    a_1 = \alpha^e\frac{\frac{3}{2}\mu(s) - \theta I_a^{-}}
+	{\frac{\nu_a}{h_a}\left(\lambda_a I_a^{+} - \chi_a \right)
+	- \alpha^e \theta I_a^{-}}, ~~~~~~~
+        a_2 = \alpha^e\frac{\frac{1}{2}\frac{\Delta U^e}{\overline{\Delta U^e}}
+ \overline{\mu(\overline{s})}}
+	{\frac{\nu_a}{h_a}\left(\lambda_a I_a^{+} - \chi_a \right)
+	- \alpha^e \theta I_a^{-}}
+\end{equation}

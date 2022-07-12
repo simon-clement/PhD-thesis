@@ -1,4 +1,3 @@
-\begin{subappendices}
 \section{Well-posedness of the linearized quadratic friction case}
 \label{sec:OASchwarz_appendix_discreteVariationParameters}
 We look for the solutions of the Fourier transform of our
@@ -61,6 +60,12 @@ then prove that the friction law always has a unique solution.
 	$\widehat{u}_{1/2} - \widehat{u}_{-1/2}$}
 We first compute the jump of the solution
 $\widehat{u}_{1/2} - \widehat{u}_{-1/2}$.
+\myTD{Using a Laplace transform would avoid
+having to separate the cases. I actually
+think that with infinite
+domains the function is not in $L^2([0,T], \mathbb{R})$
+because its Fourier transform is affine (non-zero)
+for $\omega=-f$}
 \begin{itemize}
 \item if $\omega=-f$:
 	\begin{equation}
@@ -98,7 +103,7 @@ $\widehat{u}_{1/2} - \widehat{u}_{-1/2}$.
 	the jump of solutions
 	$\widehat{u}_{1/2} - \widehat{u}_{-1/2}$ can be written
 		$ \Delta H \times {C}_1^{-f} +S(U_0)$ where
-	$\Delta H = (|H_o|\epsilon \frac{\nu_o}{\nu_a} - H_a)$.
+	$\Delta H = -(|H_o|\epsilon \frac{\nu_o}{\nu_a} + H_a)$.
 \item if $\omega \neq -f$: \\
 We extend the well-known method of variation of parameters to the
 discrete case to compute a solution of
@@ -320,4 +325,3 @@ one is $(\omega, f) \rightarrow 0$, the other is $\omega \gg f$.
 \end{itemize}
 \myTD{Reste à montrer que \eqref{eq:OASchwarz_appendix_matrix_f} est
 inversible}
-\end{subappendices}
