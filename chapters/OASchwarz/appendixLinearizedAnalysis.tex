@@ -1,4 +1,5 @@
 \section{Detailed convergence study of the Linearized case}
+\label{appendix:OASchwarz_LinearizedAnalysis}
 We interest ourselves to the linearization around a stationary state 
 $U^e_j, \phi^e_j$.
 
@@ -85,11 +86,13 @@ $I_j^{\pm}\rightarrow 1$ with the infinite domain hypothesis.
 The fluxes inside the domains are computed
 with the finite differences:
 \begin{equation}
+	\label{eq:OASchwarz_appendix_phiaDiscrete}
 \phi_{a,m+1} = A_k^a \frac{\lambda_a}{h_a}
 	(1+\lambda_a)^m + \widetilde{A}_k^a \frac{\widetilde{\lambda_a}}{h_a}
 	(1+\widetilde{\lambda_a})^m
 \end{equation}
 \begin{equation}
+	\label{eq:OASchwarz_appendix_phioDiscrete}
 \phi_{o,m-1} = -A_k^o \frac{\widetilde{\lambda_o}}{h_o}
 	(1+\lambda_o)^m - \widetilde{A}_k^o \frac{{\lambda_o}}{h_o}
 	(1+\widetilde{\lambda_o})^m
@@ -109,6 +112,19 @@ h_o\phi_{o,0}&= h_o\phi_{o,-1} + \chi_o \widehat{u}_{o, -1/2}
 	=A_k^o(({\lambda_o}-\chi_o)I_o^{+} + \chi_o)
 \end{aligned}
 \end{equation*}
+\begin{remark}
+It can be checked that $\phi_{a,0}$ and $\phi_{o,0}$
+correspond to the values obtained with respectively
+$m=-1$ and $m=1$ in
+\eqref{eq:OASchwarz_appendix_phiaDiscrete} and
+\eqref{eq:OASchwarz_appendix_phiaDiscrete}. This
+is not obvious since they do not correspond to a finite
+difference approximation $\frac{u_{j, \frac{1}{2}} -
+u_{j, -\frac{1}{2}}}{h_j}$.
+It is hence correct if $\omega \neq -f$ to start from
+$\phi_j(\pm m h_j)= X_k(\lambda_j+1)^m$ in Sections
+	\ref{sec:conv-lin} and \ref{sec:OASchwarz_DiscreteStationaryState}.
+\end{remark}
 We are now ready to study the transmission conditions.
 The continuity of the flux leads to
 \begin{equation}

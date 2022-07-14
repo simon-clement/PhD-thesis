@@ -27,13 +27,13 @@ lead to peculiar transmission conditions. The objective in
 this paper is to study a model problem representative 
 of the coupling between the ocean and the atmosphere, including discretization 
 and so-called bulk interface conditions which are analogous to a 
-quadratic friction law. Such a model is introduced in Sec. \ref{sec:couplingProblem}
+quadratic friction law. Such a model is introduced in Section \ref{sec:couplingProblem}
 and its discretization, as done in state-of-the-art ESMs, 
-is described in Sec. \ref{sec:discreteProblem}. In the semi-discrete
-case in space we conduct in Sec. \ref{sec:conv-lin} a convergence analysis 
+is described in Section \ref{sec:discreteProblem}. In the semi-discrete
+case in space we conduct in Section \ref{sec:conv-lin} a convergence analysis 
 of the model problem first with a linear friction and then with a 
 quadratic friction linearized around equilibrium solutions. 
-Finally, in Sec. \ref{sec:num-exp}, numerical experiments in the 
+Finally, in Section \ref{sec:num-exp}, numerical experiments in the 
 linear and nonlinear case are performed to illustrate the relevance 
 of our analysis. \par
 %
@@ -133,9 +133,11 @@ atmosphere, and leads to reasonable values of the solution $U$. \par
 The well-posedness of \eqref{eq:cplProblem} has been studied in 
 \cite{thery_etude_2021}
 %\cite{thery_etude_2021} studied the well-posedness of \eqref{eq:cplProblem}. 
-where it is proved that its stationary version admits a unique solution for realistic values of the parameters. The study of the nonstationary case is much more challenging: numerical experiments tend to confirm this well-posedness, but  with no theoretical proof.
-\myTD{In Section [..] we will give some elements to prove the well-posedness
-of the nonstationary case.}
+where it is proved that its stationary version admits a unique
+solution for realistic values of the parameters. The study of the
+nonstationary case is much more challenging: numerical experiments
+tend to confirm this well-posedness and we give in Section
+\ref{sec:OASchwarz_wellPosedness} some elements for a theoretical proof.
 %
 %
 %
@@ -253,7 +255,7 @@ of the nonstationary case.}
 %==============================================
 \subsection{Implementation of the surface layer}
 %==============================================
-As described in Sec. \ref{sec:couplingProblem}, the full domain 
+As described in Section \ref{sec:couplingProblem}, the full domain 
 $\Omega$ is split into three parts: $\Omega_o$ in the ocean, 
 $\Omega_a$ in the atmosphere and $\Omega_{\rm sl}$ a thin domain 
 containing the interface (see Fig. \ref{fig:presentationDomains}).
@@ -275,7 +277,7 @@ subdomain), where the  values of the velocity closest to the interface are avail
 %coupling problem \eqref{eq:cplProblem} of interest 
 %
 %The coupling problem \eqref{eq:cplProblem} presented in 
-%Sec. \ref{sec:couplingProblem} is not implemented as is in climate models.
+%Section \ref{sec:couplingProblem} is not implemented as is in climate models.
 %The bulk parameterization ${\cal F}_{\rm sl}$ is generally included in the atmospheric model. Sea surface fluxes are derived from atmospheric variables at 
 %the first atmospheric mesh level ($\approx 10m$), which is thus considered as the top
 %of the surface boundary layer $\delta_{\rm a}$, and from oceanic variables at the
@@ -306,7 +308,7 @@ is replaced by
 %
 where 
 $\alpha= C_D \left| U_{\rm a}\left( \frac{h_{\rm a}}{2},t \right) - U_{\rm o}\left(-\frac{h_{\rm o}}{2},t \right) \right|$ for the \textit{nonlinear} case.
-In the following, for the analysis in Sec. \ref{sec:conv-lin}, we  consider 
+In the following, for the analysis in Section \ref{sec:conv-lin}, we  consider 
 a \textit{linear} friction where $\alpha$ is assumed constant and a 
 quadratic friction \textit{linearized} around equilibrium solutions.
 \begin{figure}
@@ -323,7 +325,7 @@ single iteration of a Schwarz Waveform Relaxation (SWR) algorithm.
 %alternatively, using at the interface the solution computed previously 
 %in the other subdomain. 
 SWR applied to the coupling problem presented 
-in Sec. \ref{sec:couplingProblem} with the transmission conditions 
+in Section \ref{sec:couplingProblem} with the transmission conditions 
  \eqref{eq:discreteCouplingConditions} and constant viscosity
  in each subdomain reads:
 %\begin{subequations}
@@ -382,7 +384,7 @@ the $\theta$ parameter appears thus here within a (close to Robin) condition
 $\nu_{\rm a} \phi_{\rm a}(0) - \alpha \theta U_{\rm a}(h_{\rm a}/2) = \ldots$,
 i.e. the relaxation is not performed directly on the converging variable
 which leads to convergence properties different from the DNWR case, 
-as shown in Sec. \ref{sec:conv-lin}.
+as shown in Section \ref{sec:conv-lin}.
 It is important to distinguish between the relaxation
 procedure described here and the choice of using an implicit or
 explicit interface condition discussed in Section
@@ -401,10 +403,24 @@ and the semi-discrete version of \eqref{eq:ref} in the homogeneous case is
 \section{Discrete stationary state}
 \label{sec:OASchwarz_DiscreteStationaryState}
 We now interest ourselves to the semi-discrete in space
-stationary state of \eqref{eq:SWRbulk} with $U_j^\infty = 0$.
-Whenever $f=0$ it is easy to show that the solution of this problem
-is 0;
-We hence interest us only on the case when $f\neq 0$.
+stationary state of \eqref{eq:SWRbulk}.
+\paragraph{Special case $f=0$}
+If we set to zero the Coriolis parameter,
+The flux $\nu_j\phi_j$ is constant in each domain.
+If moreover $U_{\rm a}^{\infty} \neq U_{\rm o}^{\infty}$,
+because of the interface conditions
+the derivatives $\phi_{\rm a}$ and $\phi_{\rm o}$
+cannot be equal to zero and $U_j$ are affine.
+With spatial domains of finite size, we eventually
+find an equation roughly similar to \eqref{eq:mainEqSimplified}.
+However, with the infinite domain hypothesis
+$\phi_j$ must tend to zero for $z\rightarrow \pm \infty$.
+\textbf{There is no stationary solution with infinite domains
+for $f=0$}. Note that this is true for both semi-discrete
+and continuous cases.
+\newline
+We now exclude the particular case of a vanishing Coriolis parameter
+and interest us only on the case $f\neq 0$.
 In this section, we assume that the space domain is sufficiently
 large ($H_j \rightarrow \infty$) but the results can be easily
 extended to finite domains.
@@ -475,8 +491,8 @@ Let us now study the real and imaginary parts of $\widetilde{x}=\widetilde{x}_R+
     {\widetilde{x}_I} &= |\widetilde{x}|({d_I}\widetilde{x}_R + {d_R}{\widetilde{x}_I})
     \end{aligned}
 \end{equation}
-A linear combination (product with ${\widetilde{x}_I}, \widetilde{x}_R$) between those equations
-gives
+A combination (product with ${\widetilde{x}_I}, \widetilde{x}_R$)
+between those equations gives
 ${d_I}\left|\widetilde{x}\right|^3 = \left(g_{\rm a} - g_{\rm o}\right) {\widetilde{x}_I}$ which means that either ${d_I}=\widetilde{x}_I=0$ or ${d_I}\neq 0$ and $\frac{g_{\rm a} - g_{\rm o}}{{d_I}}{\widetilde{x}_I}>0$.
 From \eqref{eq:mainEqSimplified}, $\widetilde{x}$ cannot be real because $g_{\rm a} \neq g_{\rm o}$ and $d$ is not real.
 We get the equality
@@ -731,7 +747,9 @@ in terms of the $\widehat{\phi}_j$ is
 \end{equation}
 with $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$.
 A discrete analysis of the finite difference scheme \eqref{eq:spaceTimeScheme} in the
-frequency domain (e.g. \cite{wu_optimized_2017}) leads to 
+frequency domain (e.g. \cite{wu_optimized_2017}, see Section
+\ref{appendix:OASchwarz_LinearizedAnalysis} for a detailed
+derivation in the linearized case) leads to 
 $\widehat{\phi}_{\rm o}^k(-m h_{\rm o}) = A_k (\lambda_{\rm o}+1)^m$
 and
 $\widehat{\phi}_{\rm a}^k(m h_{\rm a}) = B_k (\lambda_{\rm a}+1)^m$ 
@@ -1077,18 +1095,26 @@ with:
 \end{equation}
 \begin{figure}
     \centering
+    \includegraphics[scale=0.65]{plotEigenvalues.pdf}
+	\caption{Singular values $\widetilde{\xi}_1(\omega)$,
+	$\widetilde{\xi}_1(\omega)$ of the matrix $\begin{pmatrix}
+	a_1(\omega) & a_2(\omega) \\
+	\overline{a_2(-\omega)} & \overline{a_1(-\omega)} \\
+	\end{pmatrix}$.
+	}
+    \label{fig:OASchwarz_singularValues}
+\end{figure}
+\begin{figure}
+    \centering
     \includegraphics[scale=0.65]{asymptote_linearized.pdf}
 	\caption{Singular values
 	$\widetilde{\xi}_1, \widetilde{\xi}_2$ of $\begin{pmatrix}
 	a_1(\omega) & a_2(\omega) \\
 	\overline{a_2(-\omega)} & \overline{a_1(-\omega)} \\
-	\end{pmatrix}$.
-	On the left panel, the singular values are maximized over the
-	set of discrete frequencies
+	\end{pmatrix}$ maximized over the set of discrete
+	frequencies
 	$\{-\frac{\pi}{\Delta t}, ..., \frac{\pi}{T}, 0,
 	\frac{\pi}{T},..., \frac{\pi}{\Delta t}\}$.
-	On the right panel are shown
-	the asymptote of the singular values for $\omega+f \to 0$.
 	The vertical dashed line highlights the minimum
 	of $\max \widetilde{\xi}_1$.
 	The windows length $T$ is one day
@@ -1096,51 +1122,22 @@ with:
 	}
     \label{fig:OASchwarz_nonasymptotic}
 \end{figure}
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.65]{shannon_pedago.pdf}
-	\caption{Singular value $\widetilde{\xi}_1(\omega)$.
-	The set of discrete frequencies do not contain
-	with our parameters the peaks around $\{f, -f\}$.
-	}
-    \label{fig:OASchwarz_shannonPedago}
-\end{figure}
-The singular values (shown in Figure \ref{fig:OASchwarz_nonasymptotic})
+The singular values (shown in Figures \ref{fig:OASchwarz_singularValues} and \ref{fig:OASchwarz_nonasymptotic})
 of the $2\times 2$ matrix
 in \eqref{eq:OASchwarz_transitionMatrixDD26}
 can be studied instead of the convergence factor.
-\par
-First, it is seen on the right panel of Figure
-\ref{fig:OASchwarz_nonasymptotic} that for
-$\omega+ f \rightarrow\to 0$,
-one of the singular values is always greater than one:
-\textbf{the continuous-in-time Schwarz method does not
-converge, whatever the parameter $\theta$.}
-However, the singular values are both smaller than one
-on the set of discrete frequencies
-$\{\frac{\pi l}{T},
-l \in [-\frac{T}{\Delta t},\frac{T}{\Delta t}]\cap \mathbb{N}\}$
-(left panel of Figure \ref{fig:OASchwarz_nonasymptotic}).
-\textbf{The Schwarz method converges on discrete frequencies
-for the choice $f=10^{-4} \; {\rm s}^{-1}, T=1 \; {\rm day}$.}
-The difference between the continuous and discrete frequencies
-is illustrated in Figure \ref{fig:OASchwarz_shannonPedago}.
-\myTD{figure 6.6 mais avec $f\approx 2e-4$}
-We will see in numerical experiments that the maximum of the
-singular value over the discrete frequencies do not reflect the $L^2$
-convergence rate:
-it is mostly affected by the proximity of $f$ in the discrete
-frequencies.
-The vertical dashed line indicates that the numerical
-optimisation of the biggest eigenvalue gives
-$\theta \approx 1.7$.
-% \begin{remark}
-% In a fully discrete setting, instead of the the Fourier transform
-% another frequency variable $s^{\rm time}(\omega)$ instead of $i\omega$ is used.
-% However, for frequencies as low as $10^{-4}\;{\rm s}^{-1}$ we generally
-% have $s^{\rm time}(\omega) \approx i \omega$ because the time discretisation
-% methods are usually very precise in low frequencies.
-% \end{remark}
+One can see on Figure \ref{fig:OASchwarz_singularValues} that
+the singular values are different for small frequencies, especially
+around the frequencies $f$ and $-f$.
+One can hence expect that for frequencies close to $f$ and $-f$
+the observed convergence factor
+$\frac{B_k}{B_{k-1}}$ will be
+\begin{itemize}
+	\item different from one iteration to another;
+	\item between $\widetilde{\xi}_1$ and $\widetilde{\xi}_2$.
+\end{itemize}
+\myTD{TODO une figure pour expliquer ces deux points}
+
 \input{wellPosedness.tex}
 
 \section{Numerical experiments}
@@ -1172,7 +1169,7 @@ Figure \ref{fig:evolutionErrNonlinear} shows the evolution of the error for two 
 convergence according to $\xi_0$ is
 also displayed: $\sup_\omega \xi$ is an upper bound of the $L^2$ convergence factor \cite{thery_etude_2021} and $\xi_0$ is an approximation of $\sup_\omega \xi$.
 Both $\xi_0$ and $\xi_0^q$ are close to the convergence rate, with the exception of
-$\xi_0^q$ that predicts much faster convergence than observed when $\theta=1.5$. This shows that the maximum of the convergence factor is not reached when $(\omega+f) \rightarrow 0$ in this case. Figure \ref{fig:evolutionErrNonlinear} confirms the results of Sec. \ref{sec:conv-lin}:
+$\xi_0^q$ that predicts much faster convergence than observed when $\theta=1.5$. This shows that the maximum of the convergence factor is not reached when $(\omega+f) \rightarrow 0$ in this case. Figure \ref{fig:evolutionErrNonlinear} confirms the results of Section \ref{sec:conv-lin}:
 when considering $\alpha=\alpha_c$ constant, the fastest convergence is achieved when $\theta$ is close to 1, similarly to the DNWR algorithm.
 However this does not translate into the nonlinear case, which converges faster with $\theta=1.5$.
 Figure \ref{fig:robustesseEvolutionErrNonlinear}
