@@ -12,6 +12,20 @@
 % adding a relaxation parameter at the interface.}
 
 \section{Introduction}
+We presented in Chapter \ref{ch:discreteSchwarzAnalysis}
+the discrete analysis of the convergence of Schwarz methods;
+the implementation of the law of the wall was discussed
+in Chapter \ref{ch:ND}. We now aim to study the convergence
+properties of Schwarz methods when the law of the wall is
+used at the interface between ocean and atmosphere.
+In this chapter, we study the Ekman problem with a
+simplified bulk condition at the surface such that
+it can be easily implemented to numerically validate the
+convergence results.
+A part of this chapter was published in proceedings of the
+International Conference on Domain Decomposition Methods
+\citep{clement_discrete_2021}.
+
 Schwarz-like domain decomposition methods are very popular in 
 mathematics, computational sciences and engineering notably for 
 the implementation of coupling strategies. Such an iterative method
@@ -907,6 +921,7 @@ The total derivative of $|\cdot|^2$ is
 \langle D_x |\cdot|^2, \mu \rangle
 = \overline{x} \mu + x \overline{\mu}
 \end{equation}
+where $\overline{x}$ is the complex conjugate of $x$.
 We then use the chain rule to differentiate $|x| = \sqrt{|x|^2}$ and
 obtain
 \begin{equation}
@@ -957,7 +972,7 @@ Finally, the linearized transmission operator reads
 \begin{equation}
 \label{eq:linearised}
 \begin{aligned}
-\nu_{\rm a}\delta\phi_{\rm a}^k =  \alpha^e 
+\nu_{\rm a}\delta\phi_{\rm a}^k = \alpha^e 
 \left( \left(\frac{3}{2} - \theta \right)\delta U_{\rm a}^{k-1} \right.
 &+ \theta\, \delta U_{\rm a}^{k}
 - \frac{3}{2} \delta U_{\rm o}^{k-1}
@@ -1115,8 +1130,8 @@ with:
 	frequencies
 	$\{-\frac{\pi}{\Delta t}, ..., \frac{\pi}{T}, 0,
 	\frac{\pi}{T},..., \frac{\pi}{\Delta t}\}$.
-	The vertical dashed line highlights the minimum
-	of $\max \widetilde{\xi}_1$.
+	The vertical dashed lines highlights the minimum
+	of $\max \widetilde{\xi}_1$ and of $\xi_0^q$.
 	The windows length $T$ is one day
 	and $\Delta t=60\;{\rm s}$ .
 	}

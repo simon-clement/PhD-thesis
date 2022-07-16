@@ -1,35 +1,38 @@
 \section{Well-posedness of the linearized quadratic friction case}
 \label{sec:OASchwarz_appendix_discreteVariationParameters}
-We look for the solutions of the Fourier transform of our
+We look for the solutions of the Laplace transform
+(with the frequency variable $s=\sigma + i\omega, \sigma>0$) of our
 coupled problem (the steady state has been substracted from $u$):
 \begin{subequations}
 	\label{eq:OASchwarz_appendix_discreteVariationParameters}
 	\begin{align}
-	(i\omega + if) \widehat{u}_{m+\frac{1}{2}} -
+	(s + if) \widehat{u}_{m+\frac{1}{2}} -
 		\nu_j \frac{\widehat{\phi}_{m+1} -
 		\widehat{\phi}_m}{h_j}
 		&=U_0
-	\hspace{1.2cm} \mbox{in}\;
+	\hspace{1.2cm} \omega \in
 	(\omega_{\min},\omega_{\max})
 		\label{eq:OASchwarz_appendix_eqFourier}\\
 		u_m(t=0) &= U_0(z_m),   \hspace{1.8cm}
 		\forall m, M_o \leq m \leq M_a \\
-		\widehat{u}(H_j, \omega) &= 0,
+		\widehat{u}(H_j, s) &= 0,
 		\hspace{2.1cm}
-		\omega \in [\omega_{\min},\omega_{\max}]
+		\omega \in (\omega_{\min},\omega_{\max})
 		\label{eq:OASchwarz_appendix_bdCond}\\
 		\frac{3\alpha^e}{2} 
 		\left( \widehat{u}_{1/2} - \widehat{u}_{-1/2}
 		+ \frac{{\cal O}}{3} \overline{
-		\widehat{u}_{1/2}(-\omega) -
-		\widehat{u}_{-1/2}(-\omega)} \right) &=
+			\widehat{u}_{1/2}(\overline{s}) -
+		\widehat{u}_{-1/2}(\overline{s})} \right) &=
 		\nu_{\rm a}\widehat{\phi}_{\rm a, 0},
-		\hspace{1.12cm} t \in [0,T]
+		\hspace{1.12cm}
+		\omega \in (\omega_{\min},\omega_{\max})
 		\label{eq:OASchwarz_appendix_linearizedCond}
 		\\
 		\rho_{\rm o} \nu_{\rm o}\widehat{\phi}_{\rm o, 0}
 		&= \rho_{\rm a} \nu_{\rm a}\widehat{\phi}_{\rm a, 0},
-		\hspace{1.0cm} t \in [0,T]
+		\hspace{1.0cm}
+		\omega \in (\omega_{\min},\omega_{\max})
 		\label{eq:OASchwarz_appendix_continuityFlux}
 		\end{align}
 		\end{subequations}
@@ -60,51 +63,12 @@ then prove that the friction law always has a unique solution.
 	$\widehat{u}_{1/2} - \widehat{u}_{-1/2}$}
 We first compute the jump of the solution
 $\widehat{u}_{1/2} - \widehat{u}_{-1/2}$.
-\myTD{Using a Laplace transform would avoid
-having to separate the cases. I actually
-think that with infinite
-domains the function is not in $L^2([0,T], \mathbb{R})$
-because its Fourier transform is affine (non-zero)
-for $\omega=-f$}
-\begin{itemize}
-\item if $\omega=-f$:
-	\begin{equation}
-		\widehat{\phi}_{a, m+1} - \widehat{\phi}_{a,m} =
-		-\frac{h_a}{\nu_a} U_0(m h_a), ~~~~~~ m \geq 0
-	\end{equation}
-		$\widehat{\phi}_{a,m}= {C}_1^{-f} - \frac{h_a}{\nu_a}
-	\sum_{i=0}^{m-1} U_{0, i+1/2}$.
-	Since $U_{a, m+1/2}- U_{a, m-1/2} =
-	h_a \phi_{a, m}$ we obtain with the Dirichlet
-	boundary condition:
-	\begin{equation}
-		U_{a,m+1/2} = -h_a\sum_{i=m+1}^{H_a/h_a}
-		\widehat{\phi}_{a,i} =(m h_a - H_a){C}_1^{-f}+
-		\frac{h_a^2}{\nu_a}\sum_{i=m+1}^{H_a/h_a}
-		\sum_{k=0}^{i}U_{0,k+1/2}
-	\end{equation}
-	for $m<0$, we get:
-	\begin{equation}
-		U_{o,m+1/2} = h_o\sum_{i=H_o/h_o}^{m}
-		\widehat{\phi}_{o,i} =(H_o - (m+1) h_o){C}_2^{-f}+
-		\frac{h_o^2}{\nu_o}\sum_{i=H_o/h_o}^{m}
-		\sum_{k=i}^{-1}U_{0,k+1/2}
-	\end{equation}
-	and $(\widehat{\phi}_{a,0}, \widehat{\phi}_{o,0}) =
-		({C}_1^{-f},{C}_2^{-f})$.
-	\begin{remark}
-		having infinite domains with constant space step
-		leads to $U_{m\rightarrow \infty}=0 \Rightarrow
-		\phi_{(m\rightarrow \infty)}=0$, which overdetermines
-		the system. This is why we keep $H_j$ here.
-	\end{remark}
-	With the help of the interface condition
-	$\rho_o \nu_o \phi_o = \rho_a \nu_a \phi_a$,
-	the jump of solutions
-	$\widehat{u}_{1/2} - \widehat{u}_{-1/2}$ can be written
-		$ \Delta H \times {C}_1^{-f} +S(U_0)$ where
-	$\Delta H = -(|H_o|\epsilon \frac{\nu_o}{\nu_a} + H_a)$.
-\item if $\omega \neq -f$: \\
+\begin{remark}
+	If a Fourier transform was used
+	(corresponding to $\sigma=0$), the case $\omega=-f$ would
+	require a particular attention as
+	$\lambda_u^{-1} - \lambda_u$ would attain 0.
+\end{remark}
 We extend the well-known method of variation of parameters to the
 discrete case to compute a solution of
 \eqref{eq:OASchwarz_appendix_eqFourier}.
@@ -113,16 +77,16 @@ discrete case to compute a solution of
 	\eqref{eq:OASchwarz_appendix_eqFourier} are
 		$\widehat{u} = B^1_m \lambda_u^m +
 			B^2_m \lambda_u^{-m}$, where
-	$\lambda_u=1+\frac{\chi_2}{2} -\sqrt{\chi_2}\sqrt{\chi_2+4}$.
+		$\lambda_u=1+\frac{\chi_2}{2} -\frac{1}{2}\sqrt{\chi_2}\sqrt{\chi_2+4}$ and $\chi_j = h_j^2 \frac{s + if}{\nu_j}$.
 	Equation \eqref{eq:OASchwarz_appendix_eqFourier}
 	can be rewritten as
 	\begin{equation}
-		(\widehat{u}_{m+1} - \widehat{u}_{m})
-		-\chi_2 \widehat{u}_{m}
-		- (\widehat{u}_{m} - \widehat{u}_{m-1})
+		(\widehat{u}_{m+\frac{5}{2}} - \widehat{u}_{m+\frac{1}{2}})
+		-\chi_2 \widehat{u}_{m+\frac{1}{2}}
+		- (\widehat{u}_{m+\frac{1}{2}} - \widehat{u}_{m-\frac{1}{2}})
 		= -U_0
 	\end{equation}
-	Injecting $\widehat{u} = B^1_m \lambda_u^m +
+	Injecting $\widehat{u}_{m+\frac{1}{2}} = B^1_m \lambda_u^m +
 	B^2_m \lambda_u^{-m}$ and rearranging terms gives
 \begin{equation}
 	\begin{aligned}
@@ -152,8 +116,9 @@ can be taken as
 	&= {U_0}
 \end{cases}
 \end{equation}
-which has a unique solution:
+which can be inverted:
 \begin{equation}
+	\label{eq:OASchwarz_appendix_deltaB}
 	\begin{pmatrix}
 B_m^1 - B_{m-1}^1\\
 B_m^2 - B_{m-1}^2
@@ -168,9 +133,10 @@ B_m^2 - B_{m-1}^2
 		0 \\ U_0
 	\end{pmatrix}
 \end{equation}
-The determinant of the inversed matrix is
-$\lambda_u^{-1} - \lambda_u$ which is not zero since
-$\omega\neq -f$.
+The determinant of the inversed matrix in
+\eqref{eq:OASchwarz_appendix_deltaB} is
+$\lambda_u^{-1} - \lambda_u$ which is never zero because
+$\sigma > 0$.
 Let us note 
 $\begin{pmatrix}
 	S_m^1(U_0) + {C}_3\\
@@ -179,8 +145,8 @@ $\begin{pmatrix}
 B_m^1\\
 B_m^2
 \end{pmatrix}$.
-Let $M_a=\frac{H_a}{h_a}$.
-The Dirichlet boundary condition is equivalent to
+The Dirichlet boundary condition at $H_a = (M_a + \frac{1}{2})h_a$
+is equivalent to
 $B_{M_a}^1 (\lambda_u)^{2M_a} = - B_{M_a}^2$ which determines
 ${C}_4$:
 \begin{equation}
@@ -196,7 +162,7 @@ ${C}_4$:
 \begin{equation}
 	\chi_a \widehat{u}_{\frac{1}{2}} =
 	\widehat{u}_{\frac{3}{2}} - \widehat{u}_{\frac{1}{2}}
-	- h_a \phi_{a,0} + \frac{h^2_a}{\nu_a} U_0
+	- h_a \widehat{\phi}_{a,0} + \frac{h^2_a}{\nu_a} U_0
 \end{equation}
 Those equations give
 \begin{equation}
@@ -217,111 +183,69 @@ We obtain similar equations in the ocean part:
 		\widehat{u}_{-\frac{1}{2}} &= {C}_5 (1 -
 			\lambda_{u_o}^{2M_o})
 			+ S_{u, o}^{m=-1/2}(U_0) \\
-		\widehat{\phi}_{o,0} &={C}_5 K_{1,o}
-		-S_{\phi,o}^{m=0}
+		\widehat{\phi}_{o,0} &= - {C}_5 K_{1,o}
+		-S_{\phi,o}^{m=0},
+		~~~~~~ K_{1,o} = 
+			\lambda_{u_o}-\lambda_{u_o}^{2M_o-1}
+			- (\chi_o+1)(1-\lambda_{u_o}^{2M_o})
 	\end{aligned}
 \end{equation}
 The continuity of the flux at interface
 $\rho_o \nu_o \phi_o = \rho_a \nu_a \phi_a$ lets us rewrite
 \begin{equation}
-{C}_5 = {C}_3 \times \epsilon
-	\frac{\nu_a}{\nu_o} \frac{K_{1,a}}{K_{1,o}} +
-	\frac{S_{\phi,o}^0 - S^0_{\phi, a}}{K_{1,o}}
+{C}_5 = - {C}_3 \times \epsilon
+	\frac{\nu_a}{\nu_o} \frac{K_{1,a}}{K_{1,o}} -
+	\frac{S_{\phi,o}^0 - \epsilon \frac{\nu_a}{\nu_o}
+	S^0_{\phi, a}}{K_{1,o}}
 \end{equation}
-The jump between the solutions for $\omega\neq -f$ is
+and the jump between the solutions is
 \begin{equation}
 	\widehat{u}_{\frac{1}{2}} - \widehat{u}_{-\frac{1}{2}}
 	= {C}_3 K_{2} + \Delta S
 \end{equation}
-where $K_{2} = 1 - \lambda_{u_a}^{2M_a} - (1 - \lambda_{u_o}^{2M_o})
+where $K_{2} = 1 - \lambda_{u_a}^{2M_a} + (1 - \lambda_{u_o}^{2M_o})
 \epsilon \frac{\nu_a}{\nu_o} \frac{K_{1,a}}{K_{1,o}}$.
-\end{itemize}
 \subsection{Inverting the friction law}
 The friction law writes
 \begin{equation}
 	\underbrace{(\nu_a K_{1,a} - \frac{3\alpha^e K_{2}}{2})}_{
-		K_3(\omega)
+		K_3(s)
 	}{C}_3
 	-\underbrace{
-		\alpha^e \frac{{\cal O} \overline{K_2}(-\omega)}{2}}_{
-		\overline{K_4(-\omega)}}
-	\times \overline{{C}_3(-\omega)}
+		\alpha^e \frac{{\cal O} \overline{K_2}(\overline{s})}{2}}_{
+		\overline{K_4(\overline{s})}}
+	\times \overline{{C}_3(\overline{s})}
 	= S_{\rm friction}
 \end{equation}
 where $S_{\rm friction} =
 	\frac{3\alpha^e}{2} \left(
 	\Delta S + \frac{\cal O}{3}
-	\overline{\Delta S(-\omega)}\right)
+	\overline{\Delta S(\overline{s})}\right)
 	+\nu_a S_{\phi,a}^{m=0}$.
-The linearized problem is well posed if
+We can obtain the analytic expression of $\widehat{u}_j$
+by inverting the matrix
 \begin{equation}
 	\label{eq:OASchwarz_appendix_matrix_omega}
 	\begin{pmatrix}
-		K_3(\omega)& - \overline{K_4(-\omega)}\\
-		-K_4(\omega) & \overline{K_3(-\omega)}
+		K_3(s)& - \overline{K_4(\overline{s})}\\
+		-K_4(s) & \overline{K_3(\overline{s})}
 	\end{pmatrix}
 \end{equation}
-is inversible for $\omega \notin \{f, -f\}$ and
-the matrix
-\begin{equation}
-	\label{eq:OASchwarz_appendix_matrix_f}
-	\begin{pmatrix}
-		\nu_a - \frac{3 \alpha^e}{2}\Delta H &
-		-\overline{K_4(f)} \\
-		-\frac{\alpha^e}{2}\overline{\cal O} \times \Delta H&
-		\overline{K_3(f)}
-	\end{pmatrix}
-\end{equation}
-is inversible.
-Let us approximate some of the terms for sufficiently big $M_a, M_o$:
-\begin{itemize}
-	\item $K_1 \approx \frac{1 - \lambda_u^{-1}}{h}$
-	\item $K_2 \approx 1 - \epsilon\frac{\nu_a}{\nu_o}
-		\frac{K_{1,a}}{K_{1,o}}$
-	\item $K_3 = \nu_a K_{1,a} - \frac{3}{2} \alpha^e K_2$
-	\item $K_4 = \frac{\alpha^e \overline{{\cal O}}}
-		{2}K_2$
-\end{itemize}
-First, we notice that $\overline{ {\cal O}(-\omega)}
-	{\cal O}(\omega) = 1$.
-We can compute the determinant
-\begin{equation}
-\left|
-\begin{pmatrix}
-	K_3(\omega)& - \overline{K_4(-\omega)}\\
-	-K_4(\omega) & \overline{K_3(-\omega)}
-\end{pmatrix}\right|=
-\frac{5}{2} (\alpha^e)^2 K_2 \overline{K_2(-\omega)}
-+ \nu_a^2 K_1 \overline{K_1(-\omega)}
-- \frac{3}{2} \nu_a \alpha^e \left(K_2 \overline{K_1(-\omega)}
-+ K_1 \overline{K_2(-\omega)}
-\right)
-\end{equation}
-Assuming that $f$ is small, let us separate our study into two zones:
-one is $(\omega, f) \rightarrow 0$, the other is $\omega \gg f$.
-\begin{itemize}
- \item $(\omega, f) \rightarrow 0$
-	means that $K_{1,j} \rightarrow \frac{1}{h_j}$.
-	It follows that $K_2$ is close to the real axis and the determinant
-	is asymptotically
-	\begin{equation}
-		\label{eq:OASchwarz_appendix_det_asymptote}
-	\nu_a^2 K_1^2 \left(2 \left(\frac{\alpha^e K_2}{\nu_a K_1}\right)^2
-		- 3 \left(\frac{\alpha^e K_2}{\nu_a K_1}\right) + 1 \right)
-	\end{equation}
-	and we obtain the constraint
-	$\frac{\alpha^e K_2}{\nu_a K_1}
-	\notin \{\frac{1}{2},1\}$.
-		\myTD{trouver un truc à dire là dessus}
- \item for $\omega \gg f$ we approximate $\omega+f \approx \omega$
-	 and we obtain $\overline{K_1(-\omega)} \approx K_1(\omega)$.
-	 The determinant is again asymptotically
-	\eqref{eq:OASchwarz_appendix_det_asymptote}
-	and we obtain the constraint that
-	$h_a\frac{\alpha^e K_2}{\nu_a} \notin \{\frac{1}{2},1\}$
-	Since $K_1 \rightarrow \chi_1$ we have that
-	$\frac{\alpha^e K_2}{\nu_a K_1}$ is on the imaginary axis for
-	high $\omega$ and the condition is fullfilled.
-\end{itemize}
-\myTD{Reste à montrer que \eqref{eq:OASchwarz_appendix_matrix_f} est
-inversible}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.85]{isDetZero.pdf}
+    \caption{Absolute value of the determinant of
+	\eqref{eq:OASchwarz_appendix_matrix_omega} depending on
+	the frequency variable. With our parameters,
+	if $\sigma>0$ the matrix is invertible $\forall \omega$.}
+    \label{fig:OASchwarz_isDetZero}
+\end{figure}
+Figure \ref{fig:OASchwarz_isDetZero} shows that the determinant of
+this matrix is not zero for $\sigma>0$. For the frequencies
+$\omega=f$ and $\omega=-f$ the determinant is close to zero, and
+it seems to be asymptotically proportional to $\sqrt{\sigma}$.
+\par
+The Laplace transform can be unically inverted
+(e.g. \citep{cohen_inversion_2007}) because
+$\widehat{u}_j(s)$ does not grow faster than exponentially
+for $s\rightarrow \infty$.
