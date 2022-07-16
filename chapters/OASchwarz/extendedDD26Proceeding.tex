@@ -1241,6 +1241,41 @@ with:
     }{\left(\frac{i(\omega+f)h_{\rm a}}{\alpha} - \theta \lambda_{\rm a}\right)}
 \end{aligned}
 \end{equation}
+The singular values (shown in Figure \ref{fig:OASchwarz_singularValues})
+of the $2\times 2$ matrix
+in \eqref{eq:OASchwarz_transitionMatrixDD26}
+can be studied instead of the convergence factor.
+One can see on Figure \ref{fig:OASchwarz_singularValues} that
+the two singular values are different for small frequencies,
+especially around the frequencies $f$ and $-f$.
+\begin{figure}
+	\centering
+	\import{}{rate_between_eigenvalues.pdf_tex}
+	\caption{The vector $\begin{pmatrix} B_k \\ 0 \end{pmatrix}$ can be
+		decomposed
+	into a basis of eigenvector which converge linearly with
+	convergence factors $\widetilde{\xi}_1, \widetilde{\xi}_2$.
+	4 iterations are shematically represented in blue, pink, orange and
+	purple. The
+	observed convergence factor
+	$\widetilde{\xi}_2 \leq \frac{B_{k-1}}{B_k} \leq \widetilde{\xi}_1$
+	varies from one iteration to another. The observed convergence
+	factor gets closer to $\widetilde{\xi}_1$ when $k$ increases.
+	}
+	\label{fig:OASchwarz_rateBetweenEigenvalues}
+\end{figure}
+
+One can hence expect (see
+Figure \ref{fig:OASchwarz_rateBetweenEigenvalues}) that for frequencies close to $f$ and $-f$
+the observed convergence factor
+$\frac{B_k}{B_{k-1}}$ will be
+\begin{itemize}
+	\item different from one iteration to another;
+	\item between $\widetilde{\xi}_1$ and $\widetilde{\xi}_2$.
+\end{itemize}
+We optimize only the maximum over the frequencies of the biggest
+singular value $\widetilde{\xi}_1$ (see Figure
+\ref{fig:OASchwarz_nonasymptotic})
 \begin{figure}
     \centering
     \includegraphics[scale=0.65]{asymptote_linearized.pdf}
@@ -1259,37 +1294,9 @@ with:
 	}
     \label{fig:OASchwarz_nonasymptotic}
 \end{figure}
-The singular values (shown in Figures \ref{fig:OASchwarz_singularValues} and \ref{fig:OASchwarz_nonasymptotic})
-of the $2\times 2$ matrix
-in \eqref{eq:OASchwarz_transitionMatrixDD26}
-can be studied instead of the convergence factor.
-One can see on Figure \ref{fig:OASchwarz_singularValues} that
-the singular values are different for small frequencies, especially
-around the frequencies $f$ and $-f$.
-One can hence expect (see
-Figure \ref{fig:OASchwarz_rateBetweenEigenvalues}) that for frequencies close to $f$ and $-f$
-the observed convergence factor
-$\frac{B_k}{B_{k-1}}$ will be
-\begin{itemize}
-	\item different from one iteration to another;
-	\item between $\widetilde{\xi}_1$ and $\widetilde{\xi}_2$.
-\end{itemize}
-\begin{figure}
-	\centering
-	\import{}{rate_between_eigenvalues.pdf_tex}
-	\caption{The vector $\begin{pmatrix} B_k \\ 0 \end{pmatrix}$ can be decomposed
-	into a basis of eigenvector which converge linearly with
-	convergence factors $\widetilde{\xi}_1, \widetilde{\xi}_2$.
-	4 iterations are presented in red, blue, green and purple.
-	The
-	observed convergence factor
-	$\widetilde{\xi}_2 \leq \frac{B_{k-1}}{B_k} \leq \widetilde{\xi}_1$
-	varies from one iteration to another. The observed convergence
-	factor gets closer to $\widetilde{\xi}_1$ when $k$ increases.
-	}
-	\label{fig:OASchwarz_rateBetweenEigenvalues}
-\end{figure}
-
+and find that the optimal value of $\theta$ is slightly smaller than
+$1.5$ (instead of an optimal value slightly bigger than $1.5$
+for the asymptotic convergence for one iteration)
 \section{Numerical experiments}
 \label{sec:num-exp}
 % \begin{figure}
