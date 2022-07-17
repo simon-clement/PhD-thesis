@@ -46,40 +46,31 @@ we obtain for $m>0$
 We use the ansatz
 \begin{equation*}
 \begin{aligned}
-\widehat{u}_{a,m+1/2} &= A_k^a (1+\lambda_a)^m
-+ \widetilde{A}_k^{a}(1+\widetilde{\lambda_a})^{m} \\
-\widehat{u}_{o,m-1/2} &= A_k^o (1+\lambda_o)^{m}
-+ \widetilde{A}_k^{o}(1+\widetilde{\lambda_o})^{m}
+\widehat{u}_{a,m+1/2} &= \sum_i B_k^i (1+\lambda_a^i)^m \\
+\widehat{u}_{o,m-1/2} &= \sum_i A_k^i (1+\lambda_o^i)^{m}
 \end{aligned}
 \end{equation*}
-where $\lambda_j, \widetilde{\lambda_j}$ can be obtained by injecting
+where $\lambda_j^i$ can be obtained by injecting
 the ansatz in \eqref{eq:diff_finies_on_u};
 \begin{equation*}
-\begin{aligned}
-\forall m>0,~~~ &A_k^j\left(1+\lambda_j\right)^{m-1}
-\left((\chi_j+2) (1+\lambda_j) - (1+\lambda_j)^2 - 1\right)\\
-=&
-\widetilde{A}_k^j\left(1+\widetilde{\lambda_j}\right)^{m-1}
-\left((\chi_j+2) (1+\widetilde{\lambda_j}) - (1+\widetilde{\lambda_j})^2 - 1\right) = 0
-\end{aligned}
+(\chi_j+2) (1+\lambda_j) = (1+\lambda_j)^2 + 1
 \end{equation*}
 The solutions of this equation are
-$\lambda_j=\widetilde{\lambda_j}=-1$ (corresponding to
-$\widehat{u}_j=0$) and
-$\lambda_j =
-\frac{1}{2}\left(\chi_j - \sqrt{\chi_j}\sqrt{\chi_j+4}\right),
-\widetilde{\lambda_j}=\chi_j - \lambda_j$. One can prove
-that $(1+\lambda_j)(1+\widetilde{\lambda_j}) = 1$.
-
+$\lambda_j = \lambda_j^1 =
+\frac{1}{2}\left(\chi_j - \sqrt{\chi_j}\sqrt{\chi_j+4}\right)$ and
+$\widetilde{\lambda_j}=\lambda_j^2 = \chi_j - \lambda_j$.
+One can prove that $(1+\lambda_j)(1+\widetilde{\lambda_j}) = 1$.
+\par
 The boundary condition at $H_j = \pm(M_j + \frac{1}{2}) h_j$ gives that
-$\widetilde{A}_k^j = - A_k^j \left(1+\lambda_j\right)^{2 M_j}$.
+$\{{A}_k^2,{B}_k^2\} = - \{{A}_k^1,{B}_k^1\}
+\left(1+\lambda_j\right)^{2 M_j}$.
 Finally, the jump of the solution across interface is
 \begin{equation*}
 \widehat{u}_{a, 1/2} - 
-\widehat{u}_{o, -1/2} = A_k^a - A_k^o
-- A_k^a\left(1+\lambda_a\right)^{2M_a}
-+ A_k^o\left(1+\lambda_o\right)^{2M_o}
-	:= A_k^a I_a^{-} - A_k^o I_o^{-}
+\widehat{u}_{o, -1/2} = B_k^1 - A_k^1
+- B_k^1\left(1+\lambda_a\right)^{2M_a}
++ A_k^1\left(1+\lambda_o\right)^{2M_o}
+	:= B_k^1 I_a^{-} - A_k^1 I_o^{-}
 \end{equation*}
 and we also define $I_j^{+} = 2-I_j^{-}$. All the variables
 $I_j^{\pm}\rightarrow 1$ with the infinite domain hypothesis.
@@ -87,14 +78,14 @@ The fluxes inside the domains are computed
 with the finite differences:
 \begin{equation}
 	\label{eq:OASchwarz_appendix_phiaDiscrete}
-\phi_{a,m+1} = A_k^a \frac{\lambda_a}{h_a}
-	(1+\lambda_a)^m + \widetilde{A}_k^a \frac{\widetilde{\lambda_a}}{h_a}
+\phi_{a,m+1} = B_k^1 \frac{\lambda_a}{h_a}
+	(1+\lambda_a)^m + B_k^2 \frac{\widetilde{\lambda_a}}{h_a}
 	(1+\widetilde{\lambda_a})^m
 \end{equation}
 \begin{equation}
 	\label{eq:OASchwarz_appendix_phioDiscrete}
-\phi_{o,m-1} = -A_k^o \frac{\widetilde{\lambda_o}}{h_o}
-	(1+\lambda_o)^m - \widetilde{A}_k^o \frac{{\lambda_o}}{h_o}
+\phi_{o,m-1} = -A_k^1 \frac{\widetilde{\lambda_o}}{h_o}
+	(1+\lambda_o)^m - A_k^2 \frac{{\lambda_o}}{h_o}
 	(1+\widetilde{\lambda_o})^m
 \end{equation}
 And the fluxes at interface are obtained 
@@ -102,28 +93,30 @@ by using \eqref{eq:FourierTransform}:
 \begin{equation*}
 \begin{aligned}
 h_a\phi_{a,0}&= h_a\phi_{a,1} - \chi_a \widehat{u}_{a, 1/2}
-= A_k^a \left(\lambda_a - \chi_a\right) +
-	\widetilde{A}_k^a\left(\widetilde{\lambda_a} - \chi_j\right)
-	= A_k^a ({\lambda_a} I_a^{+} - \chi_a)
+= B_k^1 \left(\lambda_a - \chi_a\right) +
+	B_k^2\left(\widetilde{\lambda_a} - \chi_j\right)
+	= B_k^1 ({\lambda_a} I_a^{+} - \chi_a)
 \\
 h_o\phi_{o,0}&= h_o\phi_{o,-1} + \chi_o \widehat{u}_{o, -1/2}
-	= A_k^o \left(-\widetilde{\lambda_o} + \chi_o\right) +
-	\widetilde{A}_k^o\left(-{\lambda_o} + \chi_o\right)
-	=A_k^o(({\lambda_o}-\chi_o)I_o^{+} + \chi_o)
+	= A_k^1 \left(-\widetilde{\lambda_o} + \chi_o\right) +
+	{A}_k^2 \left(-{\lambda_o} + \chi_o\right)
+	=A_k^1(({\lambda_o}-\chi_o)I_o^{+} + \chi_o)
 \end{aligned}
 \end{equation*}
+$A_k^2, B_k^2$ will not intervene anymore and we now note
+$(A_k, B_k) = (A_k^1, B_k^1)$.
 \begin{remark}
 It can be checked that $\phi_{a,0}$ and $\phi_{o,0}$
 correspond to the values obtained with respectively
 $m=-1$ and $m=1$ in
 \eqref{eq:OASchwarz_appendix_phiaDiscrete} and
 \eqref{eq:OASchwarz_appendix_phiaDiscrete}. This
-is not obvious since they do not correspond to a finite
+was not obvious since they do not correspond to a finite
 difference approximation $\frac{u_{j, \frac{1}{2}} -
 u_{j, -\frac{1}{2}}}{h_j}$.
 It is hence correct if $\omega \neq -f$ to start from
-$\phi_j(\pm m h_j)= X_k(\lambda_j+1)^m$ in Sections
-	\ref{sec:conv-lin} and \ref{sec:OASchwarz_DiscreteStationaryState}.
+	$\phi_j(\pm m h_j)= \{A_k, B_k\}(\lambda_j+1)^m$ in Sections
+	\ref{sec:conv-lin} and \ref{sec:OASchwarz_DiscreteStationaryState} (where it is assumed that $H_j \rightarrow \infty$).
 \end{remark}
 We are now ready to study the transmission conditions.
 The continuity of the flux leads to
@@ -132,7 +125,7 @@ The continuity of the flux leads to
     \epsilon\frac{\nu_a h_o}
     {\nu_o h_a}
     \Rightarrow
-	A_k^o = A_k^a \frac{\lambda_a I_a^{+} - \chi_a}
+	A_k = B_k \frac{\lambda_a I_a^{+} - \chi_a}
 	{(\lambda_o - \chi_o)I_o^{+} + \chi_o}
     \epsilon\frac{\nu_a h_o}
     {\nu_o h_a}
@@ -141,7 +134,7 @@ We inject this equality in the jump of the solution across
 the interface and obtain
 \begin{equation}
     \widehat{u}_{a,\frac{1}{2}}^k - \widehat{u}_{o,-\frac{1}{2}}^k
-    = A_k^a \mu(s)
+    = B_k \mu(s)
 \end{equation}
 where
 \begin{equation}
@@ -154,20 +147,20 @@ where
 The second interface transmission condition which
 is linearized gives
 \begin{equation}
-\frac{\nu_{\rm a}}{h_a}A_k^a \left(\lambda_a I_a^{+} - \chi_a \right)
-	=  \alpha^e \left(\frac{3}{2}A_{k-1}^a \mu(s)
+\frac{\nu_{\rm a}}{h_a}B_k \left(\lambda_a I_a^{+} - \chi_a \right)
+	=  \alpha^e \left(\frac{3}{2}B_{k-1} \mu(s)
 +\theta ( \widehat{u}_{\rm a}^{k} -  \widehat{u}_{\rm a}^{k-1})
 + \frac{1}{2}\frac{\Delta U^e}{\overline{\Delta U^e}}
-\overline{A_{k-1}^a(\overline{s}) \mu(\overline{s})}
+\overline{B_{k-1}(\overline{s}) \mu(\overline{s})}
 \right)
 \end{equation}
 where
 \begin{equation}
-	\widehat{u}_{\rm a}^{k} -  \widehat{u}_{\rm a}^{k-1} = (A_k^a - A_{k-1}^a)I_a^{-}
+	\widehat{u}_{\rm a}^{k} -  \widehat{u}_{\rm a}^{k-1} = (B_k - B_{k-1})I_a^{-}
 \end{equation}
 We finally obtain
 \begin{equation}
-    A_k^a = a_1 A_{k-1}^a + a_2 \overline{A_{k-1}^a}
+    B_k = a_1 B_{k-1} + a_2 \overline{B_{k-1}}
 \end{equation}
 where
 \begin{equation}

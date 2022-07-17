@@ -72,12 +72,14 @@ $\widehat{u}_{1/2} - \widehat{u}_{-1/2}$.
 We extend the well-known method of variation of parameters to the
 discrete case to compute a solution of
 \eqref{eq:OASchwarz_appendix_eqFourier}.
-	let $B_m^1, B_m^2$ and $\lambda_u$ such that
-	the solutions of the homogeneous version of
-	\eqref{eq:OASchwarz_appendix_eqFourier} are
-		$\widehat{u} = B^1_m \lambda_u^m +
-			B^2_m \lambda_u^{-m}$, where
-		$\lambda_u=1+\frac{\chi_2}{2} -\frac{1}{2}\sqrt{\chi_2}\sqrt{\chi_2+4}$ and $\chi_j = h_j^2 \frac{s + if}{\nu_j}$.
+Let $B_m^1, B_m^2$ and $\lambda_u$ such that
+the solutions of \eqref{eq:OASchwarz_appendix_eqFourier} are
+$\widehat{u} = B^1_m \lambda_u^m + B^2_m \lambda_u^{-m}$, where
+$\lambda_u=1+\frac{\chi_2}{2}
+-\frac{1}{2}\sqrt{\chi_2}\sqrt{\chi_2+4}$ and
+$\chi_j = h_j^2 \frac{s + if}{\nu_j}$.
+Note that it it similar to the solution of the homogeneous
+equation but $B^1, B^2$ now depend on $m$.
 	Equation \eqref{eq:OASchwarz_appendix_eqFourier}
 	can be rewritten as
 	\begin{equation}
@@ -217,6 +219,15 @@ The friction law writes
 	\times \overline{{C}_3(\overline{s})}
 	= S_{\rm friction}
 \end{equation}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.85]{isDetZero.pdf}
+    \caption{Absolute value of the determinant of
+	\eqref{eq:OASchwarz_appendix_matrix_omega} depending on
+	the frequency variable. With our parameters,
+	if $\sigma>0$ the matrix is invertible $\forall \omega$.}
+    \label{fig:OASchwarz_isDetZero}
+\end{figure}
 where $S_{\rm friction} =
 	\frac{3\alpha^e}{2} \left(
 	\Delta S + \frac{\cal O}{3}
@@ -231,15 +242,6 @@ by inverting the matrix
 		-K_4(s) & \overline{K_3(\overline{s})}
 	\end{pmatrix}
 \end{equation}
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.85]{isDetZero.pdf}
-    \caption{Absolute value of the determinant of
-	\eqref{eq:OASchwarz_appendix_matrix_omega} depending on
-	the frequency variable. With our parameters,
-	if $\sigma>0$ the matrix is invertible $\forall \omega$.}
-    \label{fig:OASchwarz_isDetZero}
-\end{figure}
 Figure \ref{fig:OASchwarz_isDetZero} shows that the determinant of
 this matrix is not zero for $\sigma>0$. For the frequencies
 $\omega=f$ and $\omega=-f$ the determinant is close to zero, and
@@ -248,4 +250,4 @@ it seems to be asymptotically proportional to $\sqrt{\sigma}$.
 The Laplace transform can be unically inverted
 (e.g. \citep{cohen_inversion_2007}) because
 $\widehat{u}_j(s)$ does not grow faster than exponentially
-for $s\rightarrow \infty$.
+for $s\rightarrow \infty$. \myTD{Manque d'une justification}

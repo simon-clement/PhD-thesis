@@ -1110,6 +1110,7 @@ Finally, the linearized transmission operator reads
 with $\alpha^e=C_D\left|U_{\rm a}^e(h_{\rm a}/2) - U_{\rm o}^e(-h_{\rm o}/2)\right|$.
 Following the derivation in the previous paragraph,
 we find that the evolution of $B_k$ is:
+\myTD{Faire référence à l'appendice et harmoniser les résultats}
 \begin{equation}
 	\label{eq:OASchwarz_ConvergenceAnalysis_linearizedCV}
 	\begin{aligned}
@@ -1251,14 +1252,21 @@ especially around the frequencies $f$ and $-f$.
 \begin{figure}
 	\centering
 	\import{}{rate_between_eigenvalues.pdf_tex}
-	\caption{The vector $\begin{pmatrix} B_k \\ 0 \end{pmatrix}$ can be
-		decomposed
+	\caption{Assuming that $\begin{pmatrix}
+	a_1(\omega) & a_2(\omega) \\
+	\overline{a_2(-\omega)} & \overline{a_1(-\omega)} \\
+	\end{pmatrix}$ is diagonalizable,
+	The vector
+	$\begin{pmatrix} B_k(\omega) \\ B_k(-\omega) \end{pmatrix}$
+		can be decomposed
 	into a basis of eigenvector which converge linearly with
 	convergence factors $\widetilde{\xi}_1, \widetilde{\xi}_2$.
 	4 iterations are shematically represented in blue, pink, orange and
 	purple. The
-	observed convergence factor
-	$\widetilde{\xi}_2 \leq \frac{B_{k-1}}{B_k} \leq \widetilde{\xi}_1$
+	"convergence factor"
+	$\widetilde{\xi}_2 \leq \sqrt{\frac{|B_k(\omega)|^2 +
+	|B_k(-\omega)|^2}{|B_{k-1}(\omega)|^2
+	+ |B_{k-1}(-\omega)|^2}} \leq \widetilde{\xi}_1$
 	varies from one iteration to another. The observed convergence
 	factor gets closer to $\widetilde{\xi}_1$ when $k$ increases.
 	}
@@ -1267,8 +1275,9 @@ especially around the frequencies $f$ and $-f$.
 
 One can hence expect (see
 Figure \ref{fig:OASchwarz_rateBetweenEigenvalues}) that for frequencies close to $f$ and $-f$
-the observed convergence factor
-$\frac{B_k}{B_{k-1}}$ will be
+the "convergence factor"
+$\sqrt{\frac{|B_k(\omega)|^2 +
+|B_k(-\omega)|^2}{|B_{k-1}(\omega)|^2 + |B_{k-1}(-\omega)|^2}}$ will be
 \begin{itemize}
 	\item different from one iteration to another;
 	\item between $\widetilde{\xi}_1$ and $\widetilde{\xi}_2$.
