@@ -74,7 +74,7 @@ discrete case to compute a solution of
 \eqref{eq:OASchwarz_appendix_eqFourier}.
 Let $B_m^1, B_m^2$ and $\lambda_u$ such that
 the solutions of \eqref{eq:OASchwarz_appendix_eqFourier} are
-$\widehat{u} = B^1_m \lambda_u^m + B^2_m \lambda_u^{-m}$, where
+$\widehat{u}_{a,m+\frac{1}{2}} = B^1_m \lambda_u^m + B^2_m \lambda_u^{-m}$, where
 $\lambda_u=1+\frac{\chi_2}{2}
 -\frac{1}{2}\sqrt{\chi_2}\sqrt{\chi_2+4}$ and
 $\chi_j = h_j^2 \frac{s + if}{\nu_j}$.
@@ -115,7 +115,7 @@ can be taken as
 	+ \lambda_u^{-m}(B_m^2 - B_{m-1}^2)&= 0 \\
 	(\lambda_u^m - \lambda_u^{m-1})(B_m^1 - B_{m-1}^1)
 	+ (\lambda_u^{-m} - \lambda_u^{-m+1})(B_m^2 - B_{m-1}^2)
-	&= {U_0}
+	&= -{U_0}
 \end{cases}
 \end{equation}
 which can be inverted:
@@ -132,7 +132,7 @@ B_m^2 - B_{m-1}^2
 		(\lambda_u^{-m} - \lambda_u^{-m+1})
 	\end{pmatrix}^{-1}
 	\begin{pmatrix}
-		0 \\ U_0
+		0 \\ -U_0
 	\end{pmatrix}
 \end{equation}
 The determinant of the inversed matrix in

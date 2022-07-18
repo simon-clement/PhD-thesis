@@ -47,13 +47,13 @@ We use the ansatz
 \begin{equation*}
 \begin{aligned}
 \widehat{u}_{a,m+1/2} &= \sum_i B_k^i (1+\lambda_a^i)^m \\
-\widehat{u}_{o,m-1/2} &= \sum_i A_k^i (1+\lambda_o^i)^{m}
+\widehat{u}_{o,-m-1/2} &= \sum_i A_k^i (1+\lambda_o^i)^{m}
 \end{aligned}
 \end{equation*}
 where $\lambda_j^i$ can be obtained by injecting
 the ansatz in \eqref{eq:diff_finies_on_u};
 \begin{equation*}
-(\chi_j+2) (1+\lambda_j) = (1+\lambda_j)^2 + 1
+(\chi_j+2) (1+\lambda_j^i) = (1+\lambda_j^i)^2 + 1
 \end{equation*}
 The solutions of this equation are
 $\lambda_j = \lambda_j^1 =
@@ -84,7 +84,7 @@ with the finite differences:
 \end{equation}
 \begin{equation}
 	\label{eq:OASchwarz_appendix_phioDiscrete}
-\phi_{o,m-1} = -A_k^1 \frac{\widetilde{\lambda_o}}{h_o}
+\phi_{o,-m-1} = -A_k^1 \frac{\widetilde{\lambda_o}}{h_o}
 	(1+\lambda_o)^m - A_k^2 \frac{{\lambda_o}}{h_o}
 	(1+\widetilde{\lambda_o})^m
 \end{equation}
@@ -107,15 +107,15 @@ $A_k^2, B_k^2$ will not intervene anymore and we now note
 $(A_k, B_k) = (A_k^1, B_k^1)$.
 \begin{remark}
 It can be checked that $\phi_{a,0}$ and $\phi_{o,0}$
-correspond to the values obtained with respectively
-$m=-1$ and $m=1$ in
+correspond to the values obtained with
+$m=-1$ in
 \eqref{eq:OASchwarz_appendix_phiaDiscrete} and
-\eqref{eq:OASchwarz_appendix_phiaDiscrete}. This
+\eqref{eq:OASchwarz_appendix_phioDiscrete}. This
 was not obvious since they do not correspond to a finite
 difference approximation $\frac{u_{j, \frac{1}{2}} -
 u_{j, -\frac{1}{2}}}{h_j}$.
 It is hence correct if $\omega \neq -f$ to start from
-	$\phi_j(\pm m h_j)= \{A_k, B_k\}(\lambda_j+1)^m$ in Sections
+	$\phi_j(\pm m h_j)= \phi_{j,0}(\lambda_j+1)^m$ in Sections
 	\ref{sec:conv-lin} and \ref{sec:OASchwarz_DiscreteStationaryState} (where it is assumed that $H_j \rightarrow \infty$).
 \end{remark}
 We are now ready to study the transmission conditions.
@@ -147,6 +147,7 @@ where
 The second interface transmission condition which
 is linearized gives
 \begin{equation}
+	\label{eq:OASchwarz_LinearizedAnalysis_relationBBarB}
 \frac{\nu_{\rm a}}{h_a}B_k \left(\lambda_a I_a^{+} - \chi_a \right)
 	=  \alpha^e \left(\frac{3}{2}B_{k-1} \mu(s)
 +\theta ( \widehat{u}_{\rm a}^{k} -  \widehat{u}_{\rm a}^{k-1})
@@ -172,3 +173,11 @@ where
 	{\frac{\nu_a}{h_a}\left(\lambda_a I_a^{+} - \chi_a \right)
 	- \alpha^e \theta I_a^{-}}
 \end{equation}
+\begin{remark}
+	It is easy to obtain the convergence factor
+	of the case $\alpha={\rm const}$ by removing the conjugate
+	term and the factor $\frac{3}{2}$ in
+	\eqref{eq:OASchwarz_LinearizedAnalysis_relationBBarB}.
+	The convergence rate is identical to $a_1$,
+	without the $\frac{3}{2}$ factor.
+\end{remark}

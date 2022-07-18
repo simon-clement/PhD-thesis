@@ -411,7 +411,7 @@ In the following, centered finite difference schemes in space are used with cons
 Derivatives are approximated as $\phi_j(z,t) = \frac{U_j(z+h_j/2,t) - U_j(z-h_j/2, t)}{h_j}$
 and the semi-discrete version of \eqref{eq:ref} in the homogeneous case is
 \begin{equation}\label{eq:spaceTimeScheme}
-(\partial_t + if) U_j (z, t) = \nu_j \frac{\phi_j(z+h_j/2,t) - \phi_j(z-h_j/2,t)}{h_j}
+	(\partial_t + if) U_{j, m+\frac{1}{2}} (t) = \nu_j \frac{\phi_{j,m+1}(t) - \phi_{j,m}(t)}{h_j}
 \end{equation}
 
 \section{Discrete stationary state and well-posedness}
@@ -441,9 +441,9 @@ extended to finite domains.
 \subsection{Resolution in each subdomain}
 A discrete analysis of the finite difference scheme \eqref{eq:spaceTimeScheme} in the
 frequency domain (e.g. \cite{wu_optimized_2017}) leads to 
-$\widehat{\phi}_{\rm o}^k(-m h_{\rm o}) = A_k (\lambda_{\rm o}+1)^m$
+$\widehat{\phi}_{{\rm o}, -m}^k = A_k (\lambda_{\rm o}+1)^m$
 and
-$\widehat{\phi}_{\rm a}^k(m h_{\rm a}) = B_k (\lambda_{\rm a}+1)^m$ 
+$\widehat{\phi}_{{\rm a}, m}^k = B_k (\lambda_{\rm a}+1)^m$ 
 with $\lambda_j = \frac{1}{2}\left(\chi_j - \sqrt{\chi_j} \sqrt{\chi_j + 4}\right)$, 
 $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$.
 %with $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$, 
@@ -865,62 +865,54 @@ a constant independent of $U_j$ and we study the system satisfied by the errors
 (i.e. $g_j, U_0, U^\infty =0$). 
 %A Fourier transform makes a frequency variable $i\omega$ appear to characterise the 
 %derivation in time.
-The Fourier transform in time of the finite difference scheme \eqref{eq:spaceTimeScheme} 
-yields  
-$\widehat{U}_{\rm a}(h_{\rm a}/2) = \nu_{\rm a} \frac{\widehat{\phi}_{\rm a}(h_{\rm a}) - \widehat{\phi}_{\rm a}(0)}{i(\omega+f) h_{\rm a}}$
-with $\omega \in \mathbb{R}$ the frequency variable. 
-After simple algebra, the transmission condition 
-\eqref{eq:bulkInterfaceCondition} in Fourier space expressed 
-in terms of the $\widehat{\phi}_j$ is 
-%////////////////////////////////////////////////////
-\begin{equation} \label{eq:discreteBulkFourier}
-\begin{aligned}
- \left( \frac{\chi_a\nu_a}{h_a}+\theta \alpha_c \right) \widehat{\phi}^k_{\rm a}(0) - \theta \alpha_c
-\widehat{\phi}^k_{\rm a}(h_a) = &(1-\theta) \alpha_c 
-(\widehat{\phi}^{k-1}_{\rm a}(h_{\rm a}) - \widehat{\phi}^{k-1}_{\rm a}(0)) \\
-&- \alpha_c \frac{h_a \nu_o}{h_o \nu_a} (\widehat{\phi}^{k-1}_{\rm o}(0) - \widehat{\phi}^{k-1}_{\rm o}(-h_{\rm o}))
-\end{aligned}
-\end{equation}
-with $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$.
-A discrete analysis of the finite difference scheme \eqref{eq:spaceTimeScheme} in the
-frequency domain (e.g. \cite{wu_optimized_2017}, see Section
-\ref{appendix:OASchwarz_LinearizedAnalysis} for a detailed
-derivation in the linearized case) leads to 
-$\widehat{\phi}_{\rm o}^k(-m h_{\rm o}) = A_k (\lambda_{\rm o}+1)^m$
+The Fourier transform in time of the finite difference scheme
+\eqref{eq:spaceTimeScheme}, together with an analysis
+of the convergence as it was done in
+Chapters \ref{ch:discreteSchwarzAnalysis} and
+\ref{ch:approximatedDiscreteSchwarz}
+%yields  
+%$\widehat{U}_{{\rm a}, m+\frac{1}{2}}(\omega) =
+%A_k(\omega) (\lambda_{\rm a}(\omega)+1)^m$
+%%$\widehat{U}_{\rm a}(h_{\rm a}/2) = \nu_{\rm a} \frac{\widehat{\phi}_{\rm a}(h_{\rm a}) - \widehat{\phi}_{\rm a}(0)}{i(\omega+f) h_{\rm a}}$
+%with $\omega \in \mathbb{R}$ the frequency variable. 
+%After simple algebra, the transmission condition 
+%\eqref{eq:bulkInterfaceCondition} in Fourier space expressed 
+%in terms of the $\widehat{\phi}_j$ is 
+%%////////////////////////////////////////////////////
+%\begin{equation} \label{eq:discreteBulkFourier}
+%\begin{aligned}
+% \left( \frac{\chi_a\nu_a}{h_a}+\theta \alpha_c \right) \widehat{\phi}^k_{\rm a}(0) - \theta \alpha_c
+%\widehat{\phi}^k_{\rm a}(h_a) = &(1-\theta) \alpha_c 
+%(\widehat{\phi}^{k-1}_{\rm a}(h_{\rm a}) - \widehat{\phi}^{k-1}_{\rm a}(0)) \\
+%&- \alpha_c \frac{h_a \nu_o}{h_o \nu_a} (\widehat{\phi}^{k-1}_{\rm o}(0) - \widehat{\phi}^{k-1}_{\rm o}(-h_{\rm o}))
+%\end{aligned}
+%\end{equation}
+%with $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$.
+%A discrete analysis of the finite difference scheme \eqref{eq:spaceTimeScheme} in the
+(see Section \ref{appendix:OASchwarz_LinearizedAnalysis}
+for a detailed derivation in the linearized case) leads to 
+$\widehat{u}_{{\rm o}, -m - \frac{1}{2}}^k = A_k (\lambda_{\rm o}+1)^m$
 and
-$\widehat{\phi}_{\rm a}^k(m h_{\rm a}) = B_k (\lambda_{\rm a}+1)^m$ 
-with $\lambda_j = \frac{1}{2}\left(\chi_j - \sqrt{\chi_j} \sqrt{\chi_j + 4}\right)$ 
-%with $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$, 
+$\widehat{u}_{{\rm a}, m + \frac{1}{2}}^k = B_k (\lambda_{\rm a}+1)^m$ 
+with $\lambda_j = \frac{1}{2}\left(\chi_j - \sqrt{\chi_j} \sqrt{\chi_j + 4}\right)$,
+$\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$,
 and $m$ the space index. The convergence factor of SWR is then
 the rate at which $A_k$ or $B_k$ tends to 0.
-Combining \eqref{eq:discreteBulkFourier} with
-the Fourier transform in time of \eqref{eq:fluxInterfaceCondition},
-we get the evolution of $B_k$ which eventually leads to 
+The Fourier transform in time of the interface
+transmission conditions gives
+the evolution of $B_k$ which eventually leads to 
 the following convergence factor: 
-%
-%\begin{equation} \label{eq:evBk}
-%\nu_{\rm a}\left(\rho_{\rm a} - 
-%\alpha\theta\frac{
-%\lambda_{\rm a}
-%}{i (\omega+f) h_{\rm a}}
-%\right)B_k = 
-%\alpha  \left( 
-%\left(1-\theta\right)\nu_{\rm a}
-%\frac{\lambda_{\rm a}}{i (\omega+f) h_{\rm a}}
-%+ 
-%\frac{\rho_{\rm a}}{\rho_{\rm o}}\nu_{\rm a}\frac{\lambda_{\rm o}}{i (\omega+f) h_{\rm o}}
-%\right)B_{k-1}
-%\end{equation}
-%$A_k$ is proportional to $B_k$, and we define
-%the convergence rate as
-%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+\myTD{TODO replace $\mu(s)$
+et relire la suite pour vérifier que c'est compatible
+avec cette expression là}
 \begin{equation} \label{eq:cvBk}
 \xi = \left|\frac{B_k}{B_{k-1}}\right| = 
-\left|\frac{
-\left(1-\theta\right)
-+ \epsilon\frac{h_{\rm a} \lambda_{\rm o}}{h_{\rm o} \lambda_{\rm a}}
-}{
-\frac{\nu_{\rm a}\chi_{\rm a}}{\alpha_c h_{\rm a} \lambda_{\rm a}} - \theta}\right|,
+\left|
+	\frac{\mu(s) - \theta}
+	{\frac{\nu_a}{\alpha_c h_a}
+	\left(\lambda_a - \chi_a \right)
+	- \theta}
+\right|
 \end{equation}
 %!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 %\begin{equation} \label{eq:cvBk}
@@ -1108,9 +1100,11 @@ Finally, the linearized transmission operator reads
 \end{equation}
 %==========================================
 with $\alpha^e=C_D\left|U_{\rm a}^e(h_{\rm a}/2) - U_{\rm o}^e(-h_{\rm o}/2)\right|$.
-Following the derivation in the previous paragraph,
+Following the derivation in the previous paragraph (detailed in
+Section \ref{appendix:OASchwarz_LinearizedAnalysis} with
+finite space domains),
 we find that the evolution of $B_k$ is:
-\myTD{Faire référence à l'appendice et harmoniser les résultats}
+\myTD{harmoniser les résultats}
 \begin{equation}
 	\label{eq:OASchwarz_ConvergenceAnalysis_linearizedCV}
 	\begin{aligned}
@@ -1182,12 +1176,17 @@ $B_{k+1}(\omega), \overline{B_{k+1}(-{\omega})}$
 at the same time: let $a_1, a_2 \in \mathbb{C}$ such as
 \begin{figure}
     \centering
-    \includegraphics[scale=0.65]{plotEigenvalues.pdf}
+    \includegraphics[scale=0.65]{plotEigenvaluesValidated.pdf}
 	\caption{Singular values $\widetilde{\xi}_1(\omega)$,
 	$\widetilde{\xi}_1(\omega)$ of the matrix $\begin{pmatrix}
 	a_1(\omega) & a_2(\omega) \\
 	\overline{a_2(-\omega)} & \overline{a_1(-\omega)} \\
 	\end{pmatrix}$.
+	The observed "convergence factor" at the first
+	iteration ${\xi}_{\rm obs} = \sqrt{\frac{|B_2(\omega)|^2 +
+	|B_2(-\omega)|^2}{|B_{1}(\omega)|^2
+	+ |B_{1}(-\omega)|^2}}$
+	is in purple.
 	}
     \label{fig:OASchwarz_singularValues}
 \end{figure}
