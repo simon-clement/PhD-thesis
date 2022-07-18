@@ -135,7 +135,7 @@ a drag coefficient (assumed constant in the present study).
 %To study the coupling problem as a one-dimensional coupling,
 Geostrophic winds and currents are used in this study as
 source terms and boundary conditions. 
-Geostrophic equilibrium is the stationary state for which the 
+Geostrophic equilibrium is the steady state for which the 
 Coriolis force compensates for the effects of gravity.
 It corresponds to the large scale dynamics of ocean and 
 atmosphere, and leads to reasonable values of the solution $U$. \par
@@ -147,7 +147,7 @@ atmosphere, and leads to reasonable values of the solution $U$. \par
 The well-posedness of \eqref{eq:cplProblem} has been studied in 
 \cite{thery_etude_2021}
 %\cite{thery_etude_2021} studied the well-posedness of \eqref{eq:cplProblem}. 
-where it is proved that its stationary version admits a unique
+where it is proved that its steady version admits a unique
 solution for realistic values of the parameters. The study of the
 nonstationary case is much more challenging: numerical experiments
 tend to confirm this well-posedness and we give in Section
@@ -328,7 +328,7 @@ quadratic friction \textit{linearized} around equilibrium solutions.
 \begin{figure}
     \centering
     \includegraphics[scale=0.85]{fig_presentation_domains.pdf}
-    \caption{Discrete representation of the three domains $\Omega_a, \Omega_{\rm sl}, \Omega_o$ together with a typical stationary state. Note the different scales for $(u,v)$ in the ocean and in the atmosphere.}
+    \caption{Discrete representation of the three domains $\Omega_a, \Omega_{\rm sl}, \Omega_o$ together with a typical steady state. Note the different scales for $(u,v)$ in the ocean and in the atmosphere.}
     \label{fig:presentationDomains}
 \end{figure}
 \subsection{Schwarz Waveform Relaxation}
@@ -414,10 +414,10 @@ and the semi-discrete version of \eqref{eq:ref} in the homogeneous case is
 	(\partial_t + if) U_{j, m+\frac{1}{2}} (t) = \nu_j \frac{\phi_{j,m+1}(t) - \phi_{j,m}(t)}{h_j}
 \end{equation}
 
-\section{Discrete stationary state and well-posedness}
+\section{Discrete steady state and well-posedness}
 \label{sec:OASchwarz_DiscreteStationaryState}
 We now interest ourselves to the semi-discrete in space
-stationary state of \eqref{eq:SWRbulk}.
+steady state of \eqref{eq:SWRbulk}.
 \paragraph{Special case $f=0$}
 If we set to zero the Coriolis parameter,
 The flux $\nu_j\phi_j$ is constant in each domain.
@@ -437,21 +437,21 @@ We now exclude the particular case of a vanishing Coriolis parameter
 and interest us only on the case $f\neq 0$.
 In this section, we assume that the space domain is sufficiently
 large ($H_j \rightarrow \infty$) but the results can be easily
-extended to finite domains.
+extended to domains of finite size.
 \subsection{Resolution in each subdomain}
 A discrete analysis of the finite difference scheme \eqref{eq:spaceTimeScheme} in the
 frequency domain (e.g. \cite{wu_optimized_2017}) leads to 
-$\widehat{\phi}_{{\rm o}, -m}^k = A_k (\lambda_{\rm o}+1)^m$
+$\widehat{\phi}_{{\rm o}, -m}^k = A_k^{\phi} (\lambda_{\rm o}+1)^m$
 and
-$\widehat{\phi}_{{\rm a}, m}^k = B_k (\lambda_{\rm a}+1)^m$ 
+$\widehat{\phi}_{{\rm a}, m}^k = B_k^{\phi} (\lambda_{\rm a}+1)^m$ 
 with $\lambda_j = \frac{1}{2}\left(\chi_j - \sqrt{\chi_j} \sqrt{\chi_j + 4}\right)$, 
 $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$.
 %with $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$, 
 and $m$ the space index.
-The stationary state analysis is identical, except that $\omega$ is set to 0 and that the transmission conditions are not required
+The steady state analysis is identical, except that $\omega$ is set to 0 and that the transmission conditions are not required
 to be linear. 
 We note $\widetilde{U_j}(z)$ the stationary solution (and $\widetilde{\phi}_j$ its finite difference derivative) and the space discretisation at the first grid level $h_j$ gives:
-$\widetilde{U}_j(\delta_j) = g_j \pm \frac{\nu_j\lambda_j}{if h_j} \{A_k, B_k\}_j$
+$\widetilde{U}_j(\delta_j) = g_j \pm \frac{\nu_j\lambda_j}{if h_j} \{A_k^{\phi}, B_k^{\phi}\}_j$
 
 \begin{remark}[\cite{thery_etude_2021}, \S 5.1.3, \S 5.1.4]
 We retrieve a solution of the form
@@ -459,11 +459,11 @@ $\widetilde{U}_a(\delta a) = g_a - \Psi_a (u^\star)^2 e^{i\theta}$
 but $\Psi_j = -\frac{\lambda_j}{if h_j}$ is simpler thanks to the hypotheses of constant diffusivities and infinite domains.
 \end{remark}
 
-\subsection{Derivation of the stationary state}
+\subsection{Derivation of the steady state}
 \subsubsection{Simplification of the problem}
 We interest ourselves in the
-value of $A_k, B_k$ at the potential convergence, namely $A_\infty, B_\infty$.
-%This subsection derives the stationary state. The results are summarized in the subsection \ref{sec:summary_stationnary}.
+value of $A_k^{\phi}, B_k^{\phi}$ at the potential convergence, namely $A_\infty, B_\infty$.
+%This subsection derives the steady state. The results are summarized in the subsection \ref{sec:summary_stationnary}.
 The first condition of the bulk equation \eqref{eq:fluxInterfaceCondition} gives us $B_\infty = \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} \nu_{\rm a} } A_\infty$
 and the non-linear \eqref{eq:bulkInterfaceCondition} gives
 \begin{equation} \label{eq:stationaryBulkFirstEq}
@@ -552,7 +552,7 @@ We define:
     \qquad &\zeta = -\frac{2}{3|d|^2} + \frac{{d_R}^2}{|d|^4}
     \end{aligned}
 \end{equation}
-The stationary state is given by a real, positive solution $|\widetilde{x}|$ of \eqref{eq:mainPolynomial}
+The steady state is given by a real, positive solution $|\widetilde{x}|$ of \eqref{eq:mainPolynomial}
 Experimentally, it is seen that if it exists, it is the root corresponding to the three $+$ operators in the roots of \eqref{eq:mainPolynomial}:
 \begin{equation}
     |\widetilde{x}| = \frac{{d_R}}{2|d|^2} \pm \frac{\sqrt{\zeta + \gamma }}{2} \pm \frac{1}{2}
@@ -732,9 +732,6 @@ interface condition.
 We focus here on showing the existence of strong
 unsteady solutions of the semi-discrete in space
 problem with a non-linear interface condition.
-%\myTD{Note: je parle pas de fibrillation parceque c'est vraiment
-%relié au schéma de turbulence, rien à voir avec ici.}
-%\\
 In \citep{chacon-rebollo_existence_2014},
 the existence of unsteady solutions of
 non-linear turbulent models for oceanic surface mixing layers is
@@ -752,7 +749,7 @@ uniqueness of problem \eqref{eq:SWRbulk}
 (ignoring the Schwarz iteration indices) close to the
 equilibrium state.
 \begin{enumerate}
-	\item The existence of a stationary state is discussed above
+	\item The existence of a steady state is discussed above
 		in this section.
 	\item The well-posedness of the linearized
 		problem is discussed in Appendix
@@ -902,13 +899,12 @@ The Fourier transform in time of the interface
 transmission conditions gives
 the evolution of $B_k$ which eventually leads to 
 the following convergence factor: 
-\myTD{TODO replace $\mu(s)$
-et relire la suite pour vérifier que c'est compatible
-avec cette expression là}
 \begin{equation} \label{eq:cvBk}
 \xi = \left|\frac{B_k}{B_{k-1}}\right| = 
 \left|
-	\frac{\mu(s) - \theta}
+	\frac{1 - \theta - \epsilon \frac{\lambda_{\rm a} - \chi_{\rm a}}
+		{\lambda_{\rm o}} \frac{\nu_{\rm a} h_{\rm o}}
+			{\nu_{\rm o} h_{\rm a}}}
 	{\frac{\nu_a}{\alpha_c h_a}
 	\left(\lambda_a - \chi_a \right)
 	- \theta}
@@ -931,76 +927,87 @@ Note that the convergence factor \eqref{eq:cvBk} differs significantly from the 
 $\xi_{\rm DNWR} = \left|1 - \theta_{\rm DNWR} \left(
 1 - \epsilon h_{\rm a} \lambda_{\rm o} / (\lambda_{\rm a}h_{\rm o})\right) \right|$ of 
 the DNWR algorithm. 
-Moreover, the asymptotic values of $\frac{\lambda_o}{\lambda_a}$
-and $\frac{\chi_a}{\lambda_a}$ when $(\omega+f) \rightarrow 0$
-are respectively $\sqrt{\frac{\chi_o}{\chi_a}}$ and 0.
-As $(\omega+f) \rightarrow \infty$ the denominator of
-\eqref{eq:cvBk} blows up as
-$\frac{\chi_a}{\lambda_a} \rightarrow \infty$. The asymptotes
+Moreover, $\lambda_j$ is equivalent to $-\sqrt{\chi_j}$ when
+$(\omega+f) \rightarrow 0$ and
+as $(\omega+f) \rightarrow \infty$ we have
+$\lambda_j\rightarrow -1$ and
+$|\lambda_a - \chi_a| \rightarrow \infty$. The asymptotes
 of $\xi$ for$(\omega+f) \rightarrow 0$ and
 $(\omega+f) \rightarrow \infty$ are finally
 \[
- \underset{(\omega+f) \rightarrow 0}{\mathrm{lim}} \xi = \frac{1}{\theta} \left| 1-\theta+\epsilon \sqrt{\frac{\nu_{\rm a}}{\nu_{\rm o}}}  \right| = \xi_0, \qquad
- \underset{(\omega+f) \rightarrow \infty}{\mathrm{lim}} \xi = 0.
+ \underset{(\omega+f) \rightarrow 0}{\mathrm{lim}} \xi = \frac{1}{\theta} \left| 1-\theta-\epsilon \sqrt{\frac{\nu_{\rm a}}{\nu_{\rm o}}}  \right| = \xi_0, \qquad
+ \underset{(\omega+f) \rightarrow \infty}{\mathrm{lim}} \xi =
+ \epsilon \frac{\nu_a h_o}{\nu_o h_a}.
 \]
 %\subsubsection{Asymptotic values for linear case}
 As $\omega + f \to 0$ the asymptotic value 
 $\xi_0$ depends on $\theta$: it is $+\infty$ for $\theta=0$ (i.e. a fast divergence), and $\xi_0 = \epsilon\sqrt{\frac{\nu_{\rm a}}{\nu_{\rm o}}}$ for $\theta=1$.
-When $\omega\to \infty$, the convergence factor tends to zero 
-(i.e. the convergence is fast for high frequencies).
-\\[3mm]
-\textbf{$\xi_0$ is an upper bound of the convergence factor in the linear friction case.}\hspace*{5mm} %\label{sec:lin-analysis}
-\begin{itemize}
-    \item From the definition of $\lambda_j$, we get that $\mathfrak{R}(\frac{\nu_{\rm a}\chi_{\rm a}}{\alpha_c h_{\rm a} \lambda_{\rm a}}) \leq 0$: the modulus of the denominator in \eqref{eq:cvBk} is hence greater than $\theta$.
-    \item For whatever frequency $\omega$, it seems that $\left|\frac{\lambda_j \sqrt{\nu_j}}{h_j}\right|$ increases with $\frac{\sqrt{\nu_j}}{h_j}$.
-    Indeed, we have that
-	\begin{equation}
-	\left|\frac{\lambda_j \sqrt{\nu_j}}{h_j}\right|
-		= |\omega + f| |x - \sqrt{x}\sqrt{x+i}|,
-		~~~~~ x = \frac{4}{i \chi_j} \in \mathbb{R}
-	\end{equation}
-	where the square root function is extended to the
-		negative axis with $\sqrt{-|x|} := i\sqrt{|x|}$.
-	The function $x \mapsto |x - \sqrt{x}\sqrt{x+i}|$
-		seems to increase with $|x|$
-    (see Figure \ref{fig:figboundbulk}). It follows that if
-	$\sqrt{\frac{\nu_{\rm o}}{\nu_{\rm a}}} \leq
-		\frac{h_{\rm o}}{h_{\rm a}}$
-\begin{equation}
-    |1-\theta+\epsilon \frac{h_a \lambda_o}{h_o \lambda_a}| \leq | 1 - \theta| + \epsilon |\frac{h_a \lambda_o}{h_o \lambda_a}| \leq 
-    |1 - \theta| + \epsilon \frac{\sqrt{\nu_{\rm a}}}{\sqrt{\nu_{\rm o}}}.
-\end{equation}
-\end{itemize}
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.6]{boundbulk.pdf}
-    \caption{Plot of the real function
-	$x \mapsto |x - \sqrt{x}\sqrt{x+i}|$:
-	 it decreases for $x<0$ and increases for $x>0$. A routine
-	 computation tells that its derivative is asymptotically
-	 positive for $x\rightarrow+\infty$.
-	 % to do the routine computation:
-	 % use that
-	 % |x - \sqrt{x}\sqrt{x+i}|^2 = (x - \sqrt{x}\sqrt{x+i}) \times
-	 %					(x - \sqrt{x}\sqrt{x-i})
-	 % develop, and differentiate.
-	 }
-    \label{fig:figboundbulk}
-\end{figure}
-For $\theta \leq 1$ and if 
-$\sqrt{\frac{\nu_{\rm o}}{\nu_{\rm a}}} \leq \frac{h_{\rm o}}{h_{\rm a}}$
-(the latter condition being easily satisfied), 
-the value $\xi_0$ is an upper bound 
-of the convergence factor.
+When $\omega\to \infty$, the convergence factor tends to a small value
+that does not depend on $\theta$
+(i.e. the convergence is rather fast for high frequencies).
+% \\[3mm]
+% \myTD{TODO relire la suite pour vérifier que c'est compatible
+% avec cette expression là}
+% \textbf{$\xi_0$ is an upper bound of the convergence factor in the linear friction case.}\hspace*{5mm} %\label{sec:lin-analysis}
+% \begin{itemize}
+%     \item From the definition of $\lambda_j$, we get that $\mathfrak{R}(\frac{\nu_{\rm a}\chi_{\rm a}}{\alpha_c h_{\rm a} \lambda_{\rm a}}) \leq 0$: the modulus of the denominator in \eqref{eq:cvBk} is hence greater than $\theta$.
+%     \item For whatever frequency $\omega$, it seems that $\left|\frac{\lambda_j \sqrt{\nu_j}}{h_j}\right|$ increases with $\frac{\sqrt{\nu_j}}{h_j}$.
+%     Indeed, we have that
+% 	\begin{equation}
+% 	\left|\frac{\lambda_j \sqrt{\nu_j}}{h_j}\right|
+% 		= |\omega + f| |x - \sqrt{x}\sqrt{x+i}|,
+% 		~~~~~ x = \frac{4}{i \chi_j} \in \mathbb{R}
+% 	\end{equation}
+% 	where the square root function is extended to the
+% 		negative axis with $\sqrt{-|x|} := i\sqrt{|x|}$.
+% 	The function $x \mapsto |x - \sqrt{x}\sqrt{x+i}|$
+% 		seems to increase with $|x|$
+%     (see Figure \ref{fig:figboundbulk}). It follows that if
+% 	$\sqrt{\frac{\nu_{\rm o}}{\nu_{\rm a}}} \leq
+% 		\frac{h_{\rm o}}{h_{\rm a}}$
+% \begin{equation}
+%     |1-\theta+\epsilon \frac{h_a \lambda_o}{h_o \lambda_a}| \leq | 1 - \theta| + \epsilon |\frac{h_a \lambda_o}{h_o \lambda_a}| \leq 
+%     |1 - \theta| + \epsilon \frac{\sqrt{\nu_{\rm a}}}{\sqrt{\nu_{\rm o}}}.
+% \end{equation}
+% \end{itemize}
+% \begin{figure}
+%     \centering
+%     \includegraphics[scale=0.6]{boundbulk.pdf}
+%     \caption{Plot of the real function
+% 	$x \mapsto |x - \sqrt{x}\sqrt{x+i}|$:
+% 	 it decreases for $x<0$ and increases for $x>0$. A routine
+% 	 computation tells that its derivative is asymptotically
+% 	 positive for $x\rightarrow+\infty$.
+% 	 % to do the routine computation:
+% 	 % use that
+% 	 % |x - \sqrt{x}\sqrt{x+i}|^2 = (x - \sqrt{x}\sqrt{x+i}) \times
+% 	 %					(x - \sqrt{x}\sqrt{x-i})
+% 	 % develop, and differentiate.
+% 	 }
+%     \label{fig:figboundbulk}
+% \end{figure}
+% For $\theta \leq 1$ and if 
+% $\sqrt{\frac{\nu_{\rm o}}{\nu_{\rm a}}} \leq \frac{h_{\rm o}}{h_{\rm a}}$
+% (the latter condition being easily satisfied), 
+% the value $\xi_0$ is an upper bound 
+% of the convergence factor.
 Since we have $\epsilon \approx 10^{-3}$, 
 the convergence is fast for $\theta = 1$ whereas $\epsilon$
-does not play any role for $\theta = 0$.
+does not play any role for $\theta = 0$
+for which the Schwarz method does not converge.
 %
 %For $\theta=1$ and for typical values $\rho_a = 1\;{\rm kg}\;{\rm m}^{-3}$ the ratio $\frac{\rho_{\rm a}}{\rho_{\rm o}} \approx 10^{-3}$ accelerates the convergence, whereas its role when $\theta=0$ is limited.
 %The dependency with regard to $\frac{h_{\rm a}}{h_{\rm o}}$ and to $\frac{\nu_{\rm a}}{\nu_{\rm o}}$ are
 %harder to study because they depend on
 %the variables involved in the ratios.
-The optimal parameter $\theta_{\rm opt}$ for low frequencies is $1 +  \epsilon\sqrt{\frac{\nu_{\rm a}}{\nu_{\rm o}}}$ which is very close to $1$.
+The optimal parameter $\theta_{\rm opt}$ for low frequencies is $1 - \epsilon\sqrt{\frac{\nu_{\rm a}}{\nu_{\rm o}}}$ which is very close to $1$.
+\begin{remark}
+	The asymptotes are different in \citep{clement_discrete_2021}.
+	The mistake made in the authors' previous work
+	is to consider the convergence factor of
+	$(\phi_k)_{k\in \mathbb{N}}$
+	whereas $\phi_k\to 0$ as $\omega+f\rightarrow 0$.
+\end{remark}
 %for parameter values 
 %typical of the ocean-atmosphere coupling problem.
 % The asymptotic value when $f\neq 0$ is
@@ -1023,11 +1030,11 @@ cannot be directly pursued through a Fourier transform.
 %Indeed $\alpha^k$ would still be expressed as a function of time while the variables $\widehat{\phi}$
 %would depend on the frequency.
 We thus consider the linearization of the problem 
-around a stationary state $U^e_j, \phi^e_j$ satisfying \eqref{eq:cplProblem}:
+around a steady state $U^e_j, \phi^e_j$ satisfying \eqref{eq:cplProblem}:
 assuming that $U^k_j (\pm h_j/2, t)$ is in a neighborhood of $U^e(\pm h_j/2)$, the modulus in $\alpha$
 is non-zero and
 we can differentiate $\alpha$.
-Differences with the stationary state are noted $\delta \phi_j^k = \phi^k_j(0,t) - \phi_j^e(0)$ and $\delta U_j^k = U_j^k(\pm h_j/2, t) - U^e_j(\pm h_j/2)$.
+Differences with the steady state are noted $\delta \phi_j^k = \phi^k_j(0,t) - \phi_j^e(0)$ and $\delta U_j^k = U_j^k(\pm h_j/2, t) - U^e_j(\pm h_j/2)$.
 \paragraph{linearization of the transmission condition}
 Let us first compute the total derivative of $x\mapsto |x|x$.
 The total derivative of $|\cdot|^2$ is
@@ -1102,33 +1109,18 @@ Finally, the linearized transmission operator reads
 with $\alpha^e=C_D\left|U_{\rm a}^e(h_{\rm a}/2) - U_{\rm o}^e(-h_{\rm o}/2)\right|$.
 Following the derivation in the previous paragraph (detailed in
 Section \ref{appendix:OASchwarz_LinearizedAnalysis} with
-finite space domains),
+space domains of finite size),
 we find that the evolution of $B_k$ is:
-\myTD{harmoniser les résultats}
 \begin{equation}
 	\label{eq:OASchwarz_ConvergenceAnalysis_linearizedCV}
-	\begin{aligned}
-    \left(\frac{i(\omega+f)h_{\rm a}}{\alpha} -
-	\theta \lambda_{\rm a}\right)B_{k+1}(\omega)
-		=&
-    \left(\left(\frac{3}{2} - \theta\right) 
-    \lambda_{\rm a}
-    + \frac{3}{2} \epsilon \lambda_{\rm o} \right) B_k(\omega)\\
-		&+ \frac{
-    \mathcal{O}
-    }{2}
-    \left(
-    \overline{
-    \lambda_{\rm a}(-{\omega})
-    +
-    \epsilon\lambda_{\rm o}(-{\omega})}
-    \right)
-    \overline{B_k(-{\omega})}
-\end{aligned}
+	B_{k+1}(\omega) = a_1(\omega) B_{k}(\omega) + a_2(\omega)
+		\overline{B_{k}(-{\omega})}
 \end{equation}
-with $\epsilon = \frac{\rho_{\rm a} h_{\rm a}}{\rho_{\rm o} h_{\rm o}}$ 
-and $\mathcal{O} = 
-\frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e - U_{\rm o}^e}} \frac{\omega+f}{\omega - f}$.
+where $a_1, a_2 \in \mathbb{C}$ are defined in
+Section \ref{appendix:OASchwarz_LinearizedAnalysis}.
+% with $\epsilon = \frac{\rho_{\rm a} h_{\rm a}}{\rho_{\rm o} h_{\rm o}}$ 
+% and $\mathcal{O} = 
+% \frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e - U_{\rm o}^e}} \frac{\omega+f}{\omega - f}$.
 Note that the variable $\overline{i \omega}=-\omega$ appears when using the Fourier
 transform on $\overline{\delta U_a^{k-1} - \delta U_o^{k-1}}$.
 As a consequence,
@@ -1136,50 +1128,51 @@ the convergence factor $\xi^q$ in the linearized
 quadratic friction case differs from one iteration to another:
 it is a function of
 $\frac{\overline{B_{k-1}(-\omega)}}{B_{k-1}(\omega)}$.
-\paragraph{Asymptotic ($\omega+f \rightarrow 0$) convergence for
-	one iteration}
-However, for $(\omega+f) \rightarrow 0$ the term 
-$\displaystyle \frac{1}{2}\frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e - U_{\rm o}^e}}\,
-\overline{
-\delta U_{\rm a}^{k-1} - \delta U_{\rm o}^{k-1}}$
-vanishes, therefore the asymptotic convergence 
-rate $\xi_0^q$ is independent of the iterate:
-\[
- \underset{(\omega+f) \rightarrow 0}{\mathrm{lim}} \xi^q = \frac{1}{\theta} \left| \frac{3}{2}-\theta+\frac{3}{2}\epsilon\sqrt{\frac{\nu_{\rm a}}{\nu_{\rm o}}} \right| = \xi_0^q, \qquad
- \underset{(\omega+f) \rightarrow \infty}{\mathrm{lim}} \xi^q = 0.
-\]
-The convergence is fast for high frequencies,
-as in the linear friction case. However
-the optimal parameter for $(\omega+f) \rightarrow 0$ is
-here $\theta_{\rm opt}^q = \frac{3}{2} +
-\frac{3}{2}\epsilon\sqrt{\frac{\nu_{\rm a}}{\nu_{\rm o}}}$.
-It is different from the optimal parameter $\theta_{\rm opt}$
-obtained with linear friction: for typical values of the
-ocean-atmosphere coupling problem, $\theta_{\rm opt}^q$
-is close to $\frac{3}{2}$.
-The asymptotic value $\xi_0^q$ is not an upper bound of the
-convergence factor but it is a good choice for $\theta_{\rm opt}^q$,
-as shown in the numerical experiments in Section \ref{sec:num-exp}.
-\par
-The asymptotic behavior for $\omega+f \rightarrow 0$ with
-multiple iterations differs from the asymptotic convergence
-rate $\xi_0^q$ above:
-indeed, $B_{k+1}(\omega)$ depends on
-$\overline{B_k(- \omega)}$ which itself depends on
-$\overline{\mathcal{O}(-\omega)} B_{k-1}(i\omega)$
-which could explode because
-$|\overline{\mathcal{O}(-\omega+ f \rightarrow 0)}|
-\rightarrow \infty$.
-\paragraph{Non-asymptotic convergence}
-If multiple iterations are performed, we need to look at both
+% \paragraph{Asymptotic ($\omega+f \rightarrow 0$) convergence for
+% 	one iteration}
+% However, for $(\omega+f) \rightarrow 0$ the term 
+% $\displaystyle \frac{1}{2}\frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e - U_{\rm o}^e}}\,
+% \overline{
+% \delta U_{\rm a}^{k-1} - \delta U_{\rm o}^{k-1}}$
+% vanishes, therefore the asymptotic convergence 
+% rate $\xi_0^q$ is independent of the iterate:
+% \[
+%  \underset{(\omega+f) \rightarrow 0}{\mathrm{lim}} \xi^q = \frac{1}{\theta} \left| \frac{3}{2}-\theta+\frac{3}{2}\epsilon\sqrt{\frac{\nu_{\rm a}}{\nu_{\rm o}}} \right| = \xi_0^q, \qquad
+%  \underset{(\omega+f) \rightarrow \infty}{\mathrm{lim}} \xi^q = 0.
+% \]
+% The convergence is fast for high frequencies,
+% as in the linear friction case. However
+% the optimal parameter for $(\omega+f) \rightarrow 0$ is
+% here $\theta_{\rm opt}^q = \frac{3}{2} +
+% \frac{3}{2}\epsilon\sqrt{\frac{\nu_{\rm a}}{\nu_{\rm o}}}$.
+% It is different from the optimal parameter $\theta_{\rm opt}$
+% obtained with linear friction: for typical values of the
+% ocean-atmosphere coupling problem, $\theta_{\rm opt}^q$
+% is close to $\frac{3}{2}$.
+% The asymptotic value $\xi_0^q$ is not an upper bound of the
+% convergence factor but it is a good choice for $\theta_{\rm opt}^q$,
+% as shown in the numerical experiments in Section \ref{sec:num-exp}.
+% \par
+% The asymptotic behavior for $\omega+f \rightarrow 0$ with
+% multiple iterations differs from the asymptotic convergence
+% rate $\xi_0^q$ above:
+% indeed, $B_{k+1}(\omega)$ depends on
+% $\overline{B_k(- \omega)}$ which itself depends on
+% $\overline{\mathcal{O}(-\omega)} B_{k-1}(i\omega)$
+% which could explode because
+% $|\overline{\mathcal{O}(-\omega+ f \rightarrow 0)}|
+% \rightarrow \infty$.
+% \paragraph{Non-asymptotic convergence}
+% If multiple iterations are performed,
+We need to look at both
 $B_{k+1}(\omega), \overline{B_{k+1}(-{\omega})}$
-at the same time: let $a_1, a_2 \in \mathbb{C}$ such as
+at the same time:
 \begin{figure}
     \centering
     \includegraphics[scale=0.65]{plotEigenvaluesValidated.pdf}
 	\caption{Singular values $\widetilde{\xi}_1(\omega)$,
 	$\widetilde{\xi}_1(\omega)$ of the matrix $\begin{pmatrix}
-	a_1(\omega) & a_2(\omega) \\
+	a_1(\omega) & a_2(\omega) \vspace{0.15cm}\\
 	\overline{a_2(-\omega)} & \overline{a_1(-\omega)} \\
 	\end{pmatrix}$.
 	The observed "convergence factor" at the first
@@ -1192,7 +1185,7 @@ at the same time: let $a_1, a_2 \in \mathbb{C}$ such as
 \end{figure}
 \begin{equation}
 	\begin{aligned}
-		B_{k+1}(\omega) &= a_1 B_{k}(\omega) + a_2
+		B_{k+1}(\omega) &= a_1(\omega) B_{k}(\omega) + a_2
 		\overline{B_{k}(-{\omega})}\\
 		\overline{B_{k+1}(-{\omega})} &=
 		\overline{a_1(-{\omega})
@@ -1205,42 +1198,42 @@ simulaneously evolving quantities:
 \begin{equation}
 	\label{eq:OASchwarz_transitionMatrixDD26}
 \begin{pmatrix}
-	B(\omega) \\
+	B(\omega) \vspace{0.15cm}\\
 	\overline{B(-{\omega})}
 \end{pmatrix}_{k+1}
  =
 \begin{pmatrix}
-	a_1(\omega) & a_2(\omega) \\
+	a_1(\omega) & a_2(\omega) \vspace{0.15cm}\\
 	\overline{a_2(-{\omega})} & \overline{a_1(-{\omega})} \\
 \end{pmatrix}
 \begin{pmatrix}
-	B(\omega) \\
+	B(\omega) \vspace{0.15cm}\\
 	\overline{B(-{\omega})}
 \end{pmatrix}_{k}
 \end{equation}
-with:
-\begin{equation}
-\begin{aligned}
-    a_1(\omega)
-    &= \frac{\left(\left(\frac{3}{2} - \theta\right) 
-    \lambda_{\rm a}
-    + \frac{3}{2} \epsilon \lambda_{\rm o} \right)}
-	{\left(\frac{i(\omega+f)h_{\rm a}}{\alpha} -
-		\theta \lambda_{\rm a}\right)}, ~~~~~~~~~~
-    a_2(\omega)
-    &= \frac{
- \frac{
-    \mathcal{O}
-    }{2}
-    \left(
-    \overline{
-    \lambda_{\rm a}(-{\omega})
-    +
-    \epsilon\lambda_{\rm o}(-{\omega})}
-    \right)   
-    }{\left(\frac{i(\omega+f)h_{\rm a}}{\alpha} - \theta \lambda_{\rm a}\right)}
-\end{aligned}
-\end{equation}
+% with:
+% \begin{equation}
+% \begin{aligned}
+%     a_1(\omega)
+%     &= \frac{\left(\left(\frac{3}{2} - \theta\right) 
+%     \lambda_{\rm a}
+%     + \frac{3}{2} \epsilon \lambda_{\rm o} \right)}
+% 	{\left(\frac{i(\omega+f)h_{\rm a}}{\alpha} -
+% 		\theta \lambda_{\rm a}\right)}, ~~~~~~~~~~
+%     a_2(\omega)
+%     &= \frac{
+%  \frac{
+%     \mathcal{O}
+%     }{2}
+%     \left(
+%     \overline{
+%     \lambda_{\rm a}(-{\omega})
+%     +
+%     \epsilon\lambda_{\rm o}(-{\omega})}
+%     \right)   
+%     }{\left(\frac{i(\omega+f)h_{\rm a}}{\alpha} - \theta \lambda_{\rm a}\right)}
+% \end{aligned}
+% \end{equation}
 The singular values (shown in Figure \ref{fig:OASchwarz_singularValues})
 of the $2\times 2$ matrix
 in \eqref{eq:OASchwarz_transitionMatrixDD26}
@@ -1248,30 +1241,33 @@ can be studied instead of the convergence factor.
 One can see on Figure \ref{fig:OASchwarz_singularValues} that
 the two singular values are different for small frequencies,
 especially around the frequencies $f$ and $-f$.
-\begin{figure}
+\begin{figure}[htpb]
 	\centering
-	\import{}{rate_between_eigenvalues.pdf_tex}
-	\caption{Assuming that $\begin{pmatrix}
-	a_1(\omega) & a_2(\omega) \\
-	\overline{a_2(-\omega)} & \overline{a_1(-\omega)} \\
-	\end{pmatrix}$ is diagonalizable,
+	\scalebox{0.8}{
+		\import{}{rate_between_eigenvalues.pdf_tex}}
+	\caption[The convergence factor $\xi(k)$ varies and is bounded]{
 	The vector
-	$\begin{pmatrix} B_k(\omega) \\ B_k(-\omega) \end{pmatrix}$
-		can be decomposed
-	into a basis of eigenvector which converge linearly with
-	convergence factors $\widetilde{\xi}_1, \widetilde{\xi}_2$.
-	4 iterations are shematically represented in blue, pink, orange and
-	purple. The
-	"convergence factor"
-	$\widetilde{\xi}_2 \leq \sqrt{\frac{|B_k(\omega)|^2 +
-	|B_k(-\omega)|^2}{|B_{k-1}(\omega)|^2
-	+ |B_{k-1}(-\omega)|^2}} \leq \widetilde{\xi}_1$
-	varies from one iteration to another. The observed convergence
-	factor gets closer to $\widetilde{\xi}_1$ when $k$ increases.
+	$\mathbf{B}^k= \begin{pmatrix} B_k(\omega) \vspace{0.15cm}\\
+	\overline{B_k(-\omega)} \end{pmatrix}$
+	can be decomposed into a basis\footnotemark of eigenvector
+	$\mathbf{B}_i^k$ which converge linearly with
+	convergence factors $\widetilde{\xi}_i$.
+	4 iterations are shematically represented in blue, pink,
+	orange and purple. The "convergence factor"
+	$\xi(k)=\frac{||\mathbf{B}_{k+1}||}{||\mathbf{B}_{k}||}$
+	is such that
+	$\widetilde{\xi}_2 \leq \xi(k) \leq \widetilde{\xi}_1$ and
+	varies from one iteration to another. $\xi(k)$
+	gets closer to $\widetilde{\xi}_1$ when $k$ increases as
+	$\mathbf{B}^k$ gets closer to $\mathbf{B}^k_1$.
 	}
 	\label{fig:OASchwarz_rateBetweenEigenvalues}
 \end{figure}
-
+\footnotetext{The matrix is indeed diagonalizable if
+$\widetilde{\xi}_1 \neq\widetilde{\xi}_2$; otherwise we
+have a simple convergence factor
+$\xi = \widetilde{\xi}_1 = \widetilde{\xi}_2$.
+}
 One can hence expect (see
 Figure \ref{fig:OASchwarz_rateBetweenEigenvalues}) that for frequencies close to $f$ and $-f$
 the "convergence factor"
@@ -1289,14 +1285,14 @@ singular value $\widetilde{\xi}_1$ (see Figure
     \includegraphics[scale=0.65]{asymptote_linearized.pdf}
 	\caption{Singular values
 	$\widetilde{\xi}_1, \widetilde{\xi}_2$ of $\begin{pmatrix}
-	a_1(\omega) & a_2(\omega) \\
+	a_1(\omega) & a_2(\omega) \vspace{0.15cm}\\
 	\overline{a_2(-\omega)} & \overline{a_1(-\omega)} \\
 	\end{pmatrix}$ maximized over the set of discrete
 	frequencies
 	$\{-\frac{\pi}{\Delta t}, ..., \frac{\pi}{T}, 0,
 	\frac{\pi}{T},..., \frac{\pi}{\Delta t}\}$.
-	The vertical dashed lines highlights the minimum
-	of $\max \widetilde{\xi}_1$ and of $\xi_0^q$.
+	The vertical dashed line highlights the minimum
+	of $\max \widetilde{\xi}_1$.
 	The windows length $T$ is one day
 	and $\Delta t=60\;{\rm s}$ .
 	}
@@ -1314,7 +1310,7 @@ for the asymptotic convergence for one iteration)
 %     \label{fig:localCvRate}
 % \end{figure}
 The aim of this section is to illustrate the influence of the parameter $\theta$, in the linear and quadratic friction cases. 
-The stationary state $U_j^e$ is used to compute $\alpha_c = \alpha^e = C_D|U_{\rm a}^e(\frac{h_{\rm a}}{2}) - U_{\rm o}^e (\frac{h_{\rm o}}{2})|$ in the linear case.
+The steady state $U_j^e$ is used to compute $\alpha_c = \alpha^e = C_D|U_{\rm a}^e(\frac{h_{\rm a}}{2}) - U_{\rm o}^e (\frac{h_{\rm o}}{2})|$ in the linear case.
 Parameters of the problem are taken as realistic: $C_D = 1.2\times 10^{-3}$, the space steps are $\frac{h_{\rm a}}{2} = 10\; {\rm m}$, $\frac{h_{\rm o}}{2} = 1 \;{\rm m}$,
 the time step  is $60 \;{\rm s}$,
 the size of the time window $T$ is 1 day ($1440\Delta t$) and the computational domains sizes are $H_o = H_a = 2000 \; {\rm m}$
@@ -1331,10 +1327,14 @@ SWR is
 initialized at the interface with a white noise around the interface value
 of the initial condition.
 Figure \ref{fig:evolutionErrNonlinear} shows the evolution of the error for two choices of $\theta$. The theoretical
-convergence according to $\xi_0$ is
-also displayed: $\sup_\omega \xi$ is an upper bound of the $L^2$ convergence factor \cite{thery_etude_2021} and $\xi_0$ is an approximation of $\sup_\omega \xi$.
-Both $\xi_0$ and $\xi_0^q$ are close to the convergence rate, with the exception of
-$\xi_0^q$ that predicts much faster convergence than observed when $\theta=1.5$. This shows that the maximum of the convergence factor is not reached when $(\omega+f) \rightarrow 0$ in this case. Figure \ref{fig:evolutionErrNonlinear} confirms the results of Section \ref{sec:conv-lin}:
+convergence according is
+also displayed: $\sup_\omega \xi$ is an upper bound of the $L^2$ convergence factor \cite{thery_etude_2021}. In the case
+$\alpha={\rm const}$ we use $\xi_0$ as an approximation of
+$\sup_\omega \xi$.
+The theoretical bounds $\max_\omega \widetilde{\xi}_1$ and $\xi_0$
+fit rather accurately the convergence rate and one can see that
+those values are indeed greater than the observed convergence rate.
+Figure \ref{fig:evolutionErrNonlinear} confirms the results of Section \ref{sec:conv-lin}:
 when considering $\alpha=\alpha_c$ constant, the fastest convergence is achieved when $\theta$ is close to 1, similarly to the DNWR algorithm.
 However this does not translate into the nonlinear case, which converges faster with $\theta=1.5$.
 Figure \ref{fig:robustesseEvolutionErrNonlinear}
@@ -1350,7 +1350,7 @@ convergence properties of our nonlinear problem.
 \begin{figure}
     \centering
     \includegraphics[scale=0.65]{evolution_err_nonlinear.pdf}
-    \caption{Evolution of the  $L^2$ norm of the errors. Black lines represent the observed convergence; grey lines are the estimated convergence with slopes $\xi_0$ for linear cases and $\xi_0^q$ for quadratic cases.}
+    \caption{Evolution of the  $L^2$ norm of the errors. Black lines represent the observed convergence; grey lines are the estimated convergence with slopes $\xi_0$ for linear cases and $\max_\omega \widetilde{\xi}_1$ for quadratic cases.}
     \label{fig:evolutionErrNonlinear}
 \end{figure}
 \begin{figure}
@@ -1369,6 +1369,9 @@ from wall laws representative of the ones used in Earth-System Models
 and analogous to a quadratic friction law. We 
 motivated the fact that the convergence analysis of such 
 problems can only be done at a semi-discrete level in space due to the particular practical implementation of continuous interface conditions in actual climate models.  
+The steady state of the coupled problem was derived analytically
+and it was proven that the unsteady problem is well-posed
+in a neighborhood of the steady state.
 Then we analytically studied the convergence properties in a
 case with linear friction and in a case with linearized 
 quadratic friction. We formulated the problem with a 
@@ -1382,12 +1385,11 @@ systematically assessed its impact on the convergence speed.
 %
 %Because the transmission conditions are entangled with the discretization, a semi-discrete in space analysis was conducted on SWR with the linear condition. 
 %
-For the two cases of interest, the convergence factors are derived and 
-the asymptotic limits for small values of the frequency $\omega+f$ 
-are given. This asymptotic limit allowed us to choose appropriate values
+For the two cases of interest, the convergence factors were derived
+which allowed us to choose appropriate values
 for the parameter $\theta$ to guarantee fast convergence of the algorithm.
 %to indicate a parameter $\theta_{\rm opt}$ 
-%The same asymptotic value was derived for the nonlinear transmission operator, linearized around a stationary state.
+%The same asymptotic value was derived for the nonlinear transmission operator, linearized around a steady state.
 %
 The behavior of the algorithm for linear friction and linearized 
 quadratic friction turns out to be different which leads to different
@@ -1398,5 +1400,4 @@ quadratic friction turns out to be different which leads to different
 %
 Numerical experiments in the nonlinear case showed that the observed 
 convergence behaves as predicted by the linearized quadratic friction
-case whose thorough theoretical analysis is left for future work.
-
+case.

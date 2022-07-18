@@ -115,8 +115,14 @@ was not obvious since they do not correspond to a finite
 difference approximation $\frac{u_{j, \frac{1}{2}} -
 u_{j, -\frac{1}{2}}}{h_j}$.
 It is hence correct if $\omega \neq -f$ to start from
-	$\phi_j(\pm m h_j)= \phi_{j,0}(\lambda_j+1)^m$ in Sections
-	\ref{sec:conv-lin} and \ref{sec:OASchwarz_DiscreteStationaryState} (where it is assumed that $H_j \rightarrow \infty$).
+$\phi_j(\pm m h_j)= \phi_{j,0}(\lambda_j+1)^m$ in Section
+\ref{sec:OASchwarz_DiscreteStationaryState}
+(where it is assumed that $H_j \rightarrow \infty$).
+However, the asymptotic analysis of the convergence factor
+for $\omega+f\rightarrow 0$
+(as it was done in \citep{clement_discrete_2021})
+hides a division by zero when considering
+$\frac{\phi_{j,0}^{k}}{\phi_{j,0}^{k-1}}$.
 \end{remark}
 We are now ready to study the transmission conditions.
 The continuity of the flux leads to
@@ -161,7 +167,7 @@ where
 \end{equation}
 We finally obtain
 \begin{equation}
-    B_k = a_1 B_{k-1} + a_2 \overline{B_{k-1}}
+	B_k(s) = a_1 B_{k-1}(s) + a_2 \overline{B_{k-1}(\overline{s})}
 \end{equation}
 where
 \begin{equation}

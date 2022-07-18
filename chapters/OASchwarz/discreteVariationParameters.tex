@@ -187,9 +187,11 @@ We obtain similar equations in the ocean part:
 			+ S_{u, o}^{m=-1/2}(U_0) \\
 		\widehat{\phi}_{o,0} &= - {C}_5 K_{1,o}
 		-S_{\phi,o}^{m=0},
-		~~~~~~ K_{1,o} = 
+		~~~~~~ K_{1,o} = \frac{1}{h_o}
+		\left(
 			\lambda_{u_o}-\lambda_{u_o}^{2M_o-1}
 			- (\chi_o+1)(1-\lambda_{u_o}^{2M_o})
+		\right)
 	\end{aligned}
 \end{equation}
 The continuity of the flux at interface
@@ -250,4 +252,23 @@ it seems to be asymptotically proportional to $\sqrt{\sigma}$.
 The Laplace transform can be unically inverted
 (e.g. \citep{cohen_inversion_2007}) because
 $\widehat{u}_j(s)$ does not grow faster than exponentially
-for $s\rightarrow \infty$. \myTD{Manque d'une justification}
+for $|s|\rightarrow \infty$.
+Indeed, the asymptotic values of $K_i$ for $|s|\to\infty$ are
+\begin{equation*}
+	\begin{aligned}
+		K_{1,j} \sim -\frac{\chi_j}{h_j}, ~~~~~~~&
+		K_{3} \sim -\frac{\nu_a \chi_a}{h_a}\\
+		K_{2} \rightarrow 1 - \epsilon \frac{h_a}{h_o},
+		~~~~~~~&
+		K_{4} \rightarrow \alpha^e
+		\frac{\cal O}{2}(1 - \epsilon \frac{h_a}{h_o})
+	\end{aligned}
+\end{equation*}
+One can see that $K_3 \rightarrow \infty$ whereas $K_4$ tends to
+a constant. Since $\widehat{u}$ is given by the inverse of
+\eqref{eq:OASchwarz_appendix_matrix_omega}, it tends to zero as
+$s\rightarrow \infty$.
+Figure \ref{fig:OASchwarz_isDetZero} also
+shows that the determinant of
+\eqref{eq:OASchwarz_appendix_matrix_omega} increases linearly for
+high $|s|$.

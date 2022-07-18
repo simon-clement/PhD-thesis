@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{335.22545912bp}%
+    \setlength{\unitlength}{509.27000255bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,9 +50,23 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.28124782)%
+  \begin{picture}(1,0.28773932)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{rate_between_eigenvalues.pdf}}%
+    \put(0.66607264,0.24971643){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf{B}^{k=1}$\end{tabular}}}}%
+    \put(0.14924906,0.23599692){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf{B}^{k=2}$\end{tabular}}}}%
+    \put(0.63338296,0.00658786){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf{B}_2^{k=1}$\end{tabular}}}}%
+    \put(0.12106015,0.00658786){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf{B}_2^{k=2}$\end{tabular}}}}%
+    \put(0.01130287,0.25468469){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf{B}_1^{k=1}$\end{tabular}}}}%
+    \put(0.94363559,0.00307239){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf{B}^{k}$\end{tabular}}}}%
+    \put(0.85786767,0.00328644){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf{B}_2^{k}$\end{tabular}}}}%
+    \put(0.77604872,0.00405549){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf{B}_1^{k}$\end{tabular}}}}%
+    \put(-0.00047869,0.22523082){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf{B}_1^{k=2}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{rate_between_eigenvalues.pdf}}%
+    \put(0.78877523,0.27022555){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}: $\widetilde{\xi}_1$\end{tabular}}}}%
+    \put(0.88200236,0.27022555){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}: $\widetilde{\xi}_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{rate_between_eigenvalues.pdf}}%
+    \put(0.96993445,0.27022555){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}: $\xi(k)$\end{tabular}}}}%
   \end{picture}%
 \endgroup%
