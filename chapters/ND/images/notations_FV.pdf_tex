@@ -68,5 +68,6 @@
     \put(0,0){\includegraphics[width=\unitlength,page=4]{notations_FV.pdf}}%
     \put(0.52550715,0.11636379){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\phi_{m-1}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{notations_FV.pdf}}%
+    \put(0.63500059,0.0146928){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u(z)$\end{tabular}}}}%
   \end{picture}%
 \endgroup%
