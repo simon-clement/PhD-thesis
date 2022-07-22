@@ -22,18 +22,18 @@ taken into account in $[\delta_{1}, \delta_{2}]$
 There are also indirect effects due to the non-linearity of the
 problem:
 \begin{itemize}
-	\item Even if the bulk algorithm is well designed and returns
-		\myTD{y'a du boulot}
-		the same friction scales whether it takes as input
-		$(\delta_1, u_\emphase{2}(\delta_1))$ or
-		$(\delta_2, u_\emphase{2}(\delta_2))$,
-		in the general case
-		${\rm BULK}_1(\delta_1, u_\emphase{1}(\delta_1)) \neq
-		{\rm BULK}_2(\delta_2, u_\emphase{2}(\delta_2))$
-		hence the friction scales
-		are different: $u_{\star, 1} \neq u_{\star, 2}$.
+	\item If the bulk algorithm is well designed it does not
+		need the very top of the surface layer. Any height
+		$z<\delta_{sl}$ within the wall law can be used
+		to obtain the friction scales $u_\star$,
+		$\theta_\star$: changing $\delta_{sl}$ does
+		not \textit{directly} change the friction scales.
+		However, the changes between $u_1$ and $u_2$ mentioned
+		above indirectly change the output of the
+		bulk algorithm.
+		The friction scales $u_{\star, 1}$ and $u_{\star, 2}$
+		are hence different.
 \end{itemize}
-
 \subsection{Study of the consistency: neutral case}
 Figure \ref{fig:ND_Consistency_sensitivity_delta_sl} shows
 three vertical profiles of $u$ obtained with

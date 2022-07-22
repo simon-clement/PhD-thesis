@@ -7,6 +7,7 @@ We assume for simplicity that the atmosphere
 is dry and that the density variation is
 proportional to the variation of the temperature:
 \begin{equation}
+	\label{eq:ND_StratifiedCase_rhoProptoTheta}
 	\partial_z \rho \propto
 	- \partial_z \theta
 \end{equation}
@@ -26,7 +27,7 @@ In this section, we first discuss the continuous and semi-discrete in space
 equations, then extend the previous discussion on the wall law to
 Monin-Obukhov Similarity Theory (MOST).
 Finally, Section \ref{sec:ND_StratifiedCase_turbulentVisc} derives the
-profile of viscosities depending on the turbulent kinetic energy
+profile of viscosities depending on the Turbulent Kinetic Energy
 (TKE).
 \subsection{Continuous model and Finite Volume discretization}
 The stratification in the column is given by the
@@ -36,6 +37,10 @@ The continuous equations are given in \S
 \ref{sec:ND_StratifiedCase_continuousModel}
 and their discretisation is detailed in
 \S \ref{sec:ND_StratifiedCase_FVDis}.
+The stratification affects $u$
+in two ways:
+\begin{itemize}
+	\item
 As explained in Chapter \ref{ch:airseaSCM}
 the bulk routine in the stratified case
 also gives a friction scale $\theta_\star$
@@ -50,6 +55,15 @@ $u(0)$ and on the surface temperature $\theta_s$.
 The bulk routine is based on equations
 \eqref{eq:ND_StratifiedCase_MOST} of
 \S \ref{sec:ND_StratifiedCase_continuousModel}.
+\item The TKE (detailed in \S \ref{sec:ND_StratifiedCase_TKE})
+	has a buoyancy term which involves the Brunt-Väisälä frequency
+	$N^2 = - \frac{g\partial_z \rho}{\rho_0}$.
+	With the assumption
+	\eqref{eq:ND_StratifiedCase_rhoProptoTheta}
+	that $ \partial_z \rho \propto - \partial_z \theta$
+	we use instead that $N^2 = - \frac{g\partial_z \theta}
+	{\theta_{\rm ref}}$ where $\theta_{\rm ref}=283K$.
+\end{itemize}
 \subsubsection{Continuous model}
 \label{sec:ND_StratifiedCase_continuousModel}
 The continuous equations remain the same for $u$
@@ -419,7 +433,6 @@ the link is done through the mixing lengths in \S
 \subsubsection{Finite Volume discretization of TKE equation}
 \label{sec:ND_StratifiedCase_TKE}
 The Turbulent Kinetic Energy (TKE) evolves with the equation
-\myTD{définir $N^2$}
 \begin{equation}
 \label{eq:ND_StratifiedCase_TKE}
     \begin{aligned}
@@ -433,10 +446,18 @@ The Turbulent Kinetic Energy (TKE) evolves with the equation
     \end{aligned}
 \end{equation}
 The turbulent viscosities $K_u, K_{\theta}$ and $K_e$ are computed
-with $(K_u, K_\theta, K_e) = (C_m , C_s \phi_z, C_e)l_m \sqrt{e}$.
-\paragraph{Mixing lengths} \myTD{expliciter les dépendances en z}
-The mixing lengths $l_m = \min{(l_{\rm up}, l_{\rm down})}$ and
-$l_\epsilon = \sqrt{l_{\rm up} l_{\rm down}}$
+with constants $C_m, C_s, C_e$ such that $(K_u, K_\theta, K_e) = (C_m , C_s \phi_z(z), C_e)l_m(z)
+\sqrt{e(z)}$. The value $\phi_z$ is proportional to the inverse
+of the so-called turbulent Prandtl number and is bounded by
+$\phi_z^{\rm max} = 2.2$ \citep{lemarie_simplified_2021}.
+\begin{equation}
+\phi_z= \frac{1}{1+ \max\left(-0.5455,
+	0.143\times\frac{ l_m l_\epsilon N^2}{e}\right)}
+\end{equation}
+\paragraph{Mixing lengths}
+The mixing lengths $l_m(z) = \min{(l_{\rm up}(z), l_{\rm down}(z))}$
+and $l_\epsilon(z) = \sqrt{l_{\rm up}(z) l_{\rm down}(z)}$
+(introduced in \citep{bougeault_parameterization_1989})
 are obtained with the method named $l^\star_{\rm D80}$ described in
 \cite{lemarie_simplified_2021} that we explain here:
 \begin{enumerate}
@@ -574,11 +595,7 @@ Assuming that
 K_m = C_m l_m \sqrt{e} ~~\text{and}~~
 K_\theta = C_s l_m \phi_z \sqrt{e}
 \end{equation}
-\myTD{Introduire $C_m, C_s, C_e, \phi_z$ ($\phi_z$ peut être def
-comme l'inverse du nombre de Prantl turbulent)}
-\myTD{Référence $l_m, l_\epsilon$ pour se dédouanner
-bougeault et andré}
- inside the SL, we have
+inside the SL, we have
 for $z\leq \delta_{\rm sl}$
 \begin{enumerate}
 \item
