@@ -1,0 +1,14 @@
+Par ordre de priorité:
+Chapitre 5
+	- Faire la recherche: juste quelques simulations normalement
+		~ Figure pour comparer le two-sided bulk au one-sided
+		~ section 5.2: plusieurs cas:
+			double FV free, standard, FV free two-sided ?
+			(on pourra fixer FV free dans l'atm)
+	- Rédiger
+Chapitre 1
+Intro
+Conclusion (?)
+Résumé
+Remerciements
+Abstract (?)
