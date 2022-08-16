@@ -1,6 +1,164 @@
 \chapter{Oceanic surface layer}
 \label{ch:OceanND}
 \minitoc
+\begin{figure}
+	\centering
+	\subimport{images/}{oneSided.pdf_tex}
+	~~~~~
+	\subimport{images/}{twoSided.pdf_tex}
+	\caption{\textit{one-sided} surface layer
+	(left) and \textit{two-sided} surface layer (right).}
+	\label{fig:OceanND_twoSidedBulk_drawing}
+\end{figure}
+In this Chapter, we focus on the ocean part of the coupled turbulent
+Ekman problem (defined in Chapter \ref{ch:airseaSCM})
+and in particular to the oceanic surface layer.
+\citep{pelletier_two-sided_2021} introduced a \textit{two-sided}
+bulk method which does not only take as input
+the "relative" (w.r.t. surface currents) wind but also takes into
+account the depth at which the surface current is evaluated.
+This \textit{two-sided} bulk is detailed in Section
+\ref{sec:OceanND_twoSidedBulk}.
+We call the region between $z=0$ and
+$z=\delta_o$ the depth at which the surface current is evaluated
+the Oceanic Surface Layer (OSL).
+The two-sided bulk method relies on MOST profiles in the OSL.
+The idea of the previous chapter is used again to
+derive a discretisation based on spline reconstruction
+in Section \ref{sec:OceanND_OSL}.
+In all this chapter, the atmosphere surface flux scheme chosen
+is "FV free".
 \section{A two-sided bulk for the ocean-atmosphere interface}
-\myTD{Section bulk two-sided, avec dessins qui montre soit l'interface nette, soit un domaine d'interface buffer}
-\input{Ocean.tex}
+\label{sec:OceanND_twoSidedBulk}
+As it is explained in \citep{pelletier_two-sided_2021}, it is now
+recognized that the wind-stress depends strongly on surface currents. 
+However in coupled ocean-atmosphere simulation
+the surface currents are evaluated below the surface at $z=\delta_o$:
+this amounts to assume that the currents are constant in the
+oceanic surface layer.
+
+The new idea introduced by \citep{pelletier_two-sided_2021} is to consider
+that there is a Monin-Obukhov boundary layer 
+below the ocean surface when calculating friction scales with the BULK algorithm. 
+The method of assuming a boundary layer on either side of the interface is called
+ \textit{two-sided} bulk (see Figure \ref{fig:OceanND_twoSidedBulk_drawing}).
+	\begin{figure}
+	\centering
+\includegraphics[scale=0.6]{images/compare_two_sided_one_sided.pdf}
+	\caption{Comparison between
+	two-sided bulk ($\delta_o=z_{-\frac{1}{2}}$) and
+	one-sided bulk ($\delta_o=0$) in a coupled
+	situation after one day of integration. The parameters
+	of this experiment are the same as in
+	Section \ref{sec:ND_Consistency_Coupled}.
+	}
+	\label{fig:OceanND_twoSidedBulk_difference}
+\end{figure}
+\par
+Figure \ref{fig:OceanND_twoSidedBulk_difference} shows the difference
+between the use of a two-sided bulk and a one-sided bulk in
+a coupled situation between the atmosphere model described in
+Chapter \ref{ch:ND} "FV free" and a Finite Difference
+discretisation of the ocean column.
+This corresponds to comparing $\delta_o < 0$ and $\delta_o = 0$.
+We find that using a surface layer in the ocean changes the
+sea surface temperature and leads to a strong difference
+in temperature in the atmosphere column.
+\citep{pelletier_two-sided_2021} found that the near-surface
+velocity profiles are more affected by the use of a
+two-sided bulk than the surface temperature.
+\input{OSL.tex}
+\begin{subappendices}
+\section{Computing $\alpha_{\rm sl}$: stability function integration}
+\label{sec:ND_Ocean_stabilityFunctionIntegration}
+In the ocean, we use the universal function of \citep{large_similarity_2019} (as in \citep{pelletier_two-sided_2021})
+\begin{equation}
+	\phi^m(\zeta) = \phi^h(\zeta) = 1+5\zeta, ~~~ \zeta \geq 0
+\end{equation}
+\begin{equation}
+	\phi^m(\zeta) = (1-14\zeta)^{-1/3}, ~~~ \zeta < 0
+\end{equation}
+\begin{equation}
+	\phi^h(\zeta) = (1-25\zeta)^{-1/3}, ~~~ \zeta < 0
+\end{equation}
+and the first integrated form, $\psi(\zeta)= \int_0^\zeta \frac{1-\phi(\zeta')}{\zeta'}d\zeta'$ is for $\zeta<0$
+\begin{equation}
+	\psi^{\{m,h\}}(\zeta)  = \sqrt{3}\left[\arctan(\sqrt{3}) -
+	\arctan\left(\frac{\sqrt{3}}{3}(2C_{\{m,h\}}+1)\right)\right]
+	+ \frac{3}{2}\ln \left(\frac{(C_{\{m,h\}})^2 + C_{\{m,h\}} + 1}{3}\right)
+\end{equation}
+and $\psi^{\{m,h\}}(\zeta) = -5\zeta$ for $\zeta \geq 0$
+where $C_m = (1-14\zeta)^{1/3}$, $C_h = (1-25\zeta)^{1/3}$.
+We now compute its volume-averaged form $\Psi^{\{m,h\}}(\zeta)= \frac{1}{\zeta}\int_0^\zeta \psi^{\{m,h\}}(x)dx$.
+\par
+First,
+\begin{equation}
+	\int \ln (C_m^2+C_m+1)d\zeta
+	= -2 \frac{\zeta}{3} - \frac{1}{28}C_m^2 - \frac{1}{14}C_m
+	+\zeta\ln (C_m^2+C_m+1) + {\rm const}
+\end{equation}
+and
+\begin{equation}
+	\int \arctan (\frac{2C_m+1}{\sqrt{3}})d\zeta
+	= \frac{\sqrt{3}}{56}C_m(C_m-2)
+	+ \zeta \arctan (\frac{2C_m+1}{\sqrt{3}}) + {\rm const}
+\end{equation}
+Putting them together, we get
+\begin{equation}
+\begin{aligned}
+	\Psi^m(\zeta)=\sqrt{3}\arctan(\sqrt{3})- 
+	\frac{3}{2}\ln(3) -
+	\frac{3}{56\zeta}C_m(C_m-2)
+	- \sqrt{3} \arctan (\frac{2C_m+1}{\sqrt{3}})
+	\\
+	-1 - \frac{3}{56\zeta}C_m^2 - \frac{3}{28\zeta}C_m
+	+\frac{3}{2}\ln (C_m^2+C_m+1)
+	+ \frac{{\rm const}}{\zeta}
+\end{aligned}
+\end{equation}
+After simplification, using $\lim_\zeta\to0 \int_0^\zeta\psi(x)dx = 0$:
+\begin{equation}
+\begin{aligned}
+\Psi^{\{m,h\}}(\zeta)= -\frac{5}{2}\zeta, ~~~~ \zeta \geq 0 \\
+	\Psi^{\{m,h\}}(\zeta)=
+	\psi^{\{m,h\}}(\zeta)
+	- \frac{(2C_{\{m,h\}}+1)(C_{\{m,h\}} - 1)}
+	{2\left((C_{\{m,h\}})^2 + C_{\{m,h\}} + 1\right)}, ~~~~ \zeta < 0
+\end{aligned}
+\end{equation}
+We finally get for $u$:
+\begin{equation}
+	\alpha_{sl, u} = \frac{\widetilde{h}}{h_{k-1/2}} +
+	\frac{\frac{1}{{h_{k-1/2}}}
+    \left[
+	    (-z+z_{0m})\ln(1+\frac{-z}{z_{0m}})+z
+    -
+    z \Psi_m(\frac{-z}{L_{MO}}) \right]_{\delta_{sl}}^{z_k}
+    }{\ln(1+\frac{-\delta_{sl}}{z_{0m}})- \psi_u(\frac{-\delta_{sl}}{L_{MO}})
+    }
+\end{equation}
+and for $\theta$:
+\begin{equation}
+	\alpha_{sl, \theta} =  \frac{\widetilde{h}}{h_{k-1/2}} +
+	\frac{1}{{h_{k-1/2}}}\frac{(Q_H -
+		Q_{lw})
+    \left[
+	    (-z+z_{\theta})\ln(1+\frac{-z}{z_{\theta}})+z
+    -
+    z \Psi_m(\frac{-z}{L_{MO}}) \right]_{\delta_{sl}}^{z_k}
+	- Q_{sw} \int_{\delta_o}^{z_k}
+		E(z) dz
+    }{(Q_H - Q_{lw})
+	    \left(\ln(1+\frac{-\delta_{sl}}{z_{\theta}})-
+	    \psi_\theta(\frac{-\delta_{sl}}{L_{MO}})\right)
+	    -Q_{sw} E(\delta_{sl})
+    }
+\end{equation}
+where $E(z) = \int_{z}^0 \frac{\phi^h_o(-x/L_o)
+		\sum A_i \exp (k_i x)
+		}{-x + z_{u}}dx$
+and $Q_H = \theta_o^{\star}u_o^{\star}\rho_0 c_p$.
+In practice, $\alpha_{sl, \emphase{\theta}}$ will not be used: in Section
+\ref{sec:ND_Ocean_radiativeFluxes} we describe a better way to
+include the radiative fluxes in the surface layer.
+\end{subappendices}

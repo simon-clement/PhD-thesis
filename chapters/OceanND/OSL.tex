@@ -1,16 +1,11 @@
 \section{Oceanic surface layer}
-\label{sec:ND_Ocean}
-\myTD{plusieurs cas: double FV free, standard,
-FV free two-sided ? L'objectif c'est de se focaliser sur
-l'océan à priori donc on peut fixer FV free dans l'atmosphère}
+\label{sec:OceanND_OSL}
 We now interest ourselves to the discretization of an ocean
 column and its surface layer.
-Following the idea of \citep{pelletier_two-sided_2021} where
-the Similarity theory is extended to the ocean surface layer
-(creating a \textit{two-sided} bulk procedure) we
-follow the discretization developed in the previous sections
-to handle the oceanic surface layer.
-%
+If a \textit{two-sided} bulk is used then the
+discretization of the oceanic surface layer can be derived
+similarly to the discretization of the atmospheric surface
+layer in Chapter \ref{ch:ND}.
 \par
 In the ocean modeling community, it is unusual to use
 wall modeling at the surface. The Sea Surface Temperature
@@ -53,9 +48,7 @@ model are:
 		larger time steps).
 \end{itemize}
 \subsubsection{The Ocean model}
-We describe here the continuous model in use for the ocean:
-the discretization is identical to the atmospheric case
-and is not detailed.
+We describe here the continuous model in use for the ocean.
 The equations for momentum, potential temperature and
 turbulent kinetic energy in the inner domains are not changed
 except that the geostrophic momentum is not included in the ocean:
@@ -74,7 +67,7 @@ except that the geostrophic momentum is not included in the ocean:
     \frac{e^{3/2}}{l_{\epsilon}(z)}}_{\text{dissipation}}
 	\end{aligned}
 \end{equation}
-In the first grid level below the surface, $F_\theta$ includes a
+$F_\theta = -\frac{\partial_z Q_{sw}}{\rho_{\rm o} C_p}$ is a
 radiative forcing corresponding to the shortwave flux of a
 diurnal cycle. As in the atmospheric case the buoyancy $N^2$ is
 given by a linear equation of state
@@ -106,28 +99,28 @@ The same relation can be written here:
 \begin{equation}
 \begin{aligned}
 \label{eq:ND_Ocean_relation_tilde_bar}
-\alpha_{sl, u}\widetilde{u} = \overline{u}_{k-1/2} -
+\alpha_{o, u}\widetilde{u} = \overline{u}_{k-1/2} -
 \widetilde{h}
 	\left(\frac{\phi_{\delta}}{3} + \frac{\phi_{k-1}}{6}\right)
-	\left(\alpha_{sl, u} - \frac{\widetilde{h}}{h_{k-1/2}}\right)
-	- (1 - \alpha_{sl, u})u(0)\\
-\alpha_{sl, \theta}
+	\left(\alpha_{o, u} - \frac{\widetilde{h}}{h_{k-1/2}}\right)
+	- (1 - \alpha_{o, u})u(0)\\
+\alpha_{o, \theta}
 \widetilde{\theta}
 = \overline{\theta}_{k-1/2} -
 	\widetilde{h}\left(\frac{{(\partial_z \theta)}_{\delta}}{3}
 	+ \frac{{(\partial_z \theta)}_{k-1}}{6}\right)
-	\left(\alpha_{sl, \theta}-\frac{\widetilde{h}}{h_{k-1/2}}\right)
- - (1 - \alpha_{sl, \theta})\theta_s
+	\left(\alpha_{o, \theta}-\frac{\widetilde{h}}{h_{k-1/2}}\right)
+ - (1 - \alpha_{o, \theta})\theta_s
 \end{aligned}
 \end{equation}
 with for $x = u, \theta$:
 \begin{equation}
-	\alpha_{sl, x} = \frac{\widetilde{h}}{h_{k-1/2}} +
-	\frac{\frac{1}{{h_{k-1/2}}}\int_{\delta_{sl}}^{z_k} x(0) - x(z)
-	dz}{x(0) - x(\delta_{sl})}
+	\alpha_{o, x} = \frac{\widetilde{h}}{h_{k-1/2}} +
+	\frac{\frac{1}{{h_{k-1/2}}}\int_{\delta_{o}}^{z_k} x(0) - x(z)
+	dz}{x(0) - x(\delta_{o})}
 \end{equation}
 Section \ref{sec:ND_Ocean_stabilityFunctionIntegration}
-gives the derivation of the explicit formula of $\alpha_{sl}$
+gives the derivation of the explicit formula of $\alpha_{o}$
 with the oceanic universal stability functions.
 Finally, the scheme at the first grid level above
 the surface layer is:
@@ -147,27 +140,36 @@ the surface layer is:
 where for $x=u,\theta$:
 \begin{equation}
 	\label{eq:ND_Ocean_semiDiscreteEkmanEqPTFVfree}
-	\widetilde{x} = \frac{1}{\alpha_{\rm sl, x}(t)}
+	\widetilde{x} = \frac{1}{\alpha_{\rm o, x}(t)}
 	\left(
 	\overline{x}_{k-1/2} -
 	\widetilde{h}(\frac{{(\partial_z x)}_{\delta_o}}{3} +
 	\frac{{(\partial_z x)}_{k-1}}{6})
-	\left(\alpha_{sl, x}-\frac{\widetilde{h}}{h_{k-1/2}}\right)
-	 - (1 - \alpha_{sl, x})x(0)
+	\left(\alpha_{o, x}-\frac{\widetilde{h}}{h_{k-1/2}}\right)
+	 - (1 - \alpha_{o, x})x(0)
 	\right)
 \end{equation}
+In the surface layer, the hypothesis that the potential
+temperature is quasi-stationary gives that
+$\forall z > \delta_o, ~~
+\partial_z \left(K_\theta \partial_z \theta \right)
+= \frac{\partial_z Q_{sw}}{\rho_{\rm o} C_p}$.
 The scheme uses as boundary conditions at the surface layer:
 \begin{equation}
 \label{eq:ND_Ocean_boundaryConditionFVfree}
 \begin{aligned}
-	K_{u,\delta_o} \phi_{\delta_o} &=
+	K_{u,\delta_o} \phi_{\delta_o} &= \frac{\rho_{\rm a}}
+	{\rho_{\rm o}}
 	u_\star^2 e_\tau
 	\\
 	K_{\theta, \delta_o} (\partial_z \theta)_{\delta_o} &= 
-	\theta_\star u_\star - \frac{Q_{lw} + Q_{sw}(\delta_{sl})}{\rho_0 c_p}
+	\frac{\rho_{\rm a} c_{\rm a}^p}{\rho_{\rm o} c_{\rm o}^p}
+	\theta_\star u_\star - \frac{Q_{lw} + Q_{sw}(\delta_{o})}{\rho_{\rm o} c_{\rm o}^p}
   \end{aligned}
 \end{equation}
-where $Q_{lw}, Q_{sw}$ are defined in Section
+where $c_{\rm a}^p$, $c_{\rm o}^p$ are the heat capacities
+of air and water and
+$Q_{lw}, Q_{sw}$ are defined in Section
 \ref{sec:ND_Ocean_radiativeFluxes}.
 The surface flux scheme is summarized in Figure
 \ref{fig:ND_Ocean_nouvelle_dis_neutre}.
@@ -180,166 +182,88 @@ As it will be explained
 in Section \ref{sec:ND_Ocean_radiativeFluxes} this surface flux scheme
 does not correctly take into account the radiative fluxes and the
 interval $(\delta_o, z_k)$ needs an evolution equation for $\theta$.
-
-\subsubsection{Computing $\alpha_{\rm sl}$: stability function integration \myTD{en Appendice ?}}
-\label{sec:ND_Ocean_stabilityFunctionIntegration}
-In the ocean, we use the universal function of \citep{large_similarity_2019} (as in \citep{pelletier_two-sided_2021})
-\begin{equation}
-	\phi^m(\zeta) = \phi^h(\zeta) = 1+5\zeta, ~~~ \zeta \geq 0
-\end{equation}
-\begin{equation}
-	\phi^m(\zeta) = (1-14\zeta)^{-1/3}, ~~~ \zeta < 0
-\end{equation}
-\begin{equation}
-	\phi^h(\zeta) = (1-25\zeta)^{-1/3}, ~~~ \zeta < 0
-\end{equation}
-and the first integrated form, $\psi(\zeta)= \int_0^\zeta \frac{1-\phi(\zeta')}{\zeta'}d\zeta'$ is for $\zeta<0$
-\begin{equation}
-	\psi^{\{m,h\}}(\zeta)  = \sqrt{3}\left[\arctan(\sqrt{3}) -
-	\arctan\left(\frac{\sqrt{3}}{3}(2C_{\{m,h\}}+1)\right)\right]
-	+ \frac{3}{2}\ln \left(\frac{(C_{\{m,h\}})^2 + C_{\{m,h\}} + 1}{3}\right)
-\end{equation}
-and $\psi^{\{m,h\}}(\zeta) = -5\zeta$ for $\zeta \geq 0$
-where $C_m = (1-14\zeta)^{1/3}$, $C_h = (1-25\zeta)^{1/3}$.
-We now compute its volume-averaged form $\Psi^{\{m,h\}}(\zeta)= \frac{1}{\zeta}\int_0^\zeta \psi^{\{m,h\}}(x)dx$.
-\par
-First,
-\begin{equation}
-	\int \ln (C_m^2+C_m+1)d\zeta
-	= -2 \frac{\zeta}{3} - \frac{1}{28}C_m^2 - \frac{1}{14}C_m
-	+\zeta\ln (C_m^2+C_m+1) + {\rm const}
-\end{equation}
-and
-\begin{equation}
-	\int \arctan (\frac{2C_m+1}{\sqrt{3}})d\zeta
-	= \frac{\sqrt{3}}{56}C_m(C_m-2)
-	+ \zeta \arctan (\frac{2C_m+1}{\sqrt{3}}) + {\rm const}
-\end{equation}
-Putting them together, we get
-\begin{equation}
-\begin{aligned}
-	\Psi^m(\zeta)=\sqrt{3}\arctan(\sqrt{3})- 
-	\frac{3}{2}\ln(3) -
-	\frac{3}{56\zeta}C_m(C_m-2)
-	- \sqrt{3} \arctan (\frac{2C_m+1}{\sqrt{3}})
-	\\
-	-1 - \frac{3}{56\zeta}C_m^2 - \frac{3}{28\zeta}C_m
-	+\frac{3}{2}\ln (C_m^2+C_m+1)
-	+ \frac{{\rm const}}{\zeta}
-\end{aligned}
-\end{equation}
-After simplification, using $\lim_\zeta\to0 \int_0^\zeta\psi(x)dx = 0$:
-\begin{equation}
-\begin{aligned}
-\Psi^{\{m,h\}}(\zeta)= -\frac{5}{2}\zeta, ~~~~ \zeta \geq 0 \\
-	\Psi^{\{m,h\}}(\zeta)=
-	\psi^{\{m,h\}}(\zeta)
-	- \frac{(2C_{\{m,h\}}+1)(C_{\{m,h\}} - 1)}
-	{2\left((C_{\{m,h\}})^2 + C_{\{m,h\}} + 1\right)}, ~~~~ \zeta < 0
-\end{aligned}
-\end{equation}
-We finally get for $u$:
-\begin{equation}
-	\alpha_{sl, u} = \frac{\widetilde{h}}{h_{k-1/2}} +
-	\frac{\frac{1}{{h_{k-1/2}}}
-    \left[
-	    (-z+z_{0m})\ln(1+\frac{-z}{z_{0m}})+z
-    -
-    z \Psi_m(\frac{-z}{L_{MO}}) \right]_{\delta_{sl}}^{z_k}
-    }{\ln(1+\frac{-\delta_{sl}}{z_{0m}})- \psi_u(\frac{-\delta_{sl}}{L_{MO}})
-    }
-\end{equation}
-and for $\theta$:
-\begin{equation}
-	\alpha_{sl, \theta} =  \frac{\widetilde{h}}{h_{k-1/2}} +
-	\frac{1}{{h_{k-1/2}}}\frac{(Q_H -
-		Q_{lw})
-    \left[
-	    (-z+z_{\theta})\ln(1+\frac{-z}{z_{\theta}})+z
-    -
-    z \Psi_m(\frac{-z}{L_{MO}}) \right]_{\delta_{sl}}^{z_k}
-	- Q_{sw} \int_{\delta_o}^{z_k}
-		E(z) dz
-    }{(Q_H - Q_{lw})
-	    \left(\ln(1+\frac{-\delta_{sl}}{z_{\theta}})-
-	    \psi_\theta(\frac{-\delta_{sl}}{L_{MO}})\right)
-	    -Q_{sw} E(\delta_{sl})
-    }
-\end{equation}
-where $E(z) = \int_{z}^0 \frac{\phi^h_o(-x/L_o)
-		\sum A_i \exp (k_i x)
-		}{-x + z_{u}}dx$
-and $Q_H = \theta_o^{\star}u_o^{\star}\rho_0 c_p$.
-In practice, $\alpha_{sl, \emphase{\theta}}$ will not be used: in Section
-\ref{sec:ND_Ocean_radiativeFluxes} we describe a better way to
-include the radiative fluxes in the surface layer.
 \subsection{Radiative fluxes, another surface flux scheme}
 \label{sec:ND_Ocean_radiativeFluxes}
 We note $Q_{sw}$ and $Q_{lw}$ the shortwave and longwave (positive
 downward) fluxes.
-To include those fluxes, \cite{pelletier_two-sided_2021} introduced
+To include those fluxes in the
+bulk formula, \cite{pelletier_two-sided_2021} introduced
 a variable $\theta^\star_{o, \rm rad}$
 that is similar to a friction scale but depends on $z$:
 \begin{equation}
-\theta^\star_{o, \rm rad}(z) =
-	\theta^\star_{o}(z) -
-	\frac{Q_{sw}(z) + Q_{lw}}{u^{\star}_o\rho_0 c_p}
+\theta_\star^{\rm rad}(z) =
+	\theta_\star -
+	\frac{Q_{sw}(z) + Q_{lw}}{u_{\star}\rho_{\rm a} c_{\rm a}^p}
 \end{equation}
-This variable is used instead of $\theta^\star_{o}$
-in the two-sided bulk procedure to include the radiative fluxes.
+This variable is used instead of $\theta^\star_{a}$
+in the ocean part of the two-sided bulk procedure
+to include the radiative fluxes.
 To be fully consistent between the computational domain and
 the oceanic surface layer, the boundary condition for the temperature
 should take into account the radiative fluxes: in
 \eqref{eq:ND_Ocean_boundaryConditionFVfree} the flux
 $K_\theta \partial_z \theta$ is exactly equal to
-$\theta^\star_{o, \rm rad}(z) u^\star_{o}$.
-However, to keep global conservation properties on the potential
-temperature it seems important to keep a finite volume
-evolution equation in the surface layer.
-{\color{red} là faut que ça mûrisse,
-je sais pas pourquoi ca serait mieux avec une équation d'évolution}.
+$\frac{\rho_{\rm a} c_{\rm a}^p}{\rho_{\rm o} c_{\rm o}^p}
+\theta_\star^{\rm rad}(\delta_o) u_\star$.
+Moreover, to avoid the integration of $Q_{sw}$
+in the Finite Volume discretization,
+we use an evolution equation
+inside the surface layer despite the contradiction with
+the quasi-stationarity.
+% \myTD{
+% 	Techniquement on a le flux, on pourrait intégrer $\partial_z \theta$.
+% 	On fait pas ça parceque:
+% 	- Ca serait compliqué déjà d'intégrer $Q_{sw}$ analytiquement
+% 	- En vrai ça marche pas mal d'ensure l'equation d'evolution dans la SL ?
+% 	Notons qu'avec une intégration propre du flux on aurait pas
+% 	non plus de problème de conservation de temp potentielle
+% 	Moreover, since the flux is now vertically varying in the oceanic
+% surface layer there is an accumulation of the potential
+% temperature during the day. To keep the conservation property
+% of the Finite Volume discretization one cannot treat
+% the surface layer implicitly for the potential temperature.
+% }
 %
+% \par
+% The bulk procedure is the one used in
+% \citep{pelletier_two-sided_2021}.
+% When computing
+% $\frac{\kappa (\theta(\delta_a) - \theta(\delta_o))}
+% 	{\theta_a^{\star}}$,
+% 	we use:
+% \begin{equation}
+% 	\label{eq:ND_Ocean_skinbulk}
+% 	\frac{\kappa (\theta(0) - \theta(\delta_o))}
+% 	{\theta_o^{\star}} = (1 -
+% 	\frac{Q_{lw}}{Q_H})
+% 	\left(\ln (1 - \frac{\delta_o}{z_{\theta}}) -
+% 	\psi_h(\frac{-\delta_o}{L_o})\right)
+% 	- \frac{\lambda_\theta Q_{sw}(0)}
+% 	{Q_H} E(\delta_o)
+% \end{equation}
 \par
-The bulk procedure is the one used in
-\citep{pelletier_two-sided_2021}.
-When computing
-$\frac{\kappa (\theta(\delta_a) - \theta(\delta_o))}
-	{\theta_a^{\star}}$,
-	we use:
-\begin{equation}
-	\label{eq:ND_Ocean_skinbulk}
-	\frac{\kappa (\theta(0) - \theta(\delta_o))}
-	{\theta_o^{\star}} = (1 -
-	\frac{Q_{lw}}{Q_H})
-	\left(\ln (1 - \frac{\delta_o}{z_{\theta}}) -
-	\psi_h(\frac{-\delta_o}{L_o})\right)
-	- \frac{\lambda_\theta Q_{sw}(0)}
-	{Q_H} E(\delta_o)
-\end{equation}
-\subsubsection{Adding radiative fluxes: derivation without
-molecular sub-layer}
-As it was done in 
-\citep{zeng_prognostic_2005}, we use an evolution equation
-in the surface layer. We neglect the molecular sub-layer and
+%\subsubsection{Adding radiative fluxes: derivation without
+%molecular sub-layer}
+We neglect the molecular sub-layer and
 integrate between $\delta_o$ and 0:
 the flux at $z=0$ is
-$K_\theta \partial_z \theta = \frac{Q_H - Q_{lw}}{\rho_0 c_p}$
-where $Q_H = \theta_o^\star u_o^\star \rho_0 c_p$
+$K_\theta \partial_z \theta = \frac{Q_H - Q_{lw}}{\rho_{\rm o} c_{\rm o}^p}$
+where $Q_H = \theta_o^\star u_o^\star \rho_{\rm o} c_{\rm o}^p$
 \begin{equation}
 \label{eq:evolEqOSL}
-h_{sl}\partial_t \overline{\theta}_{sl} =
-\frac{Q_H - Q_{lw}}{\rho_0 c_p}
+h_{osl}\partial_t \overline{\theta}_{osl} =
+	\frac{Q_H - Q_{lw}}{\rho_{\rm o} c_{\rm o}^p}
 - \left. K_\theta \partial_z \theta 
 \right|_{\delta_{o}}
-- h_{sl}\int_{\delta_o}^0
-\frac{\partial_z Q_{sw}}{\rho_0 c_p} dz
+- h_{osl}\int_{\delta_o}^0
+	\frac{\partial_z Q_{sw}}{\rho_{\rm o} c_{\rm o}^p} dz
 \end{equation}
-where $h_{sl} = |\delta_o|$
+where $h_{osl} = |\delta_o|$
 is the size of the surface layer and
-$\overline{\theta}_{sl}$ is the average potential
+$\overline{\theta}_{osl}$ is the average potential
 temperature in the surface layer.
 We will use the following reconstruction of $\theta$
-inside the SL:
+inside the SL \citep{zeng_prognostic_2005}:
 \begin{equation}
 	\label{eq:ND_Ocean_reconstructionSimpleTheta}
     \theta(z) = \theta_s -
@@ -351,35 +275,35 @@ recover a linear reconstruction of $\theta(z)$.
 \cite{zeng_prognostic_2005} choose $\nu=0.3$ and argue that
 the choice of $\nu$ is linked to the size of the molecular
 sub-layer.
-We formulate the reconstruction in terms of $\overline{\theta}_{sl}$
+We formulate the reconstruction in terms of $\overline{\theta}_{osl}$
 and $\left.\partial_z \theta\right|_{\delta_o}$:
 \begin{equation}
-    \overline{\theta}_{sl} = \frac{1}{\nu+1}
+    \overline{\theta}_{osl} = \frac{1}{\nu+1}
     (\theta_{\delta_o} + \nu \theta_s)
 , ~~~ \left.\partial_z \theta \right|_\delta
-= \frac{\nu}{h_{sl}} (\theta_s - \theta_{\delta_o})
+= \frac{\nu}{h_{osl}} (\theta_s - \theta_{\delta_o})
 \end{equation}
 We get that the surface temperature
-is $\theta_s = \overline{\theta}_{sl}
-+ \frac{h_{sl}}{\nu(\nu+1)} \partial_z \theta$ and
+is $\theta_s = \overline{\theta}_{osl}
++ \frac{h_{osl}}{\nu(\nu+1)} \partial_z \theta$ and
 the difference of temperature between
 the surface and the bottom of the surface layer is
 $\theta_s - \theta_{\delta_o} = 
-\frac{h_{sl}}{\nu}\partial_z \theta$:
+\frac{h_{osl}}{\nu}\partial_z \theta$:
 \begin{equation}
-    \theta(z) = \overline{\theta}_{sl} +
-    \frac{h_{sl}}{\nu} \partial_z \theta_{\delta_o} \left(
-    \frac{1}{\nu+1} + \left(\frac{z}{h_{sl}}\right)^\nu
+    \theta(z) = \overline{\theta}_{osl} +
+    \frac{h_{osl}}{\nu} \partial_z \theta_{\delta_o} \left(
+    \frac{1}{\nu+1} - \left(\frac{z}{\delta_{o}}\right)^\nu
 \right)
 \end{equation}
 \begin{remark}
-It would be possible to consider that $\overline{\theta}_{sl}$ is
+It would be possible to consider that $\overline{\theta}_{osl}$ is
 the average in an interval $(\delta_o, z_k)$.
 However the radiative forcing would affect each individual cell
 inside the surface layer, leading to a contradiction with the simple
 reconstruction \eqref{eq:ND_Ocean_reconstructionSimpleTheta}
 of the surface layer.
-We instead assume here that $\delta_{sl} > z_{-1}$.
+We instead assume here that $|\delta_{o}| < |z_{-1}|$.
 \end{remark}
 Let us assume now that  $\theta(z)$ is a quadratic spline between
 $z_{-1}$ and $\delta_o$.
@@ -387,8 +311,8 @@ Using the continuity at $z=\delta_o$ and Chasles' relation,
 we link the surface layer profile with the spline:
 \begin{equation}
 \underbrace{
-    \overline{\theta}_{sl} -
-    \frac{h_{sl}}{\nu+1}\left. \partial_z \theta
+    \overline{\theta}_{osl} -
+    \frac{h_{osl}}{\nu+1}\left. \partial_z \theta
     \right|_{\delta_o}}_{\theta(\delta_o^{+})}
     =
     \underbrace{
@@ -402,7 +326,7 @@ we link the surface layer profile with the spline:
     ~~~~
 	\underbrace{
     h_{-1/2} \overline{\theta} = 
-    h_{sl}\overline{\theta}_{sl} +\widetilde{h}
+    h_{osl}\overline{\theta}_{osl} +\widetilde{h}
     \widetilde{\theta}}_{
     \int_{z_{-1}}^{0}\theta(z) dz
     }
@@ -412,11 +336,11 @@ The reconstruction for $|z|<|\delta_o|$ (inside the surface layer) is hence
     \theta(z) =
     \overline{\theta}_{-\frac{1}{2}}
     +
-	\left(\frac{h_{sl}\widetilde{h}}{-z_{-1}(\nu+1)} +
+	\left(\frac{h_{osl}\widetilde{h}}{-z_{-1}(\nu+1)} +
 	\frac{\widetilde{h}^2}{-3 z_{-1}}
     +
-    \frac{h_{sl}}{\nu}\left(
-    \frac{1}{\nu+1} + \left(\frac{z}{h_{sl}}
+    \frac{h_{osl}}{\nu}\left(
+    \frac{1}{\nu+1} + \left(\frac{z}{h_{osl}}
     \right)^\nu
     \right)\right) \partial_z \theta_{\delta_o}
     +
@@ -445,7 +369,7 @@ where $\widetilde{\theta}$ is computed with
 \label{eq:formulaTildeTheta}
 \widetilde{\theta} = \overline{\theta}_{-1/2}
 	-\frac{\delta_o}{z_{-1}}\left(
-\frac{h_{sl}}{\nu+1} + \frac{\widetilde{h}}{3}
+\frac{h_{osl}}{\nu+1} + \frac{\widetilde{h}}{3}
 \right)\partial_z \theta_{\delta_o}
 	- \frac{\widetilde{h}\delta_o}{6z_{-1}}
 \partial_z \theta_{-1}
@@ -469,10 +393,10 @@ The evolution equation of the first volume is:
 \begin{equation}
 h_{-\frac{1}{2}}\partial_t
 \overline{\theta}_{-\frac{1}{2}} =
-\frac{Q - Q_{lw}}{\rho_0 c_p}
+	\frac{Q - Q_{lw}}{\rho_{\rm o} c_{\rm o}^p}
 - K_{\theta, -1} \partial_z \theta_{-1}
 - h_{-\frac{1}{2}}\int_{z_{-1}}^0
-\frac{\partial_z Q_{sw}}{\rho_0 c_p} dz
+	\frac{\partial_z Q_{sw}}{\rho_{\rm o} c_{\rm o}^p} dz
 \end{equation}
 We need a last equation to close the system.
 Starting from \eqref{eq:formulaTildeTheta}, we get
@@ -481,7 +405,7 @@ Starting from \eqref{eq:formulaTildeTheta}, we get
 \left(
 \widetilde{h}\overline{\theta}_{-1/2}
 	-\frac{\delta_o}{z_{-1}}\left(
-\frac{\widetilde{h}h_{sl}}{\nu+1} + \frac{\widetilde{h}^2}{3}
+\frac{\widetilde{h}h_{osl}}{\nu+1} + \frac{\widetilde{h}^2}{3}
 \right)\partial_z \theta_{\delta_o}
 	- \frac{\widetilde{h}^2\delta_o}{6z_{-1}}
 \partial_z \theta_{-1}
@@ -490,13 +414,13 @@ Starting from \eqref{eq:formulaTildeTheta}, we get
 K\partial_z \theta_{-1}
 - \widetilde{h}
 \int^{\delta_o}_{z_{-1}}
-\frac{\partial_z Q_{sw}}{\rho_0 c_p} dz
+	\frac{\partial_z Q_{sw}}{\rho_{\rm o} c_{\rm o}^p} dz
 \end{equation}
 Note that the reconstruction we are using is not differentiable
 in $z=0$.
 If greater regularity is needed, it is possible to link
 the reconstruction with a proper modeling of the molecular sub-layer
-(e.g. $\rho_0 c_p K_{mol} \partial_z \theta(z) =
+(e.g. $\rho_{\rm o} c_{\rm o}^p K_{mol} \partial_z \theta(z) =
 Q - Q_{lw} - \int_z^0 \partial_z Q_{sw}(z')dz'$ for $|z|<<|\delta_o|$)
 % It is hence more appealing to take into account
 % the molecular sublayer to add some regularity to the solution.
@@ -514,21 +438,62 @@ Q - Q_{lw} - \int_z^0 \partial_z Q_{sw}(z')dz'$ for $|z|<<|\delta_o|$)
 % where the temperature at the bottom of the molecular sublayer
 % $\theta_{-d}$ is linked to the surface temperature through an
 % integration of
-% $K_{mol}\partial_z \theta = \frac{Q-Q_{lw}}{\rho_0 c_p} -
-% \frac{1}{\rho_0 c_p}\int_{-d}^0\partial_z Q_{sw}(z)dz$:
+% $K_{mol}\partial_z \theta = \frac{Q-Q_{lw}}{\rho_{\rm o} c_{\rm o}^p} -
+% \frac{1}{\rho_{\rm o} c_{\rm o}^p}\int_{-d}^0\partial_z Q_{sw}(z)dz$:
 % \begin{equation}
-% 	\theta_{-d} = \theta_s - \frac{d}{\rho_0 c_p K_{\theta, mol}}
+% 	\theta_{-d} = \theta_s - \frac{d}{\rho_{\rm o} c_{\rm o}^p K_{\theta, mol}}
 % 	\left(
-% 	\frac{Q-Q_{lw} - Q_{sw}(0)f_s}{\rho_0 c_p}
+% 	\frac{Q-Q_{lw} - Q_{sw}(0)f_s}{\rho_{\rm o} c_{\rm o}^p}
 % 	\right).
 % \end{equation}
 % $f_s$ is here the fraction of solar radiation absorbed in the
 % sublayer, described in \cite{zeng_prognostic_2005}.
 % $d$ can be parametrized by $u_\star$ and the fluxes.
-
-\subsection{Two-sided Bulk and sensitivity to the discretization
+\subsection{Sensitivity to the discretization
 	of the surface layers}
 \label{sec:ND_Ocean_bulkRadiativeFluxes}
+\myTD{TODO commenter figures}
+Figure \ref{fig:OceanND_OSL_Forced}
+show the profiles obtained in wind and
+potential temperature with several discretisations.
+As in Chapter \ref{ch:ND} a high resolution simulation
+where every cell is divided into three cells
+is also performed.
+One can see that the high resolution
+is far from the normal simulation only in the "FV free"
+discretization.
+
+Figure \ref{fig:OceanND_OSL_Coupled}
+is the same as Figure 
+\ref{fig:OceanND_OSL_Forced} except that the ocean column is coupled
+with the atmosphere column described in Chapter \ref{ch:ND}.
+\begin{figure}
+	\centering
+\includegraphics[scale=0.6]{images/oce_Forced.pdf}
+	\caption{Forced case: dashed lines indicate
+	a high resolution simulation and solid lines
+	show the normal simulation.}
+	\label{fig:OceanND_OSL_Forced}
+\end{figure}
+\begin{figure}
+	\centering
+\includegraphics[scale=0.6]{images/oce_Forced.pdf}
+	\caption{Coupled case. The observed convergence factor
+	of the Schwarz method was around $10^{-2}$.
+	Dashed lines indicate
+	a high resolution simulation and solid lines
+	show the normal simulation.}
+	\label{fig:OceanND_OSL_Coupled}
+\end{figure}
+\section{Partial conclusion}
+No stability nor accuracy studies were conducted on these proposed
+discretisations. Although they seem to behave correctly in the
+experiments, further analyses of the "FV free" scheme are
+necessary before they can be used. In particular,
+the Finite Volume approximation between the first cell and the second
+corresponds to the use of a strongly unstructured grid,
+the second cell being typically twofold bigger than
+the explicit part of the first cell.
 % \subsubsection{Description of the two-sided bulk algorithm}
 % \begin{equation}
 % 	C_D^{a+o} = \left(\frac{\kappa} {
