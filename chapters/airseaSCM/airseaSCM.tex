@@ -1,17 +1,281 @@
 \chapter{Ocean-atmosphere vertical column modelling}
 \label{ch:airseaSCM}
 \minitoc
+We present in this chapter the concepts and equations in
+the continuous level which
+we will use in the rest of this thesis.
+In particular, in Section \ref{sec:airseaSCM_primitiveEquations}
+the turbulent primitive equations are derived then
+the surface layer particularities are described in Section
+\ref{sec:airseaSCM_SL}.
+Finally, the models used in this thesis are summed up
+in Section \ref{sec:airseaSCM_hierarchy}
+before giving the context and objectives of this thesis
+(Section \ref{sec:airseaSCM_context_objectives}).
 \section{Derivation of the primitive equations with turbulence}
+\label{sec:airseaSCM_primitiveEquations}
+This section aims to present the so-called
+primitive equations, which are used to model
+the inner parts of both the atmosphere and ocean.
 \subsection{Non-turbulent primitive equations}
+We start from the Navier-Stokes momentum equation in a rotating frame:
+\begin{equation}
+\label{eq:airseaSCM_momentumNavierStokes}
+\rho \left(\partial_t + \mathbf{U} \cdot \nabla \right) \mathbf{U}
+= - \nabla p + \nu^m \Delta \mathbf{U} - \rho \mathbf{g}
+- 2 \mathbf{\Omega} \times (\rho \mathbf{U})
+\end{equation}
+where the symbols are given in Table
+\ref{tab:airseaSCM_primitiveEquationsSymbols}
+\begin{table}
+\centering
+\begin{tabular}{c|c|c}
+Symbol & Quantity & Unit \\
+\hline
+$\rho$& {Density} & ${\rm kg}.{\rm m}^{-3}$ \\
+$p$   & {Pressure} & ${\rm kg}.{\rm m}^{-1}.{\rm s}^{-2}$ \\
+$\mathbf{U}$ & {Velocity}& ${\rm m}.{\rm s}^{-1}$ \\
+$\nu^m$ & {Molecular viscosity}& ${\rm m}^{-1}.{\rm s}^{-2}$ \\
+$\mathbf{g}$ & {Gravity acceleration}& ${\rm kg}.{\rm m}.{\rm s}^{-2}$ \\
+$\mathbf{\Omega}$ & {Angular speed}& ${\rm rad}.{\rm s}^{-1}$ \\
+$\nabla$ & {Spatial Gradient} & ${\rm m}^{-1}$\\
+$\Delta$ & {Spatial Laplacian} &${\rm m}^{-2}$
+\end{tabular}
+\caption{Symbols used in Section
+\ref{sec:airseaSCM_primitiveEquations}. Bold letters
+indicate that the quantity lies in $\mathbb{R}^3$.}
+\label{tab:airseaSCM_primitiveEquationsSymbols}
+\end{table}
+and the \textit{continuity equation} which ensures
+conservation of mass:
+\begin{equation}
+\label{eq:airseaSCM_conservationMass}
+\partial_t \rho = - \nabla \cdot (\rho \mathbf{U})
+\end{equation}
+\myTD{J'ai paraphrasé la thèse de Sophie ici}
+It is now possible to simplify the two equations
+\eqref{eq:airseaSCM_momentumNavierStokes} and
+\eqref{eq:airseaSCM_conservationMass} with
+some usual approximations:
+\begin{itemize}
+\item \textit{Spherical geoid approximation}:
+we assume that the earth is spherical and that the
+gravity acceleration is given by
+$\mathbf{g} =\begin{pmatrix}
+0\\ 0 \\ g
+\end{pmatrix}$ where $g=9.81 {\rm m}.{\rm s}^{-2}$.
+\item \textit{Traditional approximation}:
+We neglect the horizontal terms of
+$\mathbf{\Omega}$: we assume that
+$\mathbf{\Omega} =\begin{pmatrix}
+0\\ 0 \\ f/2
+\end{pmatrix}$ where $f$ depends on the latitude.
+\item \textit{Hydrostatic fluid}:
+the pressure gradient balances the gravity force:
+$\partial_z p = -\rho g$. We neglect the vertical
+acceleration due to pressure and gravity.
+This approximation is usually done for large time
+scales like the one used in climate simulations.
+\item \textit{Boussinesq approximation}:
+the density $\rho$ is close to a constant $\rho_0$.
+The variation of density $\widetilde{\rho} =
+\rho - \rho_0$ is neglected except when computing
+the pressure gradient $\partial_z p = - \rho g$.
+\myTD{citer Boussinesq}
+Despite this approximation being very rough
+for the atmosphere, we use it for both domains
+to keep some symmetry of our equations.
+\end{itemize}
+We hence obtain the \textit{non-turbulent}
+primitive equations:
+\begin{equation}
+	\label{eq:airseaSCM_nonTurbulentPrimitiveEq}
+\begin{cases}
+	\nabla \cdot \mathbf{U} &= 0 \\
+	\partial_t u + \nabla \cdot (\mathbf{U} u) &=
+	- \frac{\partial_x p}{\rho_0} + \nu^m \Delta u
+	+ f v \\
+	\partial_t v + \nabla \cdot (\mathbf{U} v) &=
+	- \frac{\partial_y p}{\rho_0} + \nu^m \Delta v
+	- f u \\
+	\partial_z p &= -\rho g
+\end{cases}
+\end{equation}
+where we noted $\mathbf{U} = \begin{pmatrix}u\\v\\w\end{pmatrix}$.
+$\rho$ is given by an equation of state, which will only depend on
+the temperature in our case. \myTD{Ajouter une équation de température !}
 \subsection{Reynolds decomposition}
+The solution of the system \eqref{eq:airseaSCM_nonTurbulentPrimitiveEq}
+contains very small scales which cannot be solved numerically for
+large domains such as the ocean or the atmosphere. It is hence usual
+to use the \textit{Reynolds decomposition}, which consists in
+separatinig the variables into an "average" part which can be
+represented by the numerical schemes and a fluctuating part which
+will be parameterized with turbulent closure schemes
+(detailed later in \S \ref{sec:airseaSCM_turbulentClosure}).
+\par
+For $X=u, v, w, p$ or $\theta$, we note
+\begin{equation}
+	X = \langle X\rangle + X'
+\end{equation}
+where $\langle \cdot \rangle$ represents a \textit{statistical}
+average which satisfies:
+\begin{equation}
+\begin{aligned}
+	\langle X' \rangle &= 0 \\
+	\langle \partial_\beta X \rangle &=
+	\partial_\beta \langle  X \rangle, ~~~\beta=x,y,z,t \\
+	\langle\langle \cdot \rangle\rangle &= \langle \cdot \rangle \\
+	\langle \langle X \rangle Y\rangle &= \langle X \rangle\langle Y \rangle
+\end{aligned}
+\end{equation}
+using those properties, the Reynolds decomposition of 
+\eqref{eq:airseaSCM_nonTurbulentPrimitiveEq} gives:
+\begin{equation}
+	\label{eq:airseaSCM_TurbulentPrimitiveEq}
+\begin{cases}
+	\nabla \cdot \langle\mathbf{U}\rangle &= 0 \\
+	\partial_t \langle u \rangle+ \nabla \cdot
+	(\langle\mathbf{U}\rangle \langle u\rangle) &=
+	- \frac{\partial_x \langle p\rangle}{\rho_0} +
+	\nu^m \Delta \langle u\rangle
+	+ f \langle v\rangle - \nabla \cdot \langle
+	\mathbf{U}' u'\rangle\\
+	\partial_t \langle v\rangle + \nabla \cdot
+	(\langle \mathbf{U}\rangle \langle v\rangle) &=
+	- \frac{\partial_y \langle p\rangle}{\rho_0} +
+	\nu^m \Delta \langle v\rangle
+	- f \langle u\rangle  - \nabla \cdot \langle
+	\mathbf{U}' v'\rangle\\
+	\partial_z\langle p\rangle &= -\rho g
+\end{cases}
+\end{equation}
+However, with this decomposition we obtain more unknown than
+equations: this is known as the turbulent closure problem.
 \subsection{Turbulent closure and kinetic energy}
+\label{sec:airseaSCM_turbulentClosure}
+We now provide additional relations between
+$\langle \mathbf{U}' u'\rangle, \langle \mathbf{U}' v'\rangle,\langle \mathbf{U}' w'\rangle,
+\langle \mathbf{U}' \theta'\rangle$ and the average quantities
+$\langle \mathbf{U}\rangle, \langle \theta \rangle, \langle p \rangle$.
+\paragraph{Boussinesq hypothesis}
+From the observation that the turbulent term acts like a diffusion
+term oriented "down-gradient", the turbulent terms are approximated
+with the help of a "turbulent viscosity" $\nu \in \mathbb{R}^3$:
+\begin{equation}
+\langle \mathbf{U}' u'\rangle = - \nu \cdot \nabla u'
+\end{equation}
+\myTD{Bon ici c'est vraiment pas au point}
+The turbulent viscosity can be defined in a lot of different ways.
+An important quantity often used is the Turbulent Kinetic Energy (TKE):
+\begin{equation}
+	e = \frac{1}{2} \left(\langle (u')^2 \rangle + \langle (v')^2 \rangle
+	+ \langle (w')^2 \rangle\right)
+\end{equation}
+in the turbulent closure model $k-\epsilon$,
+the turbulent viscosity is then defined by
+\begin{equation}
+	\nu = C_m l_m \sqrt{e}
+\end{equation}
+where $C_m$ is a constant and $l_m$ is a length scale.
+\myTD{equation en 3D plutôt, et voir quelles notations j'utilise:
+ça serait bien d'avoir les mêmes dans toute la thèse !
+A la limite je pourrais dire que K c'est une viscosité non constante
+et $\nu$ une viscosité constante}
+\begin{equation}
+\label{eq:airseaSCM_TKE_evolution}
+    \begin{aligned}
+    \partial_t e =
+    \underbrace{\partial_z \left(K_e
+    \partial_z e\right)}_{\text{diffusion}}
+    + \underbrace{K_u ||\partial_z u||^2}_{\text{shear}} 
+    - \underbrace{K_{\theta} N^2 }_{\text{buoyancy}}
+    - \underbrace{c_{\epsilon}
+    \frac{e^{3/2}}{l_{\epsilon}(z)}}_{\text{dissipation}}
+    \end{aligned}
+\end{equation}
 \myTD{etre clair dans l'intro de la TKE, et de la "production de TKE par le shear"}
 \section{The surface layer}
+\label{sec:airseaSCM_SL}
+The ocean and atmosphere have not been distinguished in equations so far.
+We will use a subscript "o" for the ocean quantities and "a" for the
+atmosphere quantities.
+Even if we assumed that \eqref{eq:airseaSCM_TurbulentPrimitiveEq}
+describes both of them, the transition between the ocean and the
+atmosphere is not straightforward to handle.
+We call \textit{surface layer} the area close to the ocean surface
+such that it responds to a change at the surface with a short
+timescale.
+We first restrict ourselves to the atmosphere then
+present the oceanic surface layer in \S \ref{sec:airseaSCM_twoSided}.
 \subsection{Law of the wall and Monin-Obukhov}
-\myTD{dire en chap1 que M-O
-n'est pas universellement admis (mais qu'il est utilisé presque partout, voir Basu 2017)}
+For the atmosphere, the ocean surface can be seen as a
+rough surface : the wind cannot slip on the ocean which
+means that the velocity of the wind is zero
+relatively to the surface.
+\par
+\myTD{copié-collé du chapitre 4:}
+\par
+In fluid dynamics, the presence of a rough surface makes strong
+gradients appear:
+due to the no-slip boundary condition
+the scales of motion close to the surface are much smaller than
+elsewhere in the domain and it is numerically
+intractable in most applications
+to refine the mesh enough for those small scales.
+The models hence exclude from the computational domain
+a part of the surface layer, using an adapted boundary
+condition.
+\cite{mohammadi_rough_1998} show that bulk boundary
+conditions can be derived with domain decomposition arguments;
+the computational domain is split into two parts:
+the surface layer $(0,\delta_{sl})$ and the remainder of
+the atmosphere column, $(\delta_{sl}, +\infty)$
+(see Figure \ref{fig:ND_NeutralCase_EkmanContinuous}).
+%
+ \myTD{ici on en dit trop ou pas assez: on peut citer
+ Schlichting (1960) ptet sur le proportional to $z$}
+ In the surface layer, the size of the turbulent eddies at height $z$
+ is proportional to the distance to the surface $z$
+ (e.g. \cite{kawai_wall-modeling_2012}).
+The turbulent viscosity
+linearly scales with $u_\star z$, where the coefficient of
+proportionality is the Von Karman constant $\kappa = 0.40$.
+Combining molecular and turbulent viscosities in the surface layer
+\par
+The surface layer has two main characteristics:
+\begin{itemize}
+	\item it is well mixed. The governing equation
+		is usually stationary because the surface layer
+		immediately adjusts to the external parameters.
+		As a consequence (and because the Coriolis effect
+		and the geostrophic forcing are neglected),
+		the flux $K \partial_z u$
+		is a constant along the vertical axis.
+	\item The vertical profile of $K$ strongly depends 
+		on $z$.
+\end{itemize}
+\myTD{dire que M-O
+n'est pas universellement admis (mais qu'il est utilisé presque partout,
+voir \citep{basu_cautionary_2017})}
+\myTD{Petit schéma}
+\myTD{IL FAUT ENCORE INTRODUIRE LES EQUATIONS DU BULK !!}
 \subsection{Two-sided bulk and entire coupled system}
+\label{sec:airseaSCM_twoSided}
+In Chapter \ref{ch:OceanND} we will also consider the
+\textit{oceanic surface layer}.
+The sea surface temperature and the surface currents are often
+evaluated below the surface.
+Some efforts have been made to correct the satellite measurement.
+\myTD{citer des trucs que cite charles ?}.
+In \citep{pelletier_two-sided_2021} a bulk formulation which
+uses Monin-Obukhov Similarity Theory (MOST) in the oceanic
+surface layer is derived.
+We follow this idea \myTD{et on en fait quoi ?}
+
+\myTD{Finally, the coupled system with the surface layer is...}
 \section{A hierarchy of models}
+\label{sec:airseaSCM_hierarchy}
 \subsection{Reaction-diffusion equations coupling
 with heterogeneous diffusion}
 \subsection{Ekman problem with a friction law}
@@ -21,3 +285,4 @@ with heterogeneous diffusion}
 \myTD{Donner des noms: Reaction-diffusion / Ekman /
 turbulent Ekman ?}
 \section{Context and objective of this thesis}
+\label{sec:airseaSCM_context_objectives}
