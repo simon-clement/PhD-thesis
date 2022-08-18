@@ -439,8 +439,9 @@ In this section, we assume that the space domain is sufficiently
 large ($H_j \rightarrow \infty$) but the results can be easily
 extended to domains of finite size.
 \subsection{Resolution in each subdomain}
-A discrete analysis of the finite difference scheme \eqref{eq:spaceTimeScheme} in the
-frequency domain (e.g. \cite{wu_optimized_2017}) leads to 
+A discrete analysis of the finite difference scheme \eqref{eq:spaceTimeScheme}
+in the frequency domain (see Chapter \ref{ch:discreteSchwarzAnalysis} or
+\cite{wu_optimized_2017}) leads to 
 $\widehat{\phi}_{{\rm o}, -m}^k = A_k^{\phi} (\lambda_{\rm o}+1)^m$
 and
 $\widehat{\phi}_{{\rm a}, m}^k = B_k^{\phi} (\lambda_{\rm a}+1)^m$ 
@@ -815,21 +816,21 @@ the equilibrium state, the problem \eqref{eq:SWRbulk} is well-posed:
 it has a unique solution that depends continuously
 on the initial data.
 \end{itemize}
-		\item Show that $\mathbf{\Phi}$ is $C^1$ in a
-			neighborhood of $\mathbf{U}^e$.
-			First, note that the mapping
-			$x \mapsto |x|x$ is analytic in a
-			ball that does not contain zero.
-			Since the non-linear friction condition
-			is the only source of
-			non-linearity in $\mathbf{\Phi}$,
-			it directly follows that
-			$\mathbf{\Phi}$ is $C^1$ and that
-			its differential
-			$D\mathbf{\Phi}(\mathbf{U}^e)$ is given
-			by the linearized problem (for more
-			details see
-			\cite{chacon-rebollo_existence_2014}).
+	\item Show that $\mathbf{\Phi}$ is $C^1$ in a
+		neighborhood of $\mathbf{U}^e$.
+		First, note that the mapping
+		$x \mapsto |x|x$ is analytic in a
+		ball that does not contain zero.
+		Then, $\mathbf{\Phi}$ is linear
+		except for the part corresponding
+		to the non-linear transmission condition.
+		It is then straightforward to show that
+		$\mathbf{\Phi}$ is $C^1$ and that
+		its differential
+		$D\mathbf{\Phi}(\mathbf{U}^e)$ is given
+		by the linearized problem (a rigourous
+		proof that can be directly adapted here
+		is given in \cite{chacon-rebollo_existence_2014}).
 		\item Show that $D\mathbf{\Phi}(\mathbf{U}^e)$
 		is an isomorphism:
 		$D\mathbf{\Phi}(\mathbf{U}^e)$ can
@@ -1035,33 +1036,8 @@ assuming that $U^k_j (\pm h_j/2, t)$ is in a neighborhood of $U^e(\pm h_j/2)$, t
 is non-zero and
 we can differentiate $\alpha$.
 Differences with the steady state are noted $\delta \phi_j^k = \phi^k_j(0,t) - \phi_j^e(0)$ and $\delta U_j^k = U_j^k(\pm h_j/2, t) - U^e_j(\pm h_j/2)$.
-\paragraph{linearization of the transmission condition}
-Let us first compute the total derivative of $x\mapsto |x|x$.
-The total derivative of $|\cdot|^2$ is
-\begin{equation}
-\langle D_x |\cdot|^2, \mu \rangle
-= \overline{x} \mu + x \overline{\mu}
-\end{equation}
-where $\overline{x}$ is the complex conjugate of $x$.
-We then use the chain rule to differentiate $|x| = \sqrt{|x|^2}$ and
-obtain
-\begin{equation}
-\langle D_x |\cdot|, \mu \rangle =
-\frac{1}{2} \frac{\overline{x}}{|x|} \mu
-+ \frac{1}{2} \frac{x}{|x|} \overline{\mu}
-\end{equation}
-Finally, the total derivative of the map $x\mapsto |x|x$ reads
-\begin{equation}
-	\langle D_x |\cdot|(\cdot), \mu \rangle =
-	\frac{1}{2} \underbrace{\frac{\overline{x}x}{|x|}}_{=|x|} \mu
-	+ \frac{1}{2}
-	\underbrace{\frac{x^2}{|x|}}_{=|x|\frac{x}{\overline{x}}}
-	\overline{\mu}
-	+ |x|\mu
-	= |x| \left(\frac{3}{2}\mu + \frac{1}{2}\frac{x}{\overline{x}}
-	\overline{\mu}\right)
-\end{equation}
-The transmission operator itself can now be linearized.
+\paragraph{Linearization of the transmission condition}
+We will now linearize the transmission operator.
 First, $\alpha^{k-1} \left(\delta U_a^{k-1+\theta}
 - \delta U_o^{k-1}\right)$
 is split into two parts in the non-linear transmission condition:
@@ -1088,6 +1064,32 @@ The transmission condition is linearized as
 	\left(\delta U_a^{k} - \delta U_a^{k-1}
 	\right)
 \end{equation}
+where $D$ denotes the total derivative.
+Let us first compute the total derivative of $x\mapsto |x|x$.
+The total derivative of $|\cdot|^2$ is
+\begin{equation}
+\langle D_x |\cdot|^2, \mu \rangle
+= \overline{x} \mu + x \overline{\mu}
+\end{equation}
+where $\overline{x}$ is the complex conjugate of $x$.
+We then use the chain rule to differentiate $|x| = \sqrt{|x|^2}$ and
+obtain
+\begin{equation}
+\langle D_x |\cdot|, \mu \rangle =
+\frac{1}{2} \frac{\overline{x}}{|x|} \mu
++ \frac{1}{2} \frac{x}{|x|} \overline{\mu}
+\end{equation}
+Finally, the total derivative of the map $x\mapsto |x|x$ reads
+\begin{equation}
+	\langle D_x |\cdot|(\cdot), \mu \rangle =
+	\frac{1}{2} \underbrace{\frac{\overline{x}x}{|x|}}_{=|x|} \mu
+	+ \frac{1}{2}
+	\underbrace{\frac{x^2}{|x|}}_{=|x|\frac{x}{\overline{x}}}
+	\overline{\mu}
+	+ |x|\mu
+	= |x| \left(\frac{3}{2}\mu + \frac{1}{2}\frac{x}{\overline{x}}
+	\overline{\mu}\right)
+\end{equation}
 Finally, the linearized transmission operator reads
 %==========================================
 \begin{equation}
@@ -1107,6 +1109,7 @@ Finally, the linearized transmission operator reads
 \end{equation}
 %==========================================
 with $\alpha^e=C_D\left|U_{\rm a}^e(h_{\rm a}/2) - U_{\rm o}^e(-h_{\rm o}/2)\right|$.
+\paragraph{Convergence study with the linearized transmission condition}
 Following the derivation in the previous paragraph (detailed in
 Section \ref{appendix:OASchwarz_LinearizedAnalysis} with
 space domains of finite size),
@@ -1171,7 +1174,7 @@ at the same time:
     \centering
     \includegraphics[scale=0.65]{plotEigenvaluesValidated.pdf}
 	\caption{Singular values $\widetilde{\xi}_1(\omega)$,
-	$\widetilde{\xi}_1(\omega)$ of the matrix $\begin{pmatrix}
+	$\widetilde{\xi}_2(\omega)$ of the matrix $\begin{pmatrix}
 	a_1(\omega) & a_2(\omega) \vspace{0.15cm}\\
 	\overline{a_2(-\omega)} & \overline{a_1(-\omega)} \\
 	\end{pmatrix}$.
@@ -1179,7 +1182,10 @@ at the same time:
 	iteration ${\xi}_{\rm obs} = \sqrt{\frac{|B_2(\omega)|^2 +
 	|B_2(-\omega)|^2}{|B_{1}(\omega)|^2
 	+ |B_{1}(-\omega)|^2}}$
-	is in purple.
+	is in purple. ${\xi}_{\rm obs}$ is such that
+	$\widetilde{\xi}_2 \leq {\xi}_{\rm obs}
+	\leq\widetilde{\xi}_1$ (see Figure
+	\ref{fig:OASchwarz_rateBetweenEigenvalues}).
 	}
     \label{fig:OASchwarz_singularValues}
 \end{figure}
@@ -1193,6 +1199,33 @@ at the same time:
 		+ {a_2(-{\omega})} \overline{B_{k}(\omega)}}
 	\end{aligned}
 \end{equation}
+\begin{figure}[htpb]
+	\centering
+	\scalebox{0.8}{
+		\import{}{rate_between_eigenvalues.pdf_tex}}
+	\caption[The convergence factor $\xi(k)$ varies and is bounded]{
+	The vector
+	$\mathbf{B}^k= \begin{pmatrix} B_k(\omega) \vspace{0.15cm}\\
+	\overline{B_k(-\omega)} \end{pmatrix}$
+	can be decomposed into a basis\footnotemark of eigenvector
+	$\mathbf{B}_i^k$ which converge linearly with
+	convergence factors $\widetilde{\xi}_i$.
+	4 iterations are shematically represented in blue, pink,
+	orange and purple. The "convergence factor"
+	$\xi_{\rm obs}(k)=\frac{||\mathbf{B}^{k+1}||}{||\mathbf{B}^{k}||}$
+	is such that
+	$\widetilde{\xi}_2 \leq \xi_{\rm obs} \leq \widetilde{\xi}_1$ and
+	varies from one iteration to another. $\xi(k)$
+	gets closer to $\widetilde{\xi}_1$ when $k$ increases as
+	$\mathbf{B}^k$ gets closer to $\mathbf{B}^k_1$.
+	}
+	\label{fig:OASchwarz_rateBetweenEigenvalues}
+\end{figure}
+\footnotetext{The matrix is indeed diagonalizable if
+$\widetilde{\xi}_1 \neq\widetilde{\xi}_2$; otherwise we
+have a simple convergence factor
+$\xi = \widetilde{\xi}_1 = \widetilde{\xi}_2$.
+}
 We examine the evolution of those two
 simulaneously evolving quantities:
 \begin{equation}
@@ -1211,29 +1244,6 @@ simulaneously evolving quantities:
 	\overline{B(-{\omega})}
 \end{pmatrix}_{k}
 \end{equation}
-% with:
-% \begin{equation}
-% \begin{aligned}
-%     a_1(\omega)
-%     &= \frac{\left(\left(\frac{3}{2} - \theta\right) 
-%     \lambda_{\rm a}
-%     + \frac{3}{2} \epsilon \lambda_{\rm o} \right)}
-% 	{\left(\frac{i(\omega+f)h_{\rm a}}{\alpha} -
-% 		\theta \lambda_{\rm a}\right)}, ~~~~~~~~~~
-%     a_2(\omega)
-%     &= \frac{
-%  \frac{
-%     \mathcal{O}
-%     }{2}
-%     \left(
-%     \overline{
-%     \lambda_{\rm a}(-{\omega})
-%     +
-%     \epsilon\lambda_{\rm o}(-{\omega})}
-%     \right)   
-%     }{\left(\frac{i(\omega+f)h_{\rm a}}{\alpha} - \theta \lambda_{\rm a}\right)}
-% \end{aligned}
-% \end{equation}
 The singular values (shown in Figure \ref{fig:OASchwarz_singularValues})
 of the $2\times 2$ matrix
 in \eqref{eq:OASchwarz_transitionMatrixDD26}
@@ -1241,33 +1251,7 @@ can be studied instead of the convergence factor.
 One can see on Figure \ref{fig:OASchwarz_singularValues} that
 the two singular values are different for small frequencies,
 especially around the frequencies $f$ and $-f$.
-\begin{figure}[htpb]
-	\centering
-	\scalebox{0.8}{
-		\import{}{rate_between_eigenvalues.pdf_tex}}
-	\caption[The convergence factor $\xi(k)$ varies and is bounded]{
-	The vector
-	$\mathbf{B}^k= \begin{pmatrix} B_k(\omega) \vspace{0.15cm}\\
-	\overline{B_k(-\omega)} \end{pmatrix}$
-	can be decomposed into a basis\footnotemark of eigenvector
-	$\mathbf{B}_i^k$ which converge linearly with
-	convergence factors $\widetilde{\xi}_i$.
-	4 iterations are shematically represented in blue, pink,
-	orange and purple. The "convergence factor"
-	$\xi(k)=\frac{||\mathbf{B}_{k+1}||}{||\mathbf{B}_{k}||}$
-	is such that
-	$\widetilde{\xi}_2 \leq \xi(k) \leq \widetilde{\xi}_1$ and
-	varies from one iteration to another. $\xi(k)$
-	gets closer to $\widetilde{\xi}_1$ when $k$ increases as
-	$\mathbf{B}^k$ gets closer to $\mathbf{B}^k_1$.
-	}
-	\label{fig:OASchwarz_rateBetweenEigenvalues}
-\end{figure}
-\footnotetext{The matrix is indeed diagonalizable if
-$\widetilde{\xi}_1 \neq\widetilde{\xi}_2$; otherwise we
-have a simple convergence factor
-$\xi = \widetilde{\xi}_1 = \widetilde{\xi}_2$.
-}
+\par
 One can hence expect (see
 Figure \ref{fig:OASchwarz_rateBetweenEigenvalues}) that for frequencies close to $f$ and $-f$
 the "convergence factor"
