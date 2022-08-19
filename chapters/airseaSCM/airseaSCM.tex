@@ -203,12 +203,13 @@ atmosphere quantities.
 Even if we assumed that \eqref{eq:airseaSCM_TurbulentPrimitiveEq}
 describes both of them, the transition between the ocean and the
 atmosphere is not straightforward to handle.
+\myTD{Un mot sur l'interface plane ici pitet}
 We call \textit{surface layer} the area close to the ocean surface
 such that it responds to a change at the surface with a short
 timescale.
 We first restrict ourselves to the atmosphere then
 present the oceanic surface layer in \S \ref{sec:airseaSCM_twoSided}.
-\subsection{Law of the wall and Monin-Obukhov}
+\subsection{Law of the wall and Monin-Obukhov Similarity Theory}
 For the atmosphere, the ocean surface can be seen as a
 rough surface : the wind cannot slip on the ocean which
 means that the velocity of the wind is zero
@@ -226,22 +227,24 @@ to refine the mesh enough for those small scales.
 The models hence exclude from the computational domain
 a part of the surface layer, using an adapted boundary
 condition.
-\cite{mohammadi_rough_1998} show that bulk boundary
-conditions can be derived with domain decomposition arguments;
-the computational domain is split into two parts:
-the surface layer $(0,\delta_{sl})$ and the remainder of
-the atmosphere column, $(\delta_{sl}, +\infty)$
-(see Figure \ref{fig:ND_NeutralCase_EkmanContinuous}).
 %
- \myTD{ici on en dit trop ou pas assez: on peut citer
- Schlichting (1960) ptet sur le proportional to $z$}
- In the surface layer, the size of the turbulent eddies at height $z$
- is proportional to the distance to the surface $z$
- (e.g. \cite{kawai_wall-modeling_2012}).
+\paragraph{Neutral case}
+We first present the case without stratification:
+\citep{karman_mechanische_1930} noticed that the
+fluids close to rough surfaces present similarities and
+propose a universal function based on dimensional analysis.
+Von Kàrmàn also states that "the characteristic length
+of the flow pattern is proportional to
+[the distance to the wall]".
+
+\myTD{On pourra citer \citep{schlichting_boundary_1960} sur le
+choix de $z_0$}
+In the surface layer, the size of the turbulent eddies at height $z$
+is proportional to the distance to the surface $z$
+(e.g. \cite{kawai_wall-modeling_2012}).
 The turbulent viscosity
 linearly scales with $u_\star z$, where the coefficient of
 proportionality is the Von Karman constant $\kappa = 0.40$.
-Combining molecular and turbulent viscosities in the surface layer
 \par
 The surface layer has two main characteristics:
 \begin{itemize}
