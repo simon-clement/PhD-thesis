@@ -76,12 +76,12 @@ $\partial_z p = -\rho g$. We neglect the vertical
 acceleration due to pressure and gravity.
 This approximation is usually done for large time
 scales like the one used in climate simulations.
-\item \textit{Boussinesq approximation}:
+\item \textit{Boussinesq approximation}
+\citep{boussinesq_theorie_1903}:
 the density $\rho$ is close to a constant $\rho_0$.
 The variation of density $\widetilde{\rho} =
 \rho - \rho_0$ is neglected except when computing
 the pressure gradient $\partial_z p = - \rho g$.
-\myTD{citer Boussinesq}
 Despite this approximation being very rough
 for the atmosphere, we use it for both domains
 to keep some symmetry of our equations.
@@ -103,7 +103,8 @@ primitive equations:
 \end{equation}
 where we noted $\mathbf{U} = \begin{pmatrix}u\\v\\w\end{pmatrix}$.
 $\rho$ is given by an equation of state, which will only depend on
-the temperature in our case. \myTD{Ajouter une équation de température !}
+the temperature in our case. \myTD{Ajouter une équation de température
+et parler de l'hypothèse de dry atmosphere!}
 \subsection{Reynolds decomposition}
 The solution of the system \eqref{eq:airseaSCM_nonTurbulentPrimitiveEq}
 contains very small scales which cannot be solved numerically for
@@ -229,6 +230,10 @@ a part of the surface layer, using an adapted boundary
 condition.
 %
 \paragraph{Neutral case}
+\myTD{Présenter ce qu'est un cas neutre: dans chap4 on a
+"there is no effect of the stratification on the turbulent
+viscosity so the wind speed can be integrated in time without temp and
+humidity" }
 We first present the case without stratification:
 \citep{karman_mechanische_1930} noticed that the
 fluids close to rough surfaces present similarities and
@@ -236,20 +241,11 @@ propose a universal function based on dimensional analysis.
 Von Kàrmàn also states that "the characteristic length
 of the flow pattern is proportional to
 [the distance to the wall]".
-
-\myTD{On pourra citer \citep{schlichting_boundary_1960} sur le
-choix de $z_0$}
-In the surface layer, the size of the turbulent eddies at height $z$
-is proportional to the distance to the surface $z$
-(e.g. \cite{kawai_wall-modeling_2012}).
-The turbulent viscosity
-linearly scales with $u_\star z$, where the coefficient of
-proportionality is the Von Karman constant $\kappa = 0.40$.
 \par
 The surface layer has two main characteristics:
 \begin{itemize}
 	\item it is well mixed. The governing equation
-		is usually stationary because the surface layer
+		is quasi-stationary because the surface layer
 		immediately adjusts to the external parameters.
 		As a consequence (and because the Coriolis effect
 		and the geostrophic forcing are neglected),
@@ -257,12 +253,148 @@ The surface layer has two main characteristics:
 		is a constant along the vertical axis.
 	\item The vertical profile of $K$ strongly depends 
 		on $z$.
+		The size of the turbulent eddies at height $z$
+		is proportional to the distance to the surface $z$
+		(e.g. \cite{kawai_wall-modeling_2012}).
+		\myTD{on met un mini dessin qui montre des spirales ?}
+		As a consequence, the turbulent viscosity
+		linearly scales with $z$:
+		\begin{equation}
+			K \propto z+z_u
+		\end{equation}
 \end{itemize}
-\myTD{dire que M-O
-n'est pas universellement admis (mais qu'il est utilisé presque partout,
-voir \citep{basu_cautionary_2017})}
-\myTD{Petit schéma}
-\myTD{IL FAUT ENCORE INTRODUIRE LES EQUATIONS DU BULK !!}
+\myTD{definir $u_h$}
+We define \textit{friction scales} $u_\star$
+, $z_{u}$ such that $u_\star^2 =
+|\langle w' u_h' \rangle|$ and
+$z_{u} = z_{u}(K_{\rm mol}, u_\star)$
+(see e.g. \citep{schlichting_boundary_1960}
+for the choice of $z_{u}$ as a constant
+of integration).
+The law of the wall reads
+\begin{equation}
+	\label{eq:airseaSCM_LawOfWallProfile}
+	u = \frac{u_\star}{\kappa} \ln(\frac{z+z_u}{z_u})
+\end{equation}
+where $\kappa = 0.4$ is the Von Kàrmàn constant.
+\begin{remark}
+	Generally, the law of the wall
+	refers to an expression using
+	$\ln(\frac{z}{z_u})$. By using $z+z_u$
+	instead of $z$,
+	the molecular sub-layer is included
+	inside the law of the wall: we can hence
+	use the profile of $u$ for small $z$.
+	\myTD{ref là dessus ? j'ai que cocoa-wp2}
+\end{remark}
+\paragraph{Stratified case}
+The extension of the law of the wall to stratified
+fluids is called \textit{Monin-Obukhov Similarity Theory}.
+The quasi-stationarity is also assumed for the temperature
+and $K_u \partial_z u$ and $K_\theta \partial_z \theta$
+are both constants along the vertical axis.
+We can define a friction scale $\theta_\star$
+for the potential temperature, such that
+\begin{equation}
+	\langle w' \theta' \rangle = u_\star \theta_\star
+\end{equation}
+To describe the stratification, the \textit{Obukhov length}
+is used:
+\begin{equation}
+	L_{MO} = \frac{u_\star^3}{g \kappa
+	\frac{\theta_\star}{\theta(\delta_{sl})}}
+\end{equation}
+which is the only characteristic length describing
+accurately the effect of the stratification in
+the surface layer \citep{obukhov_turbulence_1946}.
+$L_{MO}>0$ in stable stratifications
+(where $\theta_\star>0$)
+and $L_{MO}<0$ in unstable stratifications
+(where $\theta_\star>0$).
+The neutral case will be recovered
+for $L_{MO} \rightarrow \infty$, corresponding
+to $\theta_\star \rightarrow 0$.
+\par
+The difference with the neutral case is then contained
+in \text{stability functions} $\phi_m, \phi_h$:
+\begin{equation}
+\begin{aligned}
+	K_u &\propto (z+z_u)~ \phi_m(\frac{z}{L_{MO}}) \\
+	K_\theta &\propto (z+z_u)~ \phi_h(\frac{z}{L_{MO}})
+\end{aligned}
+\end{equation}
+We will use the stability functions of
+\citep{hogstrom_non-dimensional_1988} defined by
+\begin{equation}
+\begin{aligned}
+	\phi_h(\frac{z}{L_{MO}}) = \phi_m(\frac{z}{L_{MO}})
+	&= 1+ \frac{z}{L_{MO}},
+	~~~~~ L_{MO} > 0\\
+	\phi_h(\frac{z}{L_{MO}}) =
+	\left(\phi_m(\frac{z}{L_{MO}})\right)^2
+	&= \frac{1}{\sqrt{1 - \frac{16 z}{L_{MO}}}},
+	~~~~~L_{MO} < 0
+\end{aligned}
+\end{equation}
+where it is easy to check that $L_{MO}\rightarrow \infty$
+recovers the neutral case.
+To obtain the solution profiles,
+the \textit{integrated forms}
+of the stability functions are defined as
+\begin{equation}
+	\psi_x \left(\frac{z}{L_{MO}}\right)
+	= \int_0^{\frac{z}{L_{MO}}}
+	\frac{1 - \phi_x(\zeta)}{\zeta} d\zeta
+	, ~~~~x=u,\theta
+\end{equation}
+and we have
+\begin{equation}
+\label{eq:airseaSCM_MOSTprofiles}
+\begin{aligned}
+	||u(z)-u(0)|| = \frac{u_\star}{\kappa}
+    \left(
+	\ln(1+\frac{z}{z_{u}})
+	\emphase{- \psi_u\left(\frac{z}{L_{MO}}\right)}
+    \right)
+    \\
+    \theta(z) - \theta_s = 
+	\frac{\emphase{\theta_\star}}{\kappa}
+    \left(
+	\ln(1+\frac{z}{z_{\theta}})
+	\emphase{- \psi_\theta\left(\frac{z}{L_{MO}}\right)}
+\right)
+\end{aligned}
+\end{equation}
+Monin-Obukhov Similarity Theory
+is extensively used (e.g. \citep{basu_cautionary_2017});
+it is however not universally
+accepted in particular in very stable stratifications
+(see \citep{optis_moving_2014}).
+\paragraph{Bulk algorithm}
+Using \eqref{eq:airseaSCM_MOSTprofiles} and the values of
+$u(\delta_{sl}) - u(0)$ and $\theta(\delta_{sl}) - \theta_s$
+it is possible to compute the friction scales
+$u_\star, \theta_\star$. It is however not trivial as
+$L_{MO}$ and $z_u, z_\theta$ depend themselves on
+$u_\star, \theta_\star$.
+The so-called "bulk algorithm" are designed for this
+task: they generally rely on a fixed-point method:
+\begin{enumerate}
+\item input: $u(\delta_{sl}) - u(0)$
+		and $\theta(\delta_{sl}) - \theta_s$;
+\item choose a first guess $u_\star^{k=0}, \theta_\star^{k=0}$;
+\item iteratively apply
+	\eqref{eq:airseaSCM_MOSTprofiles} (or
+	\eqref{eq:airseaSCM_LawOfWallProfile} in the neutral case)
+	to compute $u_\star^{k}, \theta_\star^{k}$ using
+	$u_\star^{k-1}, \theta_\star^{k-1}$
+	in the expressions of $z_u, z_\theta$ and $L_{MO}$;
+\item at convergence ($u_\star^{k},\theta_\star^{k} \approx
+	u_\star^{k-1},\theta_\star^{k-1}$) return the friction
+		scales $u_\star = u_\star^{k},
+		\theta_\star = \theta_\star^{k}$ (or only
+		$u_\star = u_\star^{k}$ in the neutral case)
+\end{enumerate}
 \subsection{Two-sided bulk and entire coupled system}
 \label{sec:airseaSCM_twoSided}
 In Chapter \ref{ch:OceanND} we will also consider the
