@@ -52,7 +52,7 @@ conservation of mass:
 \label{eq:airseaSCM_conservationMass}
 \partial_t \rho = - \nabla \cdot (\rho \mathbf{U})
 \end{equation}
-\myTD{J'ai paraphrasé la thèse de Sophie ici}
+\myTD{J'ai paraphrasé la thèse de Sophie dans l'itemize}
 It is now possible to simplify the two equations
 \eqref{eq:airseaSCM_momentumNavierStokes} and
 \eqref{eq:airseaSCM_conservationMass} with
@@ -102,9 +102,28 @@ primitive equations:
 \end{cases}
 \end{equation}
 where we noted $\mathbf{U} = \begin{pmatrix}u\\v\\w\end{pmatrix}$.
-$\rho$ is given by an equation of state, which will only depend on
-the temperature in our case. \myTD{Ajouter une équation de température
-et parler de l'hypothèse de dry atmosphere!}
+\paragraph{Stratification}
+$\rho$ is given by an equation of state, which only involves
+the temperature in our case (in particular, the effect
+of humidity (in the atmosphere) and salinity (in the ocean)
+are neglected).
+A \textit{neutral} stratification refers to a constant 
+density along the vertical axis. Since the density is
+constant, the temperature does not need to be computed
+to integrate in time the wind speed.
+\par
+On the contrary, in a \textit{stratified} case the
+density depends on the potential temperature $\theta$:
+\begin{equation}
+	\partial_t \theta + \nabla \cdot (\mathbf{U} \theta) =
+	K_{\theta, {\rm mol}} \Delta \theta + F_\theta
+\end{equation}
+where $K_{\theta, {\rm mol}}$ and $F_\theta$ are
+the molecular diffusivity and some forcing term.
+$\theta$ must be computed jointly with the wind
+speed to solve the system
+\eqref{eq:airseaSCM_nonTurbulentPrimitiveEq}.
+
 \subsection{Reynolds decomposition}
 The solution of the system \eqref{eq:airseaSCM_nonTurbulentPrimitiveEq}
 contains very small scales which cannot be solved numerically for
@@ -155,18 +174,22 @@ However, with this decomposition we obtain more unknown than
 equations: this is known as the turbulent closure problem.
 \subsection{Turbulent closure and kinetic energy}
 \label{sec:airseaSCM_turbulentClosure}
-We now provide additional relations between
+To tackle this problem, we now provide additional relations between
 $\langle \mathbf{U}' u'\rangle, \langle \mathbf{U}' v'\rangle,\langle \mathbf{U}' w'\rangle,
 \langle \mathbf{U}' \theta'\rangle$ and the average quantities
 $\langle \mathbf{U}\rangle, \langle \theta \rangle, \langle p \rangle$.
 \paragraph{Boussinesq hypothesis}
 From the observation that the turbulent term acts like a diffusion
 term oriented "down-gradient", the turbulent terms are approximated
-with the help of a "turbulent viscosity" $\nu \in \mathbb{R}^3$:
+with the help of a "turbulent viscosity"
+$\mathbf{K}_u \in \mathbb{R}^3$:
 \begin{equation}
-\langle \mathbf{U}' u'\rangle = - \nu \cdot \nabla u'
+\langle \mathbf{U}' u'\rangle = - \mathbf{K}_u \cdot \nabla
+	\langle u \rangle
 \end{equation}
-\myTD{Bon ici c'est vraiment pas au point}
+This is known as the \textit{Boussinesq hypothesis}
+(\citep{boussinesq_theorie_1897},
+different from the Boussinesq \textit{approximation})
 The turbulent viscosity can be defined in a lot of different ways.
 An important quantity often used is the Turbulent Kinetic Energy (TKE):
 \begin{equation}
@@ -176,13 +199,51 @@ An important quantity often used is the Turbulent Kinetic Energy (TKE):
 in the turbulent closure model $k-\epsilon$,
 the turbulent viscosity is then defined by
 \begin{equation}
-	\nu = C_m l_m \sqrt{e}
+	\mathbf{K}_u = C_m \mathbf{l}_m \sqrt{e}
 \end{equation}
 where $C_m$ is a constant and $l_m$ is a length scale.
-\myTD{equation en 3D plutôt, et voir quelles notations j'utilise:
-ça serait bien d'avoir les mêmes dans toute la thèse !
-A la limite je pourrais dire que K c'est une viscosité non constante
-et $\nu$ une viscosité constante}
+The evolution equation for the TKE
+is
+\begin{equation}
+	\partial_t e - 
+\underbrace{\partial_z \left(K_e
+    \partial_z e\right)}_{\text{diffusion}}
+    = P + B - \epsilon
+\end{equation}
+where $P>0$ and $B$ are terms denoting respectively
+the shear and buoyancy production of kinetic energy;
+$\epsilon>0$ is the dissipation rate of TKE
+into heat.
+\par
+$P$ corresponds to the energy lost by $u$ by the
+term $\nabla \mathbf{K}_u \nabla u$:
+in one vertical dimension, we
+multiply by $u$ the equation
+$\partial_t u = \partial_z (K_u \partial_z u)$.
+and express the result in function of the
+mean energy $\frac{u^2}{2}$.
+This gives (e.g. \citep{burchard_energy-conserving_2002},
+where the derivation is done in the continuous and in the
+discrete level.)
+\begin{equation}
+	\partial_t (\frac{u^2}{2})
+	- \partial_z (K_u \partial_z(\frac{u^2}{2}))
+	= - K_u(\partial_z u)^2
+\end{equation}
+where $P=K_u(\partial_z u)^2$ is the energy
+\textit{produced} by the shear.
+\par
+A similar treatment with the density
+(whose diffusion term is multiplied by $z$ instead of $u$)
+gives that the potential energy
+is increased or reduced by $B = -K_\theta N^2$ where
+$N^2 = - \frac{g\partial_z \rho}{\rho_0}$ is the Brunt-Väisälä
+frequency.
+The dissipation rate $\epsilon$ can be parameterized by
+$\epsilon \propto \frac{e^{3/2}}{l_{\epsilon}(z)}$.
+\myTD{source ?}
+\par
+Finally, the one-dimensional evolution equation for the TKE is
 \begin{equation}
 \label{eq:airseaSCM_TKE_evolution}
     \begin{aligned}
@@ -195,21 +256,30 @@ et $\nu$ une viscosité constante}
     \frac{e^{3/2}}{l_{\epsilon}(z)}}_{\text{dissipation}}
     \end{aligned}
 \end{equation}
-\myTD{etre clair dans l'intro de la TKE, et de la "production de TKE par le shear"}
 \section{The surface layer}
 \label{sec:airseaSCM_SL}
 The ocean and atmosphere have not been distinguished in equations so far.
 We will use a subscript "o" for the ocean quantities and "a" for the
 atmosphere quantities.
-Even if we assumed that \eqref{eq:airseaSCM_TurbulentPrimitiveEq}
-describes both of them, the transition between the ocean and the
-atmosphere is not straightforward to handle.
-\myTD{Un mot sur l'interface plane ici pitet}
+\par
 We call \textit{surface layer} the area close to the ocean surface
 such that it responds to a change at the surface with a short
 timescale.
 We first restrict ourselves to the atmosphere then
 present the oceanic surface layer in \S \ref{sec:airseaSCM_twoSided}.
+Even if we assumed that \eqref{eq:airseaSCM_TurbulentPrimitiveEq}
+describes both of them, the transition between the ocean and the
+atmosphere is not straightforward to handle.
+In all this thesis, we will assume that the water
+surface is flat: this restriction strongly simplifies
+the column models, in particular when the space step becomes
+smaller than the surface waves.
+The free ocean surface is beyond the scope of this thesis:
+however, excluding explicitly
+the surface layer from the computational
+domain (like it will be done in Chapters \ref{ch:ND},
+\ref{ch:OceanND}) may lead to
+a relatively simple handling of the free surface.
 \subsection{Law of the wall and Monin-Obukhov Similarity Theory}
 For the atmosphere, the ocean surface can be seen as a
 rough surface : the wind cannot slip on the ocean which
@@ -230,10 +300,6 @@ a part of the surface layer, using an adapted boundary
 condition.
 %
 \paragraph{Neutral case}
-\myTD{Présenter ce qu'est un cas neutre: dans chap4 on a
-"there is no effect of the stratification on the turbulent
-viscosity so the wind speed can be integrated in time without temp and
-humidity" }
 We first present the case without stratification:
 \citep{karman_mechanische_1930} noticed that the
 fluids close to rough surfaces present similarities and
@@ -242,39 +308,59 @@ Von Kàrmàn also states that "the characteristic length
 of the flow pattern is proportional to
 [the distance to the wall]".
 \par
-The surface layer has two main characteristics:
+We list below the main features of the surface layer:
 \begin{itemize}
-	\item it is well mixed. The governing equation
-		is quasi-stationary because the surface layer
-		immediately adjusts to the external parameters.
-		As a consequence (and because the Coriolis effect
-		and the geostrophic forcing are neglected),
-		the flux $K \partial_z u$
+	\item the Coriolis effect and the geostrophic forcing are
+		neglected (we assume that the effect of the
+		proximity to the surface is predominant);
+	\item it is well mixed: the governing equation
+		is quasi-stationary (the surface layer
+		immediately adjusts to the external parameters).
+		As a consequence, the flux $K \partial_z u$
 		is a constant along the vertical axis.
 	\item The vertical profile of $K$ strongly depends 
 		on $z$.
 		The size of the turbulent eddies at height $z$
 		is proportional to the distance to the surface $z$
-		(e.g. \cite{kawai_wall-modeling_2012}).
-		\myTD{on met un mini dessin qui montre des spirales ?}
+		(e.g. \cite{kawai_wall-modeling_2012}, see Figure
+		\ref{fig:airseaSCM_eddiesDrawing}).
 		As a consequence, the turbulent viscosity
 		linearly scales with $z$:
 		\begin{equation}
 			K \propto z+z_u
 		\end{equation}
 \end{itemize}
-\myTD{definir $u_h$}
-We define \textit{friction scales} $u_\star$
+We now interest ourselves into the horizontal component of
+the speed. We first assume that it is aligned with the
+direction of $u$: since the Coriolis effect
+is neglected and the turbulence is assumed isotropic,
+there is no rotation of the fluid inside the surface layer
+and we can assume that $v=0$
+with a rotation of the axis reference.
+We will use the orientation of the wind speed later.
+\par
+Let us define \textit{friction scales} $u_\star$
 , $z_{u}$ such that $u_\star^2 =
 |\langle w' u_h' \rangle|$ and
 $z_{u} = z_{u}(K_{\rm mol}, u_\star)$
 (see e.g. \citep{schlichting_boundary_1960}
 for the choice of $z_{u}$ as a constant
 of integration).
+\begin{figure}
+	\centering
+	\subimport{images/}{EddiesDrawing.pdf_tex}
+	\caption{The characteristic size of the eddies
+	(in purple) is proportional to the distance to the
+	surface. The link between the size of the eddies
+	and the logarithmic profile (in orange) is
+	the constant flux approximation.
+	}
+	\label{fig:airseaSCM_eddiesDrawing}
+\end{figure}
 The law of the wall reads
 \begin{equation}
 	\label{eq:airseaSCM_LawOfWallProfile}
-	u = \frac{u_\star}{\kappa} \ln(\frac{z+z_u}{z_u})
+	u(z) - u(0) = \frac{u_\star}{\kappa} \ln(\frac{z+z_u}{z_u})
 \end{equation}
 where $\kappa = 0.4$ is the Von Kàrmàn constant.
 \begin{remark}
