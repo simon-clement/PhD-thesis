@@ -370,8 +370,8 @@ where $\kappa = 0.4$ is the Von Kàrmàn constant.
 	instead of $z$,
 	the molecular sub-layer is included
 	inside the law of the wall: we can hence
-	use the profile of $u$ for small $z$.
-	\myTD{ref là dessus ? j'ai que cocoa-wp2}
+	use the profile of $u$ for small $z$
+	\citep{pelletier_two-sided_2021}.
 \end{remark}
 \paragraph{Stratified case}
 The extension of the law of the wall to stratified
@@ -481,29 +481,144 @@ task: they generally rely on a fixed-point method:
 		\theta_\star = \theta_\star^{k}$ (or only
 		$u_\star = u_\star^{k}$ in the neutral case)
 \end{enumerate}
-\subsection{Two-sided bulk and entire coupled system}
+\subsection{Two-sided bulk}
 \label{sec:airseaSCM_twoSided}
 In Chapter \ref{ch:OceanND} we will also consider the
 \textit{oceanic surface layer}.
 The sea surface temperature and the surface currents are often
 evaluated below the surface.
-Some efforts have been made to correct the satellite measurement.
-\myTD{citer des trucs que cite charles ?}.
+Some efforts have been made to correct the satellite
+measurement: \citep{donlon_toward_2002} show that
+the difference between
+the surface temperature and the sub-surface temperature is
+approximatively constant for medium and strong winds but that 
+it is harder to evaluate in stratified condition corresponding
+to winds slower than $6 \; {\rm m}.{\rm s}^{-1}$).
+\citep{ward_near-surface_2006}
+"\textit{show the strong dependency of the SST on air-sea heat
+flux estimates, with warm-layer errors of almost
+60 ${\rm W}.{\rm m}^{-2}$ associated with intense stratification. This indicates
+the importance of the inclusion of the skin temperature for
+accurate calculation of latent, sensible, and net longwave
+heat fluxes.}"
 In \citep{pelletier_two-sided_2021} a bulk formulation which
 uses Monin-Obukhov Similarity Theory (MOST) in the oceanic
 surface layer is derived.
-We follow this idea \myTD{et on en fait quoi ?}
-
-\myTD{Finally, the coupled system with the surface layer is...}
+We follow this idea and incorporate to our coupled model an
+oceanic surface layer which follows the same principles as
+the surface layer in the atmosphere.
+To satisfy the continuity of the fluxes across the interface,
+the friction scales of the ocean are
+$\sqrt{\frac{\rho_{\rm a}} {\rho_{\rm o}}} u_\star$ and
+$\sqrt{\frac{\rho_{\rm a}}{\rho_{\rm o}}
+\frac{c_{\rm a}^p}{c_{\rm o}^p}}
+\theta_\star$.
+We hence have for $\delta_o \leq z \leq 0$ (where $\delta_o \leq 0$
+is the depth of the surface layer):
+\begin{equation}
+	\begin{aligned}
+	||K_u \partial_z u|| &= \frac{\rho_a}{\rho_o}
+	u_\star^2\\
+	||K_\theta \partial_z \theta|| &=
+	\frac{\rho_{\rm a} c_{\rm a}^p}{\rho_{\rm o} c_{\rm o}^p}
+	\theta_\star u_\star
+	\end{aligned}
+\end{equation}
+and the reconstruction of $u$, $\theta$ follow equations
+similar to \eqref{eq:airseaSCM_MOSTprofiles}:
+\begin{equation}
+\label{eq:airseaSCM_MOSTprofilesOSL}
+\begin{aligned}
+	||u(0)-u(z)|| = \emphase{\frac{\rho_a}{\rho_o}}
+	\frac{u_\star}{\kappa}
+    \left(
+	\ln(1-\frac{z}{z_{u}^o})
+	\emphase{- \psi_u^o\left(-\frac{z}{L_{MO}}\right)}
+    \right)
+    \\
+	\theta_s - \theta(z) = 
+	{\sqrt{\frac{\rho_{\rm a}}{\rho_{\rm o}}
+	\frac{c_{\rm a}^p}{c_{\rm o}^p}}}
+	\frac{{\theta_\star}}{\kappa}
+    \left(
+	\ln(1-\frac{z}{z_{\theta}^o})
+	{- \psi_\theta^o\left(-\frac{z}{L_{MO}}\right)}
+\right)
+\end{aligned}
+\end{equation}
+If $\delta_o$ is set to zero, then there is no surface layer
+in the ocean and we call the surface layer \textit{one-sided}.
+in the other case ($\delta_o<0$) the surface layer is
+\textit{two-sided}.
+The full coupled problem described until here
+is called "turbulent Ekman problem". It is summed up in
+\S\ref{sec:airseaSCM_hierarchy_TurbulentEkman}.
 \section{A hierarchy of models}
 \label{sec:airseaSCM_hierarchy}
-\subsection{Reaction-diffusion equations coupling
-with heterogeneous diffusion}
+The analysis of coupling algorithms applied to the
+ocean-atmosphere system requires additional
+simplifications to be performed.
+The simplifications are the following:
+\begin{enumerate}
+	\item \textbf{Turbulent Ekman}: we restrict ourselves to one
+		vertical dimension. The stratification can be
+		neutral or not.
+	\item \textbf{Ekman}: additionally,
+		the viscosity is constant in the
+		atmosphere and in the ocean; $u_\star$ is constant.
+	\item \textbf{Reaction-diffusion}: The surface layer is ignored;
+		the density jump is neglected;
+		the Coriolis term is replaced by a reaction term.
+\end{enumerate}
+\subsection{Ekman problem Neutral or Stratified with bulk and turbulent kinetic energy}
+\label{sec:airseaSCM_hierarchy_TurbulentEkman}
+The \textbf{Turbulent Ekman} model is the one described up till now.
+We restrict ourselves to a vertical column of atmosphere
+above a vertical column of ocean.
+To avoid having to carry $u, v, w$ in all the equations
+the vertical speed $w$ is not explicitly represented
+(it can be however deduced from $u,v$ and the equation
+$\nabla \cdot \mathbf{U}=0$).
+Moreover, $u$ and $v$ will be represented together in
+a single complex variable $u^{\mathbb{C}} = u+iv$.
+The rotation of the Coriolis effect corresponds to
+a rotation in the complex plane.
+Indeed, rewriting \eqref{eq:airseaSCM_TurbulentPrimitiveEq}
+with an operator ${cal L}$ corresponding to everything except
+the Coriolis term gives:
+\begin{equation}
+	\label{eq:airseaSCM_complexForm}
+\begin{cases}
+	{\cal L}u &= fv\\
+	{\cal L}v &= - fu = (i^2) f u
+\end{cases}
+\end{equation}
+which can be written ${\cal L}u^{\mathbb{C}} = -i f u^\mathbb{C}$.
+In the following we will drop the ${\mathbb{C}}$ exponent
+and use a reaction term $ifu$ for the Coriolis effect.
+\myTD{recap du système couplé, neutre ou pas}
 \subsection{Ekman problem with a friction law}
 \label{sec:airseaSCM_hierarchy_Ekman}
-\myTD{introduire et détailler le principe de $u$ complexe}
-\subsection{Ekman problem Neutral or Stratified with bulk and turbulent kinetic energy}
-\myTD{Donner des noms: Reaction-diffusion / Ekman /
-turbulent Ekman ?}
+The discrete analysis of the convergence of Schwarz methods
+requires a constant viscosity. This is a very strong assumption
+which leads to a vertical mixing not physically relevant.
+However, it allows to study the effect of the surface layer on the
+convergence of Schwarz methods.
+The bulk methods used to parameterize the surface layer use
+implicitly defined applications which are hard to deal with
+in a convergence study. For this reason, we also assume
+that $u_\star$ is constant but we keep a proximity with
+the usual parameterizations of the surface layer
+by formulating $u_\star^2$
+as $C_D |U_a - U_o|(U_a-U_o)$ where $C_D$ is constant.
+\myTD{plus de détails sur la reformulation}
+\myTD{système complet là dessus}
+\subsection{Reaction-diffusion equations coupling
+with heterogeneous diffusion}
+To study in details the mechanisms involved in
+the discrete coupled system, we study the very idealized
+case where both viscosities are constant and
+the law of the wall is not applied at the interface.
+\myTD{système complet}
 \section{Context and objective of this thesis}
 \label{sec:airseaSCM_context_objectives}
