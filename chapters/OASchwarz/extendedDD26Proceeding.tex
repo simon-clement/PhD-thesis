@@ -17,15 +17,15 @@ the discrete analysis of the convergence of Schwarz methods;
 the implementation of the law of the wall was discussed
 in Chapter \ref{ch:ND}. We now aim to study the convergence
 properties of Schwarz methods when the law of the wall is
-used at the interface between ocean and atmosphere.
-In this chapter, we study the Ekman problem with a
+used at the interface between ocean and
+atmosphere. In this chapter, we study the Ekman problem with a
 simplified bulk condition at the surface such that
 it can be easily implemented to numerically validate the
 convergence results.
 A part of this chapter was published in proceedings of the
 International Conference on Domain Decomposition Methods
 \citep{clement_discrete_2021}.
-
+\par
 Schwarz-like domain decomposition methods are very popular in 
 mathematics, computational sciences and engineering notably for 
 the implementation of coupling strategies. Such an iterative method
@@ -38,15 +38,18 @@ knowledge of the convergence properties of the Schwarz method.
 Indeed coupled problems arising in ESMs often 
 exhibit sharp turbulent boundary layers whose parameterizations 
 lead to peculiar transmission conditions. The objective in
-this paper is to study a model problem representative 
+this chapter is to study a model problem representative 
 of the coupling between the ocean and the atmosphere, including discretization 
 and so-called bulk interface conditions which are analogous to a 
 quadratic friction law. Such a model is introduced in Section \ref{sec:couplingProblem}
 and its discretization, as done in state-of-the-art ESMs, 
-is described in Section \ref{sec:discreteProblem}. In the semi-discrete
-case in space we conduct in Section \ref{sec:conv-lin} a convergence analysis 
-of the model problem first with a linear friction and then with a 
-quadratic friction linearized around equilibrium solutions. 
+is described in Section \ref{sec:discreteProblem}.
+In the semi-discrete case in space we compute in Section
+\ref{sec:OASchwarz_DiscreteStationaryState} the steady state
+and discuss the well-posedness.
+A semi-discrete convergence analysis of the model problem is conducted
+in Section \ref{sec:conv-lin} first with a linear friction and then
+with a quadratic friction linearized around equilibrium solutions. 
 Finally, in Section \ref{sec:num-exp}, numerical experiments in the 
 linear and nonlinear case are performed to illustrate the relevance 
 of our analysis. \par
@@ -82,10 +85,10 @@ meters close to the interface (in a region called
 \textit{surface layer}). The cost of an
 explicit representation of the surface layer in numerical simulations being 
 unaffordable, this region is numerically accounted for 
-using wall laws a.k.a. log laws (e.g. \cite{mohammadi_rough_1998}). This approach, 
+using wall laws a.k.a. log laws \cite[e.g.][]{mohammadi_rough_1998}. This approach, 
 traditionally used to deal with solid walls, is also used
 in the ocean-atmosphere context, with additional complexity 
-arising from the stratification effects \cite{pelletier_two-sided_2021}.
+arising from the stratification effects \cite[e.g.][]{pelletier_two-sided_2021}.
 In this context wall laws are referred to as \textit{surface layer} 
 parameterizations. The role of such parameterizations is to provide 
 $\nu \partial_z \mathbf{u}$ on the upper and lower interfaces of the 
@@ -120,7 +123,11 @@ U_j(z,0) &=& U_0(z), & \forall z \; \mbox{in}\; \Omega_j, \\
 %\end{align}
 %\end{subequations}
 %===============================================================
-where $\Omega_o= (H_o,\delta_o)$, $\Omega_a = (\delta_a,H_a)$, and 
+where $\rho_{\rm o}, \rho_{\rm a}$ are the densities of water and
+air at the surface with
+$\frac{\rho_{\rm a}}{\rho_{\rm o}} \approx 10^{-3}$;
+the space domains are
+$\Omega_o= (H_o,\delta_o)$, $\Omega_a = (\delta_a,H_a)$, and 
 ${\cal F}_{\rm sl}$ is a parameterization function for the surface layer 
 extending over $\Omega_{\rm sl} = (\delta_o,\delta_a)$. A typical 
 formulation for ${\cal F}_{\rm sl}$ is
@@ -331,6 +338,25 @@ quadratic friction \textit{linearized} around equilibrium solutions.
     \caption{Discrete representation of the three domains $\Omega_a, \Omega_{\rm sl}, \Omega_o$ together with a typical steady state. Note the different scales for $(u,v)$ in the ocean and in the atmosphere.}
     \label{fig:presentationDomains}
 \end{figure}
+The coupled problem with this surface layer implementation reads:
+\begin{equation}
+\label{eq:OASchwarz_cplProblem}
+%\left\{
+\begin{array}{rcll}
+\partial_t U_j + i f U_j - \partial_z \left( \nu_j(z,t) \partial_z U_j \right) &=& g_j,
+~~~~~~~~~~ (j=o,a)
+	& \mbox{in}\;\widetilde{\Omega}_j \times (0,T)\\
+U_j(H_j,t) &=& U_j^\infty(t),  & t \in (0,T), \\ 
+	U_j(z,0) &=& U_0(z), & \forall z \; \mbox{in}\; \widetilde{\Omega}_j, \\
+\rho_j \nu_j \partial_z U_j(0,t)
+&=&\rho_{\rm a} \alpha \left(
+    U_{\rm a}\left( \frac{h_{\rm a}}{2},t \right) - U_{\rm o}\left(-\frac{h_{\rm o}}{2},t \right)
+    \right), \;\; & t \in (0,T)
+\end{array}
+%\right.
+\end{equation}
+for which we will now define a Finite Difference discretization and
+a Schwarz Waveform Relaxation.
 \subsection{Schwarz Waveform Relaxation}
 As discussed for example in \cite{marti_schwarz_2021},
 current ocean-atmosphere coupling methods can actually be seen as a 
@@ -338,10 +364,8 @@ single iteration of a Schwarz Waveform Relaxation (SWR) algorithm.
 %In SWR methods, equations on each subdomain are integrated in time 
 %alternatively, using at the interface the solution computed previously 
 %in the other subdomain. 
-SWR applied to the coupling problem presented 
-in Section \ref{sec:couplingProblem} with the transmission conditions 
- \eqref{eq:discreteCouplingConditions} and constant viscosity
- in each subdomain reads:
+SWR applied to the coupling problem \eqref{eq:OASchwarz_cplProblem}
+with constant viscosity in each subdomain reads:
 %\begin{subequations}
 %\begin{align}
 %(\partial_t + if) U^k_j - \nu_j\partial_x \phi^k_j  &= g_j ~~~~~~~~~~~~~~~~~~~~~~~ (x,t) \in \mathbb{R} \times ]0,T]&&\\
@@ -416,11 +440,11 @@ and the semi-discrete version of \eqref{eq:ref} in the homogeneous case is
 
 \section{Discrete steady state and well-posedness}
 \label{sec:OASchwarz_DiscreteStationaryState}
-We now interest ourselves to the semi-discrete in space
+In this section the focus is on the semi-discrete in space
 steady state of \eqref{eq:SWRbulk}.
 \paragraph{Special case $f=0$}
 If we set to zero the Coriolis parameter,
-The flux $\nu_j\phi_j$ is constant in each domain.
+the flux $\nu_j\phi_j$ is constant in each domain.
 If moreover $U_{\rm a}^{\infty} \neq U_{\rm o}^{\infty}$,
 because of the interface conditions
 the derivatives $\phi_{\rm a}$ and $\phi_{\rm o}$
@@ -451,7 +475,7 @@ $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$.
 and $m$ the space index.
 The steady state analysis is identical, except that $\omega$ is set to 0 and that the transmission conditions are not required
 to be linear. 
-We note $\widetilde{U_j}(z)$ the stationary solution (and $\widetilde{\phi}_j$ its finite difference derivative) and the space discretisation at the first grid level $h_j$ gives:
+We note $\widetilde{U_j}(z)$ the stationary solution (and $\widetilde{\phi}_j$ its finite difference derivative) and the space discretization at the first grid level $h_j$ gives:
 $\widetilde{U}_j(\delta_j) = g_j \pm \frac{\nu_j\lambda_j}{if h_j} \{A_k^{\phi}, B_k^{\phi}\}_j$
 
 \begin{remark}[\cite{thery_etude_2021}, \S 5.1.3, \S 5.1.4]
