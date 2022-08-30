@@ -1,6 +1,8 @@
 \chapter{Ocean-atmosphere vertical column modelling}
 \label{ch:airseaSCM}
 \minitoc
+\myTD{Les notations sont pas encore harmonisées à l'intérieur
+du chapitre, et non plus avec les autres chapitres}
 We present in this chapter the concepts and equations in
 the continuous level which
 we will use in the rest of this thesis.
@@ -596,7 +598,23 @@ the Coriolis term gives:
 which can be written ${\cal L}u^{\mathbb{C}} = -i f u^\mathbb{C}$.
 In the following we will drop the ${\mathbb{C}}$ exponent
 and use a reaction term $ifu$ for the Coriolis effect.
-\myTD{recap du système couplé, neutre ou pas}
+\begin{figure}
+	\centering
+	\subimport{images/}{oneSided.pdf_tex}
+	~~~~~
+	\subimport{images/}{twoSided.pdf_tex}
+	\caption{\textit{one-sided} surface layer
+	(left) and \textit{two-sided} surface layer (right).
+	\myTD{include bd cond et temperature}
+	}
+	\label{fig:airseaSCM_twoSidedBulk_drawing}
+\end{figure}
+\myTD{recap du système couplé avec temperature, neutre ou pas}
+Figure \ref{fig:airseaSCM_twoSidedBulk_drawing} gives
+the equations of the coupled system. In the \textit{stratified}
+case, the potential temperature $\theta$ is jointly computed with the
+momentum $u$ whereas in the \textit{neutral} case the momentum
+is the only quantity of interest.
 \subsection{Ekman problem with a friction law}
 \label{sec:airseaSCM_hierarchy_Ekman}
 The discrete analysis of the convergence of Schwarz methods
@@ -611,14 +629,202 @@ that $u_\star$ is constant but we keep a proximity with
 the usual parameterizations of the surface layer
 by formulating $u_\star^2$
 as $C_D |U_a - U_o|(U_a-U_o)$ where $C_D$ is constant.
-\myTD{plus de détails sur la reformulation}
-\myTD{système complet là dessus}
+\myTD{plus de détails sur la reformulation avec $C_D$}
+The simplifications are hence:
+\begin{itemize}
+	\item constant viscosity in each fluid;
+	\item neutral stratification;
+	\item constant $u_\star$ and $C_D$
+\end{itemize}
+The model problem (analyzed in in Chapter \ref{ch:OASchwarz}) reads:
+\begin{equation}
+\label{eq:cplProblem}
+%\left\{
+\begin{array}{rcll}
+\partial_t U_j + i f U_j - \partial_z \left( \nu_j(z,t) \partial_z U_j \right) &=& g_j,
+~~~~~~~~~~ (j=o,a)
+& \mbox{in}\;\Omega_j \times (0,T)\\
+U_j(H_j,t) &=& U_j^\infty(t),  & t \in (0,T), \\ 
+U_j(z,0) &=& U_0(z), & \forall z \; \mbox{in}\; \Omega_j, \\
+\rho_o \nu_o \partial_z U_o(\delta_o,t) = \rho_a \nu_a \partial_z U_a(\delta_a,t)
+&=& {\cal F}_{\rm sl}( U_a(\delta_a,t)-U_o(\delta_o,t) ), \;\; & t \in (0,T)
+\end{array}
+%\right.
+\end{equation}
 \subsection{Reaction-diffusion equations coupling
 with heterogeneous diffusion}
+\label{sec:airseaSCM_reactionDiffusionSection}
 To study in details the mechanisms involved in
 the discrete coupled system, we study the very idealized
-case where both viscosities are constant and
-the law of the wall is not applied at the interface.
-\myTD{système complet}
+case where
+\begin{itemize}
+	\item both viscosities are constant;
+	\item the law of the wall is not applied
+		at the interface;
+	\item $u(z,t) \in\mathbb{R}$ and $if$ is replaced by
+		$r\in\mathbb{R}$;
+	\item we do not include the density ratio
+	in the continuity of the flux at interface
+\end{itemize}
+The coupled system is more symmetric and we note
+$u_1, u_2$ instead of $u_o, u_a$ in Chapters
+\ref{ch:discreteSchwarzAnalysis} and
+\ref{ch:approximatedDiscreteSchwarz}.
+\begin{subequations}
+\begin{align}
+\partial_t u_1 +( r - \nu_1 \partial_x^2) u_1 &= f_1  &\qquad& (x,t) \in (-\infty,0) \times ]0,T] \label{eq:dr1} \\
+\partial_t u_2 + ( r - \nu_2 \partial_x^2) u_2  &= f_2  &\qquad& (x,t) \in (0,+\infty) \times ]0,T] \label{eq:dr2}\\
+u_1(x,0) &= u_{1,0}(x)   &\qquad&  x \in (-\infty,0)  \\
+u_2(x,0) &= u_{2,0}(x)   &\qquad&  x \in (0,+\infty) \\
+u_1(0^-,t) &=  u_2(0^+,t) &\qquad& t \in [0,T] \label{eq:interface-dir} \\
+\nu_1 \partial_x u_1(0^-,t) &= \nu_2 \partial_x u_2(0^+,t) &\qquad& t \in [0,T] \label{eq:interface-neu} 
+\end{align}
+\label{eq:model-problem}
+\end{subequations}
+Here, $f_1$ and $f_2$
+stand for forcing terms and are not linked with the Coriolis effect.
 \section{Context and objective of this thesis}
 \label{sec:airseaSCM_context_objectives}
+This thesis is articulated on three objectives:
+\begin{itemize}
+	\item Study the convergence of Schwarz methods
+		for discretized problems (Chapters
+		\ref{ch:discreteSchwarzAnalysis} and
+		\ref{ch:approximatedDiscreteSchwarz})
+	\item Use the Monin-Obukhov Similarity Theory
+		to derive a discretization of the surface layer
+		(Chapters \ref{ch:ND}, \ref{ch:OceanND})
+	\item Study the convergence of Schwarz methods in the
+		particular case of a coupling around a surface layer
+		(Chapter \ref{ch:OASchwarz})
+\end{itemize}
+We present in this section the context with regards to those three
+objectives.
+\subsection{Convergence of Schwarz methods for discretized problems}
+General circulation models
+use coupling methods to compute the interactions
+between the ocean and atmosphere.
+In addition to the trade-off between the computational time required and
+the precision achieved, the coupling methods
+also face some constraints:
+\begin{itemize}
+	\item some quantities must be conserved by the method
+		(e.g. water, energy);
+	\item the atmosphere and ocean models being very
+		sophisticated, the methods should not be intrusive;
+	\item it is generally unaffordable to call multiple times
+		the ocean and atmosphere models.
+\end{itemize}
+Notably, the \textit{atmosphere-first} method
+(used in the European Centre for Medium-Range Weather Forecasts
+(ECMWF) and by Environment and Climate Change Canada)
+splits the computation time into time windows, and use the
+averaged information of the ocean surface in the previous
+time window as input of the atmosphere model in the current
+time window. (See Figure \ref{fig:airseaSCM_atmFirst})
+\begin{figure}
+\centering
+	\scalebox{0.6}{
+		\subimport{images/}{schwarz_pedago1.pdf_tex}}
+\caption{Atmosphere-first method: note that the models are
+	integrated on time windows that are composed of a lot
+	of internal time steps.}
+\label{fig:airseaSCM_atmFirst}
+\end{figure}
+This method and other coupling methods used in
+general circulation models correspond to a single step
+of a Schwarz method.
+\citep{marti_schwarz_2021} used several Schwarz iterations
+instead of a single one to evaluate the loss of precision
+generated by the coupling. A significant difference was found
+"\textit{after sunrise
+and before sunset, when the external forcing (insolation at
+the top of the atmosphere) has the fastest pace of change}".
+Although it would be unpractical to use multiple
+steps of Schwarz methods in actual climate simulations,
+the study of convergence of those methods is of interest,
+first for the evaluation and then for the reduction of the
+error in the first iteration. However, note that
+in the overwhelming majority of convergence studies
+(including this thesis) the factor of convergence of
+Schwarz methods do not characterize the very first iteration
+because the initial value is not the solution of the
+differential equation considered.
+\par
+Discrete transparent boundary conditions
+\citep{zisowsky_discrete_2006} allow to converge up to the
+numerical precision in two iterations.
+However, those boundary conditions are non-local in time.
+Schwarz methods can be instead accelerated
+by an optimization \citep{gander_optimized_2006} where
+the boundary conditions at interface are local in time.
+This optimization, when carried in a semi-discrete in space
+\citep{wu_semi-discrete_2014-1} or in a fully discrete setting
+\citep{wu_optimized_2017-2} yields convergence rate which is
+closer to the one observed in numerical simulations and
+generally leads to faster convergence.
+However, the last two study focus on RC circuits where there is
+an overlap between the domains. \citep{gander_analysis_2018}
+analyze the presence of an overlap but no previous study
+stands in the discrete case without overlap (note that the
+semi-discrete 2D stationary case was done by
+\citep{gerardo-giorda_optimized_2005}).
+Discrete Schwarz Waveform Relaxation studies with other equations
+can be found in \citep{haynes_fully_2020} together with
+the finite domain case.
+In the continuous case, a lot of efforts have been made
+(\citep{thery_analysis_2021} where the viscosity
+is varying and is discontinuous at interface or
+\citep{dubois_optimized_2007} for the Helmoltz equation in 2D
+with discontinuous coefficients).
+\par
+\citep{clement_discrete_2022} (Chapter
+\ref{ch:discreteSchwarzAnalysis}) studies the effect
+of the discretisation in space and time of the reaction-diffusion
+problem described in
+\S\ref{sec:airseaSCM_reactionDiffusionSection}.
+\par
+Chapter \ref{ch:approximatedDiscreteSchwarz}
+introduces alternative methods to estimate the convergence
+speed of the discrete problem with less computations.
+The ultimate goal would be to obtain the convergence speed of
+the discrete or semi-discrete optimization with a continuous study.
+\par
+\myTD{ptet il faudrait un petit mot pour dire à quoi ça sert
+dans la thèse}
+\subsection{Discretizations of the surface layer}
+Historically the general circulation models were written in
+a Finite Differences framework \citep{randall_general_2000}. In the
+past few decades, other methods were adapted to the
+climate models. Among others, the IFS model
+(\citep{ecmwf_ifs_2020}, Part III)
+uses a finite element method using cubic B-splines as basis
+functions;
+the GFDL uses a Finite Volume approach
+\citep{harris_scientific_2021}
+and most of the recent ocean models also use
+Finite Volumes \citep{griffies_fundamentals_2005}.
+\myTD{reconstruction de solution FV: un mot sur ENO/WENO,
+sur le fait de stocker les flux et d'avoir une reconstruction
+locale à la grille}
+\par
+\myTD{parler des efforts pour développer les algos bulk}
+\par
+\myTD{Finir par Nishizawa}
+The goal of Chapters \ref{ch:ND} and \ref{ch:OceanND}
+is to study the discretizations of the surface layer and
+to propose a method to ensure the Monin-Obukhov hypotheses
+outside the scope of the bulk algorithms.
+\subsection{Convergence of Schwarz methods in the
+presence of a surface layer}
+Finally, Chapter \ref{ch:OASchwarz} focuses on the convergence
+of Schwarz methods for the Ekman problem. We use idealized
+equations in the inner domains to focus on the non-linear
+condition at interface representing the bulk algorithm.
+Non-linearities in convergence study of Schwarz methods
+can be found in \myTD{sources: non-linear schwarz}.
+We also prove the well-posedness of the Ekman problem
+at a discrete level, following
+\myTD{Lions et Chacon-Rebollo.}
+\myTD{biblio sur caractère bien posé des problèmes
+non-linéaires}
