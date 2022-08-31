@@ -23,8 +23,9 @@ simplified bulk condition at the surface such that
 it can be easily implemented to numerically validate the
 convergence results.
 A part of this chapter was published in proceedings of the
-International Conference on Domain Decomposition Methods
+$26^{\rm th}$ International Conference on Domain Decomposition Methods
 \citep{clement_discrete_2021}.
+\myTD{réécrire ici (voir commentaires eric)}
 \par
 Schwarz-like domain decomposition methods are very popular in 
 mathematics, computational sciences and engineering notably for 
@@ -441,8 +442,31 @@ and the semi-discrete version of \eqref{eq:ref} in the homogeneous case is
 \section{Discrete steady state and well-posedness}
 \label{sec:OASchwarz_DiscreteStationaryState}
 In this section the focus is on the semi-discrete in space
-steady state of \eqref{eq:SWRbulk}.
-\paragraph{Special case $f=0$}
+well-posedness of \eqref{eq:SWRbulk}.
+\cite{lions_mathematical_1995} proved the existence
+of global-in-time weak solutions in
+two dimensions with nonlinearities inside the
+computational domains but with a linear
+interface condition.
+We focus here on showing the existence of strong
+unsteady solutions of the semi-discrete in space
+problem with a nonlinear interface condition.
+In \citep{chacon-rebollo_existence_2014},
+the existence of unsteady solutions of
+nonlinear turbulent models for oceanic surface mixing layers is
+proven with the help of the inverse function theorem.
+\myTD{rappeler le inverse function theorem}
+We will follow their method which consists of three steps:
+\myTD{faire la lien continu -> semi-discret}
+\begin{enumerate}
+	\item showing the existence of a steady state;
+	\item showing the well-posedness of the linearized problem
+	around the steady state;
+	\item using of the inverse function theorem;
+\end{enumerate}
+\subsection{Derivation of the steady state}
+\subsubsection{Special case $f=0$}
+\myTD{itemize pour clarifier les choses entre finite/infinite size}
 If we set to zero the Coriolis parameter,
 the flux $\nu_j\phi_j$ is constant in each domain.
 If moreover $U_{\rm a}^{\infty} \neq U_{\rm o}^{\infty}$,
@@ -450,19 +474,20 @@ because of the interface conditions
 the derivatives $\phi_{\rm a}$ and $\phi_{\rm o}$
 cannot be equal to zero and $U_j$ are affine.
 With spatial domains of finite size, we eventually
-find an equation roughly similar to \eqref{eq:mainEqSimplified}.
+find an equation roughly similar to
+\myTD{pas d'équation pour le futur}
+\eqref{eq:mainEqSimplified}.
 However, with the infinite domain hypothesis
 $\phi_j$ must tend to zero for $z\rightarrow \pm \infty$.
 \textbf{There is no stationary solution with infinite domains
 for $f=0$}. Note that this is true for both semi-discrete
 and continuous cases.
 \newline
-We now exclude the particular case of a vanishing Coriolis parameter
-and interest us only on the case $f\neq 0$.
-In this section, we assume that the space domain is sufficiently
-large ($H_j \rightarrow \infty$) but the results can be easily
+In the remainder we consider $f \neq 0$ and we assume without loss of
+generality that the space domain is sufficiently
+large ($H_j \rightarrow \infty$): the results can be easily
 extended to domains of finite size.
-\subsection{Resolution in each subdomain}
+\subsubsection{Resolution in each subdomain}
 A discrete analysis of the finite difference scheme \eqref{eq:spaceTimeScheme}
 in the frequency domain (see Chapter \ref{ch:discreteSchwarzAnalysis} or
 \cite{wu_optimized_2017}) leads to 
@@ -473,24 +498,31 @@ with $\lambda_j = \frac{1}{2}\left(\chi_j - \sqrt{\chi_j} \sqrt{\chi_j + 4}\righ
 $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$.
 %with $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$, 
 and $m$ the space index.
-The steady state analysis is identical, except that $\omega$ is set to 0 and that the transmission conditions are not required
-to be linear. 
-We note $\widetilde{U_j}(z)$ the stationary solution (and $\widetilde{\phi}_j$ its finite difference derivative) and the space discretization at the first grid level $h_j$ gives:
-$\widetilde{U}_j(\delta_j) = g_j \pm \frac{\nu_j\lambda_j}{if h_j} \{A_k^{\phi}, B_k^{\phi}\}_j$
-
+The steady state analysis is similar,
+except that $\omega$ is set to 0 and that
+the transmission conditions are not required to be linear. 
+We note $\widetilde{U_j}(z)$ the stationary solution
+(and $\widetilde{\phi}_j$ its finite difference derivative)
+and the space discretization at the first grid level
+$\frac{h_j}{2}$ gives:
+$\widetilde{U}_j(\delta_j) =
+g_j \pm \frac{\nu_j\lambda_j}{if h_j} \{A_k^{\phi}, B_k^{\phi}\}_j$
+\myTD{Notation pas claire}
 \begin{remark}[\cite{thery_etude_2021}, \S 5.1.3, \S 5.1.4]
 We retrieve a solution of the form
-$\widetilde{U}_a(\delta a) = g_a - \Psi_a (u^\star)^2 e^{i\theta}$
+$\widetilde{U}_a(\delta_a) = g_a - \Psi_a (u^\star)^2 e^{i\theta}$
 but $\Psi_j = -\frac{\lambda_j}{if h_j}$ is simpler thanks to the hypotheses of constant diffusivities and infinite domains.
 \end{remark}
-
-\subsection{Derivation of the steady state}
+\myTD{clarifier: c'est dans le cas continu. La remarque s'applique
+au cas continu défini via $\Omega_j\cup \Omega_{sl}$?
++ bizarre de donner $U(\delta_a)$ sans réf explicite à $\delta_j$}
 \subsubsection{Simplification of the problem}
+\myTD{commencer par dire quel problème on essaie de simplifier}
 We interest ourselves in the
 value of $A_k^{\phi}, B_k^{\phi}$ at the potential convergence, namely $A_\infty, B_\infty$.
 %This subsection derives the steady state. The results are summarized in the subsection \ref{sec:summary_stationnary}.
 The first condition of the bulk equation \eqref{eq:fluxInterfaceCondition} gives us $B_\infty = \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} \nu_{\rm a} } A_\infty$
-and the non-linear \eqref{eq:bulkInterfaceCondition} gives
+and the nonlinear condition \eqref{eq:bulkInterfaceCondition} gives
 \begin{equation} \label{eq:stationaryBulkFirstEq}
     \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} C_D} A_\infty
     =
@@ -507,23 +539,24 @@ and the non-linear \eqref{eq:bulkInterfaceCondition} gives
     + (g_{\rm a} - g_{\rm o})
     \right)
 \end{equation}
-We simplify the names to get the following problem:
-note $d = C_D \left(
+In order to lighten the notations we introduce $d = C_D \left(
     \frac{\lambda_{\rm a}}{if h_{\rm a}} 
     +\frac{\rho_{\rm a}}{\rho_{\rm o}}\frac{\lambda_{\rm o}}{if h_{\rm o}} \right)$ and
 $\widetilde{x} = A_\infty \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} C_D}d+\left(g_{\rm a} - g_{\rm o}\right)$.
 $\widetilde{x}$ is the difference between the
 solutions $\widetilde{U}_j$ at interface
-and $d$ is an non-dimensional number that links
-$\widetilde{x}$ and $\rho_j \nu_j \widetilde{\phi}_j(0)$
+and $d$ is a non-dimensional number that links
+$\widetilde{x}$ and $\rho_j \nu_j \widetilde{\phi}_j(0)$.
 The problem is to find $\widetilde{x}\in \mathbb{C}$ such that
 \begin{equation} \label{eq:mainEqSimplified}
-    \widetilde{x} - \left(g_{\rm a} - g_{\rm o}\right) = d|\widetilde{x}|\widetilde{x}.
+    \widetilde{x} - \left(g_{\rm a} - g_{\rm o}\right) = d|\widetilde{x}|\widetilde{x}
 \end{equation}
 \begin{remark}
 If the infinite domains hypothesis is relaxed, equation \eqref{eq:mainEqSimplified} is retrieved with slightly different $\widetilde{x}$ and $d$.
 \end{remark}
-Let us now study the real and imaginary parts of $\widetilde{x}=\widetilde{x}_R+i{\widetilde{x}_I}$ and $d={d_R}+i{d_I}$.
+Introducing the real and imaginary parts of
+$\widetilde{x}=\widetilde{x}_R+i{\widetilde{x}_I}$ and
+$d={d_R}+i{d_I}$, one gets:
 \begin{equation}
     \begin{aligned}
     \widetilde{x}_R &= |\widetilde{x}|({d_R} \widetilde{x}_R - {d_I}{\widetilde{x}_I}) +g_{\rm a} - g_{\rm o} \\
@@ -547,8 +580,9 @@ The system is hence equivalent to:
     {d_R} |\widetilde{x}|^3 + \left(g_{\rm a} - g_{\rm o}\right)\widetilde{x}_R.
     \end{aligned}
 \end{equation}
-$1 - |\widetilde{x}| d_R$ should not be zero as it would require that $g_{\rm a} - g_{\rm o} = \pm \frac{d_I}{d_R^2}$ ($d$ does not depend on $g_j$ and the latter values are arbitrarily chosen in this study: the equality is thus quasi impossible).
-We find an equation on $|\widetilde{x}|$ :
+$1 - |\widetilde{x}| d_R$ should not be zero as it would require that $g_{\rm a} - g_{\rm o} = \pm \frac{d_I}{d_R^2}$ ($d$ does not depend on $g_j$ and the latter values are arbitrarily chosen in this study:
+it is therefore unlikely that this equality holds).
+Eliminating $\widetilde{x}_R$ then leads to an equation on $|\widetilde{x}|$ :
 \begin{equation} \label{eq:mainPolynomial}
     |\widetilde{x}|^2 -  2{d_R} |\widetilde{x}|^3 + 
     |d|^2 |\widetilde{x}|^4
@@ -556,8 +590,8 @@ We find an equation on $|\widetilde{x}|$ :
 \end{equation}
 % W|A:
 % t x^3 =x (a x^3 - b \sqrt{x^2 - t^2 x^6})
-A routine calculation finds 4 potential roots to this problem. Note that only the real positive roots interest us. Typical values for our problem 
-are 
+A routine calculation finds 4 potential roots to this problem. Note that only the real positive roots are relevant.
+Typical values for our problem are 
 $|d| \approx 10^{-1}$ and $d_R \approx -8 \times 10^{-2}$.
 %$\frac{{d_R} d_I}{g_{\rm a}^g - g_{\rm o}^g} \approx-7\times 10^{-4}$, ${d_I}\approx8.6 \times 10^{-2}$, $\frac{d_I}{{g_{\rm a}^g - g_{\rm o}^g}}\approx 8.7\times 10^{-3}$.
 The solution is detailed below.
@@ -589,7 +623,10 @@ Experimentally, it is seen that if it exists, it is the root corresponding to th
     }
 \end{equation}
 where the first $\pm$ and the
-third one are the same. For our parameters there is only one positive real solution that corresponds to the solution of the non-linear problem coupled with Schwarz algorithm.
+third one are necessarily the same.
+For our parameters there is only one positive real solution that
+corresponds to the solution of the semi-discrete,
+nonlinear problem. \myTD{citer le problème couplé ?}
 % There should be an equivalence between the existence of a real positive root and the existence of a stationnary state of the coupled problem.
 % {\color{red} However, it was seen in numerical experiments that the Schwarz method 
 % seems to converge to a coupled, stationary case which corresponds
@@ -600,6 +637,7 @@ Finally, we recover $\widetilde{x}$ from \eqref{eq:mainEqSimplified}: $\widetild
 and
 $ B_\infty =  \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} \nu_{\rm a}}A_\infty$.
 Figure \ref{fig:validation} shows that this analysis fits the result of Schwarz algorithm.
+\myTD{écrire explicitement $U^e=...$}
 \begin{figure}
     \centering
     \includegraphics[scale=0.55]{profile_stationnaire.pdf}
@@ -695,7 +733,7 @@ Figure \ref{fig:validation} shows that this analysis fits the result of Schwarz 
 %     \item if $\sigma=0$, there exists a solution for $10^{-12} < |f|<35$.
 %     The existence of such lower bound is proven in the following.
 % \end{itemize}
-% In conclusion, the non-linear problem seems well-posed for usual frequencies ($10^{-12} Hz$ and $35 Hz$ being very far from solved frequencies in ocean-atmosphere problem), but the complexity of polynomial $s^2 - 4 \beta^3$ and of function $\zeta$ and $\gamma$ make the study more or less intractable.
+% In conclusion, the nonlinear problem seems well-posed for usual frequencies ($10^{-12} Hz$ and $35 Hz$ being very far from solved frequencies in ocean-atmosphere problem), but the complexity of polynomial $s^2 - 4 \beta^3$ and of function $\zeta$ and $\gamma$ make the study more or less intractable.
 % 
 % We will hence make an empirical study: let
 % $\theta_{\rm a} = \frac{\rho_{\rm a}}{\rho_{\rm o}
@@ -736,7 +774,7 @@ Figure \ref{fig:validation} shows that this analysis fits the result of Schwarz 
 % \end{aligned}
 % \end{equation}
 % Where $\theta_4=\theta_{\rm o}(\theta_2 + 1)/\sqrt{2}>0$.
-% In the lowest frequencies, $\gamma + \zeta \rightarrow -\frac{\theta_4^2}{6j f g^2}$. Since one of the stability conditions is to have $\gamma + \zeta >0$, there exist no solution to the non-linear problem. This should means there is no solution of the non-linear coupling problem when the time scale is extremely close to $1/f$, the Coriolis frequency.
+% In the lowest frequencies, $\gamma + \zeta \rightarrow -\frac{\theta_4^2}{6j f g^2}$. Since one of the stability conditions is to have $\gamma + \zeta >0$, there exist no solution to the nonlinear problem. This should means there is no solution of the nonlinear coupling problem when the time scale is extremely close to $1/f$, the Coriolis frequency.
 % However, a stationary state exists even when $f \rightarrow 0$, shown by Figure \ref{fig:profile_bug}.
 % 
 % \begin{figure}
@@ -747,35 +785,17 @@ Figure \ref{fig:validation} shows that this analysis fits the result of Schwarz 
 %     \label{fig:profile_bug}
 % \end{figure}
 \subsection{Existence of solutions of the
-non-linear semi-discrete in space problem}
+nonlinear semi-discrete in space problem}
 \label{sec:OASchwarz_wellPosedness}
-\cite{lions_mathematical_1995} proved the existence
-of global in time weak solutions in
-two dimensions with non-linearities inside the
-computational domains but with a linear
-interface condition.
-We focus here on showing the existence of strong
-unsteady solutions of the semi-discrete in space
-problem with a non-linear interface condition.
-In \citep{chacon-rebollo_existence_2014},
-the existence of unsteady solutions of
-non-linear turbulent models for oceanic surface mixing layers is
-proven with the help of the inverse function theorem.
-We will follow their method which is in three steps:
-\begin{enumerate}
-	\item showing the existence of a steady-state;
-	\item showing the well-posedness of the linearized problem
-	around the equilibrium;
-	\item using of the inverse function theorem;
-\end{enumerate}
+\myTD{introduire un peu plus là}
 The method can be generalized to other types of
-non-linearities. In particular, we can show the existence and
+nonlinearities. In particular, we can show the existence and
 uniqueness of problem \eqref{eq:SWRbulk}
 (ignoring the Schwarz iteration indices) close to the
-equilibrium state.
+steady state. \myTD{formuler explicitement en 6.3.1}
 \begin{enumerate}
-	\item The existence of a steady state is discussed above
-		in this section.
+	\item The existence of a steady state $U^e$ is discussed above
+		in this section. \myTD{citer section}
 	\item The well-posedness of the linearized
 		problem is discussed in Appendix
 	\ref{sec:OASchwarz_appendix_discreteVariationParameters}.
@@ -787,6 +807,10 @@ equilibrium state.
 			\{u_a, u_o, \left.\phi_a\right|_{z=0}\}
 			\in \mathbf{\cal U}$
 		where $\mathbf{\cal U} = L^2([0,T])^{M_a+M_o+1}$.
+			\myTD{définir $M_a, M_o$ et 
+			dire explicitement pourquoi $\phi_o$ ne fait
+			pas partie de U (voir premier item en dessous,
+			$\phi_o$ est implicite)}
 		\item
 	Define a mapping
 	$\mathbf{\Phi}: \mathbf{\cal U}\rightarrow \mathbf{Y}$
@@ -807,17 +831,17 @@ equilibrium state.
 \end{aligned}
 \end{equation}
 where $\left.\phi_j\right|_{z\neq 0} = \partial_z u_j$
-and $\partial_z$ is to be undertood as the finite difference
+and $\partial_z$ is to be understood as the finite difference
 operator which is applied only where it makes sense:
 for instance the first line of \eqref{eq:OASchwarz_wellPosedness_Phi}
 is not applied for $z=H_a$.
 Let us draw some important remarks about $\mathbf{\Phi}$:
 \begin{itemize}
- \item The equation $\phi_o = \epsilon \frac{\nu_a}{\nu_o}\phi_a$
+ \item The equation $\phi_o = \frac{\rho_a \nu_a}{\rho_o \nu_o}\phi_a$
 	 at interface is implicit;
  \item $\mathbf{\Phi}(\mathbf{U}^e)=0$
  	where $\mathbf{U}^e$
- 	is the steady-state;
+ 	is the steady state;
  \item the codomain $\mathbf{Y}$ is
  	\begin{equation}
 		\mathbf{Y}=L^2([0,T])^{M_a-1}
@@ -842,12 +866,14 @@ on the initial data.
 \end{itemize}
 	\item Show that $\mathbf{\Phi}$ is $C^1$ in a
 		neighborhood of $\mathbf{U}^e$.
-		First, note that the mapping
-		$x \mapsto |x|x$ is analytic in a
-		ball that does not contain zero.
-		Then, $\mathbf{\Phi}$ is linear
-		except for the part corresponding
-		to the non-linear transmission condition.
+		$\mathbf{\Phi}$ is linear except for the
+		transmission condition. Besides,
+		the nonlinearity in this transmission condition
+		is the function $x \mapsto |x|x$, which is analytic
+		in a ball that does not contain zero.
+		% Then, $\mathbf{\Phi}$ is linear
+		% except for the part corresponding
+		% to the nonlinear transmission condition.
 		It is then straightforward to show that
 		$\mathbf{\Phi}$ is $C^1$ and that
 		its differential
@@ -873,7 +899,8 @@ In this section we conduct a convergence analysis of the SWR algorithm
 \eqref{eq:SWRbulk} first with $\alpha$ a constant and then in a more 
 complicated case where the problem is linearized around its 
 equilibrium solutions. In the following we systematically make the assumption 
-that the space domain is of infinite size (i.e. $H_j\to\infty$).
+that the space domain is of infinite size (i.e. $H_j\to\infty$)
+for the sake of simplicity.
 %====================================================
 \subsection{Linear friction case ($\alpha = {\rm const}$)}
 %\\[3mm]
@@ -949,9 +976,11 @@ the following convergence factor:
 where $\epsilon = \frac{\rho_{\rm a}}{\rho_{\rm o}} \approx 10^{-3}$
 in the ocean-atmosphere  context.
 Note that the convergence factor \eqref{eq:cvBk} differs significantly from the semi-discrete convergence factor 
-$\xi_{\rm DNWR} = \left|1 - \theta_{\rm DNWR} \left(
-1 - \epsilon h_{\rm a} \lambda_{\rm o} / (\lambda_{\rm a}h_{\rm o})\right) \right|$ of 
-the DNWR algorithm. 
+\begin{equation}
+\xi_{\rm DNWR} = \left|1 - \theta_{\rm DNWR} \left(
+1 - \epsilon h_{\rm a} \lambda_{\rm o} / (\lambda_{\rm a}h_{\rm o})\right) \right|
+\end{equation}
+ of the DNWR algorithm.
 Moreover, $\lambda_j$ is equivalent to $-\sqrt{\chi_j}$ when
 $(\omega+f) \rightarrow 0$ and
 as $(\omega+f) \rightarrow \infty$ we have
@@ -1033,6 +1062,7 @@ The optimal parameter $\theta_{\rm opt}$ for low frequencies is $1 - \epsilon\sq
 	$(\phi_k)_{k\in \mathbb{N}}$
 	whereas $\phi_k\to 0$ as $\omega+f\rightarrow 0$.
 \end{remark}
+\myTD{visualisation $\xi$ pour certaines valeurs de $\theta$}
 %for parameter values 
 %typical of the ocean-atmosphere coupling problem.
 % The asymptotic value when $f\neq 0$ is
@@ -1056,6 +1086,7 @@ cannot be directly pursued through a Fourier transform.
 %would depend on the frequency.
 We thus consider the linearization of the problem 
 around a steady state $U^e_j, \phi^e_j$ satisfying \eqref{eq:cplProblem}:
+\myTD{citer un autre système qui correspond au steady state}
 assuming that $U^k_j (\pm h_j/2, t)$ is in a neighborhood of $U^e(\pm h_j/2)$, the modulus in $\alpha$
 is non-zero and
 we can differentiate $\alpha$.
@@ -1064,7 +1095,7 @@ Differences with the steady state are noted $\delta \phi_j^k = \phi^k_j(0,t) - \
 We will now linearize the transmission operator.
 First, $\alpha^{k-1} \left(\delta U_a^{k-1+\theta}
 - \delta U_o^{k-1}\right)$
-is split into two parts in the non-linear transmission condition:
+is split into two parts in the nonlinear transmission condition:
 \begin{equation}
 	\nu_a \phi_a^k =
 	\underbrace{
@@ -1088,7 +1119,9 @@ The transmission condition is linearized as
 	\left(\delta U_a^{k} - \delta U_a^{k-1}
 	\right)
 \end{equation}
-where $D$ denotes the total derivative.
+where $\langle D_x ??, \mu \rangle$ denotes the total derivative
+of the application ?? at x applied on $\mu$.
+\myTD{définir les crochets de dualité mieux que ça}
 Let us first compute the total derivative of $x\mapsto |x|x$.
 The total derivative of $|\cdot|^2$ is
 \begin{equation}
@@ -1148,7 +1181,7 @@ Section \ref{appendix:OASchwarz_LinearizedAnalysis}.
 % with $\epsilon = \frac{\rho_{\rm a} h_{\rm a}}{\rho_{\rm o} h_{\rm o}}$ 
 % and $\mathcal{O} = 
 % \frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e - U_{\rm o}^e}} \frac{\omega+f}{\omega - f}$.
-Note that the variable $\overline{i \omega}=-\omega$ appears when using the Fourier
+Note that the variable $\overline{i \omega}=-i\omega$ appears when using the Fourier
 transform on $\overline{\delta U_a^{k-1} - \delta U_o^{k-1}}$.
 As a consequence,
 the convergence factor $\xi^q$ in the linearized 
@@ -1194,25 +1227,6 @@ $\frac{\overline{B_{k-1}(-\omega)}}{B_{k-1}(\omega)}$.
 We need to look at both
 $B_{k+1}(\omega), \overline{B_{k+1}(-{\omega})}$
 at the same time:
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.65]{plotEigenvaluesValidated.pdf}
-	\caption{Singular values $\widetilde{\xi}_1(\omega)$,
-	$\widetilde{\xi}_2(\omega)$ of the matrix $\begin{pmatrix}
-	a_1(\omega) & a_2(\omega) \vspace{0.15cm}\\
-	\overline{a_2(-\omega)} & \overline{a_1(-\omega)} \\
-	\end{pmatrix}$.
-	The observed "convergence factor" at the first
-	iteration ${\xi}_{\rm obs} = \sqrt{\frac{|B_2(\omega)|^2 +
-	|B_2(-\omega)|^2}{|B_{1}(\omega)|^2
-	+ |B_{1}(-\omega)|^2}}$
-	is in purple. ${\xi}_{\rm obs}$ is such that
-	$\widetilde{\xi}_2 \leq {\xi}_{\rm obs}
-	\leq\widetilde{\xi}_1$ (see Figure
-	\ref{fig:OASchwarz_rateBetweenEigenvalues}).
-	}
-    \label{fig:OASchwarz_singularValues}
-\end{figure}
 \begin{equation}
 	\begin{aligned}
 		B_{k+1}(\omega) &= a_1(\omega) B_{k}(\omega) + a_2
@@ -1223,35 +1237,8 @@ at the same time:
 		+ {a_2(-{\omega})} \overline{B_{k}(\omega)}}
 	\end{aligned}
 \end{equation}
-\begin{figure}[htpb]
-	\centering
-	\scalebox{0.8}{
-		\import{}{rate_between_eigenvalues.pdf_tex}}
-	\caption[The convergence factor $\xi(k)$ varies and is bounded]{
-	The vector
-	$\mathbf{B}^k= \begin{pmatrix} B_k(\omega) \vspace{0.15cm}\\
-	\overline{B_k(-\omega)} \end{pmatrix}$
-	can be decomposed into a basis\footnotemark of eigenvector
-	$\mathbf{B}_i^k$ which converge linearly with
-	convergence factors $\widetilde{\xi}_i$.
-	4 iterations are shematically represented in blue, pink,
-	orange and purple. The "convergence factor"
-	$\xi_{\rm obs}(k)=\frac{||\mathbf{B}^{k+1}||}{||\mathbf{B}^{k}||}$
-	is such that
-	$\widetilde{\xi}_2 \leq \xi_{\rm obs} \leq \widetilde{\xi}_1$ and
-	varies from one iteration to another. $\xi(k)$
-	gets closer to $\widetilde{\xi}_1$ when $k$ increases as
-	$\mathbf{B}^k$ gets closer to $\mathbf{B}^k_1$.
-	}
-	\label{fig:OASchwarz_rateBetweenEigenvalues}
-\end{figure}
-\footnotetext{The matrix is indeed diagonalizable if
-$\widetilde{\xi}_1 \neq\widetilde{\xi}_2$; otherwise we
-have a simple convergence factor
-$\xi = \widetilde{\xi}_1 = \widetilde{\xi}_2$.
-}
 We examine the evolution of those two
-simulaneously evolving quantities:
+simultaneously evolving quantities:
 \begin{equation}
 	\label{eq:OASchwarz_transitionMatrixDD26}
 \begin{pmatrix}
@@ -1275,6 +1262,56 @@ can be studied instead of the convergence factor.
 One can see on Figure \ref{fig:OASchwarz_singularValues} that
 the two singular values are different for small frequencies,
 especially around the frequencies $f$ and $-f$.
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.65]{plotEigenvaluesValidated.pdf}
+	\caption{Singular values $\widetilde{\xi}_1(\omega)$,
+	$\widetilde{\xi}_2(\omega)$ of the matrix $\begin{pmatrix}
+	a_1(\omega) & a_2(\omega) \vspace{0.15cm}\\
+	\overline{a_2(-\omega)} & \overline{a_1(-\omega)} \\
+	\end{pmatrix}$.
+	The observed "convergence factor" at the first
+	iteration ${\xi}_{\rm obs} = \sqrt{\frac{|B_2(\omega)|^2 +
+	|B_2(-\omega)|^2}{|B_{1}(\omega)|^2
+	+ |B_{1}(-\omega)|^2}}$
+	is in purple. ${\xi}_{\rm obs}$ is such that
+	$\widetilde{\xi}_2 \leq {\xi}_{\rm obs}
+	\leq\widetilde{\xi}_1$ (see Figure
+	\ref{fig:OASchwarz_rateBetweenEigenvalues}).
+	}
+    \label{fig:OASchwarz_singularValues}
+\end{figure}
+\begin{figure}[htpb]
+	\centering
+	\scalebox{0.8}{
+		\import{}{rate_between_eigenvalues.pdf_tex}}
+	\caption[The convergence factor $\xi(k)$ varies and is bounded]{
+	The vector
+	$\mathbf{B}^k= \begin{pmatrix} B_k(\omega) \vspace{0.15cm}\\
+	\overline{B_k(-\omega)} \end{pmatrix}$
+	can be decomposed into a basis\footnotemark
+	\myTD{a faire en dernier:
+	voir si la footnote est au bon endroit.
+	Aussi, attention aux figures qui arrivent trop tôt}
+	of eigenvectors
+	$\mathbf{B}_i^k$ which converge linearly with
+	convergence factors $\widetilde{\xi}_i$.
+	4 iterations are shematically represented in blue, pink,
+	orange and purple. The "convergence factor"
+	$\xi_{\rm obs}(k)=\frac{||\mathbf{B}^{k+1}||}{||\mathbf{B}^{k}||}$
+	is such that
+	$\widetilde{\xi}_2 \leq \xi_{\rm obs} \leq \widetilde{\xi}_1$ and
+	varies from one iteration to another. $\xi(k)$
+	gets closer to $\widetilde{\xi}_1$ when $k$ increases as
+	$\mathbf{B}^k$ gets closer to $\mathbf{B}^k_1$.
+	}
+	\label{fig:OASchwarz_rateBetweenEigenvalues}
+\end{figure}
+\footnotetext{The matrix is indeed diagonalizable if
+$\widetilde{\xi}_1 \neq\widetilde{\xi}_2$; otherwise we
+have a simple convergence factor
+$\xi = \widetilde{\xi}_1 = \widetilde{\xi}_2$.
+}
 \par
 One can hence expect (see
 Figure \ref{fig:OASchwarz_rateBetweenEigenvalues}) that for frequencies close to $f$ and $-f$
@@ -1319,7 +1356,9 @@ for the asymptotic convergence for one iteration)
 % \end{figure}
 The aim of this section is to illustrate the influence of the parameter $\theta$, in the linear and quadratic friction cases. 
 The steady state $U_j^e$ is used to compute $\alpha_c = \alpha^e = C_D|U_{\rm a}^e(\frac{h_{\rm a}}{2}) - U_{\rm o}^e (\frac{h_{\rm o}}{2})|$ in the linear case.
-Parameters of the problem are taken as realistic: $C_D = 1.2\times 10^{-3}$, the space steps are $\frac{h_{\rm a}}{2} = 10\; {\rm m}$, $\frac{h_{\rm o}}{2} = 1 \;{\rm m}$,
+Parameter values of the problem are taken as realistic:
+$C_D = 1.2\times 10^{-3}$, the space steps are
+$\frac{h_{\rm a}}{2} = 10\; {\rm m}$, $\frac{h_{\rm o}}{2} = 1 \;{\rm m}$,
 the time step  is $60 \;{\rm s}$,
 the size of the time window $T$ is 1 day ($1440\Delta t$) and the computational domains sizes are $H_o = H_a = 2000 \; {\rm m}$
 (100 and 1000 nodes respectively in $\Omega_a$ and $\Omega_o$).
@@ -1369,7 +1408,7 @@ convergence properties of our nonlinear problem.
 \end{figure}
 %
 \section{Conclusion}
-In this paper, we studied a SWR %Schwarz Waveform Relaxation 
+In this chapter, we studied a SWR %Schwarz Waveform Relaxation 
 algorithm applied
 to a simplified ocean-atmosphere problem. 
 This problem considers nonlinear transmission conditions arising 

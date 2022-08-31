@@ -1,5 +1,7 @@
 \section{Well-posedness of the linearized quadratic friction case}
 \label{sec:OASchwarz_appendix_discreteVariationParameters}
+\myTD{refaire un passage pour la rendre plus facile à lire et
+les calculs plus faciles à suivre.}
 We look for the solutions of the Laplace transform
 (with the frequency variable $s=\sigma + i\omega, \sigma>0$) of our
 coupled problem (the steady state has been substracted from $u$):
@@ -52,7 +54,7 @@ where ${\cal O} = \frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e
 	that does not depends on $\widehat{u}$
 	in \eqref{eq:OASchwarz_appendix_bdCond} and
 	\eqref{eq:OASchwarz_appendix_linearizedCond}.
-	It only complicates the derivation and do not need
+	It only complicates the derivation and does not need
 	any special treatment: we hence omit them.
 \end{remark}
 To show that there exists a unique solution to
@@ -140,6 +142,10 @@ The determinant of the inversed matrix in
 $\lambda_u^{-1} - \lambda_u$ which is never zero because
 $\sigma > 0$.
 Let us note 
+\myTD{Pas super clair je trouve, pour définir $S^1_m$ et $S^2_m$. 
+- j'inverserais l'égalité : B := S + C
+- je préciserais ce que tu as en tête : $C_3$ et $C_4$
+représentent tout ce qui est indépendant de m, c'est ça ?}
 $\begin{pmatrix}
 	S_m^1(U_0) + {C}_3\\
 	S_m^2(U_0) + {C}_4
@@ -155,6 +161,7 @@ ${C}_4$:
 - {C}_4 = \left(S_{M_a}^1(U_0) + {C}_3\right)
 	(\lambda_u)^{2M_a} + S_{M_a}^2(U_0)
 \end{equation}
+\myTD{il manque une phrase ?}
 \begin{equation}
 		\widehat{u}_{\frac{1}{2}} = {C}_3 (1 - \lambda_u^{2M_a})
 	+ \underbrace{S_0^1+S_0^2 - S_{M_a}^1 \lambda_u^{2M_a}
@@ -207,10 +214,11 @@ and the jump between the solutions is
 	\widehat{u}_{\frac{1}{2}} - \widehat{u}_{-\frac{1}{2}}
 	= {C}_3 K_{2} + \Delta S
 \end{equation}
+\myTD{$\Delta S$ non défini}
 where $K_{2} = 1 - \lambda_{u_a}^{2M_a} + (1 - \lambda_{u_o}^{2M_o})
 \epsilon \frac{\nu_a}{\nu_o} \frac{K_{1,a}}{K_{1,o}}$.
 \subsection{Inverting the friction law}
-The friction law writes
+The friction law reads
 \begin{equation}
 	\underbrace{(\nu_a K_{1,a} - \frac{3\alpha^e K_{2}}{2})}_{
 		K_3(s)
@@ -249,7 +257,7 @@ this matrix is not zero for $\sigma>0$. For the frequencies
 $\omega=f$ and $\omega=-f$ the determinant is close to zero, and
 it seems to be asymptotically proportional to $\sqrt{\sigma}$.
 \par
-The Laplace transform can be unically inverted
+The Laplace transform can be uniquely inverted
 (e.g. \citep{cohen_inversion_2007}) because
 $\widehat{u}_j(s)$ does not grow faster than exponentially
 for $|s|\rightarrow \infty$.
