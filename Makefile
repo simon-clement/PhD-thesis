@@ -17,6 +17,7 @@ GRAYSCRIPT="./toGray.sh"
 SUB="tmp.pdf"
 COMMIT=HEAD
 ND_FOLDER=chapters/ND/
+OA_FOLDER=chapters/OASchwarz/
 
 # environment variables
 WRKDIR=tmp
@@ -129,6 +130,19 @@ chap5: chapters/OceanND/*.tex
 chap6: chapters/OASchwarz/*.tex
 	@sed -i '2c \\\setcounter{chapter}{5}' standalone_chapter.tex
 	@make chapters NAME_outCHAP="standalone_chap6"
+
+# to use: make chap4-diff COMMIT=<your-tag-without-"~">
+chap6-diff: chapters/OASchwarz/*.tex
+	@cd chapters/OASchwarz/ && latexdiff-git *.tex -r ${COMMIT}
+	@sed -i 's/Proceeding/&-diff${COMMIT}/g' ${OA_FOLDER}OASchwarz-diff${COMMIT}.tex
+	@sed -i 's/Parameters/&-diff${COMMIT}/g' ${OA_FOLDER}OASchwarz-diff${COMMIT}.tex
+	@sed -i 's/Analysis/&-diff${COMMIT}/g' ${OA_FOLDER}OASchwarz-diff${COMMIT}.tex
+	@latexdiff-git standalone_chapter.tex -r ${COMMIT}
+	@sed -i '2c \\\setcounter{chapter}{5}' standalone_chapter-diff${COMMIT}.tex
+	@sed -i 's/{OASchwarz/&-diff${COMMIT}/g' standalone_chapter-diff${COMMIT}.tex
+	@make chapters-diff NAME_outCHAP="diff-chap6" COMMIT=${COMMIT}
+	@rm ${OA_FOLDER}*-diff${COMMIT}.tex
+	@rm standalone_chapter-diff${COMMIT}.tex
 
 # sub makefile if anything needed to compile the Figures
 figure: $(FIGURES)
