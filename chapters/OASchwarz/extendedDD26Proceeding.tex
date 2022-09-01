@@ -1,17 +1,25 @@
 
-% \abstract{
-% In this study we present a non-overlapping Schwarz waveform relaxation (SWR) method
-% applied to a one dimensional model problem representative of the coupling between 
-% the ocean and the atmosphere. This problem includes nonlinear interface conditions 
-% analogous to a quadratic friction law. We study the convergence of the corresponding 
-% SWR at a semi-discrete level for a linear friction and for a linearized quadratic
-% friction at the interface. Using numerical experiments we show that the convergence 
-% properties in the linearized quadratic friction case are very close to the ones 
-% obtained with the full nonlinear problem for the range of parameter values of 
-% interest. We investigate the possibility to improve the convergence speed by 
-% adding a relaxation parameter at the interface.}
-
+A part of this chapter was published in proceedings of the
+$26^{\rm th}$ International Conference on Domain Decomposition Methods
+\citep{clement_discrete_2021}.
+In addition to minor clarifications, Section
+\ref{sec:OASchwarz_DiscreteStationaryState} and Appendix
+\ref{sec:OASchwarz_appendix_discreteVariationParameters} were added
+where the steady state and the well-posedness
+of the coupling problem considered are discussed.
+Moreover, a mistake in asymptotes computations has been noticed
+and corrected in Section \ref{sec:conv-lin}. The convergence
+study of \S \ref{sec:OASchwarz_linearized} was also further pursued
+with the corresponding computations located in Appendix
+\ref{appendix:OASchwarz_LinearizedAnalysis}.
+\par
+The full text of \citep{clement_discrete_2021} is reported
+here and completed: this chapter hence contains redundancies
+with the other ones (mainly in
+Sections \ref{sec:OASchwarz_Intro} and \ref{sec:couplingProblem}).
+%
 \section{Introduction}
+\label{sec:OASchwarz_Intro}
 We presented in Chapter \ref{ch:discreteSchwarzAnalysis}
 the discrete analysis of the convergence of Schwarz methods;
 the implementation of the law of the wall was discussed
@@ -22,10 +30,9 @@ atmosphere. In this chapter, we study the Ekman problem with a
 simplified bulk condition at the surface such that
 it can be easily implemented to numerically validate the
 convergence results.
-A part of this chapter was published in proceedings of the
-$26^{\rm th}$ International Conference on Domain Decomposition Methods
-\citep{clement_discrete_2021}.
-\myTD{réécrire ici (voir commentaires eric)}
+% A part of this chapter was published in proceedings of the
+% $26^{\rm th}$ International Conference on Domain Decomposition Methods
+% \citep{clement_discrete_2021}.
 \par
 Schwarz-like domain decomposition methods are very popular in 
 mathematics, computational sciences and engineering notably for 
@@ -141,8 +148,10 @@ a drag coefficient (assumed constant in the present study).
 %
 %
 %To study the coupling problem as a one-dimensional coupling,
-Geostrophic winds and currents are used in this study as
-source terms and boundary conditions. 
+Geostrophic winds and currents $u_G^a, u_G^o \in \mathbb{R}$
+are used in this study as
+source terms and boundary conditions: $g_j = if u_G^j$ and
+$U_j^\infty = u_G^j$.
 Geostrophic equilibrium is the steady state for which the 
 Coriolis force compensates for the effects of gravity.
 It corresponds to the large scale dynamics of ocean and 
@@ -434,15 +443,40 @@ refers to choosing the iteration step $k$.
 %
 In the following, centered finite difference schemes in space are used with constant space steps $h_j$.
 Derivatives are approximated as $\phi_j(z,t) = \frac{U_j(z+h_j/2,t) - U_j(z-h_j/2, t)}{h_j}$
-and the semi-discrete version of \eqref{eq:ref} in the homogeneous case is
+and the semi-discrete version of \eqref{eq:ref} is
 \begin{equation}\label{eq:spaceTimeScheme}
-	(\partial_t + if) U_{j, m+\frac{1}{2}} (t) = \nu_j \frac{\phi_{j,m+1}(t) - \phi_{j,m}(t)}{h_j}
+	(\partial_t + if) U_{j, m+\frac{1}{2}} (t) = \nu_j \frac{\phi_{j,m+1}(t) - \phi_{j,m}(t)}{h_j} + g_j
 \end{equation}
 
 \section{Discrete steady state and well-posedness}
 \label{sec:OASchwarz_DiscreteStationaryState}
-In this section the focus is on the semi-discrete in space
-well-posedness of \eqref{eq:SWRbulk}.
+In this section the focus is on the well-posedness of
+the semi-discrete coupled problem:
+\begin{subequations}
+\label{eq:OASchwarz_SemiDiscreteCoupledProblem}
+\begin{align}
+(\partial_t + if) &U_{j, m+\frac{1}{2}} = \nu_j
+	\frac{\phi_{j,m+1} - \phi_{j,m}}{h_j} + if u_G^j
+\\
+	\left.U_j\right|_{t=0} &= U_0\\
+	\left.U_j\right|_{z=H_j} &= U_j^\infty\\
+	\nu_{\rm a}\phi_{{\rm a}, 0} &=  C_D
+\left|
+%\left.{U}_a\right|_{z=\delta_a}
+	{U}_{a, \frac{1}{2}}
+-
+	{U}_{o, -\frac{1}{2}}
+\right|
+\left(
+	{U}_{a, \frac{1}{2}}
+-
+	{U}_{o, -\frac{1}{2}}
+\right)
+\\
+	\rho_{\rm o} \nu_{\rm o}\phi_{{\rm o}, 0} &= \rho_{\rm a}
+	\nu_{\rm a}\phi_{{\rm a}, 0}
+\end{align}
+\end{subequations}
 \cite{lions_mathematical_1995} proved the existence
 of global-in-time weak solutions in
 two dimensions with nonlinearities inside the
@@ -454,146 +488,184 @@ problem with a nonlinear interface condition.
 In \citep{chacon-rebollo_existence_2014},
 the existence of unsteady solutions of
 nonlinear turbulent models for oceanic surface mixing layers is
-proven with the help of the inverse function theorem.
-\myTD{rappeler le inverse function theorem}
+proven with the help of the inverse function theorem recalled here:
+%Analysis of Linear Partial Differential Operators I: Distribution Theory and Fourier Analysis
+\begin{invFuncTheorem}[{\citep[e.g.][]{hormander_analysis_2015}}]
+	If a function $\mathbf{\Phi}$
+	is continuously differentiable and
+	its derivative is invertible around some point $U^e$
+	then $\mathbf{\Phi}$ is invertible in a neighborhood of $U^e$.
+\end{invFuncTheorem}
+\par
 We will follow their method which consists of three steps:
-\myTD{faire la lien continu -> semi-discret}
 \begin{enumerate}
 	\item showing the existence of a steady state;
 	\item showing the well-posedness of the linearized problem
 	around the steady state;
 	\item using of the inverse function theorem;
 \end{enumerate}
+The previously cited studies use a continuous framework.
+We study the semi-discrete in space well-posedness:
+the function spaces are not the same and some tools must be adapted
+(e.g. the variation of parameters in Appendix
+\ref{sec:OASchwarz_appendix_discreteVariationParameters}).
+However the steps of the proof remain the same.
 \subsection{Derivation of the steady state}
+\label{sec:OASchwarz_SteadyState}
+The first step of the proof is the derivation of the
+steady state. The case $f=0$ is first set aside in
+\S\ref{sec:OASchwarz_SteadyStatef0}; the steady states of
+the inner subdomains are then given in 
+\S\ref{sec:OASchwarz_SteadyStateInner}.
+Finally, the nonlinear condition is treated
+in \S\ref{sec:OASchwarz_SteadyStateNonlinear}
+and solutions are given in \S\ref{sec:summary_stationnary}.
 \subsubsection{Special case $f=0$}
-\myTD{itemize pour clarifier les choses entre finite/infinite size}
+\label{sec:OASchwarz_SteadyStatef0}
 If we set to zero the Coriolis parameter,
 the flux $\nu_j\phi_j$ is constant in each domain.
 If moreover $U_{\rm a}^{\infty} \neq U_{\rm o}^{\infty}$,
 because of the interface conditions
 the derivatives $\phi_{\rm a}$ and $\phi_{\rm o}$
 cannot be equal to zero and $U_j$ are affine.
-With spatial domains of finite size, we eventually
-find an equation roughly similar to
-\myTD{pas d'équation pour le futur}
-\eqref{eq:mainEqSimplified}.
-However, with the infinite domain hypothesis
-$\phi_j$ must tend to zero for $z\rightarrow \pm \infty$.
+\begin{itemize}
+	\item With spatial domains of finite size:
+	a steady state can be found following
+	\S\ref{sec:OASchwarz_SteadyStateNonlinear}, with
+		the difference that $U_j$ are affine.
+	\item With spatial domains of infinite size:
+	$\phi_j$ must tend to zero for $z\rightarrow \pm \infty$.
 \textbf{There is no stationary solution with infinite domains
 for $f=0$}. Note that this is true for both semi-discrete
 and continuous cases.
-\newline
+\end{itemize}
 In the remainder we consider $f \neq 0$ and we assume without loss of
 generality that the space domain is sufficiently
 large ($H_j \rightarrow \infty$): the results can be easily
 extended to domains of finite size.
 \subsubsection{Resolution in each subdomain}
-A discrete analysis of the finite difference scheme \eqref{eq:spaceTimeScheme}
-in the frequency domain (see Chapter \ref{ch:discreteSchwarzAnalysis} or
-\cite{wu_optimized_2017}) leads to 
-$\widehat{\phi}_{{\rm o}, -m}^k = A_k^{\phi} (\lambda_{\rm o}+1)^m$
+\label{sec:OASchwarz_SteadyStateInner}
+We note $U_j^e(z)$ the stationary solution (and ${\phi}_j^e$ its finite difference derivative) of
+\eqref{eq:OASchwarz_SemiDiscreteCoupledProblem}.
+computing $U_j^e$ is similar
+to the discrete analysis of the finite difference scheme for
+Schwarz methods (see Chapter \ref{ch:discreteSchwarzAnalysis} or
+\cite{wu_optimized_2017}),
+except that:
+\begin{itemize}
+	\item the frequency variable $\omega$ is not present;
+	\item the transmission conditions are not required to
+		be linear;
+	\item since the source term does not vanish,
+		the variable $U^e_o - u_G^o$ is considered
+		to obtain the analytical formula of $U^e_o$.
+\end{itemize}
+we obtain
+$\widehat{\phi}_{{\rm o}, -m}^k = A^e
+(\lambda_{\rm o}+1)^m$
 and
-$\widehat{\phi}_{{\rm a}, m}^k = B_k^{\phi} (\lambda_{\rm a}+1)^m$ 
+$\widehat{\phi}_{{\rm a}, m}^k = B^e
+(\lambda_{\rm a}+1)^m$ 
 with $\lambda_j = \frac{1}{2}\left(\chi_j - \sqrt{\chi_j} \sqrt{\chi_j + 4}\right)$, 
-$\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$.
-%with $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$, 
+$\chi_j=\frac{i f h_j^2}{\nu_j}$
 and $m$ the space index.
-The steady state analysis is similar,
-except that $\omega$ is set to 0 and that
-the transmission conditions are not required to be linear. 
-We note $\widetilde{U_j}(z)$ the stationary solution
-(and $\widetilde{\phi}_j$ its finite difference derivative)
-and the space discretization at the first grid level
+\par
+Finally, the space discretization at the first grid level
 $\frac{h_j}{2}$ gives:
-$\widetilde{U}_j(\delta_j) =
-g_j \pm \frac{\nu_j\lambda_j}{if h_j} \{A_k^{\phi}, B_k^{\phi}\}_j$
-\myTD{Notation pas claire}
+\begin{equation}
+		\left.{U}^e_o\right|_{z=\delta_o} =
+u_G^o - \frac{\nu_o\lambda_o}{if h_o} A^e, ~~~~~~~
+		\left.{U}^e_a\right|_{z=\delta_a} =
+u_G^a + \frac{\nu_a\lambda_a}{if h_a} B^e
+\end{equation}
 \begin{remark}[\cite{thery_etude_2021}, \S 5.1.3, \S 5.1.4]
-We retrieve a solution of the form
-$\widetilde{U}_a(\delta_a) = g_a - \Psi_a (u^\star)^2 e^{i\theta}$
-but $\Psi_j = -\frac{\lambda_j}{if h_j}$ is simpler thanks to the hypotheses of constant diffusivities and infinite domains.
+Similarly to the continuous case, the solution is of the form
+	$\left.{U}^e_a\right|_{z=\delta_a} = u_G^a -
+	u_\star^2 e_{\tau}\Psi_a$
+	where $u_\star^2 e_{\tau} =
+	\left.\nu_a \phi_a^e\right|_{z=\delta_a}$.
+The difference stands in the discrete version of
+$\Psi_j = -\frac{\lambda_j}{if h_j}$
+which is simpler thanks to the hypotheses of constant diffusivities
+and infinite domains.
 \end{remark}
-\myTD{clarifier: c'est dans le cas continu. La remarque s'applique
-au cas continu défini via $\Omega_j\cup \Omega_{sl}$?
-+ bizarre de donner $U(\delta_a)$ sans réf explicite à $\delta_j$}
-\subsubsection{Simplification of the problem}
-\myTD{commencer par dire quel problème on essaie de simplifier}
-We interest ourselves in the
-value of $A_k^{\phi}, B_k^{\phi}$ at the potential convergence, namely $A_\infty, B_\infty$.
-%This subsection derives the steady state. The results are summarized in the subsection \ref{sec:summary_stationnary}.
-The first condition of the bulk equation \eqref{eq:fluxInterfaceCondition} gives us $B_\infty = \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} \nu_{\rm a} } A_\infty$
+\subsubsection{The nonlinear transmission condition}
+\label{sec:OASchwarz_SteadyStateNonlinear}
+The first condition of the bulk equation \eqref{eq:fluxInterfaceCondition} gives us $B^e = \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} \nu_{\rm a} } A^e$
 and the nonlinear condition \eqref{eq:bulkInterfaceCondition} gives
 \begin{equation} \label{eq:stationaryBulkFirstEq}
-    \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} C_D} A_\infty
+    \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} C_D} A^e
     =
     \left|
     \left(
     \frac{\rho_{\rm o}}{\rho_{\rm a}}\frac{\nu_{\rm o}\lambda_{\rm a}}{if h_{\rm a}} 
-    +\frac{\nu_{\rm o}\lambda_{\rm o}}{if h_{\rm o}} \right) A_\infty
-    + (g_{\rm a} - g_{\rm o})
+    +\frac{\nu_{\rm o}\lambda_{\rm o}}{if h_{\rm o}} \right) A^e
+    + (u_G^{\rm a} - u_G^{\rm o})
     \right|
     \left(
     \left(
     \frac{\rho_{\rm o}}{\rho_{\rm a}}\frac{\nu_{\rm o}\lambda_{\rm a}}{if h_{\rm a}} 
-    +\frac{\nu_{\rm o}\lambda_{\rm o}}{if h_{\rm o}} \right) A_\infty
-    + (g_{\rm a} - g_{\rm o})
+    +\frac{\nu_{\rm o}\lambda_{\rm o}}{if h_{\rm o}} \right) A^e
+    + (u_G^{\rm a} - u_G^{\rm o})
     \right)
 \end{equation}
 In order to lighten the notations we introduce $d = C_D \left(
     \frac{\lambda_{\rm a}}{if h_{\rm a}} 
     +\frac{\rho_{\rm a}}{\rho_{\rm o}}\frac{\lambda_{\rm o}}{if h_{\rm o}} \right)$ and
-$\widetilde{x} = A_\infty \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} C_D}d+\left(g_{\rm a} - g_{\rm o}\right)$.
+$\widetilde{x} = A^e \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} C_D}d+\left(u_G^{\rm a} - u_G^{\rm o}\right)$.
 $\widetilde{x}$ is the difference between the
-solutions $\widetilde{U}_j$ at interface
+solutions ${U}^e_j$ at interface
 and $d$ is a non-dimensional number that links
-$\widetilde{x}$ and $\rho_j \nu_j \widetilde{\phi}_j(0)$.
+$\widetilde{x}$ and $\rho_j \nu_j {\phi}^e_j(0)$.
 The problem is to find $\widetilde{x}\in \mathbb{C}$ such that
 \begin{equation} \label{eq:mainEqSimplified}
-    \widetilde{x} - \left(g_{\rm a} - g_{\rm o}\right) = d|\widetilde{x}|\widetilde{x}
+    \widetilde{x} - \left(u_G^{\rm a} - u_G^{\rm o}\right) = d|\widetilde{x}|\widetilde{x}
 \end{equation}
 \begin{remark}
-If the infinite domains hypothesis is relaxed, equation \eqref{eq:mainEqSimplified} is retrieved with slightly different $\widetilde{x}$ and $d$.
+If the infinite domains hypothesis is relaxed, equation \eqref{eq:mainEqSimplified} is retrieved with slightly different $\widetilde{x}$ and $d$;
+If $f=0$ with finite domains we also obtain an equation of
+the form \eqref{eq:mainEqSimplified}.
 \end{remark}
 Introducing the real and imaginary parts of
 $\widetilde{x}=\widetilde{x}_R+i{\widetilde{x}_I}$ and
 $d={d_R}+i{d_I}$, one gets:
 \begin{equation}
     \begin{aligned}
-    \widetilde{x}_R &= |\widetilde{x}|({d_R} \widetilde{x}_R - {d_I}{\widetilde{x}_I}) +g_{\rm a} - g_{\rm o} \\
+    \widetilde{x}_R &= |\widetilde{x}|({d_R} \widetilde{x}_R - {d_I}{\widetilde{x}_I}) +u_G^{\rm a} - u_G^{\rm o} \\
     {\widetilde{x}_I} &= |\widetilde{x}|({d_I}\widetilde{x}_R + {d_R}{\widetilde{x}_I})
     \end{aligned}
 \end{equation}
 A combination (product with ${\widetilde{x}_I}, \widetilde{x}_R$)
 between those equations gives
-${d_I}\left|\widetilde{x}\right|^3 = \left(g_{\rm a} - g_{\rm o}\right) {\widetilde{x}_I}$ which means that either ${d_I}=\widetilde{x}_I=0$ or ${d_I}\neq 0$ and $\frac{g_{\rm a} - g_{\rm o}}{{d_I}}{\widetilde{x}_I}>0$.
-From \eqref{eq:mainEqSimplified}, $\widetilde{x}$ cannot be real because $g_{\rm a} \neq g_{\rm o}$ and $d$ is not real.
+${d_I}\left|\widetilde{x}\right|^3 = \left(u_G^{\rm a} - u_G^{\rm o}\right) {\widetilde{x}_I}$ which means that either ${d_I}=\widetilde{x}_I=0$ or ${d_I}\neq 0$ and $\frac{u_G^{\rm a} - u_G^{\rm o}}{{d_I}}{\widetilde{x}_I}>0$.
+From \eqref{eq:mainEqSimplified}, $\widetilde{x}$ cannot be real because $u_G^{\rm a} \neq u_G^{\rm o}$ and $d$ is not real.
 We get the equality
-$\widetilde{x}_I = \frac{{d_I}}{g_{\rm a} - g_{\rm o}} |\widetilde{x}|^3$.
+$\widetilde{x}_I = \frac{{d_I}}{u_G^{\rm a} - u_G^{\rm o}} |\widetilde{x}|^3$.
 %$|\widetilde{x}| = \sqrt[3]{ {\widetilde{x}_I}/t}$ 
 The system is hence equivalent to:
 \begin{equation}
     \begin{aligned}
     \left(1 - |\widetilde{x}| d_R\right)
-    \left(g_{\rm a} - g_{\rm o}\right)\widetilde{x}_R &=
-    -{d_I}^2 |\widetilde{x}|^4 + \left(g_{\rm a} - g_{\rm o}\right)^2 \\
+    \left(u_G^{\rm a} - u_G^{\rm o}\right)\widetilde{x}_R &=
+    -{d_I}^2 |\widetilde{x}|^4 + \left(u_G^{\rm a} - u_G^{\rm o}\right)^2 \\
     |\widetilde{x}|^2 &=
-    {d_R} |\widetilde{x}|^3 + \left(g_{\rm a} - g_{\rm o}\right)\widetilde{x}_R.
+    {d_R} |\widetilde{x}|^3 + \left(u_G^{\rm a} - u_G^{\rm o}\right)\widetilde{x}_R.
     \end{aligned}
 \end{equation}
-$1 - |\widetilde{x}| d_R$ should not be zero as it would require that $g_{\rm a} - g_{\rm o} = \pm \frac{d_I}{d_R^2}$ ($d$ does not depend on $g_j$ and the latter values are arbitrarily chosen in this study:
+$1 - |\widetilde{x}| d_R$ should not be zero as it would require that $u_G^{\rm a} - u_G^{\rm o} = \pm \frac{d_I}{d_R^2}$ ($d$ does not depend on $u_G^j$ and the latter values are arbitrarily chosen in this study:
 it is therefore unlikely that this equality holds).
 Eliminating $\widetilde{x}_R$ then leads to an equation on $|\widetilde{x}|$ :
 \begin{equation} \label{eq:mainPolynomial}
     |\widetilde{x}|^2 -  2{d_R} |\widetilde{x}|^3 + 
     |d|^2 |\widetilde{x}|^4
-    =\left(g_{\rm a} - g_{\rm o}\right)^2
+    =\left(u_G^{\rm a} - u_G^{\rm o}\right)^2
 \end{equation}
 % W|A:
 % t x^3 =x (a x^3 - b \sqrt{x^2 - t^2 x^6})
 A routine calculation finds 4 potential roots to this problem. Note that only the real positive roots are relevant.
 Typical values for our problem are 
 $|d| \approx 10^{-1}$ and $d_R \approx -8 \times 10^{-2}$.
-%$\frac{{d_R} d_I}{g_{\rm a}^g - g_{\rm o}^g} \approx-7\times 10^{-4}$, ${d_I}\approx8.6 \times 10^{-2}$, $\frac{d_I}{{g_{\rm a}^g - g_{\rm o}^g}}\approx 8.7\times 10^{-3}$.
+%$\frac{{d_R} d_I}{u_G^{\rm a}^g - u_G^{\rm o}^g} \approx-7\times 10^{-4}$, ${d_I}\approx8.6 \times 10^{-2}$, $\frac{d_I}{{u_G^{\rm a}^g - u_G^{\rm o}^g}}\approx 8.7\times 10^{-3}$.
 The solution is detailed below.
 \subsubsection{Solutions}
 \label{sec:summary_stationnary}
@@ -604,9 +676,9 @@ We define:
     \frac{\lambda_{\rm a}}{if h_{\rm a}} 
     +\frac{\rho_{\rm a}}{\rho_{\rm o}}\frac{\lambda_{\rm o}}{if h_{\rm o}} \right), \qquad &d_R = \mathfrak{R}(d),
     \\
-    s &= 2 + \left(g_{\rm a} - g_{\rm o}\right)^2 \left(72 |d|^2 - 108 d_R^2 \right),
+    s &= 2 + \left(u_G^{\rm a} - u_G^{\rm o}\right)^2 \left(72 |d|^2 - 108 d_R^2 \right),
     \qquad
-    &\beta = 1 - 12 |d|^2 \left(g_{\rm a} - g_{\rm o}\right)^2, \\
+    &\beta = 1 - 12 |d|^2 \left(u_G^{\rm a} - u_G^{\rm o}\right)^2, \\
     \gamma &= \frac{\sqrt[3]{s+\sqrt{s^2 - 4 \beta^3}}}{3\sqrt[3]{2}|d|^2} +\frac{\sqrt[3]{2}\beta}{3|d|^2 \sqrt[3]{s+\sqrt{s^2 - 4 \beta^3}}}, 
     \qquad &\zeta = -\frac{2}{3|d|^2} + \frac{{d_R}^2}{|d|^4}
     \end{aligned}
@@ -625,19 +697,24 @@ Experimentally, it is seen that if it exists, it is the root corresponding to th
 where the first $\pm$ and the
 third one are necessarily the same.
 For our parameters there is only one positive real solution that
-corresponds to the solution of the semi-discrete,
-nonlinear problem. \myTD{citer le problème couplé ?}
-% There should be an equivalence between the existence of a real positive root and the existence of a stationnary state of the coupled problem.
-% {\color{red} However, it was seen in numerical experiments that the Schwarz method 
-% seems to converge to a coupled, stationary case which corresponds
-% rather well to the solution described here but where $|\widetilde{x}|$ would be a complex.}
-%we will see in Figure \ref{fig:profile_bug} that it seems not to be the case.
+corresponds to the solution of
+\eqref{eq:OASchwarz_SemiDiscreteCoupledProblem}.
 \par
-Finally, we recover $\widetilde{x}$ from \eqref{eq:mainEqSimplified}: $\widetilde{x} = \frac{g_{\rm a} - g_{\rm o}}{1 - d |\widetilde{x}|}$, then $A_\infty = \frac{C_D \rho_{\rm a}}{\rho_{\rm o} \nu_{\rm o} d}\left(\widetilde{x} - (g_{\rm a} - g_{\rm o})\right)$ 
+Finally, we recover $\widetilde{x}$ from \eqref{eq:mainEqSimplified}: $\widetilde{x} = \frac{u_G^{\rm a} - u_G^{\rm o}}{1 - d |\widetilde{x}|}$, then $A^e = \frac{C_D \rho_{\rm a}}{\rho_{\rm o} \nu_{\rm o} d}\left(\widetilde{x} - (u_G^{\rm a} - u_G^{\rm o})\right)$ 
 and
-$ B_\infty =  \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} \nu_{\rm a}}A_\infty$.
+$ B^e = \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} \nu_{\rm a}}A^e$.
+The steady state $U^e_j$ is given by
+\begin{equation}
+	\begin{aligned}
+	U^e_{{\rm o}, -m-1/2} &=
+		u_G^o - \frac{\nu_o\lambda_o}{if h_o}
+		(1+\lambda_o)^{m} A^e\\
+	U^e_{{\rm a}, m+1/2} &= 
+u_G^a + \frac{\nu_a\lambda_a}{if h_a}
+		(1+\lambda_a)^{m} B^e
+	\end{aligned}
+\end{equation}
 Figure \ref{fig:validation} shows that this analysis fits the result of Schwarz algorithm.
-\myTD{écrire explicitement $U^e=...$}
 \begin{figure}
     \centering
     \includegraphics[scale=0.55]{profile_stationnaire.pdf}
@@ -700,7 +777,7 @@ Figure \ref{fig:validation} shows that this analysis fits the result of Schwarz 
 %     r &= \sqrt{\zeta + \gamma } \\
 %     \end{aligned}
 % \end{equation}
-% note that by definition of $\lambda_j$, if we use $g_{\rm a}^g - g_{\rm o}^g>0$(it is reasonable, since we can neglect $g_{\rm o}
+% note that by definition of $\lambda_j$, if we use $u_G^{\rm a}^g - u_G^{\rm o}^g>0$(it is reasonable, since we can neglect $u_G^{\rm o}
 % 
 % With those signs, we know that $\frac{2{a}^3t^6-2{a}jt^4}{j^3 r}$ has the same sign as $j-{a}^2 t^2$, which is always strictly positive. Hence, the third (and first) $\pm$ is a $+$ when we need a real variable.
 % Our conditions become:
@@ -787,15 +864,15 @@ Figure \ref{fig:validation} shows that this analysis fits the result of Schwarz 
 \subsection{Existence of solutions of the
 nonlinear semi-discrete in space problem}
 \label{sec:OASchwarz_wellPosedness}
-\myTD{introduire un peu plus là}
-The method can be generalized to other types of
+\myTD{Harmoniser $U$ et $u$}
+The method used by \citep{chacon-rebollo_existence_2014}
+can be used to deal with other types of
 nonlinearities. In particular, we can show the existence and
-uniqueness of problem \eqref{eq:SWRbulk}
-(ignoring the Schwarz iteration indices) close to the
-steady state. \myTD{formuler explicitement en 6.3.1}
+uniqueness of problem \eqref{eq:OASchwarz_SemiDiscreteCoupledProblem}
+close to the steady state.
 \begin{enumerate}
-	\item The existence of a steady state $U^e$ is discussed above
-		in this section. \myTD{citer section}
+	\item The existence of a steady state $U^e$ is discussed in
+		\S \ref{sec:OASchwarz_SteadyState}.
 	\item The well-posedness of the linearized
 		problem is discussed in Appendix
 	\ref{sec:OASchwarz_appendix_discreteVariationParameters}.
@@ -807,10 +884,12 @@ steady state. \myTD{formuler explicitement en 6.3.1}
 			\{u_a, u_o, \left.\phi_a\right|_{z=0}\}
 			\in \mathbf{\cal U}$
 		where $\mathbf{\cal U} = L^2([0,T])^{M_a+M_o+1}$.
-			\myTD{définir $M_a, M_o$ et 
-			dire explicitement pourquoi $\phi_o$ ne fait
-			pas partie de U (voir premier item en dessous,
-			$\phi_o$ est implicite)}
+		$M_a, M_o$ are the number of grid levels in the
+		subdomains.
+		$\left.\phi_a\right|_{z\neq 0}$
+		and $\phi_o$ are not in $\mathbf{U}$ because they
+		can be expressed as linear combinations of elements
+			of $\mathbf{U}$.
 		\item
 	Define a mapping
 	$\mathbf{\Phi}: \mathbf{\cal U}\rightarrow \mathbf{Y}$
@@ -891,7 +970,9 @@ on the initial data.
 		\ref{sec:OASchwarz_appendix_discreteVariationParameters}.
 	\end{enumerate}
 \end{enumerate}
-
+% The inverse function theorem can also provide a bound on
+% $\mathbf{U} - \mathbf{U}^e$ depending on how far from the
+% steady state the initial and boundary conditions are.
 %====================================================
 \section{Convergence analysis} \label{sec:conv-lin}
 %====================================================
@@ -1079,14 +1160,14 @@ The optimal parameter $\theta_{\rm opt}$ for low frequencies is $1 - \epsilon\sq
 %\\[2mm]
 %\textbf{Linearized quadratic friction case}\hspace*{5mm}
 \subsection{Linearized quadratic friction case}
-%\label{subsec:linearized}
+\label{sec:OASchwarz_linearized}
 The analysis of the nonlinear quadratic friction case (i.e. with $\alpha = C_D\left|\right.U_{\rm a}\left(h_{\rm a} / 2, t\right) - U_{\rm o}\left(- h_{\rm o}/2, t\right)\left.\right|$)
 cannot be directly pursued through a Fourier transform.
 %Indeed $\alpha^k$ would still be expressed as a function of time while the variables $\widehat{\phi}$
 %would depend on the frequency.
 We thus consider the linearization of the problem 
-around a steady state $U^e_j, \phi^e_j$ satisfying \eqref{eq:cplProblem}:
-\myTD{citer un autre système qui correspond au steady state}
+around a steady state $U^e_j, \phi^e_j$ satisfying
+\eqref{eq:OASchwarz_SemiDiscreteCoupledProblem}:
 assuming that $U^k_j (\pm h_j/2, t)$ is in a neighborhood of $U^e(\pm h_j/2)$, the modulus in $\alpha$
 is non-zero and
 we can differentiate $\alpha$.
@@ -1119,9 +1200,8 @@ The transmission condition is linearized as
 	\left(\delta U_a^{k} - \delta U_a^{k-1}
 	\right)
 \end{equation}
-where $\langle D_x ??, \mu \rangle$ denotes the total derivative
-of the application ?? at x applied on $\mu$.
-\myTD{définir les crochets de dualité mieux que ça}
+where the linear map $\langle D_x \Upsilon, \cdot \rangle$
+is the total derivative of the application $\Upsilon$ at x.
 Let us first compute the total derivative of $x\mapsto |x|x$.
 The total derivative of $|\cdot|^2$ is
 \begin{equation}

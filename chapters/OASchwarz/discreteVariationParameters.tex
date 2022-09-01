@@ -1,7 +1,5 @@
 \section{Well-posedness of the linearized quadratic friction case}
 \label{sec:OASchwarz_appendix_discreteVariationParameters}
-\myTD{refaire un passage pour la rendre plus facile à lire et
-les calculs plus faciles à suivre.}
 We look for the solutions of the Laplace transform
 (with the frequency variable $s=\sigma + i\omega, \sigma>0$) of our
 coupled problem (the steady state has been substracted from $u$):
@@ -141,33 +139,52 @@ The determinant of the inversed matrix in
 \eqref{eq:OASchwarz_appendix_deltaB} is
 $\lambda_u^{-1} - \lambda_u$ which is never zero because
 $\sigma > 0$.
+\par
+The sum of \eqref{eq:OASchwarz_appendix_deltaB} from $1$ to $m$
+gives a relation between $B^1_m, B^2_m$ and
+$B^1_0, B^2_0$ with the parameters $\lambda_u, U_0$ and $m$.
+Showing that $B^1_0, B^2_0$ are uniquely determined is hence
+sufficient to show that there is a unique solution $\widehat{u}$
+in the atmosphere.
+
 Let us note 
-\myTD{Pas super clair je trouve, pour définir $S^1_m$ et $S^2_m$. 
-- j'inverserais l'égalité : B := S + C
-- je préciserais ce que tu as en tête : $C_3$ et $C_4$
-représentent tout ce qui est indépendant de m, c'est ça ?}
 $\begin{pmatrix}
-	S_m^1(U_0) + {C}_3\\
-	S_m^2(U_0) + {C}_4
-\end{pmatrix}:=\begin{pmatrix}
 B_m^1\\
 B_m^2
+\end{pmatrix}
+:= \begin{pmatrix}
+	 B^1_0 + S_m^1(U_0)\\
+	 B^2_0 + S_m^2(U_0)
 \end{pmatrix}$.
+The vector $\begin{pmatrix} S_m^1(U_0)\\ S_m^2(U_0) \end{pmatrix}$
+is the sum of the right hand side of
+\eqref{eq:OASchwarz_appendix_deltaB} from $1$ to $m$. It makes
+the link between $B^1_0, B^2_0$ and $B^1_m, B^2_m$ but will not
+affect the presence of a unique solution for $B^1_0, B^2_0$.
+\begin{remark}
+	All the variables $S$ in the following will not be used
+	to determine the existence of a unique solution
+	$\widehat{u}$.
+\end{remark}
 The Dirichlet boundary condition at $H_a = (M_a + \frac{1}{2})h_a$
 is equivalent to
 $B_{M_a}^1 (\lambda_u)^{2M_a} = - B_{M_a}^2$ which determines
-${C}_4$:
+$B^2_0$:
 \begin{equation}
-- {C}_4 = \left(S_{M_a}^1(U_0) + {C}_3\right)
+- B^2_0 = \left(S_{M_a}^1(U_0) + B^1_0\right)
 	(\lambda_u)^{2M_a} + S_{M_a}^2(U_0)
 \end{equation}
-\myTD{il manque une phrase ?}
+We hence only need the sole value of $B^1_0$ to characterise
+$\widehat{u}$. In particular, the variable $\widehat{u}_{\frac{1}{2}}$
+used in the linearized transmission condition reads
 \begin{equation}
-		\widehat{u}_{\frac{1}{2}} = {C}_3 (1 - \lambda_u^{2M_a})
+	\widehat{u}_{\frac{1}{2}} = B^1_0 (1 - \lambda_u^{2M_a})
 	+ \underbrace{S_0^1+S_0^2 - S_{M_a}^1 \lambda_u^{2M_a}
 		-S_{M_a}^2}_{:=S_{u, a}^{m=1/2}(U_0)}
 \end{equation}
-\eqref{eq:OASchwarz_appendix_eqFourier} at the first grid level is
+To obtain the derivative at interface $\widehat{\phi}_{a,0}$
+\eqref{eq:OASchwarz_appendix_eqFourier} is used
+at the first grid level:
 \begin{equation}
 	\chi_a \widehat{u}_{\frac{1}{2}} =
 	\widehat{u}_{\frac{3}{2}} - \widehat{u}_{\frac{1}{2}}
@@ -176,7 +193,7 @@ ${C}_4$:
 Those equations give
 \begin{equation}
 	\begin{aligned}
-		\widehat{\phi}_{a,0} =&{C}_3 \underbrace{\frac{1}{h_a}
+		\widehat{\phi}_{a,0} =& B^1_0 \underbrace{\frac{1}{h_a}
 		\left(
 			\lambda_u-\lambda_u^{2M_a-1}
 			- (\chi_a+1)(1-\lambda_u^{2M_a})
@@ -189,10 +206,10 @@ Those equations give
 We obtain similar equations in the ocean part:
 \begin{equation}
 	\begin{aligned}
-		\widehat{u}_{-\frac{1}{2}} &= {C}_5 (1 -
+		\widehat{u}_{-\frac{1}{2}} &= A^1_0 (1 -
 			\lambda_{u_o}^{2M_o})
 			+ S_{u, o}^{m=-1/2}(U_0) \\
-		\widehat{\phi}_{o,0} &= - {C}_5 K_{1,o}
+		\widehat{\phi}_{o,0} &= - A^1_0 K_{1,o}
 		-S_{\phi,o}^{m=0},
 		~~~~~~ K_{1,o} = \frac{1}{h_o}
 		\left(
@@ -204,7 +221,7 @@ We obtain similar equations in the ocean part:
 The continuity of the flux at interface
 $\rho_o \nu_o \phi_o = \rho_a \nu_a \phi_a$ lets us rewrite
 \begin{equation}
-{C}_5 = - {C}_3 \times \epsilon
+A^1_0 = - B^1_0 \times \epsilon
 	\frac{\nu_a}{\nu_o} \frac{K_{1,a}}{K_{1,o}} -
 	\frac{S_{\phi,o}^0 - \epsilon \frac{\nu_a}{\nu_o}
 	S^0_{\phi, a}}{K_{1,o}}
@@ -212,22 +229,53 @@ $\rho_o \nu_o \phi_o = \rho_a \nu_a \phi_a$ lets us rewrite
 and the jump between the solutions is
 \begin{equation}
 	\widehat{u}_{\frac{1}{2}} - \widehat{u}_{-\frac{1}{2}}
-	= {C}_3 K_{2} + \Delta S
+	= B^1_0 K_{2} + \Delta S
 \end{equation}
-\myTD{$\Delta S$ non défini}
 where $K_{2} = 1 - \lambda_{u_a}^{2M_a} + (1 - \lambda_{u_o}^{2M_o})
-\epsilon \frac{\nu_a}{\nu_o} \frac{K_{1,a}}{K_{1,o}}$.
+\epsilon \frac{\nu_a}{\nu_o} \frac{K_{1,a}}{K_{1,o}}$
+and $\Delta S = S_{u, a}^{m=\frac{1}{2}} - S_{u, o}^{m=-\frac{1}{2}}
++(1 - \lambda_{u_o}^{2M_o})\frac{S_{\phi,o}^0 - \epsilon \frac{\nu_a}{\nu_o}
+	S^0_{\phi, a}}{K_{1,o}}$.
 \subsection{Inverting the friction law}
-The friction law reads
+After substitution of $\widehat{u}_{\frac{1}{2}}
+- \widehat{u}_{-\frac{1}{2}}$ and $\phi_{{\rm a}, 0}$ in
+the friction law \eqref{eq:OASchwarz_appendix_linearizedCond}, we
+obtain a linear equation involving $B^1_0(s)$ and
+$\overline{B^1_0(\overline{s})}$:
 \begin{equation}
+	\label{eq:OASchwarz_appendix_frictionLaw}
 	\underbrace{(\nu_a K_{1,a} - \frac{3\alpha^e K_{2}}{2})}_{
 		K_3(s)
-	}{C}_3
+	}B^1_0(s)
 	-\underbrace{
 		\alpha^e \frac{{\cal O} \overline{K_2}(\overline{s})}{2}}_{
 		\overline{K_4(\overline{s})}}
-	\times \overline{{C}_3(\overline{s})}
+	\times \overline{B^1_0(\overline{s})}
 	= S_{\rm friction}
+\end{equation}
+where $S_{\rm friction} =
+	\frac{3\alpha^e}{2} \left(
+	\Delta S + \frac{\cal O}{3}
+	\overline{\Delta S(\overline{s})}\right)
+	+\nu_a S_{\phi,a}^{m=0}$.
+The complex conjugate of \eqref{eq:OASchwarz_appendix_frictionLaw}
+taken at $\overline{s}$ gives
+\begin{equation}
+\label{eq:OASchwarz_appendix_frictionLaw2}
+	- K_4(s)B^1_0(s) +
+	\overline{K_3(\overline{s}) B^1_0(\overline{s})} =
+	\overline{S_{\rm friction}(\overline{s})}
+\end{equation}
+Finally, $B^1_0$  (and $\widehat{u}_j$) can be uniquely determined
+if the system
+(\ref{eq:OASchwarz_appendix_frictionLaw}-\ref{eq:OASchwarz_appendix_frictionLaw2})
+has a unique solution, i.e. if the following matrix is invertible:
+\begin{equation}
+	\label{eq:OASchwarz_appendix_matrix_omega}
+	\begin{pmatrix}
+		K_3(s)& - \overline{K_4(\overline{s})}\\
+		-K_4(s) & \overline{K_3(\overline{s})}
+	\end{pmatrix}
 \end{equation}
 \begin{figure}
     \centering
@@ -238,20 +286,6 @@ The friction law reads
 	if $\sigma>0$ the matrix is invertible $\forall \omega$.}
     \label{fig:OASchwarz_isDetZero}
 \end{figure}
-where $S_{\rm friction} =
-	\frac{3\alpha^e}{2} \left(
-	\Delta S + \frac{\cal O}{3}
-	\overline{\Delta S(\overline{s})}\right)
-	+\nu_a S_{\phi,a}^{m=0}$.
-We can obtain the analytic expression of $\widehat{u}_j$
-by inverting the matrix
-\begin{equation}
-	\label{eq:OASchwarz_appendix_matrix_omega}
-	\begin{pmatrix}
-		K_3(s)& - \overline{K_4(\overline{s})}\\
-		-K_4(s) & \overline{K_3(\overline{s})}
-	\end{pmatrix}
-\end{equation}
 Figure \ref{fig:OASchwarz_isDetZero} shows that the determinant of
 this matrix is not zero for $\sigma>0$. For the frequencies
 $\omega=f$ and $\omega=-f$ the determinant is close to zero, and
