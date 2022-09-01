@@ -561,10 +561,10 @@ except that:
 		to obtain the analytical formula of $U^e_o$.
 \end{itemize}
 we obtain
-$\widehat{\phi}_{{\rm o}, -m}^k = A^e
+$\phi_{{\rm o}, -m}^e = A^e
 (\lambda_{\rm o}+1)^m$
 and
-$\widehat{\phi}_{{\rm a}, m}^k = B^e
+$\phi_{{\rm a}, m}^e = B^e
 (\lambda_{\rm a}+1)^m$ 
 with $\lambda_j = \frac{1}{2}\left(\chi_j - \sqrt{\chi_j} \sqrt{\chi_j + 4}\right)$, 
 $\chi_j=\frac{i f h_j^2}{\nu_j}$
@@ -864,7 +864,6 @@ Figure \ref{fig:validation} shows that this analysis fits the result of Schwarz 
 \subsection{Existence of solutions of the
 nonlinear semi-discrete in space problem}
 \label{sec:OASchwarz_wellPosedness}
-\myTD{Harmoniser $U$ et $u$}
 The method used by \citep{chacon-rebollo_existence_2014}
 can be used to deal with other types of
 nonlinearities. In particular, we can show the existence and
@@ -881,7 +880,7 @@ close to the steady state.
 	\begin{enumerate}
 		\item concatenate the state vectors
 			in a single vector $\mathbf{U}=
-			\{u_a, u_o, \left.\phi_a\right|_{z=0}\}
+			\{U_a, U_o, \left.\phi_a\right|_{z=0}\}
 			\in \mathbf{\cal U}$
 		where $\mathbf{\cal U} = L^2([0,T])^{M_a+M_o+1}$.
 		$M_a, M_o$ are the number of grid levels in the
@@ -898,18 +897,18 @@ close to the steady state.
 	\label{eq:OASchwarz_wellPosedness_Phi}
 \begin{aligned}
 	\mathbf{\Phi}(\mathbf{U}) =
-	\{&(\partial_t + if) u_a - \nu_a\partial_z \phi_a - g_a, \\
-	&(\partial_t + if) u_o - \nu_o\partial_z \phi_o - g_o, \\
-	&u_a(H_a, t) - u^\infty_a, ~~ u_o(H_o, t) - u^\infty_o, \\
+	\{&(\partial_t + if) U_a - \nu_a\partial_z \phi_a - g_a, \\
+	&(\partial_t + if) U_o - \nu_o\partial_z \phi_o - g_o, \\
+	&U_a(H_a, t) - U^\infty_a, ~~ U_o(H_o, t) - U^\infty_o, \\
 	&\nu_{\rm a}\left.\phi_{\rm a}\right|_{z=0} - \alpha
 	\left( U_{\rm a}\left(\frac{h_{\rm a}}{2},
 	t\right) - U_{\rm o}\left(-\frac{h_{\rm o}}{2},
 	t\right)\right) \\
-	&\left.u_a\right|_{t=0} - U^e_{a}, ~~
-	\left.u_o\right|_{t=0} - U^e_{o}\}
+	&\left.U_a\right|_{t=0} - U^e_{a}, ~~
+	\left.U_o\right|_{t=0} - U^e_{o}\}
 \end{aligned}
 \end{equation}
-where $\left.\phi_j\right|_{z\neq 0} = \partial_z u_j$
+where $\left.\phi_j\right|_{z\neq 0} = \partial_z U_j$
 and $\partial_z$ is to be understood as the finite difference
 operator which is applied only where it makes sense:
 for instance the first line of \eqref{eq:OASchwarz_wellPosedness_Phi}
@@ -1143,7 +1142,19 @@ The optimal parameter $\theta_{\rm opt}$ for low frequencies is $1 - \epsilon\sq
 	$(\phi_k)_{k\in \mathbb{N}}$
 	whereas $\phi_k\to 0$ as $\omega+f\rightarrow 0$.
 \end{remark}
-\myTD{visualisation $\xi$ pour certaines valeurs de $\theta$}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.65]{linearRate.pdf}
+	\caption{Convergence factor
+	$\xi(\omega)$ in the linear case for $\theta=0.5, 0.75, 1$.
+	The vertical dashed line highlights the frequency for which
+	$\omega+f\rightarrow 0$.}
+    \label{fig:OASchwarz_linearRate}
+\end{figure}
+Figure \ref{fig:OASchwarz_linearRate} shows that the asymptote
+$\omega+f\rightarrow 0$ is the upper bound of $xi$ for several values
+of $\theta$. In this linear case, $\theta\approx 1$ is a good choice
+to reduce the convergence factor.
 %for parameter values 
 %typical of the ocean-atmosphere coupling problem.
 % The asymptotic value when $f\neq 0$ is
@@ -1342,6 +1353,19 @@ can be studied instead of the convergence factor.
 One can see on Figure \ref{fig:OASchwarz_singularValues} that
 the two singular values are different for small frequencies,
 especially around the frequencies $f$ and $-f$.
+\par
+One can hence expect (see
+Figure \ref{fig:OASchwarz_rateBetweenEigenvalues}) that for frequencies close to $f$ and $-f$
+the "convergence factor"
+$\sqrt{\frac{|B_k(\omega)|^2 +
+|B_k(-\omega)|^2}{|B_{k-1}(\omega)|^2 + |B_{k-1}(-\omega)|^2}}$ will be
+\begin{itemize}
+	\item different from one iteration to another;
+	\item between $\widetilde{\xi}_1$ and $\widetilde{\xi}_2$.
+\end{itemize}
+We optimize only the maximum over the frequencies of the biggest
+singular value $\widetilde{\xi}_1$ (see Figure
+\ref{fig:OASchwarz_nonasymptotic})
 \begin{figure}
     \centering
     \includegraphics[scale=0.65]{plotEigenvaluesValidated.pdf}
@@ -1361,18 +1385,15 @@ especially around the frequencies $f$ and $-f$.
 	}
     \label{fig:OASchwarz_singularValues}
 \end{figure}
-\begin{figure}[htpb]
+\begin{figure}
 	\centering
-	\scalebox{0.8}{
+	\scalebox{0.7}{
 		\import{}{rate_between_eigenvalues.pdf_tex}}
 	\caption[The convergence factor $\xi(k)$ varies and is bounded]{
 	The vector
 	$\mathbf{B}^k= \begin{pmatrix} B_k(\omega) \vspace{0.15cm}\\
 	\overline{B_k(-\omega)} \end{pmatrix}$
 	can be decomposed into a basis\footnotemark
-	\myTD{a faire en dernier:
-	voir si la footnote est au bon endroit.
-	Aussi, attention aux figures qui arrivent trop tôt}
 	of eigenvectors
 	$\mathbf{B}_i^k$ which converge linearly with
 	convergence factors $\widetilde{\xi}_i$.
@@ -1386,42 +1407,6 @@ especially around the frequencies $f$ and $-f$.
 	$\mathbf{B}^k$ gets closer to $\mathbf{B}^k_1$.
 	}
 	\label{fig:OASchwarz_rateBetweenEigenvalues}
-\end{figure}
-\footnotetext{The matrix is indeed diagonalizable if
-$\widetilde{\xi}_1 \neq\widetilde{\xi}_2$; otherwise we
-have a simple convergence factor
-$\xi = \widetilde{\xi}_1 = \widetilde{\xi}_2$.
-}
-\par
-One can hence expect (see
-Figure \ref{fig:OASchwarz_rateBetweenEigenvalues}) that for frequencies close to $f$ and $-f$
-the "convergence factor"
-$\sqrt{\frac{|B_k(\omega)|^2 +
-|B_k(-\omega)|^2}{|B_{k-1}(\omega)|^2 + |B_{k-1}(-\omega)|^2}}$ will be
-\begin{itemize}
-	\item different from one iteration to another;
-	\item between $\widetilde{\xi}_1$ and $\widetilde{\xi}_2$.
-\end{itemize}
-We optimize only the maximum over the frequencies of the biggest
-singular value $\widetilde{\xi}_1$ (see Figure
-\ref{fig:OASchwarz_nonasymptotic})
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.65]{asymptote_linearized.pdf}
-	\caption{Singular values
-	$\widetilde{\xi}_1, \widetilde{\xi}_2$ of $\begin{pmatrix}
-	a_1(\omega) & a_2(\omega) \vspace{0.15cm}\\
-	\overline{a_2(-\omega)} & \overline{a_1(-\omega)} \\
-	\end{pmatrix}$ maximized over the set of discrete
-	frequencies
-	$\{-\frac{\pi}{\Delta t}, ..., \frac{\pi}{T}, 0,
-	\frac{\pi}{T},..., \frac{\pi}{\Delta t}\}$.
-	The vertical dashed line highlights the minimum
-	of $\max \widetilde{\xi}_1$.
-	The windows length $T$ is one day
-	and $\Delta t=60\;{\rm s}$ .
-	}
-    \label{fig:OASchwarz_nonasymptotic}
 \end{figure}
 and find that the optimal value of $\theta$ is slightly smaller than
 $1.5$ (instead of an optimal value slightly bigger than $1.5$
@@ -1474,6 +1459,29 @@ We observed that those results are robust to changes in the values of the parame
 Linearized transmission conditions are hence relevant to study
 theoretically the
 convergence properties of our nonlinear problem.
+\footnotetext{The matrix is indeed diagonalizable if
+$\widetilde{\xi}_1 \neq\widetilde{\xi}_2$; otherwise we
+have a simple convergence factor
+$\xi = \widetilde{\xi}_1 = \widetilde{\xi}_2$.
+}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.65]{asymptote_linearized.pdf}
+	\caption{Singular values
+	$\widetilde{\xi}_1, \widetilde{\xi}_2$ of $\begin{pmatrix}
+	a_1(\omega) & a_2(\omega) \vspace{0.15cm}\\
+	\overline{a_2(-\omega)} & \overline{a_1(-\omega)} \\
+	\end{pmatrix}$ maximized over the set of discrete
+	frequencies
+	$\{-\frac{\pi}{\Delta t}, ..., \frac{\pi}{T}, 0,
+	\frac{\pi}{T},..., \frac{\pi}{\Delta t}\}$.
+	The vertical dashed line highlights the minimum
+	of $\max \widetilde{\xi}_1$.
+	The windows length $T$ is one day
+	and $\Delta t=60\;{\rm s}$ .
+	}
+    \label{fig:OASchwarz_nonasymptotic}
+\end{figure}
 \begin{figure}
     \centering
     \includegraphics[scale=0.65]{evolution_err_nonlinear.pdf}
