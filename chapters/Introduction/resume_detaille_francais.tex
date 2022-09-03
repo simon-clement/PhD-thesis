@@ -1,0 +1,109 @@
+\chapter*{Résumé détaillé}
+\section*{Chapitre 1: Modélisation d'une colonne océan-atmosphère}
+\section*{Chapitre 2: Analyse discrète des méthodes de Schwarz avec des équations de réaction-diffusion}
+Le chapitre 2 a été publié sous la forme de l'article
+\citep{clement_discrete_2022-1} dans le journal
+\textit{SMAI Journal of Computational Mathematics}.
+\begin{enumerate}
+\item \textbf{Modèle continu et méthode de Schwarz}:
+\myTD{manque une phrase ici}
+\begin{subequations}
+\begin{align}
+\partial_t u_j +( r - \nu_j \partial_x^2) u_j &= f_j ~~~~~~~~
+(j=o,a) &\qquad&
+(x,t) \in (-\infty,0) \times ]0,T] \label{eq:dr1} \\
+u_j(x,0) &= u_{j,0}(x)   &\qquad&  x \in (-\infty,0)  \\
+u_o(0^-,t) &=  u_a(0^+,t) &\qquad& t \in [0,T] \label{eq:interface-dir} \\
+\nu_o \partial_x u_o(0^-,t) &= \nu_a \partial_x u_a(0^+,t) &\qquad& t \in [0,T] \label{eq:interface-neu} 
+\end{align}
+\label{eq:resume_francais_model-problem}
+\end{subequations}
+Pour résoudre ce problème couplé, les domaines
+$\widetilde{\Omega_o} = \mathbb{R_{-}}$ et
+et $\widetilde{\Omega_a} = \mathbb{R_{+}}$ voient leurs équations
+correspondantes \eqref{eq:dr1} être résolues tour à tour
+dans $\widetilde{\Omega_j} \times [0,T]$
+en utilisant les équations
+\eqref{eq:interface-dir} et {eq:interface-neu}
+en tant que conditions de bord.
+Cette méthode s'appelle \textit{Relaxation d'onde de Schwarz avec
+des conditions de transmission Dirichlet-Neumann}.
+% Les conditions de Dirichlet et Neumann \eqref{eq:interface-dir} et
+% {eq:interface-neu} peuvent être remplacées par des combinaisons
+% linéaires de ces conditions afin d'obtenir des conditions de Robin.
+L'étude de la convergence de cette méthode se fait en deux étapes :
+\begin{itemize}
+\item Les équations \eqref{eq:dr1} sont résolues dans l'espace de
+	Fourier : la dimension temporelle devient un espace
+	de fréquences. On obtient une formule analytique de
+	la différence entre $u_j^k$
+	($k$ note l'itération de Schwarz courante)
+	et la solution couplée.
+\item Les conditions de transmission à l'interface permettent
+	de quantifier l'évolution de cette différence au fur et
+	à mesure des itérations.
+\end{itemize}
+ La convergence est \textit{linéaire},
+ c'est à dire que la différence entre $u_j^k$ et la solution couplée
+ est multipliée par un \textit{facteur de convergence} ne dépendant
+ pas de $k$. Dans le cas continu avec des conditions
+ de transmissions Dirichlet-Neumann le facteur de convergence ne
+ dépend pas non plus de la fréquence ni de $r$ et vaut
+ $\rho_{DN}^{(c,c)}=\sqrt{\frac{\nu_o}{\nu_a}}$.
+\item \textbf{Facteur de convergence semi-discrete en temps}:
+la convergence observée lors de l'implémentation d'un méthode
+de Schwarz dépend des discrétisations en temps et en espace utilisées.
+On utilise la transformée en Z au lieu de la transformée de Fourier
+pour étudier un signal semi-discret en temps.
+Si le passage du continu au discret est aisé pour les discrétisations
+en temps qui ne comportent qu'une étape, les discrétisations
+à plusieurs étapes demandent une attention particulière. En effet,
+les conditions d'interface sont interpolées durant les étapes
+intermédiaires. Cette interpolation (que nous nommons $\gamma$)
+modifie la vitesse de convergence de la méthode de Schwarz,
+particulièrement dans les hautes fréquences temporelles.
+\item \textbf{Discrétisation en espace} :
+la convergence des méthodes de Schwarz a été étudiée pour
+deux discrétisations en espace. La première est une discrétisation
+de référence utilisant des différences finies (FD)
+centrées d'ordre 2 ;
+la deuxième est une discrétisation en volumes finis (FV) basée sur
+des splines paraboliques.
+Chaque maille est ainsi caractérisée par un polynôme d'ordre 2
+et l'approximation volumes finis est déduite du raccord des polynômes
+entre les mailles.
+Retrouver numériquement la solution mono-domaine s'avère plus
+naturel lorsque la discrétisation FV est utilisée;
+Avec la discrétisation FD, utiliser une condition de transmission
+particulière dans ce but diminue
+drastiquement la vitesse de convergence.
+\item \textbf{Analyse discrète}:
+une méthode d'analyse est donnée et appliquée pour les combinaisons
+de deux discrétisations en temps et en espace. Ces combinaisons
+sont montrées stables en étudiant les valeurs propres des
+matrices à inverser.
+\end{enumerate}
+Finalement, en utilisant des conditions de transmissions
+contenant des degrés de liberté, la vitesse de convergence
+des méthodes de Schwarz peut être accélérée en optimisant les
+paramètres introduits.
+Si l'optimisation se fait au niveau continu, les paramètres
+choisis ne seront en général pas optimaux pour la vitesse de
+convergence observée numériquement. Au contraire, en optimisant
+sur le facteur de convergence discret on obtient des vitesses de
+convergence supérieures dans les expériences numériques.
+\par
+Le facteur de convergence discret peut cependant s'avérer
+contraignant à calculer, en particulier pour des discrétisations
+en temps à plusieurs étapes ou pour des discrétisations d'ordre
+élevé.
+\section*{Chapitre 3: Approximation du facteur de convergence discret des méthodes de Schwarz}
+ L'objet du chapitre 3 est donc d'étudier des approximations
+qui rendraient le facteur de convergence plus facile à calculer
+que dans le cas discret tout en étant plus précis que le facteur
+de convergence continu dans l'approximation de la vitesse
+de convergence observée numériquement.
+\section*{Chapitre 4: Vers une discrétisation de la couche limite atmosphérique cohérente avec la théorie physique}
+\section*{Chapitre 5: La couche limite océanique}
+\section*{Chapitre 6: Méthodes de Schwarz pour le couplage
+discret océan-atmosphère}
