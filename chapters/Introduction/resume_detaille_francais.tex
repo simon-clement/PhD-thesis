@@ -1,31 +1,75 @@
 \chapter*{Résumé détaillé}
 \section*{Chapitre 1: Modélisation d'une colonne océan-atmosphère}
-\myTD{parler de bulk}
-\myTD{parler de stratification}
-\myTD{flux constants aussi}
+Le chapitre 1 présente les équations et principes physiques utilisés
+au sein de cette thèse.
+\par
+Tout d'abord, le système des \textit{équations primitives turbulentes}
+décrivant les écoulements atmosphériques et océaniques est présenté.
+Le concept de couche limite de surface
+(basée sur des flux constants) est ensuite introduit.
+Celui-ci est au centre du sujet de la thèse : nous détaillons les
+\textit{formulations bulk}, qui permettent de calculer des flux
+turbulents à la surface à partir des données autour de l'interface.
+\par
+La stratification (variation verticale de la densité) joue un rôle
+important dans la couche limite de surface. Elle affecte la
+"loi du mur" (paramétrisation des profiles au sein de la couche
+limite).
+\par
+Cette thèse s'articule autour d'une hiérarchie de modèles. Ceux-ci
+décrivent tous une colonne d'atmosphère au dessus d'une colonne
+d'océan en une seule dimension verticale.
+\par
+\begin{enumerate}
+	\item Le plus bas niveau de la hiérarchie est un couplage
+	de simples équations réaction-diffusion, utilisé aux chapitres
+		2 et 3 pour étudier des méthodes itératives de
+		couplage (dites \textit{méthodes de Schwarz}).
+	\item Le niveau intermédiaire (utilisé au chapitre 6)
+		utilise des conditions de bord
+	à l'interface représentatives des formulations bulk bien
+		que simplifiées.
+\item Le plus haut niveau de la hiérarchie est un modèle utilisant
+un modèle de turbulence et qui inclut une stratification basée sur
+la température. A l'interface, de véritables formulations bulk
+sont utilisées. Ce modèle est utilisé aux chapitres 4 et 5 pour
+faire des expériences numériques sans résolution analytique.
+\end{enumerate}
+Les objectifs de cette thèse correspondent aux trois niveaux de la
+hiérarchie :
+\begin{enumerate}
+	\item étudier l'effet de la discrétisation sur la vitesse de
+		convergence des méthodes de Schwarz ;
+	\item étudier la vitesse de convergence des méthodes de
+		Schwarz en présence d'une couche limite de surface ;
+	\item développer une discrétisation permettant de représenter
+		au mieux les couches limites de surface, en prenant
+		en compte les particularités liées aux lois du mur.
+\end{enumerate}
 \section*{Chapitre 2: Analyse discrète des méthodes de Schwarz avec des équations de réaction-diffusion}
 Le chapitre 2 a été publié sous la forme de l'article
 \citep{clement_discrete_2022-1} dans le journal
 \textit{SMAI Journal of Computational Mathematics}.
 \begin{enumerate}
 \item \textbf{Modèle continu et méthode de Schwarz}:
-\myTD{manque une phrase ici}
+Le modèle utilisé dans les deux premiers chapitres est le
+suivant:
 \begin{subequations}
 \begin{align}
 \partial_t u_j +( r - \nu_j \partial_x^2) u_j &= f_j ~~~~~~~~
 (j=o,a) &\qquad&
-(x,t) \in (-\infty,0) \times ]0,T] \label{eq:dr1} \\
-u_j(x,0) &= u_{j,0}(x)   &\qquad&  x \in (-\infty,0)  \\
+	(x,t) \in \widetilde{\Omega}_j \times ]0,T] \label{eq:dr1} \\
+u_j(x,0) &= u_{j,0}(x)   &\qquad&  x \in \widetilde{\Omega}_j  \\
 u_o(0^-,t) &=  u_a(0^+,t) &\qquad& t \in [0,T] \label{eq:interface-dir} \\
 \nu_o \partial_x u_o(0^-,t) &= \nu_a \partial_x u_a(0^+,t) &\qquad& t \in [0,T] \label{eq:interface-neu} 
 \end{align}
 \label{eq:resume_francais_model-problem}
 \end{subequations}
 Pour résoudre ce problème couplé, les domaines
-$\widetilde{\Omega_o} = \mathbb{R_{-}}$ et
-et $\widetilde{\Omega_a} = \mathbb{R_{+}}$ voient leurs équations
+$\widetilde{\Omega}_o = \mathbb{R_{-}}$ et
+et $\widetilde{\Omega}_a = \mathbb{R_{+}}$ voient leurs équations
 correspondantes \eqref{eq:dr1} être résolues tour à tour
-dans $\widetilde{\Omega_j} \times [0,T]$
+dans $\widetilde{\Omega}_j \times [0,T]$
 en utilisant les équations
 \eqref{eq:interface-dir} et {eq:interface-neu}
 en tant que conditions de bord.
@@ -113,7 +157,7 @@ pour approcher l'analyse complètement discrète.
 \subsection*{Equations modifiées}
 La méthode des équations modifiées consiste à étudier au niveau
 continu non pas l'équation différentielle originale mais celle
-qui est résolue par le schéma numérique. \myTD{manque le actual :(}
+qui est résolue par le schéma numérique.
 Ces équations modifiées sont obtenues à l'aide d'un développement
 de Taylor de la discrétisation.
 \subsubsection*{Equations modifiées en temps}
@@ -182,60 +226,60 @@ Pour ces approximations, des expériences numériques constituent la fin
 du chapitre 3 et montrent dans quels cas et dans quelle mesure :
 \begin{itemize}
 	\item
-Ces approximations sont efficaces pour approcher le facteur
+ces approximations sont efficaces pour approcher le facteur
 de convergence discret ;
 	\item
 la convergence
 peut être accélérée en optimisant ces approximations.
 \end{itemize}
 \section*{Chapitre 4: Vers une discrétisation de la couche limite atmosphérique cohérente avec la théorie physique}
+Dans le chapitre 4, nous étudierons une colonne atmosphérique et sa discrétisation.
+À cause de considérations numériques, la colonne
+d'atmosphère doit se diviser en deux parties :
+\begin{enumerate}
+	\item
+	la couche limite de surface, exclue du domaine
+	de calcul et paramétrisée par une "loi du mur" ;
+	\item
+	le reste de la colonne, qui réagit plus lentement
+	aux forçages de la surface.
+\end{enumerate}
+L'objectif de ce chapitre est d'évaluer les discrétisations possible
+de cette couche limite.
 \begin{itemize}
-	\item On étudie ici seulement la colonne atmosphérique
-	\item A cause de considérations numériques, la colonne
-		d'atmosphère doit se diviser en deux parties :
-	\begin{enumerate}
-		\item
-		la couche limite de surface, exclue du domaine
-		de calcul et paramétrisée par une "loi du mur" ;
-		\item
-		le reste de la colonne, qui réagit plus lentement
-		aux forçages de la surface.
-	\end{enumerate}
-	\item le chapitre 4 évalue les discrétisations possible
-		de cette couche limite.
-		\begin{itemize}
-		\item
-	Dans une discrétisation FD typique (telle que celle qui sera
-	utilisée au chapitre 6), ce découpage est implicite :
-	l'équation d'évolution est utilisée à partir
-	du premier point de grille et on considère la zone
-	sous ce point comme la couche limite.
-	Les flux turbulents sont calculés à l'aide de la solution
-		au premier point de grille, ce qui correspond donc à
-		l'extrémité supérieure de la couche limite.
-	\item La construction de discrétisations en volumes finis
-		est moins souple dans sa gestion de la couche limite.
-		La solution au premier point de grille correspond
-		alors à une moyenne sur une cellule qui se trouve
-		partagée entre deux zones.
-		Des travaux antérieurs ont montré qu'une gestion
-		de la couche limite calquée sur les méthodes FD
-		conduit à un biais systématique dans l'estimation
-		des flux turbulents.
+	\item
+Dans une discrétisation FD typique (telle que celle qui sera
+utilisée au chapitre 6), ce découpage est implicite :
+l'équation d'évolution est utilisée à partir
+du premier point de grille et on considère la zone
+sous ce point comme la couche limite.
+Les flux turbulents sont calculés à l'aide de la solution
+	au premier point de grille, ce qui correspond donc à
+	l'extrémité supérieure de la couche limite.
+\item La construction de discrétisations en volumes finis
+	est moins souple dans sa gestion de la couche limite.
+	La solution au premier point de grille correspond
+	alors à une moyenne sur une cellule qui se trouve
+	partagée entre deux zones.
+	Des travaux antérieurs ont montré qu'une gestion
+	de la couche limite calquée sur les méthodes FD
+	conduit à un biais systématique dans l'estimation
+	des flux turbulents.
 \end{itemize}
-
-\item Ainsi, \citep{nishizawa_surface_2018} proposent
-	d'étendre la couche limite de surface à l'entièreté de
-	la première cellule et d'utiliser un algorithme bulk
-	adapté aux données moyennées.
-\item Le chapitre 4 propose de renforcer les hypothèses
+Ainsi, \citep{nishizawa_surface_2018} proposent
+d'étendre la couche limite de surface à l'entièreté de
+la première cellule et d'utiliser un algorithme bulk
+adapté aux données moyennées.
+\par
+Le chapitre 4 propose de renforcer les hypothèses
 	existantes dans les formulations bulk en les
 	appliquant directement dans la discrétisation FV.
 	Pour ce faire, la reconstruction à l'intérieur
 	de la première maille se fait à l'aide des fonctions
 	particulières intervenant dans les lois du mur et
 	non seulement avec des polynômes.
-\item Ces reconstructions particulières permettent notamment
+\par
+Ces reconstructions particulières permettent notamment
 	d'étendre la hauteur de la couche limite au delà
 	de la première maille.
 	En effet, le \textit{log-layer mismatch},
@@ -243,48 +287,88 @@ peut être accélérée en optimisant ces approximations.
 	simulations à haute résolution (Large Eddies
 	Simulations)
 	provient d'une couche limite trop mince.
-\item En étant capable de choisir l'épaisseur de la couche
+\par
+En étant capable de choisir l'épaisseur de la couche
 	limite de surface sur des critères physiques et non
 	seulement numériques, la consistence des schémas
 	s'en trouve améliorée. La résolution verticale
 	peut ainsi être raffinée sans pour autant changer
 	les équations continues résolue par la
 			discrétisation.
-\item En utilisant un critère de consistence, les stratégies
+\par
+En utilisant un critère de consistence, les stratégies
 	de gestion de la couche limite sont
 	comparées pour différents types de stratification.
 	Une comparaison de ces stratégie est également effectuée
 	à l'aide d'un couplage avec une colonne océanique.
-\end{itemize}
 \section*{Chapitre 5: La couche limite océanique}
 Le chapitre 5 est tourné vers la définition et l'implémentation
 d'une couche limite de surface océanique.
-\begin{itemize}
-	\item Il est maintenant bien connu que les algorithmes
-		bulk doivent utiliser des vents relatifs aux
-		courants de surface pour calculer plus précisément
-		les flux turbulents.
-		Des travaux récents \citep{pelletier_two-sided_2021}
-		se sont intéressés à la prise en compte des mouvements
-		turbulents dans la description des courants de
-		surface. Par symétrie avec les caractéristiques
-		de la couche limite atmosphérique, les formulations
-		bulk peuvent être supplémentées d'une couche
-		limite océanique.
-	\item L'implémentation de cette couche limite peut suivre
-		les mêmes principes que son homologue atmosphérique.
-		Une différence notable est la présence de la
-		pénétration du flux solaire, très importante dans
-		les premiers mètres sous la surface.
-		Ce flux solaire vient contredire la notion de flux
-		constant utilisée dans les lois du mur.
-	\item les stratégies de gestion de la couche limite
-		océanique sont comparées, dans un cas forcé et
-		dans un cas couplé.
-\end{itemize}
+\par
+Il est maintenant bien connu que les algorithmes
+	bulk doivent utiliser des vents relatifs aux
+	courants de surface pour calculer plus précisément
+	les flux turbulents.
+	Des travaux récents \citep{pelletier_two-sided_2021}
+	se sont intéressés à la prise en compte des mouvements
+	turbulents dans la description des courants de
+	surface. Par symétrie avec les caractéristiques
+	de la couche limite atmosphérique, les formulations
+	bulk peuvent être supplémentées d'une couche
+	limite océanique.
+\par
+L'implémentation de cette couche limite peut suivre
+	les mêmes principes que son homologue atmosphérique.
+	Une différence notable est la présence de la
+	pénétration du flux solaire, très importante dans
+	les premiers mètres sous la surface.
+	Ce flux solaire vient contredire la notion de flux
+	constant utilisée dans les lois du mur.
+\par
+les stratégies de gestion de la couche limite
+	océanique sont comparées, dans un cas forcé et
+	dans un cas couplé.
 \section*{Chapitre 6: Méthodes de Schwarz pour le couplage
 discret océan-atmosphère}
 Le dernier chapitre de cette thèse met en relation l'étude discrète
 des méthodes de Schwarz et l'utilisation d'une couche limite de
 surface.
-
+	\par La hauteur de la couche limite de surface est
+		choisie en fonction de la résolution de la grille.
+		Pour cette raison, étudier la convergence de Schwarz
+		au niveau semi-discret en espace semble pertinent,
+		puisque les conditions de transmissions sont
+		liées au choix de discrétisation.
+	\par Le chapitre 6 se concentre sur la discrétisation FD
+		qui a le mérite d'être à la fois simple à
+		manipuler et représentative de l'état de l'art.
+		Les conditions de transmissions sont simplifiées :
+		on suppose que l'échelle de friction $u_\star$
+		est constante et le flux de surface est approximé
+		en $C_D |\Delta U| \Delta U$ où $C_D$ est constant
+		et $\Delta U$ est le saut des solutions à travers
+		l'interface.
+	\par Il est possible de prouver l'existence et l'unicité de
+		solution du problème couplé au voisinage d'un état
+		stationnaire. Cette preuve est réalisée au niveau
+		semi-discret en espace, pour lequel l'état
+		stationnaire est unique pour notre choix de
+		paramètres.
+	\par La convergence des méthodes de Schwarz sur une version
+		linéaire du problème (où on pose
+		$\alpha=C_D |\Delta U| = {\rm const}$)
+		est tout d'abord discutée. L'optimisation d'un
+		paramètre de relaxation $\theta$ introduit dans
+		la condition de transmission donne un paramètre
+		optimal $\theta \approx 1$.
+	\par Le problème non-linéaire est ensuite étudié en passant
+		par une linéarisation de la condition de transmission
+		autour de l'état stationnaire. Au contraire
+		de ce qu'on peut trouver habituellement dans
+		les études de convergence,
+		le facteur de convergence pour une fréquence donnée
+		change d'une itération à une autre. 
+		Une optimisation est également réalisée dans ce cas
+		et donne un paramètre optimal $\theta \approx 1.5$.
+	\par Finalement, des expériences numériques
+		valident les résultats obtenus analytiquement.
