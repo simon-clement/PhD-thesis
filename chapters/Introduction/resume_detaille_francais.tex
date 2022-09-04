@@ -1,5 +1,8 @@
 \chapter*{Résumé détaillé}
 \section*{Chapitre 1: Modélisation d'une colonne océan-atmosphère}
+\myTD{parler de bulk}
+\myTD{parler de stratification}
+\myTD{flux constants aussi}
 \section*{Chapitre 2: Analyse discrète des méthodes de Schwarz avec des équations de réaction-diffusion}
 Le chapitre 2 a été publié sous la forme de l'article
 \citep{clement_discrete_2022-1} dans le journal
@@ -186,6 +189,102 @@ la convergence
 peut être accélérée en optimisant ces approximations.
 \end{itemize}
 \section*{Chapitre 4: Vers une discrétisation de la couche limite atmosphérique cohérente avec la théorie physique}
+\begin{itemize}
+	\item On étudie ici seulement la colonne atmosphérique
+	\item A cause de considérations numériques, la colonne
+		d'atmosphère doit se diviser en deux parties :
+	\begin{enumerate}
+		\item
+		la couche limite de surface, exclue du domaine
+		de calcul et paramétrisée par une "loi du mur" ;
+		\item
+		le reste de la colonne, qui réagit plus lentement
+		aux forçages de la surface.
+	\end{enumerate}
+	\item le chapitre 4 évalue les discrétisations possible
+		de cette couche limite.
+		\begin{itemize}
+		\item
+	Dans une discrétisation FD typique (telle que celle qui sera
+	utilisée au chapitre 6), ce découpage est implicite :
+	l'équation d'évolution est utilisée à partir
+	du premier point de grille et on considère la zone
+	sous ce point comme la couche limite.
+	Les flux turbulents sont calculés à l'aide de la solution
+		au premier point de grille, ce qui correspond donc à
+		l'extrémité supérieure de la couche limite.
+	\item La construction de discrétisations en volumes finis
+		est moins souple dans sa gestion de la couche limite.
+		La solution au premier point de grille correspond
+		alors à une moyenne sur une cellule qui se trouve
+		partagée entre deux zones.
+		Des travaux antérieurs ont montré qu'une gestion
+		de la couche limite calquée sur les méthodes FD
+		conduit à un biais systématique dans l'estimation
+		des flux turbulents.
+\end{itemize}
+
+\item Ainsi, \citep{nishizawa_surface_2018} proposent
+	d'étendre la couche limite de surface à l'entièreté de
+	la première cellule et d'utiliser un algorithme bulk
+	adapté aux données moyennées.
+\item Le chapitre 4 propose de renforcer les hypothèses
+	existantes dans les formulations bulk en les
+	appliquant directement dans la discrétisation FV.
+	Pour ce faire, la reconstruction à l'intérieur
+	de la première maille se fait à l'aide des fonctions
+	particulières intervenant dans les lois du mur et
+	non seulement avec des polynômes.
+\item Ces reconstructions particulières permettent notamment
+	d'étendre la hauteur de la couche limite au delà
+	de la première maille.
+	En effet, le \textit{log-layer mismatch},
+	un problème numérique bien connu dans les
+	simulations à haute résolution (Large Eddies
+	Simulations)
+	provient d'une couche limite trop mince.
+\item En étant capable de choisir l'épaisseur de la couche
+	limite de surface sur des critères physiques et non
+	seulement numériques, la consistence des schémas
+	s'en trouve améliorée. La résolution verticale
+	peut ainsi être raffinée sans pour autant changer
+	les équations continues résolue par la
+			discrétisation.
+\item En utilisant un critère de consistence, les stratégies
+	de gestion de la couche limite sont
+	comparées pour différents types de stratification.
+	Une comparaison de ces stratégie est également effectuée
+	à l'aide d'un couplage avec une colonne océanique.
+\end{itemize}
 \section*{Chapitre 5: La couche limite océanique}
+Le chapitre 5 est tourné vers la définition et l'implémentation
+d'une couche limite de surface océanique.
+\begin{itemize}
+	\item Il est maintenant bien connu que les algorithmes
+		bulk doivent utiliser des vents relatifs aux
+		courants de surface pour calculer plus précisément
+		les flux turbulents.
+		Des travaux récents \citep{pelletier_two-sided_2021}
+		se sont intéressés à la prise en compte des mouvements
+		turbulents dans la description des courants de
+		surface. Par symétrie avec les caractéristiques
+		de la couche limite atmosphérique, les formulations
+		bulk peuvent être supplémentées d'une couche
+		limite océanique.
+	\item L'implémentation de cette couche limite peut suivre
+		les mêmes principes que son homologue atmosphérique.
+		Une différence notable est la présence de la
+		pénétration du flux solaire, très importante dans
+		les premiers mètres sous la surface.
+		Ce flux solaire vient contredire la notion de flux
+		constant utilisée dans les lois du mur.
+	\item les stratégies de gestion de la couche limite
+		océanique sont comparées, dans un cas forcé et
+		dans un cas couplé.
+\end{itemize}
 \section*{Chapitre 6: Méthodes de Schwarz pour le couplage
 discret océan-atmosphère}
+Le dernier chapitre de cette thèse met en relation l'étude discrète
+des méthodes de Schwarz et l'utilisation d'une couche limite de
+surface.
+
