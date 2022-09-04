@@ -99,10 +99,92 @@ en temps à plusieurs étapes ou pour des discrétisations d'ordre
 élevé.
 \section*{Chapitre 3: Approximation du facteur de convergence discret des méthodes de Schwarz}
  L'objet du chapitre 3 est donc d'étudier des approximations
-qui rendraient le facteur de convergence plus facile à calculer
+qui rendent le facteur de convergence plus facile à calculer
 que dans le cas discret tout en étant plus précis que le facteur
 de convergence continu dans l'approximation de la vitesse
 de convergence observée numériquement.
+La première approximation étudiée est la méthode des
+\textit{équations modifiées} dans le calcul du facteur de convergence.
+La seconde est la combinaison des analyses semi-discrètes
+pour approcher l'analyse complètement discrète.
+\subsection*{Equations modifiées}
+La méthode des équations modifiées consiste à étudier au niveau
+continu non pas l'équation différentielle originale mais celle
+qui est résolue par le schéma numérique. \myTD{manque le actual :(}
+Ces équations modifiées sont obtenues à l'aide d'un développement
+de Taylor de la discrétisation.
+\subsubsection*{Equations modifiées en temps}
+Lors du calcul du facteur de convergence, l'utilisation d'équation
+modifiées en temps se traduit par un changement de la variable
+fréquencielle $\omega$ utilisée dans la transformée de Fourier :
+\begin{itemize}
+	\item
+La complexité de l'étude continue des équations modifiées en temps
+est similaire à celle semi-discrète des schémas à une étape.
+	\item
+Les équations modifiées en temps simplifient l'étude de convergence
+des schémas à deux étapes. Cependant, l'utilisation du développement
+de Taylor cache l'opération d'interpolation des données de
+transmission dans les étapes intermédiaires. Ainsi, lorsque la
+différence entre les facteurs de convergence continu
+et semi-discret en temps vient de cette opération d'interpolation,
+les équations modifiées ne permettent pas d'approcher le facteur
+de convergence semi-discret.
+\end{itemize}
+\subsubsection*{Equations modifiées en espace}
+L'utilisation des équations modifiées sur les schémas en espace
+génère d'autres observations :
+\begin{itemize}
+	\item 
+	le développement de Taylor introduit des dérivées
+d'ordre plus élevées quand dans l'équation originale. Pour
+obtenir le caractère bien posé des équations modifiées, il est donc
+nécessaire d'ajouter des conditions d'interface. Celles-ci peuvent
+être judicieusement choisies à partir de la discrétisation en espace
+proche du bord.
+	\item Il n'est en général pas suffisant de n'étudier
+		l'effet de la discrétisation seulement sur
+		l'équation aux dérivées partielles. En effet,
+		les conditions d'interface et de bord sont
+		elles aussi affectées par la discrétisation et
+		leur version discrète doit être utilisée
+		dans le calcul du facteur de convergence.
+	\item Dans le cas général, l'utilisation des équations
+	modifiées en espace augmente l'ordre de l'équation aux
+	dérivées partielle et ne rend pas plus aisé
+	le calcul du facteur de convergence par rapport
+		au calcul semi-discret.
+	\item Dans le cas particulier d'une équation ne faisant
+	intervenir
+	qu'une seule différentiation en espace de n'importe
+	quel ordre :
+	une astuce de calcul permet de se ramener au cas où un simple
+	changement de variable fréquencielle suffit pour caractériser
+		l'équation modifiée.
+\end{itemize}
+%
+\subsection*{Combinaison des facteurs de convergence}
+Il est possible de combiner les facteurs
+de convergence semi-discrets (S-D) et continu pour approcher le
+facteur de convergence discret selon la formule:
+\begin{equation}
+	\text{DISCRET} \approx
+	\text{S-D EN ESPACE} +
+	\text{S-D EN TEMPS} -
+	\text{CONTINU}
+\end{equation}
+%
+\par
+Pour ces approximations, des expériences numériques constituent la fin
+du chapitre 3 et montrent dans quels cas et dans quelle mesure :
+\begin{itemize}
+	\item
+Ces approximations sont efficaces pour approcher le facteur
+de convergence discret ;
+	\item
+la convergence
+peut être accélérée en optimisant ces approximations.
+\end{itemize}
 \section*{Chapitre 4: Vers une discrétisation de la couche limite atmosphérique cohérente avec la théorie physique}
 \section*{Chapitre 5: La couche limite océanique}
 \section*{Chapitre 6: Méthodes de Schwarz pour le couplage
