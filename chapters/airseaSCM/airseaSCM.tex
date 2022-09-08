@@ -1,20 +1,19 @@
 \chapter{Ocean-atmosphere vertical column modelling}
 \label{ch:airseaSCM}
-\myTD{Les notations sont pas encore harmonisées à l'intérieur
-du chapitre, et non plus avec les autres chapitres}
 \minitoc
 We present in this chapter the concepts and equations in
 the continuous level which
 we will use in the rest of this thesis.
 In particular, in Section \ref{sec:airseaSCM_primitiveEquations}
-the turbulent primitive equations are derived then
-the surface layer particularities are described in Section
-\ref{sec:airseaSCM_SL}.
+the primitive equations driving the circulation inside
+the ocean and atmosphere are derived then
+the turbulent features are described in Section
+\ref{sec:airseaSCM_turbulence}.
 Finally, the models used in this thesis are summed up
 in Section \ref{sec:airseaSCM_hierarchy}
-before giving the context and objectives of this thesis
-(Section \ref{sec:airseaSCM_context_objectives}).
-\section{Derivation of the primitive equations with turbulence}
+before discussing about Schwarz methods in Section
+\ref{sec:airseaSCM_Schwarz}.
+\section{Derivation of the primitive equations}
 \label{sec:airseaSCM_primitiveEquations}
 This section aims to present the so-called
 primitive equations, which are used to model
@@ -24,7 +23,7 @@ We start from the Navier-Stokes momentum equation in a rotating frame:
 \begin{equation}
 \label{eq:airseaSCM_momentumNavierStokes}
 \rho \left(\partial_t + \mathbf{U} \cdot \nabla \right) \mathbf{U}
-= - \nabla p + \nu^m \Delta \mathbf{U} - \rho \mathbf{g}
+= - \nabla p + K_{u, {\rm mol}} \Delta \mathbf{U} - \rho \mathbf{g}
 - 2 \mathbf{\Omega} \times (\rho \mathbf{U})
 \end{equation}
 where the symbols are given in Table
@@ -37,7 +36,8 @@ Symbol & Quantity & Unit \\
 $\rho$& {Density} & ${\rm kg}.{\rm m}^{-3}$ \\
 $p$   & {Pressure} & ${\rm kg}.{\rm m}^{-1}.{\rm s}^{-2}$ \\
 $\mathbf{U}$ & {Velocity}& ${\rm m}.{\rm s}^{-1}$ \\
-$\nu^m$ & {Molecular viscosity}& ${\rm m}^{-1}.{\rm s}^{-2}$ \\
+$\theta$ & {Potential temperature}& ${\rm K}$ \\
+$K_{u, {\rm mol}}$ & {Molecular viscosity}& ${\rm m}^{-1}.{\rm s}^{-2}$ \\
 $\mathbf{g}$ & {Gravity acceleration}& ${\rm kg}.{\rm m}.{\rm s}^{-2}$ \\
 $\mathbf{\Omega}$ & {Angular speed}& ${\rm rad}.{\rm s}^{-1}$ \\
 $\nabla$ & {Spatial Gradient} & ${\rm m}^{-1}$\\
@@ -84,9 +84,12 @@ the density $\rho$ is close to a constant $\rho_0$.
 The variation of density $\widetilde{\rho} =
 \rho - \rho_0$ is neglected except when computing
 the pressure gradient $\partial_z p = - \rho g$.
-Despite this approximation being very rough
-for the atmosphere, we use it for both domains
-to keep some symmetry of our equations.
+The atmosphere models rely on compressibility and
+do not use this approximation. However, we make
+the Boussinesq approximation for both domains
+as we assume that the compressibility effects
+are small close to the surface and that they
+can be neglected to study the surface layer.
 \end{itemize}
 We hence obtain the \textit{non-turbulent}
 primitive equations:
@@ -95,10 +98,10 @@ primitive equations:
 \begin{cases}
 	\nabla \cdot \mathbf{U} &= 0 \\
 	\partial_t u + \nabla \cdot (\mathbf{U} u) &=
-	- \frac{\partial_x p}{\rho_0} + \nu^m \Delta u
+	- \frac{\partial_x p}{\rho_0} + K_{u, {\rm mol}} \Delta u
 	+ f v \\
 	\partial_t v + \nabla \cdot (\mathbf{U} v) &=
-	- \frac{\partial_y p}{\rho_0} + \nu^m \Delta v
+	- \frac{\partial_y p}{\rho_0} + K_{u, {\rm mol}} \Delta v
 	- f u \\
 	\partial_z p &= -\rho g
 \end{cases}
@@ -108,7 +111,7 @@ where we noted $\mathbf{U} = \begin{pmatrix}u\\v\\w\end{pmatrix}$.
 $\rho$ is given by an equation of state, which only involves
 the temperature in our case (in particular, the effect
 of humidity (in the atmosphere) and salinity (in the ocean)
-are neglected).
+are neglected):
 A \textit{neutral} stratification refers to a constant 
 density along the vertical axis. Since the density is
 constant, the temperature does not need to be computed
@@ -117,6 +120,7 @@ to integrate in time the wind speed.
 On the contrary, in a \textit{stratified} case the
 density depends on the potential temperature $\theta$:
 \begin{equation}
+	\rho = \rho_{\rm eos}(\theta), ~~~~~~~~~~~
 	\partial_t \theta + \nabla \cdot (\mathbf{U} \theta) =
 	K_{\theta, {\rm mol}} \Delta \theta + F_\theta
 \end{equation}
@@ -160,56 +164,97 @@ using those properties, the Reynolds decomposition of
 	\partial_t \langle u \rangle+ \nabla \cdot
 	(\langle\mathbf{U}\rangle \langle u\rangle) &=
 	- \frac{\partial_x \langle p\rangle}{\rho_0} +
-	\nu^m \Delta \langle u\rangle
+	K_{u, {\rm mol}} \Delta \langle u\rangle
 	+ f \langle v\rangle - \nabla \cdot \langle
 	\mathbf{U}' u'\rangle\\
 	\partial_t \langle v\rangle + \nabla \cdot
 	(\langle \mathbf{U}\rangle \langle v\rangle) &=
 	- \frac{\partial_y \langle p\rangle}{\rho_0} +
-	\nu^m \Delta \langle v\rangle
+	K_{u, {\rm mol}} \Delta \langle v\rangle
 	- f \langle u\rangle  - \nabla \cdot \langle
 	\mathbf{U}' v'\rangle\\
-	\partial_z\langle p\rangle &= -\rho g
+	\partial_z\langle p\rangle &= -\rho g \\
+	\partial_t \langle\theta\rangle + \nabla \cdot
+	(\langle\mathbf{U}\rangle \langle\theta\rangle) &=
+	K_{\theta, {\rm mol}} \Delta \langle\theta\rangle
+	+ F_\theta - \nabla \cdot \langle
+	\mathbf{U}' \theta'\rangle\\
+	\rho &= \rho_{\rm eos}(\langle\theta\rangle)
 \end{cases}
 \end{equation}
-However, with this decomposition we obtain more unknown than
-equations: this is known as the turbulent closure problem.
+From now on, this thesis will only focus the vertical terms
+$\langle w' u'\rangle$, $\langle w' v'\rangle$ and
+$\langle w' \theta'\rangle$
+because the surface layer turbulent features are mainly limited
+to those terms. For the same reason, we restrict our spatial
+domain to one dimension: the equations modelize a vertical column
+of atmosphere and of ocean.
+The vertical speed $w$ can be eventually recovered with the
+equation $\nabla \cdot \langle\mathbf{U}\rangle = 0$
+but we will not directly simulate it and examine only
+$\langle u \rangle, \langle v \rangle$ and $\langle \theta \rangle$.
+Finally, note that \eqref{eq:airseaSCM_TurbulentPrimitiveEq}
+is completed with boundary conditions that we omitted:
+they will be given for our models of interest in
+\S\ref{sec:airseaSCM_WallLaw}.
+\par
+With this decomposition we obtain more unknown than
+equations because of the introduction of the terms
+$\langle w' u'\rangle, \langle w' v'\rangle$
+and $\langle w' \theta'\rangle$:
+this is known as the turbulent closure problem.
+\section{The turbulence}
+\label{sec:airseaSCM_turbulence}
+To tackle the turbulent closure problem,
+we now provide additional relations between
+the turbulent terms
+$\langle w' u'\rangle, \langle w' v'\rangle,
+\langle w' \theta'\rangle$ and the average quantities
+$\langle u\rangle, \langle v\rangle, \langle \theta \rangle,
+\langle p \rangle$.
+We first detail a common choice of parameterization
+for the turbulent closure far from the surface and then
+(in \S\ref{sec:airseaSCM_WallLaw}) focus on the surface layer
+which acts as a bottom boundary condition for
+\eqref{eq:airseaSCM_TurbulentPrimitiveEq} in the atmosphere.
+The ocean case is discussed in \S\ref{sec:airseaSCM_twoSided}.
 \subsection{Turbulent closure and kinetic energy}
 \label{sec:airseaSCM_turbulentClosure}
-To tackle this problem, we now provide additional relations between
-$\langle \mathbf{U}' u'\rangle, \langle \mathbf{U}' v'\rangle,\langle \mathbf{U}' w'\rangle,
-\langle \mathbf{U}' \theta'\rangle$ and the average quantities
-$\langle \mathbf{U}\rangle, \langle \theta \rangle, \langle p \rangle$.
 \paragraph{Boussinesq hypothesis}
 From the observation that the turbulent term acts like a diffusion
 term oriented "down-gradient", the turbulent terms are approximated
-with the help of a "turbulent viscosity"
-$\mathbf{K}_u \in \mathbb{R}^3$:
+with the help of a "turbulent viscosity" $K_u$ and a
+"turbulent diffusivity" $K_\theta$:
 \begin{equation}
-\langle \mathbf{U}' u'\rangle = - \mathbf{K}_u \cdot \nabla
-	\langle u \rangle
+\langle w' u'\rangle = - K_u \partial_z \langle u \rangle, ~~~
+\langle w' v'\rangle = - K_u \partial_z \langle v \rangle, ~~~
+\langle w' \theta'\rangle =
+	- K_\theta \partial_z \langle \theta \rangle
 \end{equation}
 This is known as the \textit{Boussinesq hypothesis}
 (\citep{boussinesq_theorie_1897},
-different from the Boussinesq \textit{approximation})
+different from the Boussinesq \textit{approximation} neglecting
+effects of compressibility)
 The turbulent viscosity can be defined in a lot of different ways.
-An important quantity often used is the Turbulent Kinetic Energy (TKE):
+A typical formulation for $K_u, K_\theta$ is
+\begin{equation}
+	K_u = C_m l_m \sqrt{e}, ~~~~~~~ K_\theta = \frac{C_s}{\rm Pr}
+	l_m \sqrt{e}
+\end{equation}
+where $C_m, C_s$ are constants; ${\rm Pr}$ is the so-called turbulent
+Prandtl number; the mixing length $l_m$ is a characteristic
+length of the turbulent flow and depends on the stratification.
+$e$ is an important quantity often used in the models,
+the Turbulent Kinetic Energy (TKE):
 \begin{equation}
 	e = \frac{1}{2} \left(\langle (u')^2 \rangle + \langle (v')^2 \rangle
 	+ \langle (w')^2 \rangle\right)
 \end{equation}
-in the turbulent closure model $k-\epsilon$,
-the turbulent viscosity is then defined by
-\begin{equation}
-	\mathbf{K}_u = C_m \mathbf{l}_m \sqrt{e}
-\end{equation}
-where $C_m$ is a constant and $l_m$ is a length scale.
-The evolution equation for the TKE
-is
+The evolution equation for the TKE is
 \begin{equation}
 	\partial_t e - 
 \underbrace{\partial_z \left(K_e
-    \partial_z e\right)}_{\text{diffusion}}
+    \partial_z e\right)}_{\text{diffusion with } K_e \propto K_u}
     = P + B - \epsilon
 \end{equation}
 where $P>0$ and $B$ are terms denoting respectively
@@ -217,33 +262,37 @@ the shear and buoyancy production of kinetic energy;
 $\epsilon>0$ is the dissipation rate of TKE
 into heat.
 \par
-$P$ corresponds to the energy lost by $u$ by the
-term $\nabla \mathbf{K}_u \nabla u$:
-in one vertical dimension, we
-multiply by $u$ the equation
-$\partial_t u = \partial_z (K_u \partial_z u)$.
-and express the result in function of the
-mean energy $\frac{u^2}{2}$.
+$P$ corresponds to the energy lost by $\langle u \rangle$ by the
+\textit{shear} term
+$\partial_z \left(K_u \partial_z \langle u \rangle\right)$:
+to compute it, we multiply by $\langle u \rangle$ the equation
+$\partial_t \langle u \rangle = \partial_z (K_u \partial_z \langle u \rangle)$
+and express the result as a function of the
+energy of the mean velocity $\frac{\langle u \rangle^2}{2}$.
 This gives (e.g. \citep{burchard_energy-conserving_2002},
 where the derivation is done in the continuous and in the
 discrete level.)
 \begin{equation}
-	\partial_t (\frac{u^2}{2})
-	- \partial_z (K_u \partial_z(\frac{u^2}{2}))
-	= - K_u(\partial_z u)^2
+	\partial_t \left(\frac{\langle u \rangle^2}{2}\right)
+	- \partial_z \left(K_u
+	\partial_z\left(\frac{\langle u \rangle^2}{2}\right)\right)
+	= - K_u\left(\partial_z \langle u \rangle\right)^2
 \end{equation}
-where $P=K_u(\partial_z u)^2$ is the energy
+where $P=K_u \left(\left(\partial_z \langle u \rangle\right)^2 +
+\left(\partial_z \langle v \rangle\right)^2\right)$ is the energy
 \textit{produced} by the shear.
 \par
 A similar treatment with the density
-(whose diffusion term is multiplied by $z$ instead of $u$)
+(whose diffusion term is multiplied by $z$ instead of $\langle u \rangle$)
 gives that the potential energy
 is increased or reduced by $B = -K_\theta N^2$ where
 $N^2 = - \frac{g\partial_z \rho}{\rho_0}$ is the Brunt-Väisälä
 frequency.
 The dissipation rate $\epsilon$ can be parameterized by
-$\epsilon \propto \frac{e^{3/2}}{l_{\epsilon}(z)}$.
-\myTD{source ?}
+$\epsilon \propto \frac{e^{3/2}}{l_{\epsilon}(z)}$
+where $l_\epsilon$ is a mixing length similar to $l_m$.
+This parameterization of $\epsilon$ gives the widely used
+\textit{Prandtl's one-equation turbulence model}.
 \par
 Finally, the one-dimensional evolution equation for the TKE is
 \begin{equation}
@@ -252,37 +301,51 @@ Finally, the one-dimensional evolution equation for the TKE is
     \partial_t e =
     \underbrace{\partial_z \left(K_e
     \partial_z e\right)}_{\text{diffusion}}
-    + \underbrace{K_u ||\partial_z u||^2}_{\text{shear}} 
+	    + \underbrace{K_u \left(\left(\partial_z
+	    \langle u \rangle\right)^2 +
+	    \left(\partial_z \langle v \rangle\right)^2\right)
+	    }_{\text{shear}} 
     - \underbrace{K_{\theta} N^2 }_{\text{buoyancy}}
     - \underbrace{c_{\epsilon}
     \frac{e^{3/2}}{l_{\epsilon}(z)}}_{\text{dissipation}}
     \end{aligned}
 \end{equation}
-\section{The surface layer}
-\label{sec:airseaSCM_SL}
-The ocean and atmosphere have not been distinguished in equations so far.
-We will use a subscript "o" for the ocean quantities and "a" for the
-atmosphere quantities.
-\par
+\subsection{Law of the wall and Monin-Obukhov Similarity Theory}
+\label{sec:airseaSCM_WallLaw}
+% 
+% Pour l'hypothèse de surface libre: c'est en fait une conséquence
+% de négliger l'humitidé. L'océan ne change pas de volume
+% 
+% C'est une hypothèse qui est faite en pratique de considérer l'océan comme ayant une géométrie plane.
+% Même ayant une surface libre dans l'océan, l'atmosphère le voit comme une surface plane
+% Mais en 1D la question se pose pas.
+% Du coup on peut ptet l'enlever du chap1
+% 
+% In all this thesis, we will assume that the water
+% surface is flat: this restriction strongly simplifies
+% the column models, in particular when the space step becomes
+% smaller than the surface waves.
+% The free ocean surface is beyond the scope of this thesis:
+% however, excluding explicitly
+% the surface layer from the computational
+% domain (like it will be done in Chapters \ref{ch:ND},
+% \ref{ch:OceanND}) may lead to
+% a relatively simple handling of the free surface.
 We call \textit{surface layer} the area close to the ocean surface
 such that it responds to a change at the surface with a short
-timescale.
-We first restrict ourselves to the atmosphere then
-present the oceanic surface layer in \S \ref{sec:airseaSCM_twoSided}.
-Even if we assumed that \eqref{eq:airseaSCM_TurbulentPrimitiveEq}
-describes both of them, the transition between the ocean and the
-atmosphere is not straightforward to handle.
-In all this thesis, we will assume that the water
-surface is flat: this restriction strongly simplifies
-the column models, in particular when the space step becomes
-smaller than the surface waves.
-The free ocean surface is beyond the scope of this thesis:
-however, excluding explicitly
-the surface layer from the computational
-domain (like it will be done in Chapters \ref{ch:ND},
-\ref{ch:OceanND}) may lead to
-a relatively simple handling of the free surface.
-\subsection{Law of the wall and Monin-Obukhov Similarity Theory}
+timescale\footnote{In the litterature, a boundary layer can also
+be defined as the region in which the fluid goes from zero
+velocity to the maximum velocity: this definition is however
+less adapted to the oceanic surface layer where the currents
+are driven by the surface wind.}.
+Wall modelling gives us a description of the surface layer
+and provides the boundary conditions for
+$\langle w' u'\rangle, \langle w' v'\rangle$ and
+$\langle w' \theta'\rangle$.
+The turbulence characterization of \S \ref{sec:airseaSCM_turbulentClosure}
+is not accurate in the neighborhood of the interface.
+\myTD{transition}
+\par
 For the atmosphere, the ocean surface can be seen as a
 rough surface : the wind cannot slip on the ocean which
 means that the velocity of the wind is zero
@@ -318,7 +381,7 @@ We list below the main features of the surface layer:
 	\item it is well mixed: the governing equation
 		is quasi-stationary (the surface layer
 		immediately adjusts to the external parameters).
-		As a consequence, the flux $K \partial_z u$
+		As a consequence, the flux $K_u \partial_z u$
 		is a constant along the vertical axis.
 	\item The vertical profile of $K$ strongly depends 
 		on $z$.
@@ -327,10 +390,14 @@ We list below the main features of the surface layer:
 		(e.g. \cite{kawai_wall-modeling_2012}, see Figure
 		\ref{fig:airseaSCM_eddiesDrawing}).
 		As a consequence, the turbulent viscosity
-		linearly scales with $z$:
+		linearly scales with $z+z_u$:
 		\begin{equation}
-			K \propto z+z_u
+			K_u \propto z+z_u
 		\end{equation}
+		where $z_u$ accounts for both the molecular
+		viscosity and the geometry of the surface.
+		We also have for the turbulent diffusivity
+		$K_\theta \propto z+z_\theta$.
 \end{itemize}
 We now interest ourselves into the horizontal component of
 the speed. We first assume that it is aligned with the
@@ -343,7 +410,7 @@ We will use the orientation of the wind speed later.
 \par
 Let us define \textit{friction scales} $u_\star$
 , $z_{u}$ such that $u_\star^2 =
-|\langle w' u_h' \rangle|$ and
+|\langle w' u' \rangle|$ and
 $z_{u} = z_{u}(K_{\rm mol}, u_\star)$
 (see e.g. \citep{schlichting_boundary_1960}
 for the choice of $z_{u}$ as a constant
@@ -374,10 +441,15 @@ where $\kappa = 0.4$ is the Von Kàrmàn constant.
 	inside the law of the wall: we can hence
 	use the profile of $u$ for small $z$
 	\citep{pelletier_two-sided_2021}.
+	This formulation is not standard but it is
+	appropriate for mathematical analyses and
+	it does not change the results
+	significantly.
 \end{remark}
 \paragraph{Stratified case}
 The extension of the law of the wall to stratified
 fluids is called \textit{Monin-Obukhov Similarity Theory}.
+It is used in all ocean-atmosphere couplings to our knowledge.
 The quasi-stationarity is also assumed for the temperature
 and $K_u \partial_z u$ and $K_\theta \partial_z \theta$
 are both constants along the vertical axis.
@@ -470,26 +542,31 @@ task: they generally rely on a fixed-point method:
 \begin{enumerate}
 \item input: $u(\delta_{sl}) - u(0)$
 		and $\theta(\delta_{sl}) - \theta_s$;
-\item choose a first guess $u_\star^{k=0}, \theta_\star^{k=0}$;
+\item choose a first guess $u_\star^{n=0}, \theta_\star^{n=0}$;
 \item iteratively apply
 	\eqref{eq:airseaSCM_MOSTprofiles} (or
 	\eqref{eq:airseaSCM_LawOfWallProfile} in the neutral case)
-	to compute $u_\star^{k}, \theta_\star^{k}$ using
-	$u_\star^{k-1}, \theta_\star^{k-1}$
+	to compute $u_\star^{n}, \theta_\star^{n}$ using
+	$u_\star^{n-1}, \theta_\star^{n-1}$
 	in the expressions of $z_u, z_\theta$ and $L_{MO}$;
-\item at convergence ($u_\star^{k},\theta_\star^{k} \approx
-	u_\star^{k-1},\theta_\star^{k-1}$) return the friction
-		scales $u_\star = u_\star^{k},
-		\theta_\star = \theta_\star^{k}$ (or only
-		$u_\star = u_\star^{k}$ in the neutral case)
+\item at convergence ($u_\star^{n},\theta_\star^{n} \approx
+	u_\star^{n-1},\theta_\star^{n-1}$) return the friction
+		scales $u_\star = u_\star^{n},
+		\theta_\star = \theta_\star^{n}$ (or only
+		$u_\star = u_\star^{n}$ in the neutral case)
 \end{enumerate}
 \subsection{Two-sided bulk}
 \label{sec:airseaSCM_twoSided}
+The ocean and atmosphere have not been distinguished in equations
+so far. From this point, we will use a subscript "o" for the ocean
+quantities and "a" for the atmosphere quantities.
 In Chapter \ref{ch:OceanND} we will also consider the
 \textit{oceanic surface layer}.
 The sea surface temperature and the surface currents are often
-evaluated below the surface.
-Some efforts have been made to correct the satellite
+evaluated below the surface. The common approach is
+to neglect the difference between the temperature and currents
+below and at the surface. However,
+some efforts have been made to correct the satellite
 measurement: \citep{donlon_toward_2002} show that
 the difference between
 the surface temperature and the sub-surface temperature is
@@ -502,9 +579,9 @@ flux estimates, with warm-layer errors of almost
 60 ${\rm W}.{\rm m}^{-2}$ associated with intense stratification. This indicates
 the importance of the inclusion of the skin temperature for
 accurate calculation of latent, sensible, and net longwave
-heat fluxes.}"
-In \citep{pelletier_two-sided_2021} a bulk formulation which
-uses Monin-Obukhov Similarity Theory (MOST) in the oceanic
+heat fluxes}".
+In \citep{pelletier_two-sided_2021} a non-standard bulk formulation
+which uses Monin-Obukhov Similarity Theory (MOST) in the oceanic
 surface layer is derived.
 We follow this idea and incorporate to our coupled model an
 oceanic surface layer which follows the same principles as
@@ -514,7 +591,8 @@ the friction scales of the ocean are
 $\sqrt{\frac{\rho_{\rm a}} {\rho_{\rm o}}} u_\star$ and
 $\sqrt{\frac{\rho_{\rm a}}{\rho_{\rm o}}
 \frac{c_{\rm a}^p}{c_{\rm o}^p}}
-\theta_\star$.
+\theta_\star$ where $c_{\rm o}^p, c_{\rm a}^p$
+are the heat capacities of water and air.
 We hence have for $\delta_o \leq z \leq 0$ (where $\delta_o \leq 0$
 is the depth of the surface layer):
 \begin{equation}
@@ -560,11 +638,11 @@ is called "turbulent Ekman problem". It is summed up in
 The analysis of coupling algorithms applied to the
 ocean-atmosphere system requires additional
 simplifications to be performed.
-The simplifications are the following:
+These simplifications form a hierarchy of models, from
+the most sophisticated to the most idealized:
 \begin{enumerate}
-	\item \textbf{Turbulent Ekman}: we restrict ourselves to one
-		vertical dimension. The stratification can be
-		neutral or not.
+	\item \textbf{Turbulent Ekman}: described in the previous
+		sections.
 	\item \textbf{Ekman}: additionally,
 		the viscosity is constant in the
 		atmosphere and in the ocean; $u_\star$ is constant.
@@ -586,7 +664,7 @@ a single complex variable $u^{\mathbb{C}} = u+iv$.
 The rotation of the Coriolis effect corresponds to
 a rotation in the complex plane.
 Indeed, rewriting \eqref{eq:airseaSCM_TurbulentPrimitiveEq}
-with an operator ${cal L}$ corresponding to everything except
+with an operator ${\cal L}$ corresponding to everything except
 the Coriolis term gives:
 \begin{equation}
 	\label{eq:airseaSCM_complexForm}
@@ -629,6 +707,8 @@ that $u_\star$ is constant but we keep a proximity with
 the usual parameterizations of the surface layer
 by formulating $u_\star^2$
 as $C_D |U_a - U_o|(U_a-U_o)$ where $C_D$ is constant.
+Capital letter $U$ denotes the solution for this non-turbulent
+Ekman problem.
 \myTD{plus de détails sur la reformulation avec $C_D$}
 The simplifications are hence:
 \begin{itemize}
@@ -641,7 +721,8 @@ The model problem (analyzed in in Chapter \ref{ch:OASchwarz}) reads:
 \label{eq:cplProblem}
 %\left\{
 \begin{array}{rcll}
-\partial_t U_j + i f U_j - \partial_z \left( \nu_j(z,t) \partial_z U_j \right) &=& g_j,
+\partial_t U_j + i f U_j -
+	\partial_z \left( \nu_j \partial_z U_j \right) &=& g_j,
 ~~~~~~~~~~ (j=o,a)
 & \mbox{in}\;\Omega_j \times (0,T)\\
 U_j(H_j,t) &=& U_j^\infty(t),  & t \in (0,T), \\ 
@@ -651,6 +732,16 @@ U_j(z,0) &=& U_0(z), & \forall z \; \mbox{in}\; \Omega_j, \\
 \end{array}
 %\right.
 \end{equation}
+where $\nu_j$ are the constant viscosities, $g_j$ are forcing terms
+accounting for the geostrophic winds and currents,
+$H_j$ are the size of the domains (with the infinite
+domain hypothesis $H_j \rightarrow \infty$
+unless otherwise mentioned), $U_j^\infty$ are the boundary
+values, $\Omega_o, \Omega_a =$ are the computational domains,
+$T$ is the length of the time windows and 
+${\cal F}_{\rm sl}$ is the operator representing the bulk
+method.
+\myTD{Faire un tableau plutôt}
 \subsection{Reaction-diffusion equations coupling
 with heterogeneous diffusion}
 \label{sec:airseaSCM_reactionDiffusionSection}
@@ -683,6 +774,7 @@ u_1(0^-,t) &=  u_2(0^+,t) &\qquad& t \in [0,T] \label{eq:interface-dir} \\
 \end{subequations}
 Here, $f_1$ and $f_2$
 stand for forcing terms and are not linked with the Coriolis effect.
+$r\in \mathbb{R}$ is a reaction term.
 
 \section{Schwarz methods for the ocean-atmosphere coupling}
 \myTD{
@@ -723,9 +815,7 @@ Finite Volumes \citep{griffies_fundamentals_2005}.
 sur le fait de stocker les flux et d'avoir une reconstruction
 locale à la grille}
 \par
-\myTD{parler des efforts pour développer les algos bulk}
-\par
-\myTD{Finir par Nishizawa}
+\myTD{Finir par Nishizawa ?}
 The goal of Chapters \ref{ch:ND} and \ref{ch:OceanND}
 is to study the discretizations of the surface layer and
 to propose a method to ensure the Monin-Obukhov hypotheses
