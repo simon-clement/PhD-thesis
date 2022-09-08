@@ -483,29 +483,31 @@ in \text{stability functions} $\phi_m, \phi_h$:
 	K_\theta &\propto (z+z_u)~ \phi_h(\frac{z}{L_{MO}})
 \end{aligned}
 \end{equation}
-We will use the stability functions of
-\citep{hogstrom_non-dimensional_1988} defined by
-\begin{equation}
-\begin{aligned}
-	\phi_h(\frac{z}{L_{MO}}) = \phi_m(\frac{z}{L_{MO}})
-	&= 1+ \frac{z}{L_{MO}},
-	~~~~~ L_{MO} > 0\\
-	\phi_h(\frac{z}{L_{MO}}) =
-	\left(\phi_m(\frac{z}{L_{MO}})\right)^2
-	&= \frac{1}{\sqrt{1 - \frac{16 z}{L_{MO}}}},
-	~~~~~L_{MO} < 0
-\end{aligned}
-\end{equation}
-where it is easy to check that $L_{MO}\rightarrow \infty$
-recovers the neutral case.
+Typical stability functions are plotted in the left panel of Figure
+\ref{fig:airseaSCM_stabilityfunctions}.
+A stable (resp. instable) stratification leads to a
+decrease (resp. increase) of $K_u, K_\theta$ and
+$L_{MO}\rightarrow \infty$ recovers the neutral case.
+\begin{figure}
+	\centering
+\includegraphics[scale=0.8]{images/stabilityfunctions.pdf}
+	\caption{Typical profiles of the stability functions (left)
+	and of their integrated form (right) in the
+	surface layer $[0,\delta_{\rm sl}]$. In the unstable
+	and stable cases, $\frac{\delta_{\rm sl}}{L_{\rm MO}}$
+	was set to respectively -3 and 3.
+	}
+	\label{fig:airseaSCM_stabilityfunctions}
+\end{figure}
 To obtain the solution profiles,
 the \textit{integrated forms}
-of the stability functions are defined as
+of the stability functions $\psi_m, \psi_h$
+are defined as
 \begin{equation}
 	\psi_x \left(\frac{z}{L_{MO}}\right)
 	= \int_0^{\frac{z}{L_{MO}}}
 	\frac{1 - \phi_x(\zeta)}{\zeta} d\zeta
-	, ~~~~x=u,\theta
+	, ~~~~x=m,h
 \end{equation}
 and we have
 \begin{equation}
@@ -514,14 +516,14 @@ and we have
 	||u(z)-u(0)|| = \frac{u_\star}{\kappa}
     \left(
 	\ln(1+\frac{z}{z_{u}})
-	\emphase{- \psi_u\left(\frac{z}{L_{MO}}\right)}
+	\emphase{- \psi_m\left(\frac{z}{L_{MO}}\right)}
     \right)
     \\
     \theta(z) - \theta_s = 
 	\frac{\emphase{\theta_\star}}{\kappa}
     \left(
 	\ln(1+\frac{z}{z_{\theta}})
-	\emphase{- \psi_\theta\left(\frac{z}{L_{MO}}\right)}
+	\emphase{- \psi_h\left(\frac{z}{L_{MO}}\right)}
 \right)
 \end{aligned}
 \end{equation}
@@ -613,7 +615,7 @@ similar to \eqref{eq:airseaSCM_MOSTprofiles}:
 	\frac{u_\star}{\kappa}
     \left(
 	\ln(1-\frac{z}{z_{u}^o})
-	\emphase{- \psi_u^o\left(-\frac{z}{L_{MO}}\right)}
+	\emphase{- \psi_m^o\left(-\frac{z}{L_{MO}}\right)}
     \right)
     \\
 	\theta_s - \theta(z) = 
@@ -622,7 +624,7 @@ similar to \eqref{eq:airseaSCM_MOSTprofiles}:
 	\frac{{\theta_\star}}{\kappa}
     \left(
 	\ln(1-\frac{z}{z_{\theta}^o})
-	{- \psi_\theta^o\left(-\frac{z}{L_{MO}}\right)}
+	{- \psi_h^o\left(-\frac{z}{L_{MO}}\right)}
 \right)
 \end{aligned}
 \end{equation}
