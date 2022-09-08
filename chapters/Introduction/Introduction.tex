@@ -1,96 +1,208 @@
+\input{resume_detaille_francais.tex}
 \chapter*{Introduction}
 \label{ch:introduction}
-\subsection*{Context}
-\myTD{ATTENTION PLAGIAT DU SUJET DE THESE}
-Les modèles numériques couplés océan-atmosphère sont utilisés pour de nombreuses applica-
-tions : météorologie des cyclones tropicaux, prévision saisonnière (i.e., anticipation des grandes
-tendances à l’échelle de quelques mois), étude du climat. Récemment, une transition a également
-été amorcée vers l’usage de modèles couplés pour la prévision météorologique à court terme. Cepen-
-dant, la formulation actuelle des modèles couplés est encore perfectible sur de nombreux points
-aussi bien d’ordre numérique que physique (e.g., Lemarié et al., 2015).
-Ainsi, pour des raisons historiques et informatiques, les algorithmes de couplage utilisés en
-pratique correspondent à des approches ad-hoc dont résultent des incohérences physiques dans les
-solutions numériques (e.g., le phasage du cyle diurne entre les modèles est incorrect, etc). Des
-méthodes de couplage plus avancées devraient donc être considérées. Par ailleurs, une difficulté
-pour l’étude mathématique du couplage air-mer provient du fait que les écoulements à proximité
-de l’interface ne sont pas explicitement résolus par les grilles de calcul des modèles, mais sont
-représentés via des paramétrisations empiriques des couches limites atmosphérique et océanique
-(e.g., Pelletier, 2018). Une voie d’amélioration des modèles couplés passe donc également par une
-meilleure articulation entre échelles résolues et échelles paramétrisées au niveau des schémas de
-discrétisation à proximité de l’interface (e.g., Gross et al., 2018; Lemarié, 2018). De notre point de
-vue, cette étape est un pré-requis indispensable à la mise en place d’une algorithmique de couplage
-cohérente, car cela permettra notamment un continuum naturel entre le problème couplé formulé
-au niveau continu et le problème discrétisé.
-Il va sans dire que l’amélioration des modèles couplés océan-atmosphère en général, et pour
-l’étude du climat en particulier, est d’une importance sociétale majeure étant donné les enjeux
-économiques et humains.
-\subsection*{Subject of the thesis}
-The objective is to study the numerical features involved
-in the coupling between the ocean and atmosphere.
-\begin{itemize}
-\item The discretizations used in those models interact with
-the iterative methods that can be used to implement the coupling.
-Study theses interactions is interesting to better understand
-the coupling methods and to accelerate them.
-\item Besides, the interface between the models is specifically
-treated because of the turbulent motions that appear around the
-sea surface.
-The numerical treatment is both physically justified and
-numerically driven. Improving the discretization of the surface
+% Qu'est-ce qu'un modèle numérique
+Numerical models are ubiquitous in oceanography, climatology and
+meteorology. They become more and more accurate as the
+computational power increases and as we refine our knowledge on
+both physical phenomena and numerical behaviour.
+As long as we want to encompass more phenomena in the simulations,
+both mathematical models and their implementations must be
+adapted to new scales and new challenges.
+\par % Le couplage océan-atmosphère
+The interactions between the ocean and the atmosphere are crucial
+for climate projections and mid-term to long-term weather forecasts.
+In terms of simulations, it means that the numerical models of
+ocean and of atmosphere must be \textit{coupled}.
+Indeed, there is no ocean-atmosphere model in a single
+block to our knowledge:
+the scales and dynamics involved in those two systems are
+sufficiently different to be simulated by specific tools
+and there are historically two separate communities behind the
+models.
+\par % Qu'est-ce qu'une discrétisation
+A numerical implementation do not solve directly the mathematical
+model (the \textit{continuous} equations) but an approximation of it
+(the \textit{discrete} equations). There exist many of these
+approximations (called \textit{discretizations}), the choice of which
+is not taken lightly: a discretization introduces some
+numerical error and sometimes enforces desirable mathematical
+properties.
+\par % La couche limite de surface
+The interface between the models in the case of
+the ocean-atmosphere coupling is specifically treated because
+of the turbulent motions that appear around the sea surface.
+The numerical treatment of this \textit{surface layer}
+is both physically justified and numerically driven.
+Improving the discretization of the surface
 layer is a key for the accuracy of air-sea exchanges.
-\end{itemize}
+\par % Les méthodes de Schwarz
+\textit{Schwarz domain decomposition methods} consist in solving
+iteratively the models (here, the ocean model and the
+atmosphere model) until the solutions at the interface match.
+These coupling methods are known for being relatively slow.
+However, the mismatch at the interface is multiplied
+at each iteration by a \textit{convergence factor} which
+can be optimized to accelerate the convergence of the
+Schwarz method.
+Several ocean-atmosphere coupling are implemented with
+a method corresponding to a single step of a Schwarz method.
+\par % Selon Marti, ça merde un peu des fois
+\citep{marti_schwarz_2021} used several Schwarz iterations
+instead of a single one to evaluate the loss of precision
+generated by the coupling. A significant difference was found
+"\textit{after sunrise
+and before sunset, when the external forcing (insolation at
+the top of the atmosphere) has the fastest pace of change}".
+Although it would be unpractical to use multiple
+steps of Schwarz methods in actual climate simulations,
+the study of convergence of those methods is of interest,
+first for the evaluation and then for the reduction of the
+error in the first iteration\footnote{However, note that
+in the overwhelming majority of convergence studies
+(including this thesis) the convergence factor of
+Schwarz methods do not characterize the very first iteration
+because the initial value is not the solution of the
+differential equation considered.}.
+\par % Optimisation discrète
+The discretizations interact with the coupling methods:
+if the study of the convergence factor is pursued at the
+\textit{continuous} level, the coupling of the \textit{discrete}
+equations may converge differently than expected. Moreover,
+if the convergence is optimized at the discrete level, one expect
+to obtain a faster numerical convergence.
+Besides, the numerical treatment of the surface layer already
+appears in the \textit{continuous} equations.
+It can appear more natural to directly study at the \textit{discrete}
+level the coupling methods when taking into account
+the surface layer.
+\par % objectifs
+In this context, the objectives of this thesis are:
 \begin{enumerate}
-\item Improve the knowledge on the convergence of Schwarz methods,
-especially in a discrete framework. Numerous studies focused on
-this subject and we try to take a step back and draw some
-features and general methodologies to take into account the
-discretization in the convergence study.
-\item Reunite the surface layer hypotheses in the computations
-of the turbulent fluxes and in the computational domain.
-The increasing use of sophisticated discretizations
-raises questions about the treatment of the surface layer.
-\item Study the convergence of Schwarz methods in the
-presence of a surface layer. The transmission conditions
-involved in ocean-atmosphere coupling problems are highly
-nonlinear and because of their specificity
-they are not studied in convergence studies of Schwarz methods.
+\item to improve our knowledge on the effect of the discretization
+on the convergence factor of Schwarz methods;
+\item to discuss the numerical treatment of the surface layer;
+\item to study the presence of a surface layer at the interface in
+the heterogeneous coupling ocean-atmosphere.
 \end{enumerate}
-
-
-\myTD{ATTENTION PLAGIAT DU SUJET DE THESE:}
-Taking into account the background elements highlighted above, the general objective of this thesis will be the implementation of an
-efficient numerical coupling method that simultaneously takes into account the physical constraints concerning the formulation of turbulent
-boundary layer parametrisations and the numerical constraints of conservation, stability and consistency of the solutions at the interface.
-Particular emphasis will be placed on the efficiency and non-intrusiveness of the proposed method so that the computational cost is
-reasonable and consequently the method can be used in realistic coupled models.
-
-(1)Etude de la discrétisation espace-temps de la diffusion verticale dans les couches
-limites turbulentes. Les effets turbulents dans les couches limites à proximité de l’interface
-air-mer sont pris en compte dans les modèles via un terme de diffusion verticale où le coefficient
-(variable en temps et en espace) est donné par une paramétrisation physique. En se basant
-notamment sur les travaux de Burchard (2002), Wood et al. (2007) et les résultats préliminaires
-de Lemarié (2018), l’objectif sera d’assurer une représentation discrète des couches de surface
-en accord avec les théories physiques sur lesquelles les schémas de paramétrisation s’appuient.
+\subsubsection*{The surface layer}
+The vertical area next to the sea surface contains
+strong disparities and can be modeled by a so-called
+"law of the wall". A review of the wall modelling was done by
+\citep{larsson_large_2016}, focusing the very high resolutions.
+In particular, it is emphased that the height of the surface layer
+should be chosen based on both physical and numerical criteria.
 \par
-(2) Analyse discrète des algorithmes de Schwarz et optimisation de convergence. Grâce
-à l’étude décrite dans le point 1, on pourra formuler le problème de couplage au niveau discret.
-On propose de résoudre numériquement ce couplage par un algorithme de Schwarz, qui satisfait
-notamment la contrainte de non-intrusivité mentionnée précédemment mais dont l’efficacité est
-liée à sa vitesse de convergence. En s’inspirant notamment des travaux de Wu and Al-Khaleel
-(2014), on s’intéressera à l’accélération de convergence de l’algorithme de Schwarz directement
-au niveau discret pour rendre son coût de calcul abordable.
-\subsection*{Outline}
+\citep{pelletier_two-sided_2021} introduced an oceanic surface layer
+in the \textit{bulk formulations} which characterize the law of
+the wall in the atmosphere models.
+\citep{nishizawa_surface_2018} discovered a systematic bias
+created in some discretizations when using the vertically
+averaged data in the \textit{bulk formulations}. They propose to
+include the averaging of the data inside the bulk.
+\par
+Moreover, the hypotheses on which relies the bulk formulations
+are generally not included in the discretization.
+We propose to reunite the hypotheses in the bulk formulations
+and in the discretization in order to
+approximate more rigorously the continuous equations.
+\par
+The bulk formulations are strongly nonlinear.
+The well-posedness of the ocean-atmosphere coupling is discussed
+in \citep{lions_mathematical_1995} with linear conditions at
+the interface and non-linearities inside the computational domains;
+A study of the well-posedness focused on the ocean domain
+\citep{chacon-rebollo_existence_2014} shows the existence and
+unicity in the neighborhood of a steady state. The method
+used in this article is applied to a nonlinearity
+representative of bulk methods in Chapter
+\ref{ch:OASchwarz}.
+%
+% \subsubsection*{Nonlinearities due to the surface layer}
+% Finally, Chapter \ref{ch:OASchwarz} focuses on the convergence
+% of Schwarz methods for the Ekman problem. We use idealized
+% equations in the inner domains to focus on the non-linear
+% condition at interface representing the bulk algorithm.
+% Non-linearities in convergence study of Schwarz methods
+% can be found in \myTD{sources: non-linear schwarz}.
+% We also prove the well-posedness of the Ekman problem
+% at a discrete level, following
+\subsubsection*{Schwarz methods}
+The choice of the coupling methods to compute the interactions
+between the ocean and atmosphere is not simple.
+In addition to the trade-off between the computational time required and
+the precision achieved, the coupling methods
+also face some constraints:
+\begin{itemize}
+	\item some quantities must be conserved by the method
+		(e.g. water, energy);
+	\item the atmosphere and ocean models being very
+		sophisticated, the methods should not be intrusive;
+	\item it is generally unaffordable to call multiple times
+		the ocean and atmosphere models.
+\end{itemize}
+With wisely chosen interface conditions, Schwarz methods can
+satisfy those constraints. In the context of making a very
+small number of iterations, accelerating the convergence
+corresponds to increasing the precision of the coupling.
+Discrete transparent boundary conditions
+\citep{zisowsky_discrete_2006} allow to converge up to the
+numerical precision in two iterations.
+However, those boundary conditions are non-local in time.
+Schwarz methods can be instead accelerated
+by an optimization \citep{gander_optimized_2006} where
+the boundary conditions at interface are local in time.
+\par
+This optimization, when carried in a semi-discrete in space
+\citep{wu_semi-discrete_2014-1} or in a fully discrete setting
+\citep{wu_optimized_2017-2} yields a convergence rate which is
+closer to the one observed in numerical simulations and
+generally leads to faster convergence.
+However, the last two study focus on electric circuits where
+there are overlaps between the domains. \citep{gander_analysis_2018}
+analyze the presence of an overlap but no previous study
+stands in the discrete case without overlap (note that the
+semi-discrete 2D stationary case was done by
+\citep{gerardo-giorda_optimized_2005}).
+Discrete Schwarz Waveform Relaxation studies with other equations
+can be found in \citep{haynes_fully_2020} together with
+the finite domain case.
+In the continuous case, a lot of efforts have been made
+(e.g. \citep{thery_analysis_2021} where the viscosity
+is varying and is discontinuous at interface or
+\citep{haberlein_optimized_2014} who give an overview of
+nonlinear systems).
+\par
+\citep{clement_discrete_2022-1} (Chapter
+\ref{ch:discreteSchwarzAnalysis}) studies the effect
+of the discretisation in space and time of the reaction-diffusion
+problem described in
+\S\ref{sec:airseaSCM_reactionDiffusionSection}.
+\par
+Chapter \ref{ch:approximatedDiscreteSchwarz}
+introduces alternative methods to estimate the convergence
+speed of the discrete problem with less computations.
+The ultimate goal would be to obtain the convergence speed of
+the discrete or semi-discrete optimization with a continuous study.
+\par
+Finally, Chapter \ref{ch:OASchwarz} treats the nonlinearity due
+to the presence of the surface layer. Nonlinearities
+at interface were introduced in domain decomposition methods by
+\citep{caetano_schwarz_2011} where they created interface
+conditions resembling to linear ones to keep the convergence
+properties. We start instead with an existing nonlinear interface
+and study its convergence properties.
+\subsubsection*{Outline}
 This thesis contains six chapters.
-Chapter 1 focuses on the derivation of the equations
+Chapter \ref{ch:airseaSCM} focuses on the derivation of the equations
 driving the ocean-atmosphere coupling.
-In Chapter 2, Schwarz algorithms are studied at a discrete
+In Chapter \ref{ch:discreteSchwarzAnalysis}, Schwarz algorithms are studied at a discrete
 levels in a very idealized setting.
-Chapter 3 presents some approximations simplifying the
-convergence study of Chapter 2.
-Chapter 4 and 5 discuss the discretization of the
-surface layer. Chapter 4 introduces the ideas and discretization
-for the atmosphere surface layer and Chapter 5 extends the
+Chapter \ref{ch:approximatedDiscreteSchwarz} presents some approximations simplifying the
+convergence study of Chapter \ref{ch:discreteSchwarzAnalysis}.
+Chapter \ref{ch:ND} and \ref{ch:OceanND} discuss the discretization of the
+surface layer. Chapter \ref{ch:ND} introduces the ideas and discretization
+for the atmosphere surface layer and Chapter \ref{ch:OceanND} extends the
 discussion to the ocean surface layer.
-Finally, a convergence study of Schwarz methods is applied
-in the presence of a surface layer in Chapter 6.
-\input{resume_detaille_francais.tex}
+Finally, a study of Schwarz methods is applied
+in the presence of a surface layer in Chapter \ref{ch:OASchwarz}.

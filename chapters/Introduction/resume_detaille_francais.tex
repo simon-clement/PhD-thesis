@@ -1,6 +1,15 @@
 \chapter*{Résumé détaillé}
-\section*{Chapitre 1: Modélisation d'une colonne océan-atmosphère}
-Le chapitre 1 présente les équations et principes physiques utilisés
+Cette thèse s'intéresse à la représentation
+numérique des interactions air-mer. Celles-ci apparaissent au sein
+du couplage entre un modèle d'océan et un modèle d'atmosphère.
+Nous étudierons donc conjointement des méthodes de couplage
+et la représentation numérique de la
+\textit{couche limite de surface} :
+une zone cruciale pour le calcul des interactions.
+\section*{Chapitre \ref{ch:airseaSCM}: Modélisation d'une colonne
+océan-atmosphère}
+Le chapitre \ref{ch:airseaSCM} présente les équations et
+principes physiques utilisés
 au sein de cette thèse.
 \par
 Tout d'abord, le système des \textit{équations primitives turbulentes}
@@ -23,16 +32,18 @@ d'océan en une seule dimension verticale.
 \begin{enumerate}
 	\item Le plus bas niveau de la hiérarchie est un couplage
 	de simples équations réaction-diffusion, utilisé aux chapitres
-		2 et 3 pour étudier des méthodes itératives de
+		\ref{ch:discreteSchwarzAnalysis} et
+		\ref{ch:approximatedDiscreteSchwarz} pour étudier des méthodes itératives de
 		couplage (dites \textit{méthodes de Schwarz}).
-	\item Le niveau intermédiaire (utilisé au chapitre 6)
+	\item Le niveau intermédiaire (utilisé au chapitre \ref{ch:OASchwarz})
 		utilise des conditions de bord
 	à l'interface représentatives des formulations bulk bien
 		que simplifiées.
 \item Le plus haut niveau de la hiérarchie est un modèle utilisant
 un modèle de turbulence et qui inclut une stratification basée sur
 la température. A l'interface, de véritables formulations bulk
-sont utilisées. Ce modèle est utilisé aux chapitres 4 et 5 pour
+sont utilisées. Ce modèle est utilisé aux chapitres \ref{ch:ND}
+	et \ref{ch:OceanND} pour
 faire des expériences numériques sans résolution analytique.
 \end{enumerate}
 Les objectifs de cette thèse correspondent aux trois niveaux de la
@@ -46,8 +57,8 @@ hiérarchie :
 		au mieux les couches limites de surface, en prenant
 		en compte les particularités liées aux lois du mur.
 \end{enumerate}
-\section*{Chapitre 2: Analyse discrète des méthodes de Schwarz avec des équations de réaction-diffusion}
-Le chapitre 2 a été publié sous la forme de l'article
+\section*{Chapitre \ref{ch:discreteSchwarzAnalysis} : Analyse discrète des méthodes de Schwarz avec des équations de réaction-diffusion}
+Le chapitre \ref{ch:discreteSchwarzAnalysis} a été publié sous la forme de l'article
 \citep{clement_discrete_2022-1} dans le journal
 \textit{SMAI Journal of Computational Mathematics}.
 \begin{enumerate}
@@ -144,8 +155,8 @@ Le facteur de convergence discret peut cependant s'avérer
 contraignant à calculer, en particulier pour des discrétisations
 en temps à plusieurs étapes ou pour des discrétisations d'ordre
 élevé.
-\section*{Chapitre 3: Approximation du facteur de convergence discret des méthodes de Schwarz}
- L'objet du chapitre 3 est donc d'étudier des approximations
+\section*{Chapitre \ref{ch:approximatedDiscreteSchwarz} : Approximation du facteur de convergence discret des méthodes de Schwarz}
+ L'objet du chapitre \ref{ch:approximatedDiscreteSchwarz} est donc d'étudier des approximations
 qui rendent le facteur de convergence plus facile à calculer
 que dans le cas discret tout en étant plus précis que le facteur
 de convergence continu dans l'approximation de la vitesse
@@ -223,7 +234,7 @@ facteur de convergence discret selon la formule:
 %
 \par
 Pour ces approximations, des expériences numériques constituent la fin
-du chapitre 3 et montrent dans quels cas et dans quelle mesure :
+du chapitre \ref{ch:approximatedDiscreteSchwarz} et montrent dans quels cas et dans quelle mesure :
 \begin{itemize}
 	\item
 ces approximations sont efficaces pour approcher le facteur
@@ -232,8 +243,8 @@ de convergence discret ;
 la convergence
 peut être accélérée en optimisant ces approximations.
 \end{itemize}
-\section*{Chapitre 4: Vers une discrétisation de la couche limite atmosphérique cohérente avec la théorie physique}
-Dans le chapitre 4, nous étudierons une colonne atmosphérique et sa discrétisation.
+\section*{Chapitre \ref{ch:ND} : Vers une discrétisation de la couche limite atmosphérique cohérente avec la théorie physique}
+Dans le chapitre \ref{ch:ND}, nous étudierons une colonne atmosphérique et sa discrétisation.
 À cause de considérations numériques, la colonne
 d'atmosphère doit se diviser en deux parties :
 \begin{enumerate}
@@ -249,7 +260,7 @@ de cette couche limite.
 \begin{itemize}
 	\item
 Dans une discrétisation FD typique (telle que celle qui sera
-utilisée au chapitre 6), ce découpage est implicite :
+utilisée au chapitre \ref{ch:OASchwarz}), ce découpage est implicite :
 l'équation d'évolution est utilisée à partir
 du premier point de grille et on considère la zone
 sous ce point comme la couche limite.
@@ -271,7 +282,7 @@ d'étendre la couche limite de surface à l'entièreté de
 la première cellule et d'utiliser un algorithme bulk
 adapté aux données moyennées.
 \par
-Le chapitre 4 propose de renforcer les hypothèses
+Le chapitre \ref{ch:ND} propose de renforcer les hypothèses
 	existantes dans les formulations bulk en les
 	appliquant directement dans la discrétisation FV.
 	Pour ce faire, la reconstruction à l'intérieur
@@ -301,8 +312,8 @@ En utilisant un critère de consistence, les stratégies
 	comparées pour différents types de stratification.
 	Une comparaison de ces stratégie est également effectuée
 	à l'aide d'un couplage avec une colonne océanique.
-\section*{Chapitre 5: La couche limite océanique}
-Le chapitre 5 est tourné vers la définition et l'implémentation
+\section*{Chapitre \ref{ch:OceanND} : La couche limite océanique}
+Le chapitre \ref{ch:OceanND} est tourné vers la définition et l'implémentation
 d'une couche limite de surface océanique.
 \par
 Il est maintenant bien connu que les algorithmes
@@ -328,7 +339,7 @@ L'implémentation de cette couche limite peut suivre
 Les stratégies de gestion de la couche limite
 	océanique sont comparées, dans un cas forcé et
 	dans un cas couplé.
-\section*{Chapitre 6: Méthodes de Schwarz pour le couplage
+\section*{Chapitre \ref{ch:OASchwarz}: Méthodes de Schwarz pour le couplage
 discret océan-atmosphère}
 Le dernier chapitre de cette thèse met en relation l'étude discrète
 des méthodes de Schwarz et l'utilisation d'une couche limite de
@@ -339,7 +350,7 @@ surface.
 		au niveau semi-discret en espace semble pertinent,
 		puisque les conditions de transmissions sont
 		liées au choix de discrétisation.
-	\par Le chapitre 6 se concentre sur la discrétisation FD
+	\par Le chapitre \ref{ch:OASchwarz} se concentre sur la discrétisation FD
 		qui a le mérite d'être à la fois simple à
 		manipuler et représentative de l'état de l'art.
 		Les conditions de transmissions sont simplifiées :
