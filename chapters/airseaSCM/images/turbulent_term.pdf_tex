@@ -1,6 +1,6 @@
 %% Creator: Inkscape 1.2 (1:1.2.1+202207142221+cd75a1ee6d), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'schwarz_pedago1.pdf' (pdf, eps, ps)
+%% Accompanies image file 'turbulent_term.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{536.07235697bp}%
+    \setlength{\unitlength}{241.95728515bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,18 +50,16 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.48032553)%
+  \begin{picture}(1,0.25877324)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
-    \put(0,0){\includegraphics[width=\unitlength,page=1]{schwarz_pedago1.pdf}}%
-    \put(0.84068078,0.44732145){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Atmosphere\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=2]{schwarz_pedago1.pdf}}%
-    \put(0.91800969,0.00061511){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Ocean\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=3]{schwarz_pedago1.pdf}}%
-    \put(0.17851424,0.28775469){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u_\star, \theta_\star = {\rm BULK} \left( u_{\rm a}(\delta_{\rm sl}) - u_{\rm o}(\delta_o) \right)$\end{tabular}}}}%
-    \put(0.15894464,0.44602996){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$t^{i-1}$\end{tabular}}}}%
-    \put(0.49103572,0.44602996){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$t^{i}$\end{tabular}}}}%
-    \put(0.5110816,0.28775469){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u_\star, \theta_\star = {\rm BULK} \left( u_{\rm a}(\delta_{\rm sl}) - u_{\rm o}(\delta_o) \right)$\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=4]{schwarz_pedago1.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{turbulent_term.pdf}}%
+    \put(-0.00321739,0.0187148){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$0$\end{tabular}}}}%
+    \put(-0.00321739,0.21089788){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{turbulent_term.pdf}}%
+    \put(-0.00103609,0.10550716){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{sl}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{turbulent_term.pdf}}%
+    \put(0.13831958,0.07341296){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$|\langle w' {u'}^{\mathbb{C}}\rangle| = u_\star^2, ~~~~~~~ \langle w' \theta'\rangle = u_\star \theta_\star$\end{tabular}}}}%
+    \put(0.10732237,0.18500316){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\langle w' u'\rangle = -K_u \partial_z u, ~~ \langle w' \theta'\rangle = -K_\theta \partial_z \theta$\end{tabular}}}}%
   \end{picture}%
 \endgroup%

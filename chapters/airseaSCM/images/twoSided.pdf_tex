@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{194.60512538bp}%
+    \setlength{\unitlength}{360.0481046bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,22 +50,33 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.56396518)%
+  \begin{picture}(1,0.58003757)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{twoSided.pdf}}%
-    \put(-0.00400026,0.26549469){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$0$\end{tabular}}}}%
-    \put(-0.00400026,0.50444058){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z$\end{tabular}}}}%
+    \put(0.0606164,0.25731429){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$0$\end{tabular}}}}%
+    \put(0.05838292,0.54748771){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{twoSided.pdf}}%
-    \put(-0.00128819,0.37340574){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{sl}$\end{tabular}}}}%
+    \put(0.04439647,0.33580916){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{sl}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{twoSided.pdf}}%
-    \put(0.14068822,0.44582478){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(\partial_t + if) u - \partial_z (K_u \partial_z u) = if u_G$\end{tabular}}}}%
-    \put(0.38009022,0.33350224){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_u \partial_z u = u_\star^2 e_\tau$\end{tabular}}}}%
+    \put(0.51511663,0.40941044){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(\partial_t + if) u - \partial_z (K_u \partial_z u) = if u_G$\end{tabular}}}}%
+    \put(0.64943657,0.31477387){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_u \partial_z u = u_\star^2 e_\tau$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{twoSided.pdf}}%
-    \put(-0.00128819,0.13242768){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{o}$\end{tabular}}}}%
+    \put(0.04439647,0.1758486){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{o}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{twoSided.pdf}}%
-    \put(0.20235167,0.06417912){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(\partial_t + if) u - \partial_z (K_u \partial_z u) = 0$\end{tabular}}}}%
-    \put(0.36467429,0.19206735){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_u \partial_z u = \frac{\rho_{\rm a}}{\rho_{\rm o} } u_\star^2 e_\tau$\end{tabular}}}}%
+    \put(0.52928702,0.09155745){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(\partial_t + if) u - \partial_z (K_u \partial_z u) = 0$\end{tabular}}}}%
+    \put(0.63626424,0.20947952){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_u \partial_z u = \frac{\rho_{\rm a}}{\rho_{\rm o} } u_\star^2 e_\tau$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=6]{twoSided.pdf}}%
+    \put(0.11260547,0.40926804){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\partial_t \theta - \partial_z (K_\theta \partial_z \theta) = F_\theta$\end{tabular}}}}%
+    \put(0.11627798,0.09236345){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\partial_t \theta - \partial_z (K_\theta \partial_z \theta) = F_\theta$\end{tabular}}}}%
+    \put(0.12092827,0.20856984){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$ K_\theta \partial_z \theta = \frac{\rho_{\rm a}}{\rho_{\rm o} }  \frac{c^p_{\rm a}}{c^p_{\rm o} }u_\star \theta_\star$\end{tabular}}}}%
+    \put(0.1301295,0.31173062){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$ K_\theta \partial_z \theta = u_\star \theta_\star$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{twoSided.pdf}}%
+    \put(0.19183746,0.51071696){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\partial_z \theta=0$\end{tabular}}}}%
+    \put(0.04442349,0.49267171){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{\rm top}$\end{tabular}}}}%
+    \put(-0.00124516,0.03089612){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{\rm bottom}$\end{tabular}}}}%
+    \put(0.69591835,0.51071696){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\partial_z u=0$\end{tabular}}}}%
+    \put(0.19183746,0.01040217){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\partial_z \theta=0$\end{tabular}}}}%
+    \put(0.69591835,0.0104022){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\partial_z u=0$\end{tabular}}}}%
   \end{picture}%
 \endgroup%
