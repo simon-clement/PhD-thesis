@@ -87,13 +87,13 @@ Some common approximations simplify the two equations
 we assume that the earth is spherical and that the
 gravity acceleration is given by
 $\mathbf{g} =\begin{pmatrix}
-0\\ 0 \\ g
+	\emphase{0}\\ \emphase{0} \\ g
 \end{pmatrix}$ where $g=9.81 {\rm m}.{\rm s}^{-2}$.
 \item \textit{Traditional approximation}:
 We neglect the horizontal terms of
 $\mathbf{\Omega}$: we assume that
 $\mathbf{\Omega} =\begin{pmatrix}
-0\\ 0 \\ f/2
+	\emphase{0}\\ \emphase{0} \\ f/2
 \end{pmatrix}$ where $f$ depends on the latitude.
 \item \textit{Hydrostatic fluid}:
 the vertical pressure gradient balances the gravity force:
@@ -148,9 +148,10 @@ to determine the velocity $\mathbf{U}$.
 On the contrary, in a \textit{stratified} case the
 density depends on the potential temperature $\theta$:
 \begin{equation}
-	\rho = \rho_{\rm eos}(\theta), ~~~~~~~~~~~
-	\partial_t \theta + \nabla \cdot (\mathbf{U} \theta) =
-	K_{\theta, {\rm mol}} \Delta \theta + F_\theta
+	\rho = \rho_{\rm eos}(\emphase{\theta}), ~~~~~~~~~~~
+	\emphase{\partial_t \theta} +
+	\nabla \cdot (\mathbf{U} \emphase{\theta}) =
+	K_{\theta, {\rm mol}} \Delta \emphase{\theta} + F_\theta
 \end{equation}
 where $K_{\theta, {\rm mol}}$ and $F_\theta$ are
 the molecular diffusivity and some forcing term.
@@ -198,20 +199,20 @@ of equations satisfied by the Reynolds-averaged quantities:
 	(\langle\mathbf{U}\rangle \langle u\rangle) &=
 	- \frac{\partial_x  p}{\rho_0} +
 	K_{u, {\rm mol}} \Delta \langle u\rangle
-	+ f \langle v\rangle - \nabla \cdot \langle
-	\mathbf{U}' u'\rangle\\
+	+ f \langle v\rangle - \emphase{\nabla \cdot \langle
+	\mathbf{U}' u'\rangle}\\
 	\partial_t \langle v\rangle + \nabla \cdot
 	(\langle \mathbf{U}\rangle \langle v\rangle) &=
 	- \frac{\partial_y  p}{\rho_0} +
 	K_{u, {\rm mol}} \Delta \langle v\rangle
-	- f \langle u\rangle  - \nabla \cdot \langle
-	\mathbf{U}' v'\rangle\\
+	- f \langle u\rangle  - \emphase{\nabla \cdot \langle
+	\mathbf{U}' v'\rangle}\\
 	\partial_z p &= -\rho g \\
 	\partial_t \langle\theta\rangle + \nabla \cdot
 	(\langle\mathbf{U}\rangle \langle\theta\rangle) &=
 	K_{\theta, {\rm mol}} \Delta \langle\theta\rangle
-	+ F_\theta - \nabla \cdot \langle
-	\mathbf{U}' \theta'\rangle\\
+	+ F_\theta - \emphase{\nabla \cdot \langle
+	\mathbf{U}' \theta'\rangle}\\
 	\rho &= \rho_{\rm eos}(\langle\theta\rangle)
 \end{cases}
 \end{equation}
@@ -270,7 +271,8 @@ term oriented ``down-gradient", the turbulent terms are approximated
 with the help of a ``turbulent viscosity" $K_u$ and a
 ``turbulent diffusivity" $K_\theta$:
 \begin{equation}
-\langle w' u'\rangle = - K_u \partial_z \langle u \rangle, ~~~
+\emphase{\langle w' u'\rangle =
+	- K_u \partial_z \langle u \rangle}, ~~~
 \langle w' v'\rangle = - K_u \partial_z \langle v \rangle, ~~~
 \langle w' \theta'\rangle =
 	- K_\theta \partial_z \langle \theta \rangle
@@ -283,7 +285,7 @@ effects of compressibility)
 The turbulent viscosity and diffusivity can be defined in a lot of
 different ways. A typical formulation for $K_u, K_\theta$ is
 \begin{equation}
-	K_u = C_m l_m \sqrt{e}, ~~~~~~~ K_\theta = \frac{C_m}{\rm Pr}
+	\emphase{K_u} = C_m l_m \emphase{\sqrt{e}}, ~~~~~~~ K_\theta = \frac{C_m}{\rm Pr}
 	l_m \sqrt{e}
 \end{equation}
 where $C_m$ is a constant; the turbulent Prandtl number
@@ -327,10 +329,11 @@ discrete level):
 	\partial_t \left(\frac{\langle u \rangle^2}{2}\right)
 	- \partial_z \left(K_u
 	\partial_z\left(\frac{\langle u \rangle^2}{2}\right)\right)
-	= - K_u\left(\partial_z \langle u \rangle\right)^2
+	= - \emphase{K_u\left(\partial_z \langle u \rangle\right)^2}
 \end{equation}
-where $P=K_u \left(\left(\partial_z \langle u \rangle\right)^2 +
-\left(\partial_z \langle v \rangle\right)^2\right)$ is the energy
+where we deduce that
+$P=\emphase{K_u \left(\left(\partial_z \langle u \rangle\right)^2 +
+\left(\partial_z \langle v \rangle\right)^2\right)}$ is the energy
 \textit{produced} by the shear.
 \par
 A similar treatment with the density
@@ -384,7 +387,7 @@ in the next \S.
 % a relatively simple handling of the free surface.
 We call \textit{surface layer} the area close to the ocean surface
 such that it responds to a change at the surface with a short
-timescale\footnote{In the litterature, a boundary layer can also
+timescale\footnote{In the literature, a boundary layer can also
 be defined as the region in which the fluid goes from zero
 velocity to the maximum velocity: this definition is however
 less adapted to the oceanic surface layer where the currents
@@ -491,7 +494,8 @@ the two equations
 and we obtain the law of the wall which reads:
 \begin{equation}
 	\label{eq:airseaSCM_LawOfWallProfile}
-	u(z) - u(0) = \frac{u_\star}{\kappa} \ln(\frac{z+z_u}{z_u})
+	\emphase{u(z)} - u(0) = \frac{u_\star}{\kappa}
+	\emphase{\ln}(\frac{z+z_u}{z_u})
 	~~~~~ \forall z\in [0,\delta_{\rm sl}]
 \end{equation}
 where $\kappa = 0.4$ is the Von Kàrmàn constant. 
@@ -556,13 +560,15 @@ The difference with the neutral case is then contained
 in \text{stability functions} $\phi_m, \phi_h$:
 \begin{equation}
 \begin{aligned}
-	K_u &\propto (z+z_u)~ \phi_m\left(\frac{z}{L_{MO}}\right) \\
-	K_\theta &\propto (z+z_u)~ \phi_h\left(\frac{z}{L_{MO}}\right)
+	K_u &\propto (z+z_u)~
+	\emphase{\phi_m\left(\frac{z}{L_{MO}}\right)} \\
+	K_\theta &\propto (z+z_u)~
+	\emphase{\phi_h\left(\frac{z}{L_{MO}}\right)}
 \end{aligned}
 \end{equation}
 Typical stability functions are plotted in the left panel of Figure
 \ref{fig:airseaSCM_stabilityfunctions}.
-A stable (resp. instable) stratification leads to a
+A stable (resp. unstable) stratification leads to a
 decrease (resp. increase) of $K_u, K_\theta$ and
 $L_{MO}\rightarrow \infty$ indeed recovers the neutral case.
 \begin{figure}
@@ -581,9 +587,9 @@ the \textit{integrated forms}
 of the stability functions $\psi_m, \psi_h$
 are defined as
 \begin{equation}
-	\psi_x \left(\frac{z}{L_{MO}}\right)
-	= \int_0^{\frac{z}{L_{MO}}}
-	\frac{1 - \phi_x(\zeta)}{\zeta} d\zeta
+	\emphase{\psi_x}\left(\frac{z}{L_{MO}}\right)
+	= \emphase{\int_0^{\frac{z}{L_{MO}}}}
+	\frac{1 - \emphase{\phi_x}(\zeta)}{\zeta} d\zeta
 	, ~~~~x=m,h
 \end{equation}
 and we have
@@ -679,10 +685,11 @@ We hence have for $\delta_o \leq z \leq 0$ (where $\delta_o \leq 0$
 is the depth of the surface layer):
 \begin{equation}
 	\begin{aligned}
-	|K_u \partial_z u| &= \frac{\rho_a}{\rho_o}
+	|K_u \partial_z u| &= \emphase{\frac{\rho_a}{\rho_o}}
 	u_\star^2\\
 	K_\theta \partial_z \theta &=
-	\frac{\rho_{\rm a} c_{\rm a}^p}{\rho_{\rm o} c_{\rm o}^p}
+	\emphase{\frac{\rho_{\rm a} c_{\rm a}^p}
+			{\rho_{\rm o} c_{\rm o}^p}}
 	\theta_\star u_\star
 	\end{aligned}
 \end{equation}
@@ -699,12 +706,12 @@ similar to \eqref{eq:airseaSCM_MOSTprofiles}:
     \right)
     \\
 	\theta_s - \theta(z) = 
-	{\sqrt{\frac{\rho_{\rm a}}{\rho_{\rm o}}
+	\emphase{\sqrt{\frac{\rho_{\rm a}}{\rho_{\rm o}}
 	\frac{c_{\rm a}^p}{c_{\rm o}^p}}}
 	\frac{{\theta_\star}}{\kappa}
     \left(
 	\ln(1-\frac{z}{z_{\theta}^o})
-	{- \psi_h^o\left(-\frac{z}{L_{MO}}\right)}
+	\emphase{- \psi_h^o\left(-\frac{z}{L_{MO}}\right)}
 \right)
 \end{aligned}
 \end{equation}
@@ -752,13 +759,13 @@ the Coriolis term gives:
 	\label{eq:airseaSCM_complexForm}
 \begin{cases}
 	{\cal L}u &= fv\\
-	{\cal L}v &= - fu = (i^2) f u
+	{\cal L}v &= \emphase{- f}u = \emphase{(i^2) f} u
 \end{cases}
 \end{equation}
 which can be written ${\cal L}u^{\mathbb{C}} = -i f u^\mathbb{C}$.
 In the following we will drop the ${\mathbb{C}}$ superscript
 and use a reaction term $ifu$ for the Coriolis effect. The
-orientation of $u$ will be noted $e_\tau = \frac{u}{|u|}$.
+orientation of $u$ will be noted $\emphase{e_\tau} = \frac{u}{|u|}$.
 \begin{figure}
 	\centering
 	\subimport{images/}{twoSided.pdf_tex}
@@ -814,8 +821,9 @@ The model problem (analyzed in in Chapter \ref{ch:OASchwarz}) reads:
 & \mbox{in}\;\Omega_j \times (0,T)\\
 U_j(H_j,t) &=& U_j^\infty(t),  & t \in (0,T), \\ 
 U_j(z,0) &=& U_0(z), & \forall z \; \mbox{in}\; \Omega_j, \\
-\rho_o \nu_o \partial_z U_o(\delta_o,t) = \rho_a \nu_a \partial_z U_a(\delta_a,t)
-&=& {\cal F}_{\rm sl}( U_a(\delta_a,t)-U_o(\delta_o,t) ), \;\; & t \in (0,T)
+	\emphase{\rho_o \nu_o \partial_z U_o(\delta_o,t) = \rho_a \nu_a \partial_z U_a(\delta_a,t)}
+	&\emphase{=}&
+	\emphase{{\cal F}_{\rm sl}( U_a(\delta_a,t)-U_o(\delta_o,t) )}, \;\; & t \in (0,T)
 \end{array}
 %\right.
 \end{equation}
@@ -867,8 +875,10 @@ $u_1, u_2$ instead of $u_o, u_a$ in Chapters
 	\label{eq:airseaSCM_initialCond1} \\
 u_2(x,0) &= u_{2,0}(x)   &\qquad&  x \in (0,+\infty)
 	\label{eq:airseaSCM_initialCond2} \\
-u_1(0^-,t) &=  u_2(0^+,t) &\qquad& t \in [0,T] \label{eq:airseaSCM_interface-dir} \\
-\nu_1 \partial_x u_1(0^-,t) &= \nu_2 \partial_x u_2(0^+,t) &\qquad& t \in [0,T] \label{eq:airseaSCM_interface-neu} 
+	\emphase{u_1(0^-,t)} &\emphase{=  u_2(0^+,t)}
+	&\qquad& t \in [0,T] \label{eq:airseaSCM_interface-dir} \\
+	\emphase{\nu_1 \partial_x u_1(0^-,t)} &
+	\emphase{= \nu_2 \partial_x u_2(0^+,t)} &\qquad& t \in [0,T] \label{eq:airseaSCM_interface-neu} 
 \end{align}
 \label{eq:model-problem}
 \end{subequations}
@@ -920,17 +930,17 @@ of the sequential version. We restrict our study to the latter.
 \par
 The Schwarz Waveform Relaxation applied to
 the reaction-diffusion equations coupling consists in solving
-at iteration $k$ the system
+at iteration ${\emphase{k}}$ the system
 (\ref{eq:airseaSCM_dr1}, \ref{eq:airseaSCM_initialCond1})
 , with the \textit{transmission operator}
 ${\mathcal B}_1$ prescribing the boundary condition
 with the information obtained in the
-previous iteration ${\mathcal B}_2 u_2^{k-1}(0^+,t)$:
+previous iteration ${\mathcal B}_2 u_2^{\emphase{k-1}}(0^+,t)$:
 \begin{subequations}
 \begin{align}
-\partial_t u^k_1 +( r - \nu_1 \partial_x^2) u^k_1 &= f_1  &\qquad& (x,t) \in (-\infty,0) \times ]0,T]  \\
-u_1^k(x,0) &= u_{1,0}(x)   &\qquad&  x \in (-\infty,0)  \\
-{\mathcal B}_1 u_1^k(0^-,t) &= {\mathcal B}_2 u_2^{k-1}(0^+,t) &\qquad& t \in [0,T] 
+	\partial_t u^{{\emphase{k}}}_1 +( r - \nu_1 \partial_x^2) u^{\emphase{k}}_1 &= f_1  &\qquad& (x,t) \in (-\infty,0) \times ]0,T]  \\
+	u_1^{\emphase{k}}(x,0) &= u_{1,0}(x)   &\qquad&  x \in (-\infty,0)  \\
+	{\mathcal B}_1 u_1^{\emphase{k}}(0^-,t) &= {\mathcal B}_2 u_2^{\emphase{k-1}}(0^+,t) &\qquad& t \in [0,T] 
 \end{align}
 \label{eq:airseaSCM_SWR-for-u1}
 \end{subequations}
@@ -939,14 +949,14 @@ of the system in the other subdomain, using another
 transmission operator ${\mathcal C}_2$:
 \begin{subequations}
 \begin{align}
-\partial_t u^k_2 + ( r - \nu_2 \partial_x^2) u^k_2  &= f_2  &\qquad& (x,t) \in (0,+\infty) \times ]0,T] \\
-u^k_2(x,0) &= u_{2,0}(x)   &\qquad&  x \in (0,+\infty) \\
-{\mathcal C}_2 u_2^k(0^+,t) &= {\mathcal C}_1 u_1^{k}(0^-,t) &\qquad& t \in [0,T] \label{eq:airseaSCM_SWR-for-u2-interface}
+	\partial_t u^{\emphase{k}}_2 + ( r - \nu_2 \partial_x^2) u^{\emphase{k}}_2  &= f_2  &\qquad& (x,t) \in (0,+\infty) \times ]0,T] \\
+	u^{\emphase{k}}_2(x,0) &= u_{2,0}(x)   &\qquad&  x \in (0,+\infty) \\
+	{\mathcal C}_2 u_2^{\emphase{k}}(0^+,t) &= {\mathcal C}_1 u_1^{{\emphase{k}}}(0^-,t) &\qquad& t \in [0,T] \label{eq:airseaSCM_SWR-for-u2-interface}
 \end{align}
 \label{eq:airseaSCM_SWR-for-u2}
 \end{subequations}
 The convergence is attained
-when ${\mathcal B}_1 u_1^k(0^-,t) = {\mathcal B}_2 u_2^{k}(0^+,t)$
+when ${\mathcal B}_1 u_1^{\emphase{k}}(0^-,t) = {\mathcal B}_2 u_2^{{\emphase{k}}}(0^+,t)$
 over all the time window. The convergence study of Schwarz methods
 in the linear case with $T\rightarrow \infty$ relies on 3 steps:
 \begin{enumerate}
@@ -963,8 +973,8 @@ in the linear case with $T\rightarrow \infty$ relies on 3 steps:
 		the frequency variable.
 	\item Use the transmission operators to derive the
 		convergence factor $\rho^{(c, c)}(\omega) =
-		|\frac{\widehat{e}^k_j(0,\omega)}
-		{\widehat{e}^{k-1}_j(0,\omega)}|$.
+		|\frac{\widehat{e}^{\emphase{k}}_j(0,\omega)}
+		{\widehat{e}^{\emphase{k-1}}_j(0,\omega)}|$.
 \end{enumerate}
 \subsection{Schwarz Waveform Relaxation with a surface layer}
 In the presence of a surface layer, the Schwarz Waveform Relaxation
@@ -988,12 +998,12 @@ the ocean-atmosphere coupling would be in the neutral case:
 	&= if u_G  & (z,t) \in (-\infty,0) \times ]0,T] \label{eq:airseaSCM_dr1} \\
 (\partial_t+if) u_a^k - \partial_z \left(K_u \partial_z u_a^k\right)
 	&= if u_G  & (z,t) \in (-\infty,0) \times ]0,T] \label{eq:airseaSCM_dr2} \\
-K_u \partial_z u_o^k(\delta_o) &=
-	K_u \frac{\rho_a}{\rho_o} \partial_z u_a^k(\delta_{\rm sl})
+	K_u \partial_z u_o^{\emphase{k}}(\delta_o) &=
+	K_u \frac{\rho_a}{\rho_o} \partial_z u_a^{\emphase{k}}(\delta_{\rm sl})
 	& t \in ]0,T] \label{eq:airseaSCM_bd1} \\
-	|K_u \partial_z u_a^k(\delta_{\rm sl})|
-	&= {\rm BULK}(u_a^k(\delta_{\rm sl})
-	-u_o^{k-1}(\delta_o))^2,
+	|K_u \partial_z u_a^{\emphase{k}}(\delta_{\rm sl})|
+	&= {\rm BULK}(u_a^{\emphase{k}}(\delta_{\rm sl})
+	-u_o^{\emphase{k-1}}(\delta_o))^2,
 	& t \in ]0,T]\label{eq:airseaSCM_bd2SWR}
 \end{align}
 \label{eq:airseaSCM_SWRTurbulentEkman}
@@ -1008,10 +1018,10 @@ the transmission condition:
 \begin{equation}
 	\label{eq:airseaSCM_simplifiedBdCondForOASchwarz}
 	\begin{aligned}
-	\nu_a \rho_a \partial_z U_a^k(\delta_{\rm sl})
-		&= C_D \left|U_a^{k-1}(\delta_{\rm sl})
-		-U_o^{k-1}(\delta_o)\right|\left(U_a^{k-1+\theta}
-		(\delta_{\rm sl}) -U_o^{k-1}(\delta_o)\right)
+		\nu_a \rho_a \partial_z U_a^{\emphase{k}}(\delta_{\rm sl})
+		&= C_D \left|U_a^{\emphase{{k-1}}}(\delta_{\rm sl})
+		-U_o^{\emphase{k-1}}(\delta_o)\right|\left(U_a^{\emphase{{k-1+\theta}}}
+		(\delta_{\rm sl}) -U_o^{\emphase{k-1}}(\delta_o)\right)
 	\end{aligned}
 \end{equation}
 where $\theta$ is a relaxation parameter and
