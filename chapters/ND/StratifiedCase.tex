@@ -186,7 +186,7 @@ $C_H|\Delta u| = C_H||u^n(\delta_{sl})- u^n(0)|| =
 \frac{u_\star \kappa}{\ln\left(1+\frac{z}{z_{u}}\right)
     - \psi_\theta\left(\frac{z}{L_{MO}}\right) }$.
 
-	\item With "FV pure" the evolution equation is solved in 
+	\item With ``FV pure" the evolution equation is solved in 
 		the whole first grid cell with the reconstructed
 		value $\theta(\delta_{sl}) = {\cal T}_{1/2}(0)$:
 		\begin{equation}
@@ -202,7 +202,7 @@ $C_H|\Delta u| = C_H||u^n(\delta_{sl})- u^n(0)|| =
 			\text{Reconstructions at } z_{\frac{1}{2}}
 			})
 		\end{equation}
-	\item With "FV Nishizawa" the evolution equation is solved in
+	\item With ``FV Nishizawa" the evolution equation is solved in
 		the whole first grid cell and the adapted bulk
 		for averaged values is used:
 		\begin{equation}
@@ -238,7 +238,7 @@ $C_H|\Delta u| = C_H||u^n(\delta_{sl})- u^n(0)|| =
 		\end{equation}
 		where $\Psi_x(z) = \int_0^z (\psi_x(z'))dz'$
 		for $x=u,\theta$.
-	\item With "FV2" in the first grid cell
+	\item With ``FV2" in the first grid cell
 		the MOST profile for $\theta$ is assumed as in
 		\cite{nishizawa_surface_2018}.
 		The boundary condition is the flux at the top of the
@@ -262,7 +262,7 @@ $C_H|\Delta u| = C_H||u^n(\delta_{sl})- u^n(0)|| =
 		\end{equation}
 \end{itemize}
 The limitations of the strategies shown in the neutral case are the
-same for the temperature: the "FV pure" and "FV Nishizawa" schemes
+same for the temperature: the ``FV pure" and ``FV Nishizawa" schemes
 assume that the evolution equation stands
 in the surface layer and approximate a MOST profile with
 a quadratic spline.
@@ -271,25 +271,25 @@ diffusivity in those cases for the same reason as the
 viscosity $K_{u,0}$ in the neutral case.
 %
 Moreover, the discretizations force $\delta_{sl}$ to the first
-grid level $z_{\frac{1}{2}}$ (or $z_1$ in the case of "FV2" and
-"FV Nishizawa").
-We now derive the stratified version of the "FV free" surface scheme
+grid level $z_{\frac{1}{2}}$ (or $z_1$ in the case of ``FV2" and
+``FV Nishizawa").
+We now derive the stratified version of the ``FV free" surface scheme
 to eliminate those limitations.
 \subsection{FV free}
 \label{sec:ND_StratifiedCase_FVfree}
 In this \S \ref{sec:ND_StratifiedCase_FVfree} we follow
-step by step the derivation of the neutral "FV free" scheme and
+step by step the derivation of the neutral ``FV free" scheme and
 apply it to this stratified case. The stratification adds no
 complexity: we hence present directly the derivation directly for
 any $\delta_{\rm sl} \geq 0$.
 Let $k$ such that $z_k \leq \delta_{\rm sl} < z_{k+1}$.
 As in the neutral case, the cell $[z_k, z_{k+1}]$ is split
-into two parts for the "FV free" surface flux scheme.
+into two parts for the ``FV free" surface flux scheme.
 The first part $[z_k,\delta_{\rm sl}]$ is contained
 in the surface layer where the temperature and wind
 follow \eqref{eq:ND_StratifiedCase_MOST}.
 The second part is the
-"sub-cell" $[\delta_{\rm sl}, z_{k+1}]$ of size $\widetilde{h}$, of
+``sub-cell" $[\delta_{\rm sl}, z_{k+1}]$ of size $\widetilde{h}$, of
 averages $\widetilde{u}, \widetilde{\theta}$
 and of sub-grid reconstructions
 \begin{equation}
@@ -363,14 +363,14 @@ Since $\ln(1+\frac{z}{z_{x}})-
 in strongly unstable situations,
 $0 < \alpha_{sl, x} \leq 1$ and as in the neutral case
 $\alpha_{sl, x}=1 \iff \widetilde{h}=h_{k+1/2}$. This lets us retrieve
-the "FV2" surface flux scheme by setting the height of the surface
+the ``FV2" surface flux scheme by setting the height of the surface
 layer to exactly $z_1$.
 \par
 Finally, equations \eqref{eq:ND_NeutralCase_boundaryCondFVfree} and
 \eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree} of the
 neutral case can be used for
 $u$ and the equations for $\theta$ are similar:
-the boundary condition of "FV free" is
+the boundary condition of ``FV free" is
 \begin{equation}
 	\label{eq:ND_StratifiedCase_semiDiscreteEkmanEqFVfree}
 	\underbrace{K_{\theta, \delta} (\partial_z \theta)_\delta}_{
@@ -490,7 +490,7 @@ are obtained with the method named $l^\star_{\rm D80}$ described in
 	It is seen that $\partial_z l_{\rm up}$ is limited by $-1$
 	for $z\in (50 \; {\rm m}, 150\; {\rm m})$ whereas
 	$\partial_z l_{\rm down}$ is limited by 1 for $z<100 \;{\rm m}$.
-	The surface flux scheme used is "FV free" which is why the
+	The surface flux scheme used is ``FV free" which is why the
 	profiles start at $\delta_{sl} = 10\;{\rm m}$.}
 	\label{fig:ND_StratifiedCase_mixing_lengths}
 \end{figure}
@@ -550,7 +550,7 @@ which is non-negative if $e^n$ is non-negative.
 In the cells where the buoyancy is stronger than the shear,
 $K_\theta N^2$ is multiplied by
 $\frac{e^{n+1}}{e^n}$ to keep the positivity preserving property.
-This multiplication is known as the "Patankar's trick"
+This multiplication is known as the ``Patankar's trick"
 \citep{lemarie_simplified_2021}.
 %
 \paragraph{Boundary conditions}
@@ -568,7 +568,7 @@ $\partial_z e (z_{\rm top}) = 0$
 
 \subsubsection{Matching viscosities at the surface layer}
 \label{sec:ND_StratifiedCase_mixing_lengths_match}
-In order to obtain a regular solution from the "FV free"
+In order to obtain a regular solution from the ``FV free"
 discretization, we derive here the constraints on mixing length
 and on TKE inside the surface layer.
 A sub-grid model that suits both

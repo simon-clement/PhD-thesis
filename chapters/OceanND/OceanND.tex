@@ -15,7 +15,7 @@ Ekman problem (defined in Chapter \ref{ch:airseaSCM})
 and in particular to the oceanic surface layer.
 \citep{pelletier_two-sided_2021} introduced a \textit{two-sided}
 bulk method which does not only take as input
-the "relative" (w.r.t. surface currents) wind but also takes into
+the ``relative" (w.r.t. surface currents) wind but also takes into
 account the depth at which the surface current is evaluated.
 This \textit{two-sided} bulk is detailed in Section
 \ref{sec:OceanND_twoSidedBulk}.
@@ -27,7 +27,7 @@ The idea of the previous chapter is used again to
 derive a discretisation based on spline reconstruction
 in Section \ref{sec:OceanND_OSL}.
 In all this chapter, the atmosphere surface flux scheme chosen
-is "FV free".
+is ``FV free".
 \section{A two-sided bulk for the ocean-atmosphere interface}
 \label{sec:OceanND_twoSidedBulk}
 As it is explained in \citep{pelletier_two-sided_2021}, it is now
@@ -58,7 +58,7 @@ The method of assuming a boundary layer on either side of the interface is calle
 Figure \ref{fig:OceanND_twoSidedBulk_difference} shows the difference
 between the use of a two-sided bulk and a one-sided bulk in
 a coupled situation between the atmosphere model described in
-Chapter \ref{ch:ND} "FV free" and a Finite Difference
+Chapter \ref{ch:ND} ``FV free" and a Finite Difference
 discretisation of the ocean column.
 This corresponds to comparing $\delta_o < 0$ and $\delta_o = 0$.
 We find that using a surface layer in the ocean changes the

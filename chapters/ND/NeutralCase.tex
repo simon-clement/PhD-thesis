@@ -283,14 +283,14 @@ the value at the center of the first cell is
 	that $\overline{u}_{1/2} < {\cal S}_{1/2}(0)$.
 	However, as it will be discussed in \S
 	\ref{sec:ND_NeutralCase_newSFscheme}
-	("On the value of $K_{u,0}$")
+	(``On the value of $K_{u,0}$")
 	the wall law cannot be followed.
 	The modification of $K_{u,0}$ used in \S
 	\ref{sec:ND_NeutralCase_newSFscheme} reduces
 	the difference between $\overline{u}_{1/2}$
 	and ${\cal S}_{1/2}(0)$.
 	In the following, the
-	difference between "FV pure" and "FV1"
+	difference between ``FV pure" and ``FV1"
 	will be small for this reason.
 \end{remark}
 %
@@ -333,7 +333,7 @@ summarized in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
 		  to eliminate log-layer mismatch in LES models.
 		  We do not consider this method here as we focus
 		  on Finite Volume discretisation.
-	  \item "FV pure": it is assumed again that
+	  \item ``FV pure": it is assumed again that
 		  $\delta_{\rm sl} = z_{\frac{1}{2}}$.
 		  The scheme is similar to the Finite Difference one.
 	    The reconstruction of $u(z)$ inside the first grid cell
@@ -352,7 +352,7 @@ summarized in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
 	\end{equation}
 		  Note that $\xi=0$ corresponds here
 		  to $z=z_{\frac{1}{2}}\neq 0$.
-	  \item "FV1": it is assumed again that
+	  \item ``FV1": it is assumed again that
 		  $\delta_{\rm sl} = z_{\frac{1}{2}}$.
 		  In state-of-the-art models using finite volumes,
 		  $u_{\star}$ is often computed using the
@@ -373,11 +373,11 @@ summarized in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
 We present now two additional strategies corresponding to
 the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 \begin{itemize}
-    \item "FV Nishizawa":  unlike the other strategies,
+    \item ``FV Nishizawa":  unlike the other strategies,
 	    it is assumed that the first cell is entirely inside
 		the surface layer: $\delta_{\rm sl} = z_{1}$.
 		We mentioned previously that
-		\cite{nishizawa_surface_2018} show that the "FV1"
+		\cite{nishizawa_surface_2018} show that the ``FV1"
 		strategy systematically underestimates
 		$u(\delta_{\rm sl})$ because of the
 	  concavity of the logarithmic profile.
@@ -399,7 +399,7 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 				  \text{Adapted for averages}}
 			  \overline{u}^{n}_{\frac{1}{2}}~~)
 		  \end{equation}
-	\item "FV2": the "FV Nishizawa" scheme is not adapted to
+	\item ``FV2": the ``FV Nishizawa" scheme is not adapted to
 		spline reconstruction. We extend it to our
 		Finite Volume discretisation with the assumption
 		that the spline reconstruction $u(z)$ inside
@@ -413,7 +413,7 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 	Since the profile of $u$ is given by the wall law
 	in the first cell,
 	using $\overline{u}_{\frac{1}{2}}$ as input of
-	the alternative bulk algorithm of "FV Nishizawa"
+	the alternative bulk algorithm of ``FV Nishizawa"
 	becomes rigorously equivalent to using the
 	classical bulk formulation with $u(z_1)$
 	as input.
@@ -437,8 +437,8 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 	the numerical computation domain matches with the continuous
 	one (Figure \ref{fig:ND_NeutralCase_EkmanContinuous}).
   \end{itemize}
-  % Note that for the first two strategies "FV pure" and
-  % "FV1", for numerical reasons $K_{u,0}$
+  % Note that for the first two strategies ``FV pure" and
+  % ``FV1", for numerical reasons $K_{u,0}$
   % should not actually
   % take the value $\left. K_{u}\right|_{z=0} = K_{mol}$.
   % See section \ref{sec:ND_StratifiedCase_viscosity0_FVpure} for
@@ -452,7 +452,7 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 	sense are encircled; implicit parts of the schemes
 	are represented as dashed lines; orange profiles
 	follow the wall law.
-	With "FV Nishizawa", the average is \textit{interpreted}
+	With ``FV Nishizawa", the average is \textit{interpreted}
 	as the average of a wall law and is used in the
 	$\overline{\rm BULK}$ routine.
 	}
@@ -460,18 +460,18 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 \end{figure}
 The different strategies are summarized in Table
 \ref{tab:ND_NeutralCase_summary_sfscheme} together with the
-"FV free" scheme which will be presented in \S
+``FV free" scheme which will be presented in \S
 \ref{sec:ND_NeutralCase_newSFscheme}.
 Let us draw some comments and comparisons on the surface flux schemes:
 \begin{itemize}
-	\item "FV1" relies on the assumption that
+	\item ``FV1" relies on the assumption that
 		$\overline{u}_{\frac{1}{2}} = u(z_{\frac{1}{2}})$;
 		as it will be seen on Figure
 		\ref{fig:ND_NeutralCase_comparisonPlot} the
-		induced difference with "FV pure" is not important
+		induced difference with ``FV pure" is not important
 		in our case where the spline profile are less concave
 		than the logarithmic profile.
-		We will thus only consider "FV pure" to
+		We will thus only consider ``FV pure" to
 		reduce the number of cases.
 	\item Some of the strategies assume
 		\eqref{eq:ND_NeutralCase_EkmanEq} inside the surface
@@ -488,7 +488,7 @@ Let us draw some comments and comparisons on the surface flux schemes:
 		with the logarithmic profile) is also assumed.
 \end{itemize}
 As shown in Table \ref{tab:ND_NeutralCase_summary_sfscheme}
-the "FV2" surface flux scheme solves those problems.
+the ``FV2" surface flux scheme solves those problems.
 However for this scheme and all the others presented here,
 changing the space step
 also changes the height of the surface layer $\delta_{\rm sl}$.
@@ -501,7 +501,7 @@ while keeping the same treatment in LES goes against the
 range of validity of the MOST profiles.
 That is why in the following,
 we derive a surface flux scheme that keeps
-the advantages of the "FV2" scheme, but with a free $\delta_{\rm sl}$.
+the advantages of the ``FV2" scheme, but with a free $\delta_{\rm sl}$.
 %
 \begin{table}
 	\centering
@@ -511,21 +511,21 @@ the advantages of the "FV2" scheme, but with a free $\delta_{\rm sl}$.
 		\hline
 		FD & $K_{u,0} \phi_0$ & ${\rm BULK}(u_{\frac{1}{2}})$
 			& $z_{\frac{1}{2}}$ & \checkmark \\
-		"FV pure" & $K_{u,0} \phi_0$ &
+		``FV pure" & $K_{u,0} \phi_0$ &
 			${\rm BULK}({\cal S}_{1/2}^{n}(\xi=0))$
 			& $z_{\frac{1}{2}}$ & $\times$ \\
-		"FV1" & $K_{u,0} \phi_0$ &
+		``FV1" & $K_{u,0} \phi_0$ &
 			${\rm BULK}(\overline{u}_{\frac{1}{2}})$
 			& $z_{\frac{1}{2}}$ & $\times$ \\
-		"FV Nishizawa" & $K_{u,0} \phi_0$ &
+		``FV Nishizawa" & $K_{u,0} \phi_0$ &
 			$\overline{\rm BULK}
 				(\overline{u}_{\frac{1}{2}})$
 			& $z_1$ & $\times$ \\
-		"FV2" & $K_{u,1} \phi_1$ &
+		``FV2" & $K_{u,1} \phi_1$ &
 			${\rm BULK} ({\cal S}_{\frac{3}{2}}(
 				  -\frac{h_{3/2}}{2}))$
 			& $z_1$ & \checkmark \\
-		"FV free" & $K_{u,\delta} \phi_{\delta}$ &
+		``FV free" & $K_{u,\delta} \phi_{\delta}$ &
 			${\rm BULK}
 				(u(\delta_{sl}))$
 			& $\delta_{sl}$ & \checkmark \\
@@ -539,7 +539,7 @@ the advantages of the "FV2" scheme, but with a free $\delta_{\rm sl}$.
 We now construct a boundary condition that is coherent
 with the continuous model presented in
 \S \ref{sec:ND_Intro_continuousModel}
-with a free $\delta_{sl}$, named "FV free" in Table
+with a free $\delta_{sl}$, named ``FV free" in Table
 \ref{tab:ND_NeutralCase_summary_sfscheme}:
 \begin{equation}
 	\label{eq:ND_NeutralCase_bottomCondFVFree}
@@ -557,7 +557,7 @@ that $\delta_{\rm sl} < z_1$ and will then relax this hypothesis.
 In the first grid cell, we assume that
 \eqref{eq:ND_NeutralCase_WallLaw} applies for $z<\delta_{sl}$
 and we separate the 
-first volume into two parts: the surface layer $[0,\delta_{\rm sl}]$ and the "sub-cell" $[\delta_{\rm sl}, z_1]$.
+first volume into two parts: the surface layer $[0,\delta_{\rm sl}]$ and the ``sub-cell" $[\delta_{\rm sl}, z_1]$.
 This split corresponds to the change of governing equations
 in the continuous case \eqref{eq:ND_NeutralCase_continuousModel}.
 Let $\widetilde{h} = z_1 - \delta_{\rm sl}$  be the size of the
@@ -594,7 +594,7 @@ The notations are summed up in Figure
 \ref{fig:ND_NeutralCase_nouvelle_dis_neutre}.
 \begin{figure}
 	\subimport{images/}{nouvelle_dis_neutre.pdf_tex}
-	\caption{ Surface layer scheme "FV free".}
+	\caption{ Surface layer scheme ``FV free".}
 	\label{fig:ND_NeutralCase_nouvelle_dis_neutre}
 \end{figure}
 \begin{remark}
@@ -605,7 +605,7 @@ The notations are summed up in Figure
 	The implementation uses $\phi_{\delta}$ as a prognostic
 	variable instead of $\phi_0$:
 	this surface flux scheme is hence exactly equivalent
-	to using the "FV2" scheme with grid levels
+	to using the ``FV2" scheme with grid levels
 	$\{0, \delta_{sl}, z_1, z_2, ..., z_M\}$.
 \end{remark}
 \par
@@ -752,22 +752,22 @@ the vertical profiles of $|u|$ and $\arg(u)$ close to the surface
 for the surface flux schemes presented.
 The profiles are obtained after 24 hours of integration in neutral
 conditions and with $u(0) = 0$.
-One can see that the profiles of $|u|$ with the "FV free" and "FV2"
-follow a wall law. The "FV1" and "FV pure" discretizations
-present identical profiles that are close to the "FV Nishizawa" and
+One can see that the profiles of $|u|$ with the ``FV free" and ``FV2"
+follow a wall law. The ``FV1" and ``FV pure" discretizations
+present identical profiles that are close to the ``FV Nishizawa" and
 Finite Difference discretizations.
 However, it is the case only when $K_0$ is
 replaced by $K_{\delta}$ in those discretizations
-(see the paragraph "On the value of $K_{u,0}$" below).
+(see the paragraph ``On the value of $K_{u,0}$" below).
 The profile of $\arg(u)$ is significantly affected by the surface
 flux scheme: this is not surprising as the Coriolis effect is
-not taken into account in the surface layer for the "FV2" and
-"FV free" parameterizations.
-The differences between "FV2" and "FV free" only come from the
+not taken into account in the surface layer for the ``FV2" and
+``FV free" parameterizations.
+The differences between ``FV2" and ``FV free" only come from the
 choice of $\delta_{sl}$:
 by choosing $\delta_{sl}=z_1$, both profiles would have been
 rigorously identical
-(see the paragraph "in the general case where
+(see the paragraph ``in the general case where
 $\delta_{sl} \geq z_1$" below).
 %\par
 %Finally, a large part of the differences shown here come from
@@ -841,12 +841,12 @@ Injecting the boundary condition at the first grid level gives
 			 - \emphase{u_\star^2 e_\tau} \right)
 		\end{equation}
 The value of $K_0$ does not intervene in the equation.
-\item \textbf{Finite Volumes} ("FV pure", "FV1" and "FV Nishizawa"):
+\item \textbf{Finite Volumes} (``FV pure", ``FV1" and ``FV Nishizawa"):
 Combining the equation \eqref{eq:ND_NeutralCase_prognosticEqFV}
 and the reconstruction
 \eqref{eq:ND_NeutralCase_quadraticReconstruction} in the second cell
 $u(z_1) = {\cal S}_{\frac{3}{2}}\left(-\frac{h_\frac{3}{2}}{2}\right)$
-the discretisations "FV pure", "FV1" and "FV Nishizawa"
+the discretisations ``FV pure", ``FV1" and ``FV Nishizawa"
 implicitly use that
 \begin{equation}
 	(\partial_t+if) u(z_1) =
@@ -862,7 +862,7 @@ exhibits unreasonable values.
 To obtain physically plausible profiles,
 by mimicking the relation
 $\phi_{\delta} = \frac{K_{mol}}{K_{u,\delta}}\phi_0$ of the
-"FV free" scheme, we choose to multiply the surface
+``FV free" scheme, we choose to multiply the surface
 viscosity by $\frac{K_{u,\delta}}{K_{mol}}$.
 As a consequence, the wall law is denied and
 $(\partial_z u)(z_0)$ is multiplied
@@ -874,7 +874,7 @@ is not characteristic of Finite Volume schemes.
 
 \paragraph{In the general case where $\delta_{\rm sl} \geq z_k$.}
 Let $k$ be such that $z_k \leq \delta_{\rm sl} < z_{k+1}$.
-The surface layer scheme "FV free" is identical to the case $k=0$, except that
+The surface layer scheme ``FV free" is identical to the case $k=0$, except that
 \begin{itemize}
 	\item the sub-cell of average $\widetilde{u}$ and of size
 		$\widetilde{h}$ is $[\delta_{\rm sl}, z_{\emphase{k+}1}]$:
@@ -897,12 +897,12 @@ The surface layer scheme "FV free" is identical to the case $k=0$, except that
 		the wall law.
 \end{itemize}
 It is straightforward to check that for $\delta_{sl} = z_1$
-the "FV2" scheme is rigorously recovered.
+the ``FV2" scheme is rigorously recovered.
 The derivation for any $\delta_{\rm sl} \geq 0$ is detailed for
 the stratified case in Section \ref{sec:ND_StratifiedCase_FVfree}.
 \begin{figure}
 	\subimport{images/}{nouvelle_dis_neutre_anydelta.pdf_tex}
-	\caption{ Surface layer scheme "FV free" with
+	\caption{ Surface layer scheme ``FV free" with
 	$\delta_{sl} \geq z_k$.}
 	\label{fig:ND_NeutralCase_nouvelle_dis_neutre_anydelta}
 \end{figure}

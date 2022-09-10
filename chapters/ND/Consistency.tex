@@ -52,7 +52,7 @@ on the choice of $\delta_{sl}$.
 	\centering
 \includegraphics[scale=0.6]{images/sensitivity_delta_sl.pdf}
 	\caption{Typical profiles of $||u||$ and Arg$(u)$ for several
-	choices of $\delta_{sl}$, obtained with the "FV free"
+	choices of $\delta_{sl}$, obtained with the ``FV free"
 	discretisation. Notice the changes of horizontal
 	and vertical scales between the bottom and top panels.}
 	\label{fig:ND_Consistency_sensitivity_delta_sl}
@@ -140,8 +140,8 @@ to $150$ meters.
 \begin{figure}
 	\centering
 	\subimport{images/}{lowres_highres.pdf_tex}
-	\caption{The "High resolution" has two additional grid levels
-	between each "Low resolution" levels.}
+	\caption{The ``High resolution" has two additional grid levels
+	between each ``Low resolution" levels.}
 	\label{fig:ND_Consistency_lowres_highres}
 \end{figure}
 We now compare the profiles of a high
@@ -150,8 +150,8 @@ of a simulation with lower resolution. To create the high resolution grid,
 two additional grid levels are added between each grid levels
 (see Figure \ref{fig:ND_Consistency_lowres_highres}).
 After the simulation ($\Delta t=30\;{\rm s}$,
-one day of integration in time) the high resolution ("HR") simulation
-is projected onto the low resolution ("LR") grid and the relative difference
+one day of integration in time) the high resolution (``HR") simulation
+is projected onto the low resolution (``LR") grid and the relative difference
 $\frac{||u^{\rm HR}(z) - u^{\rm LR}(z)||}{||u^{\rm LR}(z)||}$ is
 computed.
 \begin{figure}
@@ -170,9 +170,9 @@ shows the profile of $||u||$,
 the relative $u$ difference and the relative $u_\star$ difference
 between low and high resolutions.
 One can see that the difference between low and high resolution of
-the "FV free" scheme is small in low altitude.
+the ``FV free" scheme is small in low altitude.
 Two factors reduce the difference between low and high resolution
-for "FV free":
+for ``FV free":
 \begin{itemize}
 	\item $\delta_{sl} = z_{\frac{1}{2}}^{LR}$ is the same
 		for both low and high resolution whereas for
@@ -286,9 +286,9 @@ The profiles obtained after 72 hours of integration are
 shown in Figure \ref{fig:ND_Consistency_Stratified}.
 It is seen that the temperature and wind profiles are
 all similar.
-Two simulations are done: the first one ("Low resolution")
+Two simulations are done: the first one (``Low resolution")
 uses 15 grid points
-in the 400m column and the second one ("High resolution")
+in the 400m column and the second one (``High resolution")
 uses 45 grid points (see Figure \ref{fig:ND_Consistency_lowres_highres})
 and is then projected onto the first grid for the comparison.
 \begin{figure}
@@ -305,7 +305,7 @@ and is then projected onto the first grid for the comparison.
 \ref{fig:ND_Consistency_comparisonStratified}.
 The difference between the high resolution and the low resolution
 does not significantly change with the surface flux schemes.
-The difference in $u_\star$ is especially high for the "FV2" scheme.
+The difference in $u_\star$ is especially high for the ``FV2" scheme.
 Note that the initialization for FV free and FV2 is particular:
 to ensure the continuity of the solution,
 the initial profile is already adjusted for the
@@ -313,16 +313,16 @@ MO theory. This is why the relative $u_\star$ difference is zero
 at initialization whereas it is very high for the other surface flux
 schemes.
 %
-The "FV2" scheme is not very consistent because it follows the
+The ``FV2" scheme is not very consistent because it follows the
 continuous model with $\delta_{sl}$ changing together with the
 space step.
-The Finite Difference or the "FV pure" methods suffer
+The Finite Difference or the ``FV pure" methods suffer
 less from this problem because even if $\delta_{sl}$ changes,
 it is assumed that the evolution equation is
 integrated inside the surface layer.
 \cite{maronga_improved_2020} also find that the
 sensitivity of their LES model to the grid spacing is
-"\textit{more
+``\textit{more
 likely related to under-resolved near-surface gradients
 and turbulent mixing at the boundary-layer top, to the
 [sub-grid scale] model formulation, and/or to numerical issues,
@@ -354,17 +354,17 @@ $8 \; {\rm m}.{\rm s}^{-1}$.
 As in the stable case the geostrophic wind is
 $u_G = 8 \;{\rm m}.{\rm s}^{-1}$
 and the time step is $\Delta t = 30 \;{\rm s}$.
-The "low resolution" is composed of 50 grid levels of $10 \; m$
+The ``low resolution" is composed of 50 grid levels of $10 \; m$
 each; 15 additional stretched levels between $500 \; m$ and
 $1080 \; m$ make sure that the upper boundary condition
 is not involved in the results.
-The "high resolution" divides every space levels into
+The ``high resolution" divides every space levels into
 3 space levels of equal size.
 \paragraph{Results}
 Figure \ref{fig:ND_Consistency_comparisonUnstable}
-shows that the "FV2" scheme is also less consistent
+shows that the ``FV2" scheme is also less consistent
 in the unstable case.
-This time in the first $200$ meters the scheme "FV free" seems a lot
+This time in the first $200$ meters the scheme ``FV free" seems a lot
 more robust than the other schemes.
 However, above this height the differences between the high
 resolution and the low resolution simulations oscillate and there
@@ -446,8 +446,8 @@ First, note that the oscillations of $u_\star$ and $\theta_\star$
 are of a smaller amplitude than in the unstable experiment.
 Then, in the bottom panel, one can see that the difference
 in $u_\star$ and $u$ between high and low resolutions when using
-the "FV free" scheme is smaller than with the other schemes.
-Unlike the previous cases, the "FV2"
+the ``FV free" scheme is smaller than with the other schemes.
+Unlike the previous cases, the ``FV2"
 scheme do not show a lot of differences between
 its high and low resolutions.
 Finally, the dependency of $t_\star$ and $\theta$ on the resolution
@@ -458,7 +458,7 @@ the computational domain a surface layer. A vast majority of models
 use Monin-Obukhov Similarity Theory (MOST)
 to avoid solving the small scales of motion inside the surface layer.
 We compared several strategies for the treatment of the surface layer
-and proposed one ("FV free") with two main assets:
+and proposed one (``FV free") with two main assets:
 \begin{itemize}
 	\item one can choose freely the height $\delta_{sl}$
 		of the surface layer;
@@ -468,7 +468,7 @@ and proposed one ("FV free") with two main assets:
 \end{itemize}
 We compared the strategies by verifying that a high-resolution
 discretisation would be close to the low-resolution one.
-The strategy "FV free" shows less differences between
+The strategy ``FV free" shows less differences between
 high- and low-resolution simulations than the other strategies,
 especially for the wind speed and in unstable situations.
 \par
