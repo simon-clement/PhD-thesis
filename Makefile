@@ -45,7 +45,8 @@ STYLES=Styles/*.sty
 
 # SPELLCHECKER
 SPELLCHECK=hunspell
-SPELLOPT=-d en_GB -t
+# SPELLOPT=-d fr -t
+SPELLOPT=-d en_US -t
 
 all: $(TARGET_FILE)
 

@@ -165,16 +165,16 @@ La première approximation étudiée est la méthode des
 \textit{équations modifiées} dans le calcul du facteur de convergence.
 La seconde est la combinaison des analyses semi-discrètes
 pour approcher l'analyse complètement discrète.
-\subsection*{Equations modifiées}
+\subsection*{Équations modifiées}
 La méthode des équations modifiées consiste à étudier au niveau
 continu non pas l'équation différentielle originale mais celle
 qui est résolue par le schéma numérique.
 Ces équations modifiées sont obtenues à l'aide d'un développement
 de Taylor de la discrétisation.
-\subsubsection*{Equations modifiées en temps}
+\subsubsection*{Équations modifiées en temps}
 Lors du calcul du facteur de convergence, l'utilisation d'équation
 modifiées en temps se traduit par un changement de la variable
-fréquencielle $\omega$ utilisée dans la transformée de Fourier :
+fréquentielle $\omega$ utilisée dans la transformée de Fourier :
 \begin{itemize}
 	\item
 La complexité de l'étude continue des équations modifiées en temps
@@ -189,7 +189,7 @@ et semi-discret en temps vient de cette opération d'interpolation,
 les équations modifiées ne permettent pas d'approcher le facteur
 de convergence semi-discret.
 \end{itemize}
-\subsubsection*{Equations modifiées en espace}
+\subsubsection*{Équations modifiées en espace}
 L'utilisation des équations modifiées sur les schémas en espace
 génère d'autres observations :
 \begin{itemize}
@@ -217,7 +217,7 @@ proche du bord.
 	qu'une seule différentiation en espace de n'importe
 	quel ordre :
 	une astuce de calcul permet de se ramener au cas où un simple
-	changement de variable fréquencielle suffit pour caractériser
+	changement de variable fréquentielle suffit pour caractériser
 		l'équation modifiée.
 \end{itemize}
 %
@@ -301,13 +301,13 @@ Ces reconstructions particulières permettent notamment
 \par
 En étant capable de choisir l'épaisseur de la couche
 	limite de surface sur des critères physiques et non
-	seulement numériques, la consistence des schémas
+	seulement numériques, la consistance des schémas
 	s'en trouve améliorée. La résolution verticale
 	peut ainsi être raffinée sans pour autant changer
 	les équations continues résolue par la
 			discrétisation.
 \par
-En utilisant un critère de consistence, les stratégies
+En utilisant un critère de consistance, les stratégies
 	de gestion de la couche limite sont
 	comparées pour différents types de stratification.
 	Une comparaison de ces stratégie est également effectuée
