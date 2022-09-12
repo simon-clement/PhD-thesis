@@ -7,7 +7,7 @@ VERB ?= 0
 
 # dummy targets
 .PHONY: all clean realclean spell force extract \
-	chap0 chap1 chap2 chap3 chap4 chap5
+	chap0 chap1 chap2 chap3 chap4 chap5 split
 
 # useful custom variables
 THIS=Makefile
@@ -60,6 +60,18 @@ $(TARGET_FILE): *.tex $(BIBSRC) $(STYLES) chapters/* chapters/*/*
 	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error -draftmode ${NAME} 
 	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error ${NAME} 
 	@mv ${WRKDIR}/$@ $@
+
+#after compilation:
+split:
+	mkdir -p output_chapters
+	pdftk thesis.pdf cat 7-33 output output_chapters/resume_intro_chap1.pdf
+	pdftk thesis.pdf cat 34-61 output output_chapters/chap2.pdf
+	pdftk thesis.pdf cat 62-84 output output_chapters/chap3.pdf
+	pdftk thesis.pdf cat 85-120 output output_chapters/chap4.pdf
+	pdftk thesis.pdf cat 121-130 output output_chapters/chap5.pdf
+	pdftk thesis.pdf cat 131-153 output output_chapters/chap6.pdf
+	pdftk thesis.pdf cat 154-154 output output_chapters/Conclusion.pdf
+	pdftk thesis.pdf cat 155-160 output output_chapters/Biblio.pdf
 
 # documents
 fast: *.tex $(BIBSRC) $(STYLES) chapters/* chapters/*/*
