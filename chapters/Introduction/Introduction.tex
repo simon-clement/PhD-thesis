@@ -32,8 +32,8 @@ properties.
 \par % La couche limite de surface
 The interface between the models in the case of
 the ocean-atmosphere coupling is specifically treated because
-of the turbulent motions that appear around the sea surface.
-The numerical treatment of this \textit{surface layer}
+of the turbulent motions that appear around the sea surface. The
+numerical treatment of this \textit{surface layer}
 is both physically justified and numerically driven.
 Improving the discretization of the surface
 layer is a key for the accuracy of air-sea exchanges.
@@ -86,20 +86,22 @@ the convergence factor of Schwarz methods;
 \item to study the surface layer within the ocean-atmosphere coupling.
 \end{itemize}
 \subsubsection*{The surface layer}
-The vertical area next to the sea surface contains
-strong disparities and can be modeled by a so-called
-``law of the wall". A review of the wall modelling was done by
+The surface layer contains strong disparities and can be modeled by a so-called
+\textit{law of the wall}. A review of wall modelling was done by
 \citep{larsson_large_2016}, focusing the very high resolutions.
 In particular, it is emphased that the height of the surface layer
 should be chosen based on both physical and numerical criteria.
 \par
-\citep{pelletier_two-sided_2021} introduced an oceanic surface layer
-in the \textit{bulk formulations} which characterize the law of
-the wall in the atmosphere models.
-\citep{nishizawa_surface_2018} discovered a systematic bias
+Recent advances in \textit{bulk formulations}
+(which characterize the law of the wall in the atmosphere models)
+partially underpin this thesis:
+one is the introduction by \citep{pelletier_two-sided_2021}
+of an oceanic part of the surface layer in the \textit{bulk formulations}.
+The other is the discovery of a systematic bias
 created in some discretizations when using the vertically
-averaged data in the \textit{bulk formulations}. They propose to
-include the averaging of the data inside the bulk.
+averaged data \citep{nishizawa_surface_2018}. In the latter case,
+the bias can be avoided by adapting the bulk formulations to averaged
+data.
 \par
 Moreover, the hypotheses on which relies the bulk formulations
 are generally not included in the discretization.
@@ -107,11 +109,11 @@ We propose to reunite the hypotheses in the bulk formulations
 and in the discretization in order to
 approximate more rigorously the continuous equations.
 \par
-The bulk formulations are strongly nonlinear.
-The well-posedness of the ocean-atmosphere coupling is discussed
+The bulk formulations are strongly nonlinear. The
+well-posedness of the ocean-atmosphere coupling is discussed
 in \citep{lions_mathematical_1995} with linear conditions at
 the interface and non-linearities inside the computational domains;
-A study of the well-posedness focused on the ocean domain
+a study of the well-posedness focused on the ocean domain
 \citep{chacon-rebollo_existence_2014} shows the existence and
 unicity in the neighborhood of a steady state. The method
 used in this article is applied to a nonlinearity
@@ -137,14 +139,16 @@ also face some constraints:
 	\item some quantities must be conserved by the method
 		(e.g. water, energy);
 	\item the atmosphere and ocean models being very
-		sophisticated, the methods should not be intrusive;
+		sophisticated, the methods should not be intrusive
+		(i.e. they should consider
+		the models as black boxes);
 	\item it is generally unaffordable to call multiple times
 		the ocean and atmosphere models.
 \end{itemize}
 With wisely chosen interface conditions, Schwarz methods can
 satisfy those constraints. In the context of making a very
-small number of iterations, accelerating the convergence
-corresponds to increasing the precision of the coupling.
+small number of iterations, the acceleration of the convergence
+can be used to increase the precision of the coupling.
 Discrete transparent boundary conditions
 \citep{zisowsky_discrete_2006} allow to converge up to the
 numerical precision in two iterations.
@@ -160,7 +164,7 @@ closer to the one observed in numerical simulations and
 generally leads to faster convergence.
 However, the last two study focus on electric circuits where
 there are overlaps between the domains. \citep{gander_analysis_2018}
-analyze the presence of an overlap but no previous study
+analyze the presence of an overlap but to our knowledge no previous study
 stands in the discrete case without overlap (note that the
 semi-discrete 2D stationary case was done by
 \citep{gerardo-giorda_optimized_2005}).
@@ -168,6 +172,7 @@ Discrete Schwarz Waveform Relaxation studies with other equations
 can be found in \citep{haynes_fully_2020} together with
 the finite domain case.
 In the continuous case, a lot of efforts have been made
+to study the convergence of Schwarz methods
 (e.g. \citep{thery_analysis_2021} where the viscosity
 is varying and is discontinuous at interface or
 \citep{haberlein_optimized_2014} who give an overview of
@@ -175,9 +180,8 @@ nonlinear systems).
 \par
 \citep{clement_discrete_2022-1} (Chapter
 \ref{ch:discreteSchwarzAnalysis}) studies the effect
-of the discretisation in space and time of the reaction-diffusion
-problem described in
-\S\ref{sec:airseaSCM_reactionDiffusionSection}.
+of the discretisation in space and time of a reaction-diffusion
+coupling problem without overlap.
 \par
 Chapter \ref{ch:approximatedDiscreteSchwarz}
 introduces alternative methods to estimate the convergence
@@ -189,8 +193,9 @@ Finally, Chapter \ref{ch:OASchwarz} treats the nonlinearity due
 to the presence of the surface layer. Nonlinearities
 at interface were introduced in domain decomposition methods by
 \citep{caetano_schwarz_2011} where they created interface
-conditions resembling to linear ones to keep the convergence
-properties. We start instead with an existing nonlinear interface
+conditions resembling to linear ones specifically to match
+with the existing studies.
+We start instead with an existing nonlinear interface
 and study its convergence properties.
 \subsubsection*{Outline}
 This thesis contains six chapters.
