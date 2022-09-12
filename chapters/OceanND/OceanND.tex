@@ -16,12 +16,12 @@ and in particular to the oceanic surface layer.
 \citep{pelletier_two-sided_2021} introduced a \textit{two-sided}
 bulk method which does not only take as input
 the ``relative" (w.r.t. surface currents) wind but also takes into
-account the depth at which the surface current is evaluated.
+account the depth $\delta_o$ at which the surface current
+is evaluated.
 This \textit{two-sided} bulk is detailed in Section
 \ref{sec:OceanND_twoSidedBulk}.
 We call the region between $z=0$ and
-$z=\delta_o$ the depth at which the surface current is evaluated
-the Oceanic Surface Layer (OSL).
+$z=\delta_o$ the Oceanic Surface Layer (OSL).
 The two-sided bulk method relies on MOST profiles in the OSL.
 The idea of the previous chapter is used again to
 derive a discretization based on spline reconstruction
@@ -32,7 +32,7 @@ is ``FV free".
 \label{sec:OceanND_twoSidedBulk}
 As it is explained in \citep{pelletier_two-sided_2021}, it is now
 recognized that the wind-stress depends strongly on surface currents. 
-However in coupled ocean-atmosphere simulation
+However in actual coupled ocean-atmosphere simulation,
 the surface currents are evaluated below the surface at $z=\delta_o$:
 this amounts to assume that the currents are constant in the
 oceanic surface layer.
@@ -57,8 +57,8 @@ The method of assuming a boundary layer on either side of the interface is calle
 \par
 Figure \ref{fig:OceanND_twoSidedBulk_difference} shows the difference
 between the use of a two-sided bulk and a one-sided bulk in
-a coupled situation between the atmosphere model described in
-Chapter \ref{ch:ND} ``FV free" and a Finite Difference
+a coupled situation between the atmosphere model ``FV free"
+(described in Chapter \ref{ch:ND}) and a Finite Difference
 discretization of the ocean column.
 This corresponds to comparing $\delta_o < 0$ and $\delta_o = 0$.
 We find that using a surface layer in the ocean changes the
@@ -73,23 +73,23 @@ two-sided bulk than the surface temperature.
 \label{sec:ND_Ocean_stabilityFunctionIntegration}
 In the ocean, we use the universal function of \citep{large_similarity_2019} (as in \citep{pelletier_two-sided_2021})
 \begin{equation}
-	\phi^m(\zeta) = \phi^h(\zeta) = 1+5\zeta, ~~~ \zeta \geq 0
+	\phi_m(\zeta) = \phi_h(\zeta) = 1+5\zeta, ~~~ \zeta \geq 0
 \end{equation}
 \begin{equation}
-	\phi^m(\zeta) = (1-14\zeta)^{-1/3}, ~~~ \zeta < 0
+	\phi_m(\zeta) = (1-14\zeta)^{-1/3}, ~~~ \zeta < 0
 \end{equation}
 \begin{equation}
-	\phi^h(\zeta) = (1-25\zeta)^{-1/3}, ~~~ \zeta < 0
+	\phi_h(\zeta) = (1-25\zeta)^{-1/3}, ~~~ \zeta < 0
 \end{equation}
-and the first integrated form, $\psi(\zeta)= \int_0^\zeta \frac{1-\phi(\zeta')}{\zeta'}d\zeta'$ is for $\zeta<0$
+and the first integrated form, $\psi_{\{m,h\}}(\zeta)= \int_0^\zeta \frac{1-\phi_{\{m,h\}}(\zeta')}{\zeta'}d\zeta'$ is for $\zeta<0$
 \begin{equation}
-	\psi^{\{m,h\}}(\zeta)  = \sqrt{3}\left[\arctan(\sqrt{3}) -
+	\psi_{\{m,h\}}(\zeta)  = \sqrt{3}\left[\arctan(\sqrt{3}) -
 	\arctan\left(\frac{\sqrt{3}}{3}(2C_{\{m,h\}}+1)\right)\right]
 	+ \frac{3}{2}\ln \left(\frac{(C_{\{m,h\}})^2 + C_{\{m,h\}} + 1}{3}\right)
 \end{equation}
-and $\psi^{\{m,h\}}(\zeta) = -5\zeta$ for $\zeta \geq 0$
+and $\psi_{\{m,h\}}(\zeta) = -5\zeta$ for $\zeta \geq 0$
 where $C_m = (1-14\zeta)^{1/3}$, $C_h = (1-25\zeta)^{1/3}$.
-We now compute its volume-averaged form $\Psi^{\{m,h\}}(\zeta)= \frac{1}{\zeta}\int_0^\zeta \psi^{\{m,h\}}(x)dx$.
+We now compute its volume-averaged form $\Psi_{\{m,h\}}(\zeta)= \frac{1}{\zeta}\int_0^\zeta \psi_{\{m,h\}}(x)dx$.
 \par
 First,
 \begin{equation}
@@ -106,7 +106,7 @@ and
 Putting them together, we get
 \begin{equation}
 \begin{aligned}
-	\Psi^m(\zeta)=\sqrt{3}\arctan(\sqrt{3})- 
+	\Psi_m(\zeta)=\sqrt{3}\arctan(\sqrt{3})- 
 	\frac{3}{2}\ln(3) -
 	\frac{3}{56\zeta}C_m(C_m-2)
 	- \sqrt{3} \arctan (\frac{2C_m+1}{\sqrt{3}})
@@ -119,9 +119,9 @@ Putting them together, we get
 After simplification, using $\lim_\zeta\to0 \int_0^\zeta\psi(x)dx = 0$:
 \begin{equation}
 \begin{aligned}
-\Psi^{\{m,h\}}(\zeta)= -\frac{5}{2}\zeta, ~~~~ \zeta \geq 0 \\
-	\Psi^{\{m,h\}}(\zeta)=
-	\psi^{\{m,h\}}(\zeta)
+\Psi_{\{m,h\}}(\zeta)= -\frac{5}{2}\zeta, ~~~~ \zeta \geq 0 \\
+	\Psi_{\{m,h\}}(\zeta)=
+	\psi_{\{m,h\}}(\zeta)
 	- \frac{(2C_{\{m,h\}}+1)(C_{\{m,h\}} - 1)}
 	{2\left((C_{\{m,h\}})^2 + C_{\{m,h\}} + 1\right)}, ~~~~ \zeta < 0
 \end{aligned}
@@ -154,11 +154,11 @@ and for $\theta$:
 	    -Q_{sw} E(\delta_{sl})
     }
 \end{equation}
-where $E(z) = \int_{z}^0 \frac{\phi^h_o(-x/L_o)
+where $E(z) = \int_{z}^0 \frac{\phi_h(-x/L_o)
 		\sum A_i \exp (k_i x)
 		}{-x + z_{u}}dx$
 and $Q_H = \theta_o^{\star}u_o^{\star}\rho_0 c_p$.
 In practice, $\alpha_{sl, \emphase{\theta}}$ will not be used: in Section
-\ref{sec:ND_Ocean_radiativeFluxes} we describe a better way to
+\ref{sec:ND_Ocean_radiativeFluxes} we describe another way to
 include the radiative fluxes in the surface layer.
 \end{subappendices}

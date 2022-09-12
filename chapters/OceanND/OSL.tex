@@ -2,31 +2,65 @@
 \label{sec:OceanND_OSL}
 We now interest ourselves to the discretization of an ocean
 column and its surface layer.
-If a \textit{two-sided} bulk is used then the
-discretization of the oceanic surface layer can be derived
-similarly to the discretization of the atmospheric surface
-layer in Chapter \ref{ch:ND}.
+Indeed, we consider from now on that the bulk formulation
+takes into account the surface layer of the ocean and that
+this surface layer is based on
+\begin{equation}
+	\begin{aligned}
+	|K_u \partial_z u| &= {\frac{\rho_a}{\rho_o}}
+	u_\star^2\\
+	K_\theta \partial_z \theta &=
+	{\frac{\rho_{\rm a} c_{\rm a}^p}
+			{\rho_{\rm o} c_{\rm o}^p}}
+	\theta_\star u_\star
+	\end{aligned}
+\end{equation}
+for $\delta_o \leq z \leq 0$.
 \par
-In the ocean modeling community, it is unusual to use
-wall modeling at the surface. The Sea Surface Temperature
-(SST) is often taken at the first grid level inside the
-ocean: this corresponds to the assumption that 
-the profiles are constant in the surface layer.
-\cite{zeng_prognostic_2005} proposed a scheme to avoid this
-issue for weather forecasting, climate modeling and
-data assimilation.
-%
+As it was discussed in Chapter \ref{ch:ND}, it can be important
+to take into account the hypotheses of the surface layer within
+the discretization. The first part of this section is dedicated
+to the extention of the surface flux scheme of Chapter \ref{ch:ND}
+for the oceanic surface layer.
 \par
-The goal of this section is to investigate the effects
-of the surface layer discretization in a coupled situation.
-We first (Section \ref{sec:ND_Ocean_differencesWithAtmosphere})
+The second part of this section focuses on a specificity of the
+oceanic surface layer: the radiative fluxes. The latter penetrate
+in the first few meters of the ocean, creating an external forcing
+which affects the surface layer. In particular, the flux
+$\langle w' \theta'\rangle = -K_\theta \partial_z \theta$ is no more
+constant along the vertical when considering the radiative fluxes.
+\par
+As a first step towards a discretization including the radiative
+fluxes, we will derive in Section \ref{sec:ND_Ocean_radiativeFluxes}
+a discretization based on an approximative reconstruction of the
+potential temperature.
+\par
+% 
+% If a \textit{two-sided} bulk is used then the
+% discretization of the oceanic surface layer can be derived
+% similarly to the discretization of the atmospheric surface
+% layer in Chapter \ref{ch:ND}.
+% \par
+% In the ocean modeling community, it is unusual to use
+% wall modeling at the surface. The Sea Surface Temperature
+% (SST) is often taken at the first grid level inside the
+% ocean: this corresponds to the assumption that 
+% the profiles are constant in the surface layer.
+% \cite{zeng_prognostic_2005} proposed a scheme to avoid this
+% issue for weather forecasting, climate modeling and
+% data assimilation.
+% %
+% \par
+% The goal of this section is to investigate the effects
+% of the surface layer discretization in a coupled situation.
+We first (\S \ref{sec:ND_Ocean_differencesWithAtmosphere})
 specify the differences between the ocean and
 atmosphere models in use,
 then focus on the incorporation of radiative fluxes in
-Section \ref{sec:ND_Ocean_radiativeFluxes}.
+\S \ref{sec:ND_Ocean_radiativeFluxes}.
 Finally, Section \ref{sec:ND_Ocean_bulkRadiativeFluxes}
-presents the sensitivity to the discretization of the
-surface layer in the coupled setting.
+presents the sensitivity to the discretization obtained of the
+surface layer in a forced setting and in a coupled setting.
 \subsection{Differences with the atmosphere and derivation of
 	a symmetric surface flux scheme}
 \label{sec:ND_Ocean_differencesWithAtmosphere}
@@ -41,8 +75,7 @@ model are:
 		between ocean and atmosphere;
 	\item the universal stability functions which are
 		taken in \cite{large_similarity_2019};
-	\item the vertical axis $z \leq 0$
-		which is such that the surface corresponds to $z=0$;
+	\item the vertical coordinate $z$ is negative;
 	\item the time and space scales (the motion in the ocean
 		is slower and smaller space steps are used with
 		larger time steps).
@@ -50,7 +83,8 @@ model are:
 \subsubsection{The Ocean model}
 We describe here the continuous model in use for the ocean.
 The equations for momentum, potential temperature and
-turbulent kinetic energy in the inner domains are not changed
+turbulent kinetic energy in the inner domains are similar
+to those of the atmosphere
 except that the geostrophic momentum is not included in the ocean:
 \begin{equation}
 	\begin{aligned}
@@ -282,7 +316,7 @@ and $\left.\partial_z \theta\right|_{\delta_o}$:
 \begin{equation}
     \overline{\theta}_{osl} = \frac{1}{\nu+1}
     (\theta_{\delta_o} + \nu \theta_s)
-, ~~~ \left.\partial_z \theta \right|_\delta
+	, ~~~ \left.\partial_z \theta \right|_{z=\delta_o}
 = \frac{\nu}{h_{osl}} (\theta_s - \theta_{\delta_o})
 \end{equation}
 We get that the surface temperature
@@ -423,7 +457,7 @@ in $z=0$.
 If greater regularity is needed, it is possible to link
 the reconstruction with a proper modeling of the molecular sub-layer
 (e.g. $\rho_{\rm o} c_{\rm o}^p K_{mol} \partial_z \theta(z) =
-Q - Q_{lw} - \int_z^0 \partial_z Q_{sw}(z')dz'$ for $|z|<<|\delta_o|$)
+Q - Q_{lw} - \int_z^0 \partial_z Q_{sw}(z')dz'$ for $|z|\ll|\delta_o|$)
 % It is hence more appealing to take into account
 % the molecular sublayer to add some regularity to the solution.
 % \subsubsection{Oceanic surface flux scheme with molecular sublayer}
@@ -482,7 +516,8 @@ with the atmosphere column described in Chapter \ref{ch:ND}.
 	\centering
 \includegraphics[scale=0.6]{images/oce_Coupled.pdf}
 	\caption{Coupled case. The observed convergence factor
-	of the Schwarz method was around $10^{-2}$.
+	of the Schwarz method was around $10^{-2}$
+	(i.e. convergence in 2 or 3 iterations).
 	Dashed lines indicate
 	a high resolution simulation and solid lines
 	show the normal simulation.}
