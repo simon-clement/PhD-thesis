@@ -68,10 +68,10 @@ split:
 	pdftk thesis.pdf cat 34-61 output output_chapters/chap2.pdf
 	pdftk thesis.pdf cat 62-84 output output_chapters/chap3.pdf
 	pdftk thesis.pdf cat 85-120 output output_chapters/chap4.pdf
-	pdftk thesis.pdf cat 121-130 output output_chapters/chap5.pdf
-	pdftk thesis.pdf cat 131-153 output output_chapters/chap6.pdf
-	pdftk thesis.pdf cat 154-154 output output_chapters/Conclusion.pdf
-	pdftk thesis.pdf cat 155-159 output output_chapters/Biblio.pdf
+	pdftk thesis.pdf cat 121-132 output output_chapters/chap5.pdf
+	pdftk thesis.pdf cat 133-155 output output_chapters/chap6.pdf
+	pdftk thesis.pdf cat 156-156 output output_chapters/Conclusion.pdf
+	pdftk thesis.pdf cat 156-160 output output_chapters/Biblio.pdf
 
 # documents
 fast: *.tex $(BIBSRC) $(STYLES) chapters/* chapters/*/*

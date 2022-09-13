@@ -1,50 +1,74 @@
 \chapter*{Résumé détaillé}
 Cette thèse s'intéresse à la représentation
-numérique des interactions air-mer. Celles-ci apparaissent au sein
+numérique des interactions air-mer, notamment au sein
 du couplage entre un modèle d'océan et un modèle d'atmosphère.
 Nous étudierons donc conjointement des méthodes de couplage
 et la représentation numérique de la
 \textit{couche limite de surface} :
 une zone cruciale pour le calcul des interactions.
+%
 \section*{Chapitre \ref{ch:airseaSCM}: Modélisation d'une colonne
 océan-atmosphère}
 Le chapitre \ref{ch:airseaSCM} présente les équations et
 principes physiques utilisés
 au sein de cette thèse.
 \par
-Tout d'abord, le système des \textit{équations primitives turbulentes}
+Tout d'abord, le système des \textit{équations primitives}
 décrivant les écoulements atmosphériques et océaniques est présenté.
-Le concept de couche limite de surface
-(basée sur des flux constants) est ensuite introduit.
-Celui-ci est au centre du sujet de la thèse : nous détaillons les
-\textit{formulations bulk}, qui permettent de calculer des flux
-turbulents à la surface à partir des données autour de l'interface.
+Une attention particulière est portée à la représentation de la
+\textit{turbulence}, qui induit une séparation entre des échelles
+``résolues" et des plus petites échelles dites ``turbulentes".
 \par
+Cette séparation d'échelle est nécessaire d'un point de vue
+numérique : les échelles résolues correspondent à celles représentées
+dans les grilles de calcul des schémas numérique (actuellement,
+de l'ordre de centaines de mètres). Au contraire, les échelles
+turbulentes \textit{sous-maille} ne peuvent pas être représentées
+explicitement par les grilles de calcul et doivent être paramétrisée.
+\par
+Le concept de couche limite de surface
+(basée sur une hypothèse de flux constants) est ensuite introduit.
+Celui-ci est au centre du sujet de la thèse : il permet de décrire,
+à travers un formalisme nommé ``loi du mur",
+le comportement turbulent des écoulements aux abords de la surface.
+\par
+Dans les modèles d'atmosphère, la couche limite de surface est
+représentée par les \textit{formulations bulk},
+qui permettent de calculer les composantes
+turbulentes des flux air-mer à partir des données autour de
+l'interface.
 La stratification (variation verticale de la densité) joue un rôle
 important dans la couche limite de surface. Elle affecte la
-``loi du mur" (paramétrisation des profiles au sein de la couche
-limite).
+``loi du mur" et est une composante essentielle des formulations
+bulk.
 \par
 Cette thèse s'articule autour d'une hiérarchie de modèles. Ceux-ci
-décrivent tous une colonne d'atmosphère au dessus d'une colonne
-d'océan en une seule dimension verticale.
+décrivent tous l'évolution temporelle d'une colonne d'atmosphère
+au-dessus d'une colonne d'océan en une seule dimension spatiale
+(verticale).
 \par
 \begin{enumerate}
 	\item Le plus bas niveau de la hiérarchie est un couplage
 	de simples équations réaction-diffusion, utilisé aux chapitres
 		\ref{ch:discreteSchwarzAnalysis} et
-		\ref{ch:approximatedDiscreteSchwarz} pour étudier des méthodes itératives de
+		\ref{ch:approximatedDiscreteSchwarz} pour étudier
+		et optimiser des méthodes itératives de
 		couplage (dites \textit{méthodes de Schwarz}).
-	\item Le niveau intermédiaire (utilisé au chapitre \ref{ch:OASchwarz})
-		utilise des conditions de bord
-	à l'interface représentatives des formulations bulk bien
-		que simplifiées.
+		Ce modèle ne prend pas en compte les aspects
+		de turbulence sous-maille.
+	\item Le niveau intermédiaire (utilisé au chapitre
+		\ref{ch:OASchwarz}) est un autre couplage
+		d'équations réaction-diffusion.
+		Cependant, ce couplage utilise des conditions de bord
+		à l'interface décrivant une couche limite de surface.
 \item Le plus haut niveau de la hiérarchie est un modèle utilisant
-un modèle de turbulence et qui inclut une stratification basée sur
-la température. A l'interface, de véritables formulations bulk
-sont utilisées. Ce modèle est utilisé aux chapitres \ref{ch:ND}
-	et \ref{ch:OceanND} pour
-faire des expériences numériques sans résolution analytique.
+un modèle de turbulence et qui inclut une stratification en
+température. A l'interface, de véritables formulations bulk
+sont utilisées (au lieu d'une formulation simplifiée dans le niveau intermédiaire).
+Ce modèle est utilisé aux chapitres \ref{ch:ND}
+et \ref{ch:OceanND} pour
+s'intéresser à l'impact des discrétisations de couche limite,
+notamment dans le couplage océan-atmosphère.
 \end{enumerate}
 Les objectifs de cette thèse correspondent aux trois niveaux de la
 hiérarchie :
@@ -52,17 +76,20 @@ hiérarchie :
 	\item étudier l'effet de la discrétisation sur la vitesse de
 		convergence des méthodes de Schwarz ;
 	\item étudier la vitesse de convergence des méthodes de
-		Schwarz en présence d'une couche limite de surface ;
+		Schwarz en présence d'une couche limite de surface
+		(i.e. avec des conditions de transmission
+		nonlinéaires) ;
 	\item développer une discrétisation permettant de représenter
 		au mieux les couches limites de surface, en prenant
-		en compte les particularités liées aux lois du mur.
+		en compte les paramétrisations au sein de ces
+		couches limites.
 \end{enumerate}
 \section*{Chapitre \ref{ch:discreteSchwarzAnalysis} : Analyse discrète des méthodes de Schwarz avec des équations de réaction-diffusion}
 Le chapitre \ref{ch:discreteSchwarzAnalysis} a été publié sous la forme de l'article
 \citep{clement_discrete_2022-1} dans le journal
 \textit{SMAI Journal of Computational Mathematics}.
 \begin{enumerate}
-\item \textbf{Modèle continu et méthode de Schwarz}:
+\item \textbf{Modèle continu et méthode de Schwarz} :
 Le modèle utilisé dans les deux premiers chapitres est le
 suivant:
 \begin{subequations}
@@ -76,13 +103,14 @@ u_o(0^-,t) &=  u_a(0^+,t) &\qquad& t \in [0,T] \label{eq:interface-dir} \\
 \end{align}
 \label{eq:resume_francais_model-problem}
 \end{subequations}
+où $r$ et $\nu_j$ sont les coefficients de réaction et de diffusion.
 Pour résoudre ce problème couplé, les domaines
 $\widetilde{\Omega}_o = \mathbb{R_{-}}$ et
 et $\widetilde{\Omega}_a = \mathbb{R_{+}}$ voient leurs équations
 correspondantes \eqref{eq:dr1} être résolues tour à tour
 dans $\widetilde{\Omega}_j \times [0,T]$
 en utilisant les équations
-\eqref{eq:interface-dir} et {eq:interface-neu}
+\eqref{eq:interface-dir} et \eqref{eq:interface-neu}
 en tant que conditions de bord.
 Cette méthode s'appelle \textit{Relaxation d'onde de Schwarz avec
 des conditions de transmission Dirichlet-Neumann}.
@@ -96,28 +124,30 @@ L'étude de la convergence de cette méthode se fait en deux étapes :
 	de fréquences. On obtient une formule analytique de
 	la différence entre $u_j^k$
 	($k$ note l'itération de Schwarz courante)
-	et la solution couplée.
+	et la solution couplée, i.e. de l'évolution de l'erreur
+	en fin des itérations.
 \item Les conditions de transmission à l'interface permettent
 	de quantifier l'évolution de cette différence au fur et
 	à mesure des itérations.
 \end{itemize}
  La convergence est \textit{linéaire},
- c'est à dire que la différence entre $u_j^k$ et la solution couplée
- est multipliée par un \textit{facteur de convergence} ne dépendant
+ c'est-à-dire que la différence entre $u_j^k$ et la solution couplée
+ est multipliée à chaque itération par un
+ \textit{facteur de convergence} ne dépendant
  pas de $k$. Dans le cas continu avec des conditions
- de transmissions Dirichlet-Neumann le facteur de convergence ne
+ de transmissions Dirichlet-Neumann, le facteur de convergence ne
  dépend pas non plus de la fréquence ni de $r$ et vaut
  $\rho_{DN}^{(c,c)}=\sqrt{\frac{\nu_o}{\nu_a}}$.
-\item \textbf{Facteur de convergence semi-discrete en temps}:
-la convergence observée lors de l'implémentation d'un méthode
+\item \textbf{Facteur de convergence semi-discret en temps}:
+la convergence observée lors de l'implémentation d'une méthode
 de Schwarz dépend des discrétisations en temps et en espace utilisées.
 On utilise la transformée en Z au lieu de la transformée de Fourier
 pour étudier un signal semi-discret en temps.
-Si le passage du continu au discret est aisé pour les discrétisations
-en temps qui ne comportent qu'une étape, les discrétisations
+Si le passage du continu au discret est aisé pour les schémas
+en temps qui ne comportent qu'une étape, les schémas
 à plusieurs étapes demandent une attention particulière. En effet,
 les conditions d'interface sont interpolées durant les étapes
-intermédiaires. Cette interpolation (que nous nommons $\gamma$)
+intermédiaires. Cette interpolation
 modifie la vitesse de convergence de la méthode de Schwarz,
 particulièrement dans les hautes fréquences temporelles.
 \item \textbf{Discrétisation en espace} :
@@ -130,18 +160,18 @@ des splines paraboliques.
 Chaque maille est ainsi caractérisée par un polynôme d'ordre 2
 et l'approximation volumes finis est déduite du raccord des polynômes
 entre les mailles.
-Retrouver numériquement la solution mono-domaine s'avère plus
-naturel lorsque la discrétisation FV est utilisée;
+Retrouver la solution numérique mono-domaine s'avère plus
+naturel lorsque la discrétisation FV est utilisée.
 Avec la discrétisation FD, utiliser une condition de transmission
 particulière dans ce but diminue
 drastiquement la vitesse de convergence.
-\item \textbf{Analyse discrète}:
-une méthode d'analyse est donnée et appliquée pour les combinaisons
+\item \textbf{Analyse discrète} :
+une méthode d'analyse est présentée et appliquée pour les combinaisons
 de deux discrétisations en temps et en espace. Ces combinaisons
-sont montrées stables en étudiant les valeurs propres des
+sont démontrées stables en étudiant les valeurs propres des
 matrices à inverser.
 \end{enumerate}
-Finalement, en utilisant des conditions de transmissions
+Finalement, en utilisant des conditions de transmission
 contenant des degrés de liberté, la vitesse de convergence
 des méthodes de Schwarz peut être accélérée en optimisant les
 paramètres introduits.
@@ -153,17 +183,18 @@ convergence supérieures dans les expériences numériques.
 \par
 Le facteur de convergence discret peut cependant s'avérer
 contraignant à calculer, en particulier pour des discrétisations
-en temps à plusieurs étapes ou pour des discrétisations d'ordre
-élevé.
+en temps à plusieurs étapes ou pour des discrétisations en espace
+d'ordre élevé.
 \section*{Chapitre \ref{ch:approximatedDiscreteSchwarz} : Approximation du facteur de convergence discret des méthodes de Schwarz}
- L'objet du chapitre \ref{ch:approximatedDiscreteSchwarz} est donc d'étudier des approximations
-qui rendent le facteur de convergence plus facile à calculer
-que dans le cas discret tout en étant plus précis que le facteur
-de convergence continu dans l'approximation de la vitesse
-de convergence observée numériquement.
+L'objet du chapitre \ref{ch:approximatedDiscreteSchwarz} est donc
+de proposer des approximations qui rendent le
+facteur de convergence observé numériquement plus facile à estimer
+que par une approche d'analyse discrète complète (comme au chapitre
+\ref{ch:discreteSchwarzAnalysis}), tout en étant plus précis que le
+facteur de convergence continu.
 La première approximation étudiée est la méthode des
-\textit{équations modifiées} dans le calcul du facteur de convergence.
-La seconde est la combinaison des analyses semi-discrètes
+\textit{équations modifiées}.
+La seconde est une combinaison des analyses semi-discrètes
 pour approcher l'analyse complètement discrète.
 \subsection*{Équations modifiées}
 La méthode des équations modifiées consiste à étudier au niveau
@@ -172,7 +203,7 @@ qui est résolue par le schéma numérique.
 Ces équations modifiées sont obtenues à l'aide d'un développement
 de Taylor de la discrétisation.
 \subsubsection*{Équations modifiées en temps}
-Lors du calcul du facteur de convergence, l'utilisation d'équation
+Lors du calcul du facteur de convergence, l'utilisation d'équations
 modifiées en temps se traduit par un changement de la variable
 fréquentielle $\omega$ utilisée dans la transformée de Fourier :
 \begin{itemize}
@@ -183,7 +214,7 @@ est similaire à celle semi-discrète des schémas à une étape.
 Les équations modifiées en temps simplifient l'étude de convergence
 des schémas à deux étapes. Cependant, l'utilisation du développement
 de Taylor cache l'opération d'interpolation des données de
-transmission dans les étapes intermédiaires. Ainsi, lorsque la
+transmission réalisée dans les étapes intermédiaires. Ainsi, lorsque la
 différence entre les facteurs de convergence continu
 et semi-discret en temps vient de cette opération d'interpolation,
 les équations modifiées ne permettent pas d'approcher le facteur
@@ -191,17 +222,17 @@ de convergence semi-discret.
 \end{itemize}
 \subsubsection*{Équations modifiées en espace}
 L'utilisation des équations modifiées sur les schémas en espace
-génère d'autres observations :
+suscite d'autres observations :
 \begin{itemize}
 	\item 
 	le développement de Taylor introduit des dérivées
-d'ordre plus élevées quand dans l'équation originale. Pour
+d'ordre plus élevées que dans l'équation originale. Pour
 obtenir le caractère bien posé des équations modifiées, il est donc
 nécessaire d'ajouter des conditions d'interface. Celles-ci peuvent
 être judicieusement choisies à partir de la discrétisation en espace
 proche du bord.
-	\item Il n'est en général pas suffisant de n'étudier
-		l'effet de la discrétisation seulement sur
+	\item Il n'est en général pas suffisant de n'étudier que
+		l'effet de la discrétisation de
 		l'équation aux dérivées partielles. En effet,
 		les conditions d'interface et de bord sont
 		elles aussi affectées par la discrétisation et
@@ -209,7 +240,7 @@ proche du bord.
 		dans le calcul du facteur de convergence.
 	\item Dans le cas général, l'utilisation des équations
 	modifiées en espace augmente l'ordre de l'équation aux
-	dérivées partielle et ne rend pas plus aisé
+	dérivées partielles et ne rend pas plus aisé
 	le calcul du facteur de convergence par rapport
 		au calcul semi-discret.
 	\item Dans le cas particulier d'une équation ne faisant
@@ -233,18 +264,19 @@ facteur de convergence discret selon la formule:
 \end{equation}
 %
 \par
-Pour ces approximations, des expériences numériques constituent la fin
-du chapitre \ref{ch:approximatedDiscreteSchwarz} et montrent dans quels cas et dans quelle mesure :
+Des expériences numériques présentées à la fin
+du chapitre \ref{ch:approximatedDiscreteSchwarz} montrent dans quels
+cas et dans quelle mesure :
 \begin{itemize}
 	\item
-ces approximations sont efficaces pour approcher le facteur
+ces diverses approximations sont efficaces pour approcher le facteur
 de convergence discret ;
 	\item
 la convergence
 peut être accélérée en optimisant ces approximations.
 \end{itemize}
 \section*{Chapitre \ref{ch:ND} : Vers une discrétisation de la couche limite atmosphérique cohérente avec la théorie physique}
-Dans le chapitre \ref{ch:ND}, nous étudierons une colonne atmosphérique et sa discrétisation.
+Dans le chapitre \ref{ch:ND}, nous étudions une colonne atmosphérique et sa discrétisation.
 À cause de considérations numériques, la colonne
 d'atmosphère doit se diviser en deux parties :
 \begin{enumerate}
@@ -253,9 +285,9 @@ d'atmosphère doit se diviser en deux parties :
 	de calcul et paramétrisée par une ``loi du mur" ;
 	\item
 	le reste de la colonne, qui réagit plus lentement
-	aux forçages de la surface.
+	aux variations des condtions à la surface.
 \end{enumerate}
-L'objectif de ce chapitre est d'évaluer les discrétisations possible
+L'objectif de ce chapitre est d'évaluer les discrétisations possibles
 de cette couche limite.
 \begin{itemize}
 	\item
@@ -282,21 +314,21 @@ d'étendre la couche limite de surface à l'entièreté de
 la première cellule et d'utiliser un algorithme bulk
 adapté aux données moyennées.
 \par
-Le chapitre \ref{ch:ND} propose de renforcer les hypothèses
+Ce chapitre \ref{ch:ND} propose de renforcer les hypothèses
 	existantes dans les formulations bulk en les
 	appliquant directement dans la discrétisation FV.
 	Pour ce faire, la reconstruction à l'intérieur
-	de la première maille se fait à l'aide des fonctions
+	de la première maille est réalisée à l'aide des fonctions
 	particulières intervenant dans les lois du mur et
 	non seulement avec des polynômes.
 \par
 Ces reconstructions particulières permettent notamment
-	d'étendre la hauteur de la couche limite au delà
+	d'étendre la hauteur de la couche limite au-delà
 	de la première maille.
 	En effet, le \textit{log-layer mismatch},
 	un problème numérique bien connu dans les
 	simulations à haute résolution (Large Eddies
-	Simulations)
+	Simulations),
 	provient d'une couche limite trop mince.
 \par
 En étant capable de choisir l'épaisseur de la couche
@@ -304,13 +336,13 @@ En étant capable de choisir l'épaisseur de la couche
 	seulement numériques, la consistance des schémas
 	s'en trouve améliorée. La résolution verticale
 	peut ainsi être raffinée sans pour autant changer
-	les équations continues résolue par la
+	les équations continues résolues par la
 			discrétisation.
 \par
 En utilisant un critère de consistance, les stratégies
 	de gestion de la couche limite sont
 	comparées pour différents types de stratification.
-	Une comparaison de ces stratégie est également effectuée
+	Une comparaison de ces stratégies est également effectuée
 	à l'aide d'un couplage avec une colonne océanique.
 \section*{Chapitre \ref{ch:OceanND} : La couche limite océanique}
 Le chapitre \ref{ch:OceanND} est tourné vers la définition et l'implémentation
@@ -325,7 +357,7 @@ Il est maintenant bien connu que les algorithmes
 	turbulents dans la description des courants de
 	surface. Par symétrie avec les caractéristiques
 	de la couche limite atmosphérique, les formulations
-	bulk peuvent être supplémentées d'une couche
+	bulk peuvent également intégrer une couche
 	limite océanique.
 \par
 L'implémentation de cette couche limite peut suivre
@@ -337,8 +369,8 @@ L'implémentation de cette couche limite peut suivre
 	constant utilisée dans les lois du mur.
 \par
 Les stratégies de gestion de la couche limite
-	océanique sont comparées, dans un cas forcé et
-	dans un cas couplé.
+	océanique sont comparées dans des simulations numérique,
+	dans un cas forcé et dans un cas couplé.
 \section*{Chapitre \ref{ch:OASchwarz}: Méthodes de Schwarz pour le couplage
 discret océan-atmosphère}
 Le dernier chapitre de cette thèse met en relation l'étude discrète
@@ -346,22 +378,23 @@ des méthodes de Schwarz et l'utilisation d'une couche limite de
 surface.
 	\par La hauteur de la couche limite de surface est
 		choisie en fonction de la résolution de la grille.
-		Pour cette raison, étudier la convergence de Schwarz
+		Pour cette raison, étudier la convergence de
+		l'algorithme de Schwarz
 		au niveau semi-discret en espace semble pertinent,
-		puisque les conditions de transmissions sont
+		puisque les conditions de transmission sont
 		liées au choix de discrétisation.
 	\par Le chapitre \ref{ch:OASchwarz} se concentre sur la discrétisation FD
 		qui a le mérite d'être à la fois simple à
 		manipuler et représentative de l'état de l'art.
-		Les conditions de transmissions sont simplifiées :
+		Les conditions de transmission sont simplifiées :
 		on formule le flux à l'interface comme égal à
-		$C_D |\Delta U| \Delta U$ où $C_D$ est constant
-		(au lieu de dépendre lui-même non-linéairement de
-		$\Delta U$)
-		et $\Delta U$ est le saut des solutions à travers
-		l'interface.
-	\par Il est possible de prouver l'existence et l'unicité de
-		solution du problème couplé au voisinage d'un état
+		$C_D |\Delta U| \Delta U$ où $\Delta U$ est le saut
+		des solutions à travers l'interface et $C_D$ est
+		une constante
+		(au lieu d'être une fonction non-linéaire de
+		$\Delta U$).
+	\par Nous prouvons l'existence et l'unicité
+	d'une solution du problème couplé au voisinage d'un état
 		stationnaire. Cette preuve est réalisée au niveau
 		semi-discret en espace, pour lequel l'état
 		stationnaire est unique pour notre choix de
@@ -377,7 +410,9 @@ surface.
 		par une linéarisation de la condition de transmission
 		autour de l'état stationnaire. Au contraire
 		de ce qu'on peut trouver habituellement dans
-		les études de convergence,
+		les études de convergence (qui utilisent dans
+		l'immense majorité des cas des conditions de
+		transmission linéaires),
 		le facteur de convergence pour une fréquence donnée
 		change d'une itération à une autre. 
 		Une optimisation est également réalisée dans ce cas
