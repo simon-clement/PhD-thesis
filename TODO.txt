@@ -3,7 +3,17 @@ Par ordre de priorité:
 numéros de page
 citations
 
-
 Conclusion (?)
-Remerciements
 Abstract (?)
+
+sl -> o
+Fin du résumé, chapitre 6: mettre en avant le côté novateur de ce travail, très peu d'étude de convergence existent dans le cas non-linéaire
+Intro, 4eme \S: parler de la discrétisation du surface layer ?
+-comment on l'implémente en pratique ?:
+	- il y a une théorie physique qui donne les effets turbulents
+	- les choix d'implémentations sont dirigés par les contraintes
+	  numérique ?
+
+parler des échelles sous-mailles plutôt que d'"équations primitives turbulentes"
+(elles sont forcément turbulentes)
+Remerciements
