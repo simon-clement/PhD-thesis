@@ -57,12 +57,12 @@
     \put(0.0606164,0.25731429){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$0$\end{tabular}}}}%
     \put(0.05838292,0.54748771){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{twoSided.pdf}}%
-    \put(0.04439647,0.33580916){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{sl}$\end{tabular}}}}%
+    \put(0.04439647,0.33580916){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{\rm a}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{twoSided.pdf}}%
     \put(0.51511663,0.40941044){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(\partial_t + if) u - \partial_z (K_u \partial_z u) = if u_G$\end{tabular}}}}%
     \put(0.64943657,0.31477387){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_u \partial_z u = u_\star^2 e_\tau$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{twoSided.pdf}}%
-    \put(0.04439647,0.1758486){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{o}$\end{tabular}}}}%
+    \put(0.04439647,0.1758486){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{\rm o}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{twoSided.pdf}}%
     \put(0.52928702,0.09155745){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(\partial_t + if) u - \partial_z (K_u \partial_z u) = 0$\end{tabular}}}}%
     \put(0.63626424,0.20947952){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_u \partial_z u = \frac{\rho_{\rm a}}{\rho_{\rm o} } u_\star^2 e_\tau$\end{tabular}}}}%

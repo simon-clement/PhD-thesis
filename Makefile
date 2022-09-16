@@ -64,14 +64,14 @@ $(TARGET_FILE): *.tex $(BIBSRC) $(STYLES) chapters/* chapters/*/*
 #after compilation:
 split:
 	mkdir -p output_chapters
-	pdftk thesis.pdf cat 7-33 output output_chapters/resume_intro_chap1.pdf
-	pdftk thesis.pdf cat 34-61 output output_chapters/chap2.pdf
-	pdftk thesis.pdf cat 62-84 output output_chapters/chap3.pdf
-	pdftk thesis.pdf cat 85-120 output output_chapters/chap4.pdf
-	pdftk thesis.pdf cat 121-132 output output_chapters/chap5.pdf
-	pdftk thesis.pdf cat 133-155 output output_chapters/chap6.pdf
-	pdftk thesis.pdf cat 156-156 output output_chapters/Conclusion.pdf
-	pdftk thesis.pdf cat 156-160 output output_chapters/Biblio.pdf
+	pdftk thesis.pdf cat 1-34 output output_chapters/resume_intro_chap1.pdf
+	pdftk thesis.pdf cat 35-62 output output_chapters/chap2.pdf
+	pdftk thesis.pdf cat 63-85 output output_chapters/chap3.pdf
+	pdftk thesis.pdf cat 86-121 output output_chapters/chap4.pdf
+	pdftk thesis.pdf cat 122-133 output output_chapters/chap5.pdf
+	pdftk thesis.pdf cat 134-156 output output_chapters/chap6.pdf
+	pdftk thesis.pdf cat 157-157 output output_chapters/Conclusion.pdf
+	pdftk thesis.pdf cat 157-161 output output_chapters/Biblio.pdf
 
 # documents
 fast: *.tex $(BIBSRC) $(STYLES) chapters/* chapters/*/*

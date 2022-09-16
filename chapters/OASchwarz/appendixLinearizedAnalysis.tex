@@ -1,8 +1,7 @@
 \section{Appendix: detailed convergence study of the linearized case}
 \label{appendix:OASchwarz_LinearizedAnalysis}
-We interest ourselves to the linearization around a stationary state 
-$U^e_j, \phi^e_j$.
-
+We interest ourselves to the linearization of
+\eqref{eq:SWRbulk} around a stationary state $U^e_j, \phi^e_j$.
 \begin{equation*}
 \begin{array}{rcll}
 	(\partial_t +if) u^{{k}}_{j,m+\frac{1}{2}} &=&
@@ -51,7 +50,7 @@ We use the ansatz
 \end{aligned}
 \end{equation*}
 where $\lambda_j^i$ can be obtained by injecting
-the ansatz in \eqref{eq:diff_finies_on_u};
+the ansatz in \eqref{eq:diff_finies_on_u}:
 \begin{equation*}
 (\chi_j+2) (1+\lambda_j^i) = (1+\lambda_j^i)^2 + 1
 \end{equation*}
@@ -64,7 +63,7 @@ One can prove that $(1+\lambda_j)(1+\widetilde{\lambda_j}) = 1$.
 The boundary condition at $H_j = \pm(M_j + \frac{1}{2}) h_j$ gives that
 $\{{A}_k^2,{B}_k^2\} = - \{{A}_k^1,{B}_k^1\}
 \left(1+\lambda_j\right)^{2 M_j}$.
-Finally, the jump of the solution across interface is
+Finally, the jump of the solution across the interface is
 \begin{equation*}
 \widehat{u}_{a, 1/2} - 
 \widehat{u}_{o, -1/2} = B_k^1 - A_k^1
@@ -72,8 +71,9 @@ Finally, the jump of the solution across interface is
 + A_k^1\left(1+\lambda_o\right)^{2M_o}
 	:= B_k^1 I_a^{-} - A_k^1 I_o^{-}
 \end{equation*}
-and we also define $I_j^{+} = 2-I_j^{-}$. All the variables
-$I_j^{\pm}\rightarrow 1$ with the infinite domain hypothesis.
+and we also define $I_j^{+} = 2-I_j^{-}$. Note that all the variables
+$I_j^{\pm}\rightarrow 1$ with the infinite domain hypothesis,
+which is used in \eqref{eq:cvBk}.
 The fluxes inside the domains are computed
 with the finite differences:
 \begin{equation}
@@ -88,7 +88,7 @@ with the finite differences:
 	(1+\lambda_o)^m - A_k^2 \frac{{\lambda_o}}{h_o}
 	(1+\widetilde{\lambda_o})^m
 \end{equation}
-And the fluxes at interface are obtained 
+And the fluxes at the interface are obtained 
 by using \eqref{eq:FourierTransform}:
 \begin{equation*}
 \begin{aligned}
@@ -184,6 +184,6 @@ where
 	of the case $\alpha={\rm const}$ by removing the conjugate
 	term and the factor $\frac{3}{2}$ in
 	\eqref{eq:OASchwarz_LinearizedAnalysis_relationBBarB}.
-	The convergence rate is identical to $a_1$,
+	The convergence rate is then identical to $a_1$,
 	without the $\frac{3}{2}$ factor.
 \end{remark}

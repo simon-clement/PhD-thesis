@@ -1,27 +1,6 @@
-
-A part of this chapter was published in proceedings of the
-$26^{\rm th}$ International Conference on Domain Decomposition Methods
-\citep{clement_discrete_2021}.
-In addition to minor clarifications, Section
-\ref{sec:OASchwarz_DiscreteStationaryState} and Appendix
-\ref{sec:OASchwarz_appendix_discreteVariationParameters} were added
-where the steady state and the well-posedness
-of the coupling problem considered are discussed.
-Moreover, a mistake in asymptotes computations has been noticed
-and corrected in Section \ref{sec:conv-lin}. The convergence
-study of \S \ref{sec:OASchwarz_linearized} was also further pursued
-with the corresponding computations located in Appendix
-\ref{appendix:OASchwarz_LinearizedAnalysis}.
-\par
-The full text of \citep{clement_discrete_2021} is reported
-here and completed: this chapter hence contains redundancies
-with the other ones (mainly in
-Sections \ref{sec:OASchwarz_Intro} and \ref{sec:couplingProblem}).
-%
-\section{Introduction}
-\label{sec:OASchwarz_Intro}
 We presented in Chapter \ref{ch:discreteSchwarzAnalysis}
-the discrete analysis of the convergence of Schwarz methods;
+the discrete analysis of the convergence of Schwarz methods
+with Dirichlet-Neumann interface conditions;
 the implementation of the law of the wall was discussed
 in Chapter \ref{ch:ND}. We now aim to study the convergence
 properties of Schwarz methods when the law of the wall is
@@ -30,6 +9,28 @@ atmosphere. In this chapter, we study the Ekman problem with a
 simplified bulk condition at the surface such that
 it can be easily implemented to numerically validate the
 convergence results.
+\par
+A part of this chapter was published in the proceedings of the
+$26^{\rm th}$ International Conference on Domain Decomposition Methods
+\citep{clement_discrete_2021}.
+In addition to minor clarifications, Section
+\ref{sec:OASchwarz_DiscreteStationaryState} and Appendix
+\ref{sec:OASchwarz_appendix_discreteVariationParameters} were added,
+where the steady state and the well-posedness
+of the coupling problem considered are discussed.
+Moreover, a mistake in asymptotes computations has been noticed
+and corrected in Section \ref{sec:conv-lin}. The convergence
+study of \S \ref{sec:OASchwarz_linearized} was also further pursued,
+with the corresponding computations being presented in Appendix
+\ref{appendix:OASchwarz_LinearizedAnalysis}.
+\par
+The full text of \citep{clement_discrete_2021} is reported
+here and complemented: this chapter hence contains some redundancies
+with the previous ones (mainly in
+Sections \ref{sec:OASchwarz_Intro} and \ref{sec:couplingProblem}).
+%
+\section{Introduction}
+\label{sec:OASchwarz_Intro}
 % A part of this chapter was published in proceedings of the
 % $26^{\rm th}$ International Conference on Domain Decomposition Methods
 % \citep{clement_discrete_2021}.
@@ -472,14 +473,17 @@ the semi-discrete coupled problem:
 -
 	{U}_{o, -\frac{1}{2}}
 \right)
-\\
+\label{eq:bulkInterfaceConditionSemiDiscrete}\\
 	\rho_{\rm o} \nu_{\rm o}\phi_{{\rm o}, 0} &= \rho_{\rm a}
 	\nu_{\rm a}\phi_{{\rm a}, 0}
+\label{eq:fluxInterfaceConditionSemiDiscrete}
 \end{align}
 \end{subequations}
-\cite{lions_mathematical_1995} proved the existence
+\cite{lions_mathematical_1995} proved the existence at the
+continuous level
 of global-in-time weak solutions in
-two dimensions with nonlinearities inside the
+two dimensions of the primitive equations with
+the nonlinearity of the advection inside the
 computational domains but with a linear
 interface condition.
 We focus here on showing the existence of strong
@@ -505,7 +509,7 @@ We will follow their method which consists of three steps:
 	\item using of the inverse function theorem;
 \end{enumerate}
 The previously cited studies use a continuous framework.
-We study the semi-discrete in space well-posedness:
+Since we study here the semi-discrete in space well-posedness,
 the function spaces are not the same and some tools must be adapted
 (e.g. the variation of parameters in Appendix
 \ref{sec:OASchwarz_appendix_discreteVariationParameters}).
@@ -523,9 +527,9 @@ and solutions are given in \S\ref{sec:summary_stationnary}.
 \subsubsection{Special case $f=0$}
 \label{sec:OASchwarz_SteadyStatef0}
 If we set to zero the Coriolis parameter,
-the flux $\nu_j\phi_j$ is constant in each domain.
+the steady state flux $\nu_j\phi_j$ is constant in each domain.
 If moreover $U_{\rm a}^{\infty} \neq U_{\rm o}^{\infty}$,
-because of the interface conditions
+because of the interface conditions,
 the derivatives $\phi_{\rm a}$ and $\phi_{\rm o}$
 cannot be equal to zero and $U_j$ are affine.
 \begin{itemize}
@@ -553,7 +557,7 @@ extended to domains of finite size.
 \label{sec:OASchwarz_SteadyStateInner}
 We note $U_j^e(z)$ the stationary solution (and ${\phi}_j^e$ its finite difference derivative) of
 \eqref{eq:OASchwarz_SemiDiscreteCoupledProblem}.
-computing $U_j^e$ is similar
+Computing $U_j^e$ is similar
 to the discrete analysis of the finite difference scheme for
 Schwarz methods (see Chapter \ref{ch:discreteSchwarzAnalysis} or
 \cite{wu_optimized_2017}),
@@ -564,9 +568,9 @@ except that:
 		be linear;
 	\item since the source term does not vanish,
 		the variable $U^e_o - u_G^o$ is considered
-		to obtain the analytical formula of $U^e_o$.
+		to obtain the analytical expression of $U^e_o$.
 \end{itemize}
-we obtain
+We obtain
 $\phi_{{\rm o}, -m}^e = A^e
 (\lambda_{\rm o}+1)^m$
 and
@@ -597,8 +601,11 @@ and infinite domains.
 \end{remark}
 \subsubsection{The nonlinear transmission condition}
 \label{sec:OASchwarz_SteadyStateNonlinear}
-The first condition of the bulk equation \eqref{eq:fluxInterfaceCondition} gives us $B^e = \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} \nu_{\rm a} } A^e$
-and the nonlinear condition \eqref{eq:bulkInterfaceCondition} gives
+The first condition of the bulk equation
+\eqref{eq:fluxInterfaceConditionSemiDiscrete} gives us
+$B^e = \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} \nu_{\rm a} } A^e$
+and the nonlinear condition
+\eqref{eq:bulkInterfaceConditionSemiDiscrete} gives
 \begin{equation} \label{eq:stationaryBulkFirstEq}
     \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} C_D} A^e
     =
@@ -621,7 +628,7 @@ In order to lighten the notations we introduce $d = C_D \left(
 $\widetilde{x} = A^e \frac{\rho_{\rm o} \nu_{\rm o}}{\rho_{\rm a} C_D}d+\left(u_G^{\rm a} - u_G^{\rm o}\right)$.
 $\widetilde{x}$ is the difference between the
 solutions ${U}^e_j$ at interface
-and $d$ is a non-dimensional number that links
+and $d$ is a quantity (in ${\rm m}^{-1}.{\rm s}$) that links
 $\widetilde{x}$ and $\rho_j \nu_j {\phi}^e_j(0)$.
 The problem is to find $\widetilde{x}\in \mathbb{C}$ such that
 \begin{equation} \label{eq:mainEqSimplified}
@@ -670,7 +677,8 @@ Eliminating $\widetilde{x}_R$ then leads to an equation on $|\widetilde{x}|$ :
 % t x^3 =x (a x^3 - b \sqrt{x^2 - t^2 x^6})
 A routine calculation finds 4 potential roots to this problem. Note that only the real positive roots are relevant.
 Typical values for our problem are 
-$|d| \approx 10^{-1}$ and $d_R \approx -8 \times 10^{-2}$.
+$|d| \approx 10^{-1} \;{\rm m}^{-1}.{\rm s}$ and
+$d_R \approx -8 \times 10^{-2}\;{\rm m}^{-1}.{\rm s}$.
 %$\frac{{d_R} d_I}{u_G^{\rm a}^g - u_G^{\rm o}^g} \approx-7\times 10^{-4}$, ${d_I}\approx8.6 \times 10^{-2}$, $\frac{d_I}{{u_G^{\rm a}^g - u_G^{\rm o}^g}}\approx 8.7\times 10^{-3}$.
 The solution is detailed below.
 \subsubsection{Solutions}
@@ -692,6 +700,7 @@ We define:
 The steady state is given by a real, positive solution $|\widetilde{x}|$ of \eqref{eq:mainPolynomial}
 Experimentally, it is seen that if it exists, it is the root corresponding to the three $+$ operators in the roots of \eqref{eq:mainPolynomial}:
 \begin{equation}
+	\label{eq:OASchwarz_steadyState_finalRoots}
     |\widetilde{x}| = \frac{{d_R}}{2|d|^2} \pm \frac{\sqrt{\zeta + \gamma }}{2} \pm \frac{1}{2}
     \sqrt{
     2\zeta - 
@@ -702,8 +711,9 @@ Experimentally, it is seen that if it exists, it is the root corresponding to th
 \end{equation}
 where the first $\pm$ and the
 third one are necessarily the same.
-For our parameters there is only one positive real solution that
-corresponds to the solution of
+For our parameters there is only one
+value of \eqref{eq:OASchwarz_steadyState_finalRoots} that
+is real and non-negative. There is hence only one solution of
 \eqref{eq:OASchwarz_SemiDiscreteCoupledProblem}.
 \par
 Finally, we recover $\widetilde{x}$ from \eqref{eq:mainEqSimplified}: $\widetilde{x} = \frac{u_G^{\rm a} - u_G^{\rm o}}{1 - d |\widetilde{x}|}$, then $A^e = \frac{C_D \rho_{\rm a}}{\rho_{\rm o} \nu_{\rm o} d}\left(\widetilde{x} - (u_G^{\rm a} - u_G^{\rm o})\right)$ 
@@ -720,7 +730,8 @@ u_G^a + \frac{\nu_a\lambda_a}{if h_a}
 		(1+\lambda_a)^{m} B^e
 	\end{aligned}
 \end{equation}
-Figure \ref{fig:validation} shows that this analysis fits the result of Schwarz algorithm.
+Figure \ref{fig:validation} shows that this analysis exactly
+fits the result of Schwarz algorithm.
 \begin{figure}
     \centering
     \includegraphics[scale=0.55]{profile_stationnaire.pdf}
@@ -870,11 +881,13 @@ Figure \ref{fig:validation} shows that this analysis fits the result of Schwarz 
 \subsection{Existence of solutions of the
 nonlinear semi-discrete in space problem}
 \label{sec:OASchwarz_wellPosedness}
-The method used by \citep{chacon-rebollo_existence_2014}
-can be used to deal with other types of
-nonlinearities. In particular, we can show the existence and
-uniqueness of problem \eqref{eq:OASchwarz_SemiDiscreteCoupledProblem}
-close to the steady state.
+The method used by \citep{chacon-rebollo_existence_2014} to prove
+the existence and unicity of a solution in the neighborhood of
+a steady state can be used to deal with other types of
+nonlinearities. In particular, we can prove the existence and
+uniqueness of a solution to the problem
+\eqref{eq:OASchwarz_SemiDiscreteCoupledProblem} close to the steady
+state, thanks to the following steps:
 \begin{enumerate}
 	\item The existence of a steady state $U^e$ is discussed in
 		\S \ref{sec:OASchwarz_SteadyState}.
@@ -907,9 +920,8 @@ close to the steady state.
 	&(\partial_t + if) U_o - \nu_o\partial_z \phi_o - g_o, \\
 	&U_a(H_a, t) - U^\infty_a, ~~ U_o(H_o, t) - U^\infty_o, \\
 	&\nu_{\rm a}\left.\phi_{\rm a}\right|_{z=0} - \alpha
-	\left( U_{\rm a}\left(\frac{h_{\rm a}}{2},
-	t\right) - U_{\rm o}\left(-\frac{h_{\rm o}}{2},
-	t\right)\right) \\
+	\left( U_{{\rm a}, \frac{1}{2}} -
+	U_{{\rm o}, -\frac{1}{2}}\right), \\
 	&\left.U_a\right|_{t=0} - U^e_{a}, ~~
 	\left.U_o\right|_{t=0} - U^e_{o}\}
 \end{aligned}
@@ -922,11 +934,17 @@ is not applied for $z=H_a$.
 Let us draw some important remarks about $\mathbf{\Phi}$:
 \begin{itemize}
  \item The equation $\phi_o = \frac{\rho_a \nu_a}{\rho_o \nu_o}\phi_a$
-	 at interface is implicit;
+	 at interface is implicit: in
+	\eqref{eq:OASchwarz_wellPosedness_Phi},
+	$\partial_z\phi_{\rm o}$ at the first grid level is
+		$\left.\frac{\rho_a \nu_a}{\rho_o \nu_o}
+		\phi_{\rm a}\right|_{z=0}
+		- \frac{U_{{\rm o}, -\frac{1}{2}} -
+		U_{{\rm o}, -\frac{3}{2}}}{h_{\rm o}}$.
  \item $\mathbf{\Phi}(\mathbf{U}^e)=0$
  	where $\mathbf{U}^e$
  	is the steady state;
- \item the codomain $\mathbf{Y}$ is
+ \item The codomain $\mathbf{Y}$ is
  	\begin{equation}
 		\mathbf{Y}=L^2([0,T])^{M_a-1}
 			\times L^2([0,T])^{M_o-1}
@@ -934,21 +952,24 @@ Let us draw some important remarks about $\mathbf{\Phi}$:
 			\times \mathbb{R}^{M_a+M_o}
  	\end{equation}
 \item 
-finding $\mathbf{\Phi}^{-1}(y)$ is equivalent
+Finding $\mathbf{\Phi}^{-1}(y)$ is equivalent
 to solving the nonlinear semi-discrete problem
-\eqref{eq:SWRbulk} if the component of $y$ corresponding
-to the interface condition is zero.
+\eqref{eq:OASchwarz_SemiDiscreteCoupledProblem}
+if the component of $y$ corresponding
+to the interface condition is zero (the other components correspond
+to other forcing terms, boundary conditions and initial condition.).
 The idea of the proof is that if $\mathbf{\Phi}$ is invertible
 around $\mathbf{U}^e$ then the nonlinear semi-discrete problem
-\eqref{eq:SWRbulk} is invertible.
+\eqref{eq:OASchwarz_SemiDiscreteCoupledProblem} is invertible.
 Moreover, the inverse function theorem also tells us that
 $\mathbf{\Phi}^{-1}$ is continuous:
 this means that around
-the equilibrium state, the problem \eqref{eq:SWRbulk} is well-posed:
+the equilibrium state, the problem
+		\eqref{eq:OASchwarz_SemiDiscreteCoupledProblem} is well-posed:
 it has a unique solution that depends continuously
 on the initial data.
 \end{itemize}
-	\item Show that $\mathbf{\Phi}$ is $C^1$ in a
+	\item Prove that $\mathbf{\Phi}$ is $C^1$ in a
 		neighborhood of $\mathbf{U}^e$.
 		$\mathbf{\Phi}$ is linear except for the
 		transmission condition. Besides,
@@ -965,7 +986,7 @@ on the initial data.
 		by the linearized problem (a rigourous
 		proof that can be directly adapted here
 		is given in \cite{chacon-rebollo_existence_2014}).
-		\item Show that $D\mathbf{\Phi}(\mathbf{U}^e)$
+	\item Prove that $D\mathbf{\Phi}(\mathbf{U}^e)$
 		is an isomorphism:
 		$D\mathbf{\Phi}(\mathbf{U}^e)$ can
 		be inverted by solving the linearized problem
@@ -984,7 +1005,7 @@ on the initial data.
 In this section we conduct a convergence analysis of the SWR algorithm 
 \eqref{eq:SWRbulk} first with $\alpha$ a constant and then in a more 
 complicated case where the problem is linearized around its 
-equilibrium solutions. In the following we systematically make the assumption 
+steady state. In the following we systematically make the assumption 
 that the space domain is of infinite size (i.e. $H_j\to\infty$)
 for the sake of simplicity.
 %====================================================
@@ -1024,7 +1045,7 @@ Chapters \ref{ch:discreteSchwarzAnalysis} and
 %\end{equation}
 %with $\chi_j=\frac{i (\omega+f) h_j^2}{\nu_j}$.
 %A discrete analysis of the finite difference scheme \eqref{eq:spaceTimeScheme} in the
-(see Section \ref{appendix:OASchwarz_LinearizedAnalysis}
+(see Appendix \ref{appendix:OASchwarz_LinearizedAnalysis}
 for a detailed derivation in the linearized case) leads to 
 $\widehat{u}_{{\rm o}, -m - \frac{1}{2}}^k = A_k (\lambda_{\rm o}+1)^m$
 and
@@ -1068,7 +1089,7 @@ Note that the convergence factor \eqref{eq:cvBk} differs significantly from the 
 \end{equation}
  of the DNWR algorithm.
 Moreover, $\lambda_j$ is equivalent to $-\sqrt{\chi_j}$ when
-$(\omega+f) \rightarrow 0$ and
+$(\omega+f) \rightarrow 0$, and
 as $(\omega+f) \rightarrow \infty$ we have
 $\lambda_j\rightarrow -1$ and
 $|\lambda_a - \chi_a| \rightarrow \infty$. The asymptotes
@@ -1132,9 +1153,10 @@ that does not depend on $\theta$
 % the value $\xi_0$ is an upper bound 
 % of the convergence factor.
 Since we have $\epsilon \approx 10^{-3}$, 
-the convergence is fast for $\theta = 1$ whereas $\epsilon$
-does not play any role for $\theta = 0$
-for which the Schwarz method does not converge.
+the convergence is fast for $\theta = 1$.
+On the contrary, $\xi_0 \to \infty$ for $\theta = 0$
+with almost all parameter values:
+the Schwarz method quickly diverges in this case.
 %
 %For $\theta=1$ and for typical values $\rho_a = 1\;{\rm kg}\;{\rm m}^{-3}$ the ratio $\frac{\rho_{\rm a}}{\rho_{\rm o}} \approx 10^{-3}$ accelerates the convergence, whereas its role when $\theta=0$ is limited.
 %The dependency with regard to $\frac{h_{\rm a}}{h_{\rm o}}$ and to $\frac{\nu_{\rm a}}{\nu_{\rm o}}$ are
@@ -1144,9 +1166,10 @@ The optimal parameter $\theta_{\rm opt}$ for low frequencies is $1 - \epsilon\sq
 \begin{remark}
 	The asymptotes are different in \citep{clement_discrete_2021}.
 	The mistake made in the authors' previous work
-	is to consider the convergence factor of
-	$(\phi_k)_{k\in \mathbb{N}}$
-	whereas $\phi_k\to 0$ as $\omega+f\rightarrow 0$.
+	is to consider for $\omega+f\rightarrow 0$
+	the convergence factor of $(\phi_k)_{k\in \mathbb{N}}$.
+	Since $\phi_k\to 0$ as $\omega+f\rightarrow 0$ there
+	is an underlying division by zero.
 \end{remark}
 \begin{figure}
     \centering
@@ -1158,7 +1181,7 @@ The optimal parameter $\theta_{\rm opt}$ for low frequencies is $1 - \epsilon\sq
     \label{fig:OASchwarz_linearRate}
 \end{figure}
 Figure \ref{fig:OASchwarz_linearRate} shows that the asymptote
-$\omega+f\rightarrow 0$ is the upper bound of $xi$ for several values
+$\omega+f\rightarrow 0$ is the upper bound of $\xi$ for several values
 of $\theta$. In this linear case, $\theta\approx 1$ is a good choice
 to reduce the convergence factor.
 %for parameter values 
@@ -1218,7 +1241,7 @@ The transmission condition is linearized as
 	\right)
 \end{equation}
 where the linear map $\langle D_x \Upsilon, \cdot \rangle$
-is the total derivative of the application $\Upsilon$ at x.
+is the total derivative of the application $\Upsilon$ at $x$.
 Let us first compute the total derivative of $x\mapsto |x|x$.
 The total derivative of $|\cdot|^2$ is
 \begin{equation}
@@ -1244,17 +1267,16 @@ Finally, the total derivative of the map $x\mapsto |x|x$ reads
 	= |x| \left(\frac{3}{2}\mu + \frac{1}{2}\frac{x}{\overline{x}}
 	\overline{\mu}\right)
 \end{equation}
-Finally, the linearized transmission operator reads
+and the linearized transmission operator reads
 %==========================================
 \begin{equation}
 \label{eq:linearised}
 \begin{aligned}
 \nu_{\rm a}\delta\phi_{\rm a}^k = \alpha^e 
 \left( \left(\frac{3}{2} - \theta \right)\delta U_{\rm a}^{k-1} \right.
-&+ \theta\, \delta U_{\rm a}^{k}
++ \theta\, \delta U_{\rm a}^{k}
 - \frac{3}{2} \delta U_{\rm o}^{k-1}
-\\
-&\left.+ \frac{1}{2}\frac{U_{\rm a}^{{\color{black} e}} - U_{\rm o}^{{\color{black} e}}}
+\left.+ \frac{1}{2}\frac{U_{\rm a}^{{\color{black} e}} - U_{\rm o}^{{\color{black} e}}}
 	{\overline{U_{\rm a}^{{\color{black} e}} - U_{\rm o}^{{\color{black} e}}}}\,
 \overline{
 \delta U_{\rm a}^{k-1} - \delta U_{\rm o}^{k-1}}
@@ -1265,7 +1287,7 @@ Finally, the linearized transmission operator reads
 with $\alpha^e=C_D\left|U_{\rm a}^e(h_{\rm a}/2) - U_{\rm o}^e(-h_{\rm o}/2)\right|$.
 \paragraph{Convergence study with the linearized transmission condition}
 Following the derivation in the previous paragraph (detailed in
-Section \ref{appendix:OASchwarz_LinearizedAnalysis} with
+Appendix \ref{appendix:OASchwarz_LinearizedAnalysis} with
 space domains of finite size),
 we find that the evolution of $B_k$ is:
 \begin{equation}
@@ -1274,7 +1296,7 @@ we find that the evolution of $B_k$ is:
 		\overline{B_{k}(-{\omega})}
 \end{equation}
 where $a_1, a_2 \in \mathbb{C}$ are defined in
-Section \ref{appendix:OASchwarz_LinearizedAnalysis}.
+Appendix \ref{appendix:OASchwarz_LinearizedAnalysis}.
 % with $\epsilon = \frac{\rho_{\rm a} h_{\rm a}}{\rho_{\rm o} h_{\rm o}}$ 
 % and $\mathcal{O} = 
 % \frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e - U_{\rm o}^e}} \frac{\omega+f}{\omega - f}$.
@@ -1364,12 +1386,11 @@ One can hence expect (see
 Figure \ref{fig:OASchwarz_rateBetweenEigenvalues}) that for frequencies close to $f$ and $-f$
 the ``convergence factor"
 $\sqrt{\frac{|B_k(\omega)|^2 +
-|B_k(-\omega)|^2}{|B_{k-1}(\omega)|^2 + |B_{k-1}(-\omega)|^2}}$ will be
-\begin{itemize}
-	\item different from one iteration to another;
-	\item between $\widetilde{\xi}_1$ and $\widetilde{\xi}_2$.
-\end{itemize}
-We optimize only the maximum over the frequencies of the biggest
+|B_k(-\omega)|^2}{|B_{k-1}(\omega)|^2 + |B_{k-1}(-\omega)|^2}}$
+will be different from one iteration to another and will
+be between $\widetilde{\xi}_1$ and $\widetilde{\xi}_2$.
+\par
+We optimize only the maximum over the frequencies of the largest
 singular value $\widetilde{\xi}_1$ (see Figure
 \ref{fig:OASchwarz_nonasymptotic})
 \begin{figure}
@@ -1384,10 +1405,11 @@ singular value $\widetilde{\xi}_1$ (see Figure
 	iteration ${\xi}_{\rm obs} = \sqrt{\frac{|B_2(\omega)|^2 +
 	|B_2(-\omega)|^2}{|B_{1}(\omega)|^2
 	+ |B_{1}(-\omega)|^2}}$
-	is in purple. ${\xi}_{\rm obs}$ is such that
-	$\widetilde{\xi}_2 \leq {\xi}_{\rm obs}
-	\leq\widetilde{\xi}_1$ (see Figure
-	\ref{fig:OASchwarz_rateBetweenEigenvalues}).
+	is in purple. The numerical validation ${\xi}_{\rm obs}$ fits the
+	convergence analysis since
+	$\widetilde{\xi}_2 \leq {\xi}_{\rm obs} \leq\widetilde{\xi}_1$:
+	Figure \ref{fig:OASchwarz_rateBetweenEigenvalues} explains
+	that it is theoretically the case.
 	}
     \label{fig:OASchwarz_singularValues}
 \end{figure}
@@ -1415,7 +1437,7 @@ singular value $\widetilde{\xi}_1$ (see Figure
 	\label{fig:OASchwarz_rateBetweenEigenvalues}
 \end{figure}
 and find that the optimal value of $\theta$ is slightly smaller than
-$1.5$ (instead of an optimal value slightly bigger than $1.5$
+$1.5$ (instead of an optimal value slightly larger than $1.5$
 for the asymptotic convergence for one iteration)
 \section{Numerical experiments}
 \label{sec:num-exp}

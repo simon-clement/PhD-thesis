@@ -232,20 +232,20 @@ presented in Section \ref{sec:ND_Intro_continuousModel}:
 \begin{itemize}
 	\item how $u_\star$ is computed.
 		For instance, with Finite Differences
-		$u(\delta_{\rm sl}, t^n)$ is 
+		$u(\delta_{\rm a}, t^n)$ is 
 		used as an input of the
 		bulk routine to get the value of
-		$u_\star = BULK(u(\delta_{\rm sl}, t^n))$.
+		$u_\star = BULK(u(\delta_{\rm a}, t^n))$.
 	\item How \eqref{eq:ND_NeutralCase_ConstantFlux}
 		is implemented as
 		a boundary condition: in particular,
 		the height at which the flux is prescribed.
 		The space discretisation of
-		$u(\delta_{\rm sl}, \cdot)$ is the same
+		$u(\delta_{\rm a}, \cdot)$ is the same
 		in the bulk routine and in
-		$e_\tau= \frac{u(\delta_{\rm sl},
+		$e_\tau= \frac{u(\delta_{\rm a},
 		t^{n+1})}
-		{||u(\delta_{\rm sl}, t^n)||}$.
+		{||u(\delta_{\rm a}, t^n)||}$.
 \end{itemize}
 \cite{nishizawa_surface_2018} investigated the effect of the
 first part of the discretization and showed that there is a
@@ -308,14 +308,14 @@ summarized in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
   \begin{itemize}
 	  \item With Finite Differences:
 		  it is assumed that
-		  $\delta_{\rm sl} = z_{\frac{1}{2}}$.
+		  $\delta_{\rm a} = z_{\frac{1}{2}}$.
 		A standard Finite Difference approximation applied to
 		  the evolution equation states that
 		  $(\partial_t+if) u_{\frac{1}{2}}
 		  =\frac{1}{h_{\frac{1}{2}}}(K_1\phi_1 - K_0\phi_0)
 		  + if u_G$.
 		  The input value of the bulk is
-		  $u(\delta_{sl}) = u_{1/2}$ and the boundary
+		  $u(\delta_{\rm a}) = u_{1/2}$ and the boundary
 		  condition is simply applied on the surface flux:
 		\begin{equation}
 			\underbrace{K_{u,0}
@@ -334,7 +334,7 @@ summarized in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
 		  We do not consider this method here as we focus
 		  on Finite Volume discretisation.
 	  \item ``FV pure": it is assumed again that
-		  $\delta_{\rm sl} = z_{\frac{1}{2}}$.
+		  $\delta_{\rm a} = z_{\frac{1}{2}}$.
 		  The scheme is similar to the Finite Difference one.
 	    The reconstruction of $u(z)$ inside the first grid cell
 		  is used to get $u(z_{\frac{1}{2}})$.
@@ -353,11 +353,11 @@ summarized in Figure \ref{fig:ND_NeutralCase_summary_sfscheme}.
 		  Note that $\xi=0$ corresponds here
 		  to $z=z_{\frac{1}{2}}\neq 0$.
 	  \item ``FV1": it is assumed again that
-		  $\delta_{\rm sl} = z_{\frac{1}{2}}$.
+		  $\delta_{\rm a} = z_{\frac{1}{2}}$.
 		  In state-of-the-art models using finite volumes,
 		  $u_{\star}$ is often computed using the
 		  volume-averaged value
-		  $u(\delta_{sl}) = \overline{u}_{\frac{1}{2}}$.
+		  $u(\delta_{\rm a}) = \overline{u}_{\frac{1}{2}}$.
 		  \eqref{eq:ND_NeutralCase_EkmanEq} is
 		  also applied inside the surface layer.
 		The corresponding bottom boundary condition is
@@ -375,18 +375,18 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 \begin{itemize}
     \item ``FV Nishizawa":  unlike the other strategies,
 	    it is assumed that the first cell is entirely inside
-		the surface layer: $\delta_{\rm sl} = z_{1}$.
+		the surface layer: $\delta_{\rm a} = z_{1}$.
 		We mentioned previously that
 		\cite{nishizawa_surface_2018} show that the ``FV1"
 		strategy systematically underestimates
-		$u(\delta_{\rm sl})$ because of the
+		$u(\delta_{\rm a})$ because of the
 	  concavity of the logarithmic profile.
 	  An alternative bulk algorithm is hence derived by averaging
 		\eqref{eq:ND_NeutralCase_WallLaw} in the first cell:
 	\begin{equation}
 		||\overline{u}_{\frac{1}{2}}||
 		= \frac{u_\star}{\kappa}
-		\left(1\emphase{+\frac{z_u}{\delta_{sl}}}\right)
+		\left(1\emphase{+\frac{z_u}{\delta_{\rm a}}}\right)
 		\left(\ln(1+\frac{z}{z_u})\emphase{-1}\right)
 	\end{equation}
 	However, the equation \eqref{eq:ND_NeutralCase_EkmanEq}
@@ -409,7 +409,7 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 	    is not integrated in time in this cell
 	and we use instead the wall law
 	\eqref{eq:ND_NeutralCase_WallLaw} between 0 and
-		$\delta_{sl} = z_1$.
+		$\delta_{\rm a} = z_1$.
 	Since the profile of $u$ is given by the wall law
 	in the first cell,
 	using $\overline{u}_{\frac{1}{2}}$ as input of
@@ -418,7 +418,7 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 	classical bulk formulation with $u(z_1)$
 	as input.
 	We hence use the reconstruction
-	$u^n(\delta_{\rm sl}) = {\cal S}^n_{\frac{3}{2}}(
+	$u^n(\delta_{\rm a}) = {\cal S}^n_{\frac{3}{2}}(
 	  -\frac{h_{3/2}}{2})$ and the boundary condition
 		  at $z_1$ is
 	  \begin{equation}
@@ -491,9 +491,9 @@ As shown in Table \ref{tab:ND_NeutralCase_summary_sfscheme}
 the ``FV2" surface flux scheme solves those problems.
 However for this scheme and all the others presented here,
 changing the space step
-also changes the height of the surface layer $\delta_{\rm sl}$.
+also changes the height of the surface layer $\delta_{\rm a}$.
 This behaviour is not satisfactory: although
-the choice of $\delta_{\rm sl}$ is mainly related to numerical
+the choice of $\delta_{\rm a}$ is mainly related to numerical
 reasons we aim to approximate the continuous equations
 \eqref{eq:ND_NeutralCase_continuousModel}.
 \cite{basu_cautionary_2017} warns that using a small space step
@@ -501,12 +501,12 @@ while keeping the same treatment in LES goes against the
 range of validity of the MOST profiles.
 That is why in the following,
 we derive a surface flux scheme that keeps
-the advantages of the ``FV2" scheme, but with a free $\delta_{\rm sl}$.
+the advantages of the ``FV2" scheme, but with a free $\delta_{\rm a}$.
 %
 \begin{table}
 	\centering
 \begin{tabular}{c|c|c|c|c}
-	Scheme & SL flux & $u_\star$ & $\delta_{sl}$ 
+	Scheme & SL flux & $u_\star$ & $\delta_{\rm a}$ 
 		& \eqref{eq:ND_NeutralCase_ConstantFlux} in SL? \\
 		\hline
 		FD & $K_{u,0} \phi_0$ & ${\rm BULK}(u_{\frac{1}{2}})$
@@ -527,54 +527,54 @@ the advantages of the ``FV2" scheme, but with a free $\delta_{\rm sl}$.
 			& $z_1$ & \checkmark \\
 		``FV free" & $K_{u,\delta} \phi_{\delta}$ &
 			${\rm BULK}
-				(u(\delta_{sl}))$
-			& $\delta_{sl}$ & \checkmark \\
+				(u(\delta_{\rm a}))$
+			& $\delta_{\rm a}$ & \checkmark \\
 	\end{tabular}
 	\caption{Summary of the surface flux schemes presented in
 	Section \ref{sec:ND_NeutralCase}}
 	\label{tab:ND_NeutralCase_summary_sfscheme}
 \end{table}
-\subsection{A surface flux scheme with a free $\delta_{\rm sl}$}
+\subsection{A surface flux scheme with a free $\delta_{\rm a}$}
 \label{sec:ND_NeutralCase_newSFscheme}
 We now construct a boundary condition that is coherent
 with the continuous model presented in
 \S \ref{sec:ND_Intro_continuousModel}
-with a free $\delta_{sl}$, named ``FV free" in Table
+with a free $\delta_{\rm a}$, named ``FV free" in Table
 \ref{tab:ND_NeutralCase_summary_sfscheme}:
 \begin{equation}
 	\label{eq:ND_NeutralCase_bottomCondFVFree}
 	\underbrace{K_{u,\delta}
 	\emphase{\phi}^{n+1}_\emphase{\delta}}_{\text{Flux at }
-	\delta_{sl}}
+	\delta_{\rm a}}
 		= u_\star^2 e_\tau, ~~~~~~~~
 			  u_\star = {\rm BULK}(
-			\underbrace{u^n(\delta_{\rm sl})}_{
+			\underbrace{u^n(\delta_{\rm a})}_{
 				\text{Reconstruction at }
-			\delta_{sl}})
+			\delta_{\rm a}})
 \end{equation}
 We first assume
-that $\delta_{\rm sl} < z_1$ and will then relax this hypothesis.
+that $\delta_{\rm a} < z_1$ and will then relax this hypothesis.
 In the first grid cell, we assume that
-\eqref{eq:ND_NeutralCase_WallLaw} applies for $z<\delta_{sl}$
+\eqref{eq:ND_NeutralCase_WallLaw} applies for $z<\delta_{\rm a}$
 and we separate the 
-first volume into two parts: the surface layer $[0,\delta_{\rm sl}]$ and the ``sub-cell" $[\delta_{\rm sl}, z_1]$.
+first volume into two parts: the surface layer $[0,\delta_{\rm a}]$ and the ``sub-cell" $[\delta_{\rm a}, z_1]$.
 This split corresponds to the change of governing equations
 in the continuous case \eqref{eq:ND_NeutralCase_continuousModel}.
-Let $\widetilde{h} = z_1 - \delta_{\rm sl}$  be the size of the
-upper sub-cell $[\delta_{\rm sl}, z_1]$
-and $\widetilde{u} = \frac{1}{\widetilde{h}}\int_{\delta_{sl}}^{z_1}
+Let $\widetilde{h} = z_1 - \delta_{\rm a}$  be the size of the
+upper sub-cell $[\delta_{\rm a}, z_1]$
+and $\widetilde{u} = \frac{1}{\widetilde{h}}\int_{\delta_{\rm a}}^{z_1}
 u(z)dz$ be the averaged value of $u$ on this interval.
 The following subgrid reconstruction is used:
 \begin{equation}
 	\label{eq:ND_NeutralCase_fullReconstruction}
 	u(z) = \begin{cases} \displaystyle
 		\emphase{{\cal S}_{1/2}}\left(z - \frac{z_1 +
-				\delta_{sl}}{2}\right),
-		~~~~~~~~~~~ z \geq \delta_{sl}
+				\delta_{\rm a}}{2}\right),
+		~~~~~~~~~~~ z \geq \delta_{\rm a}
 		\\ \displaystyle
 		\frac{{u_\star}}{\kappa}
 		\ln(1+\frac{z}{z_{u}})e_\tau,% + u(0),
-		~~~ z < \delta_{sl}
+		~~~ z < \delta_{\rm a}
 	\end{cases}
 \end{equation}
 The quadratic spline $\emphase{{\cal S}_{1/2}}$ used for reconstruction
@@ -606,7 +606,7 @@ The notations are summed up in Figure
 	variable instead of $\phi_0$:
 	this surface flux scheme is hence exactly equivalent
 	to using the ``FV2" scheme with grid levels
-	$\{0, \delta_{sl}, z_1, z_2, ..., z_M\}$.
+	$\{0, \delta_{\rm a}, z_1, z_2, ..., z_M\}$.
 \end{remark}
 \par
 We now rewrite the reconstruction
@@ -615,31 +615,31 @@ of the prognostic variables $\overline{u}_{1/2}$, $\phi_\delta$,
 $\phi_1$.
 The relation between $\overline{u}_{1/2}$ and $\widetilde{u}$ is 
 given by the Chasles' relation
-$ \int_{\delta_{sl}}^{z_1} u dz = \int_{z_0}^{z_1} u dz -
-\int_{z_0}^{\delta_{sl}} u dz$, which can be written as
+$ \int_{\delta_{\rm a}}^{z_1} u dz = \int_{z_0}^{z_1} u dz -
+\int_{z_0}^{\delta_{\rm a}} u dz$, which can be written as
 \begin{equation}
 \label{eq:ND_NeutralCase_Chasles}
 	\widetilde{h}\emphase{\widetilde{u}} =
 	h_{1/2}\emphase{\overline{u}_{1/2}} -
-	\emphase{e_\tau} \frac{{u_\star}}{\kappa}\int_{z_0}^{\delta_{sl}}
+	\emphase{e_\tau} \frac{{u_\star}}{\kappa}\int_{z_0}^{\delta_{\rm a}}
 	\ln(1+\frac{z}{z_{u}}) dz
-	%+ (\delta_{sl}-z_0) u(0)
+	%+ (\delta_{\rm a}-z_0) u(0)
 \end{equation}
 where the time indices in
-$e_\tau = \frac{u^\emphase{n+1}(\delta_{sl})}
-{||u^\emphase{n}(\delta_{sl})||}$ must be the same as in the
+$e_\tau = \frac{u^\emphase{n+1}(\delta_{\rm a})}
+{||u^\emphase{n}(\delta_{\rm a})||}$ must be the same as in the
 bottom boundary condition
 \eqref{eq:ND_NeutralCase_bottomCondFVFree}.
 Let us inject the reconstruction of
-$u(\delta_{sl}) = \widetilde{u} - \widetilde{h}(\phi_{\delta}/3 + \phi_1/6)$
+$u(\delta_{\rm a}) = \widetilde{u} - \widetilde{h}(\phi_{\delta}/3 + \phi_1/6)$
 (obtained from \eqref{eq:ND_NeutralCase_fullReconstruction})
-and the wall law $||u^n(\delta_{sl})|| = \frac{{u_\star}}{\kappa}\ln(1+\frac{\delta_{sl}}{z_{u}})$ in \eqref{eq:ND_NeutralCase_Chasles}.
+and the wall law $||u^n(\delta_{\rm a})|| = \frac{{u_\star}}{\kappa}\ln(1+\frac{\delta_{\rm a}}{z_{u}})$ in \eqref{eq:ND_NeutralCase_Chasles}.
 One then gets:
 \begin{equation}
 	\label{eq:ND_NeutralCase_utildeExpression}
 	% \frac{\widetilde{h}}{h_{1/2}}\widetilde{u} = \overline{u}_{1/2} - \left(\widetilde{u} - \widetilde{h}(\phi_{\delta}/3 + \phi_1/6)
-	% \right)\tau_{sl} +
-	% (\tau_{sl} - \frac{h_{1/2} - \widetilde{h}}{h_{1/2}})u(0)
+	% \right)\tau_{\rm a} +
+	% (\tau_{\rm a} - \frac{h_{1/2} - \widetilde{h}}{h_{1/2}})u(0)
 	\emphase{\widetilde{u}} \; \alpha_{sl} =
 	\emphase{\overline{u}_{\frac{1}{2}}} + \widetilde{h}\left(
 	\frac{\emphase{\phi_\delta}}{3} + \frac{\emphase{\phi_1}}{6} \right)
@@ -649,10 +649,10 @@ with
 \begin{equation}
 	\alpha_{sl} =
 \frac{\widetilde{h}}{{h_{1/2}}} + \frac{1}{{h_{1/2}}}\int_{z_0}^{\delta_{sl}}
-\frac{\ln(1+\frac{z}{z_{u}})}{\ln(1+\frac{\delta_{sl}}{z_{u}})}dz
+\frac{\ln(1+\frac{z}{z_{u}})}{\ln(1+\frac{\delta_{\rm a}}{z_{u}})}dz
 = \frac{(h_{1/2} + z_{u})
-\ln(1+\frac{\delta_{\rm sl}}{z_{u}}) - \delta_{\rm sl}}{
-	h_{1/2}\ln(1+\frac{\delta_{sl}}{z_{u}})}
+\ln(1+\frac{\delta_{\rm a}}{z_{u}}) - \delta_{\rm a}}{
+	h_{1/2}\ln(1+\frac{\delta_{\rm a}}{z_{u}})}
 \end{equation}
 a non-dimensional number $0 < \alpha_{sl} \leq 1$
 which depends on the wall law and
@@ -664,7 +664,7 @@ and in this case \eqref{eq:ND_NeutralCase_utildeExpression} is
 equivalent to $\widetilde{u} = \overline{u}_{1/2}$.
 Figure \ref{fig:ND_NeutralCase_alpha_sl} shows the
 profile of $\alpha_{sl}$ where we see that it decreases when
-increasing $\delta_{sl}/z_1$ or $z_u$.
+increasing $\delta_{\rm a}/z_1$ or $z_u$.
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.7]{images/alpha_sl.pdf}
@@ -677,21 +677,21 @@ increasing $\delta_{sl}/z_1$ or $z_u$.
 \begin{remark}
 $\alpha_{\rm sl}$ is a not constant as it depends on $z_u(u_\star)$
 which will vary.
-On the other hand, we assume that $\delta_{\rm sl}$ does not change
+On the other hand, we assume that $\delta_{\rm a}$ does not change
 over time. Indeed, it would be challenging to decrease
-$\delta_{\rm sl}$ during the integration in time because a part
+$\delta_{\rm a}$ during the integration in time because a part
 of the wall law would need to be treated as a spline.
-It would be however desirable to be able to vary $\delta_{\rm sl}$
+It would be however desirable to be able to vary $\delta_{\rm a}$
 as a physical parameter and we leave this improvement for future work.
 \end{remark}
 %
 In the reconstruction \eqref{eq:ND_NeutralCase_fullReconstruction}
 $\widetilde{u}$ can be expressed in terms of the prognostic
 variables with \eqref{eq:ND_NeutralCase_utildeExpression}
-and we obtain $u(\delta_{sl})$ which is used as input
+and we obtain $u(\delta_{\rm a})$ which is used as input
 of the bulk routine and in the computation of $e_\tau$:
 \begin{equation}
-u(\delta_{sl})=\frac{\overline{u}_{1/2} -
+u(\delta_{\rm a})=\frac{\overline{u}_{1/2} -
 	\frac{\widetilde{h}^2}{h_{1/2}}
 	(\frac{\phi_{\delta}}{3} + \frac{\phi_1}{6})}
 	{\alpha_{\rm sl}}
@@ -701,13 +701,13 @@ is hence formulated as:
 \begin{equation}
 	\label{eq:ND_NeutralCase_boundaryCondFVfree}
 	\underbrace{K_{u,\delta} {\phi}^{n+1}_{\delta}}_{
-		\text{Flux at } \delta_{sl}
+		\text{Flux at } \delta_{\rm a}
 	} = u_\star^2
 	\underbrace{\frac{\overline{u}_{1/2} -
 	\frac{\widetilde{h}^2}{h_{1/2}}
 	(\frac{\phi_{\delta}}{3} + \frac{\phi_1}{6})}
-	{\alpha_{\rm sl}||u^n(\delta_{sl}) ||}}_{
-		e_\tau \text{ using reconstruction at } \delta_{sl}
+	{\alpha_{\rm sl}||u^n(\delta_{\rm a}) ||}}_{
+		e_\tau \text{ using reconstruction at } \delta_{\rm a}
 	}
 \end{equation}
 and the evolution equation in the upper part of the first grid level
@@ -764,11 +764,11 @@ flux scheme: this is not surprising as the Coriolis effect is
 not taken into account in the surface layer for the ``FV2" and
 ``FV free" parameterizations.
 The differences between ``FV2" and ``FV free" only come from the
-choice of $\delta_{sl}$:
-by choosing $\delta_{sl}=z_1$, both profiles would have been
+choice of $\delta_{\rm a}$:
+by choosing $\delta_{\rm a}=z_1$, both profiles would have been
 rigorously identical
 (see the paragraph ``in the general case where
-$\delta_{sl} \geq z_1$" below).
+$\delta_{\rm a} \geq z_1$" below).
 %\par
 %Finally, a large part of the differences shown here come from
 %the turbulent closure; having an explicit surface layer changes
@@ -782,29 +782,29 @@ $\delta_{sl} \geq z_1$" below).
 % 	\caption{Neutral case's numerical experiment. Top: log-scaled, bottom: linear-scaled}
 % 	\label{fig:ND_NeutralCase_NumericalExp}
 % \end{figure}
-% \subsection{Variation of $\delta_{\rm sl}$}
-% In this subsection we assume that $\delta_{\rm sl}$ can differ
+% \subsection{Variation of $\delta_{\rm a}$}
+% In this subsection we assume that $\delta_{\rm a}$ can differ
 % from one time to another. Let us note
-% $\delta_{\rm sl}^n, \delta_{\rm sl}^{n+1}$ the two different sizes
+% $\delta_{\rm a}^n, \delta_{\rm a}^{n+1}$ the two different sizes
 % of the surface layer.
 % There are 3 cases to take into account:
 % \begin{enumerate}
 % \item there is a $k$ such that
-% 	$z_k< \delta_{\rm sl}^n, \delta_{\rm sl}^{n+1} < z_{k+1}$
+% 	$z_k< \delta_{\rm a}^n, \delta_{\rm a}^{n+1} < z_{k+1}$
 % \item there is a $k$ such that
-% 	$ \delta_{\rm sl}^n < z_k < \delta_{\rm sl}^{n+1}$
+% 	$ \delta_{\rm a}^n < z_k < \delta_{\rm a}^{n+1}$
 % \item there is a $k$ such that
-% 	$ \delta_{\rm sl}^n > z_k > \delta_{\rm sl}^{n+1}$
+% 	$ \delta_{\rm a}^n > z_k > \delta_{\rm a}^{n+1}$
 % \end{enumerate}
-% Note that multiple grid levels can be between $\delta_{\rm sl}^{n}$
-% and $\delta_{\rm sl}^{n+1}$ in the second and third cases.
+% Note that multiple grid levels can be between $\delta_{\rm a}^{n}$
+% and $\delta_{\rm a}^{n+1}$ in the second and third cases.
 % \par
-% Let $k^n$ be such that $z_{k^n} < \delta_{\rm sl}^{n}< z_{k^n + 1}$
+% Let $k^n$ be such that $z_{k^n} < \delta_{\rm a}^{n}< z_{k^n + 1}$
 % and $k^{n+1}$ such that
-% $z_{k^{n+1}} < \delta_{\rm sl}^{n+1}< z_{k^{n+1} + 1}$
+% $z_{k^{n+1}} < \delta_{\rm a}^{n+1}< z_{k^{n+1} + 1}$
 % \begin{enumerate}
 % 	\item $k^n = k^{n+1}$:
-% Since $\delta_{\rm sl}$ changes, then $\widetilde{h}$ also change.
+% Since $\delta_{\rm a}$ changes, then $\widetilde{h}$ also change.
 % It must be taken into account when
 % discretising in time the equations
 % \eqref{eq:ND_NeutralCase_prognosticEqFVfree} and 
@@ -872,21 +872,21 @@ $\frac{\phi_0}{K_{u,0}}$ is involved, and
 is not characteristic of Finite Volume schemes.
 \end{itemize}
 
-\paragraph{In the general case where $\delta_{\rm sl} \geq z_k$.}
-Let $k$ be such that $z_k \leq \delta_{\rm sl} < z_{k+1}$.
+\paragraph{In the general case where $\delta_{\rm a} \geq z_k$.}
+Let $k$ be such that $z_k \leq \delta_{\rm a} < z_{k+1}$.
 The surface layer scheme ``FV free" is identical to the case $k=0$, except that
 \begin{itemize}
 	\item the sub-cell of average $\widetilde{u}$ and of size
-		$\widetilde{h}$ is $[\delta_{\rm sl}, z_{\emphase{k+}1}]$:
+		$\widetilde{h}$ is $[\delta_{\rm a}, z_{\emphase{k+}1}]$:
 		$k$ is added to the indices in 
 		\eqref{eq:ND_NeutralCase_boundaryCondFVfree} and
 		\eqref{eq:ND_NeutralCase_semiDiscreteEkmanEqFVfree};
 	\item $\alpha_{sl} = \frac{\widetilde{h}}
 			{h_{\emphase{k+}\frac{1}{2}}} +
 		\frac{1}{h_{\emphase{k+}\frac{1}{2}}}
-		\int_{z_\emphase{k}}^{\delta_{sl}}
+		\int_{z_\emphase{k}}^{\delta_{\rm a}}
 		\frac{\ln(1+\frac{z}{z_{u}})}
-			{\ln(1+\frac{\delta_{sl}}{z_{u}})} dz$;
+			{\ln(1+\frac{\delta_{\rm a}}{z_{u}})} dz$;
 	\item for $m < k$, the cell $[z_m, z_{m+1}]$ is filled with
 		$K_{u,m} \phi_m = K_{u,k}\phi_k =
 	{u_\star}^2e_\tau$
@@ -896,14 +896,14 @@ The surface layer scheme ``FV free" is identical to the case $k=0$, except that
 		The subgrid reconstruction in those cells is directly
 		the wall law.
 \end{itemize}
-It is straightforward to check that for $\delta_{sl} = z_1$
+It is straightforward to check that for $\delta_{\rm a} = z_1$
 the ``FV2" scheme is rigorously recovered.
-The derivation for any $\delta_{\rm sl} \geq 0$ is detailed for
+The derivation for any $\delta_{\rm a} \geq 0$ is detailed for
 the stratified case in Section \ref{sec:ND_StratifiedCase_FVfree}.
 \begin{figure}
 	\subimport{images/}{nouvelle_dis_neutre_anydelta.pdf_tex}
 	\caption{ Surface layer scheme ``FV free" with
-	$\delta_{sl} \geq z_k$.}
+	$\delta_{\rm a} \geq z_k$.}
 	\label{fig:ND_NeutralCase_nouvelle_dis_neutre_anydelta}
 \end{figure}
 Figure \ref{fig:ND_NeutralCase_nouvelle_dis_neutre_anydelta}

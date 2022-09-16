@@ -67,7 +67,7 @@
     \put(0.24474752,0.45808156){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$||u(0) - u(z)|| = \frac{\rho_{\rm a} u_\star}{\rho_{\rm o} \kappa} \log(1+\frac{-z}{z_{u,o}})e_\tau$\end{tabular}}}}%
     \put(0.54038522,0.31330066){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\overline{u}_{k-\frac{1}{2}} = \frac{1}{h_{k-\frac{1}{2}}} \left( \widetilde{h} \widetilde{u} + \int_{\delta_{o}}^{z_k}u(z) dz\right) $\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{nouvelle_dis_neutre_ocean.pdf}}%
-    \put(0.29348442,0.60733919){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u_\star = {\rm BULK}(u(\delta_{sl}), {\cal S}_{k-1/2}^{n}(\frac{\widetilde{h}}{2}))$\end{tabular}}}}%
+    \put(0.29348442,0.60733919){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u_\star = {\rm BULK}(u(\delta_{\rm a}), {\cal S}_{k-1/2}^{n}(\frac{\widetilde{h}}{2}))$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{nouvelle_dis_neutre_ocean.pdf}}%
     \put(-0.00054391,0.33113697){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$h_{k-\frac{1}{2}}$\end{tabular}}}}%
   \end{picture}%

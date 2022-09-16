@@ -57,7 +57,7 @@ where ${\cal O} = \frac{U_{\rm a}^e - U_{\rm o}^e}{\overline{U_{\rm a}^e
 \end{remark}
 To show that there exists a unique solution to
 \eqref{eq:OASchwarz_appendix_discreteVariationParameters},
-we first compute the $\widehat{u}_{1/2} - \widehat{u}_{-1/2}$
+we first compute the jump $\widehat{u}_{1/2} - \widehat{u}_{-1/2}$
 then prove that the friction law always has a unique solution.
 \subsection{Jump of the solution
 	$\widehat{u}_{1/2} - \widehat{u}_{-1/2}$}
@@ -83,10 +83,10 @@ equation but $B^1, B^2$ now depend on $m$.
 	Equation \eqref{eq:OASchwarz_appendix_eqFourier}
 	can be rewritten as
 	\begin{equation}
-		(\widehat{u}_{m+\frac{5}{2}} - \widehat{u}_{m+\frac{1}{2}})
+		(\widehat{u}_{m+\frac{3}{2}} - \widehat{u}_{m+\frac{1}{2}})
 		-\chi_2 \widehat{u}_{m+\frac{1}{2}}
 		- (\widehat{u}_{m+\frac{1}{2}} - \widehat{u}_{m-\frac{1}{2}})
-		= -U_0
+		= -\frac{h_2^2}{\nu_2} U_0
 	\end{equation}
 	Injecting $\widehat{u}_{m+\frac{1}{2}} = B^1_m \lambda_u^m +
 	B^2_m \lambda_u^{-m}$ and rearranging terms gives
@@ -104,7 +104,7 @@ equation but $B^1, B^2$ now depend on $m$.
 	&+ (\lambda_u^m - \lambda_u^{m-1})(B_{m}^1 - B_{m-1}^1)
 		~~~~~~~~~~~~~~+ (\lambda_u^{-m} - \lambda_u^{-m+1})
 				(B_{m}^2 - B_{m-1}^2)\\
-		&~~~~~~~~~~~~= -U_0
+		&~~~~~~~~~~~~= -\frac{h_2^2}{\nu_2}U_0
 	\end{aligned}
 \end{equation}
 A particular solution of \eqref{eq:OASchwarz_appendix_eqFourier}
@@ -115,7 +115,7 @@ can be taken as
 	+ \lambda_u^{-m}(B_m^2 - B_{m-1}^2)&= 0 \\
 	(\lambda_u^m - \lambda_u^{m-1})(B_m^1 - B_{m-1}^1)
 	+ (\lambda_u^{-m} - \lambda_u^{-m+1})(B_m^2 - B_{m-1}^2)
-	&= -{U_0}
+	&= -\frac{h_2^2}{\nu_2}{U_0}
 \end{cases}
 \end{equation}
 which can be inverted:
@@ -132,17 +132,24 @@ B_m^2 - B_{m-1}^2
 		(\lambda_u^{-m} - \lambda_u^{-m+1})
 	\end{pmatrix}^{-1}
 	\begin{pmatrix}
-		0 \\ -U_0
+		0 \\ \frac{h_2^2}{\nu_2}-U_0
 	\end{pmatrix}
 \end{equation}
 The determinant of the inverse matrix in
 \eqref{eq:OASchwarz_appendix_deltaB} is
 $\lambda_u^{-1} - \lambda_u$ which is never zero because
 $\sigma > 0$.
+\begin{remark}
+	A particular solution was chosen here: as in the continuous case
+	of the variation of parameters, the difference between this
+	solution and another one solves the homogeneous equation.
+	The degrees of freedom $B_0^1$ and $B_0^2$ actually represent
+	the whole space of solutions.
+\end{remark}
 \par
 The sum of \eqref{eq:OASchwarz_appendix_deltaB} from $1$ to $m$
 gives a relation between $B^1_m, B^2_m$ and
-$B^1_0, B^2_0$ with the parameters $\lambda_u, U_0$ and $m$.
+$B^1_0, B^2_0$ with the parameters $\lambda_u, \frac{h_2^2}{\nu_2}U_0$ and $m$.
 Showing that $B^1_0, B^2_0$ are uniquely determined is hence
 sufficient to show that there is a unique solution $\widehat{u}$
 in the atmosphere.
@@ -312,5 +319,6 @@ a constant. Since $\widehat{u}$ is given by the inverse of
 $s\rightarrow \infty$.
 Figure \ref{fig:OASchwarz_isDetZero} also
 shows that the determinant of
-\eqref{eq:OASchwarz_appendix_matrix_omega} increases linearly for
+\eqref{eq:OASchwarz_appendix_matrix_omega}
+increases with $\omega^\beta$ (for some $\beta\approx 2$) for
 high $|s|$.

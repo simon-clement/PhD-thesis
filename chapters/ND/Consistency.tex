@@ -3,13 +3,13 @@
 In this section, we investigate the consistency of the
 discretisation depending on the strategy used to treat the
 surface layer. In particular, a special attention is paid to
-the effect of changing $\delta_{\rm sl}$.
+the effect of changing $\delta_{\rm a}$.
 Let $\delta_1$,$\delta_2$ two
 different heights of surface layer
 such that $\delta_1 < \delta_2$;
 let $u_1$, $u_2$ be solutions of 
 \eqref{eq:ND_NeutralCase_continuousModel} using
-respectively $\delta_1, \delta_2$ for $\delta_{sl}$.
+respectively $\delta_1, \delta_2$ for $\delta_{\rm a}$.
 The main direct changes between $u_1$ and $u_2$ are:
 \begin{itemize}
 \item the Coriolis effect and the large-scale forcing are
@@ -24,9 +24,9 @@ problem:
 \begin{itemize}
 	\item If the bulk algorithm is well designed it does not
 		need the very top of the surface layer. Any height
-		$z<\delta_{sl}$ within the wall law can be used
+		$z<\delta_{\rm a}$ within the wall law can be used
 		to obtain the friction scales $u_\star$,
-		$\theta_\star$: changing $\delta_{sl}$ does
+		$\theta_\star$: changing $\delta_{\rm a}$ does
 		not \textit{directly} change the friction scales.
 		However, the changes between $u_1$ and $u_2$ mentioned
 		above indirectly change the output of the
@@ -37,41 +37,41 @@ problem:
 \subsection{Study of the consistency: neutral case}
 Figure \ref{fig:ND_Consistency_sensitivity_delta_sl} shows
 three vertical profiles of $u$ obtained with
-$\delta_{sl} = 5, 10$ and $20 \; {\rm m}$.
+$\delta_{\rm a} = 5, 10$ and $20 \; {\rm m}$.
 As expected, the angle Arg$(u)$
 is constant in the surface layer because
 the Coriolis effect is not taken into
-account: changing $\delta_{sl}$
+account: changing $\delta_{\rm a}$
 has an effect on the orientation of the wind.
 Moreover, the vertical profile of $||u||$ above the
 surface layer does not follow the wall law.
 Consequently, the profile of $||u||$ depends strongly
-on the choice of $\delta_{sl}$.
+on the choice of $\delta_{\rm a}$.
 %
 \begin{figure}
 	\centering
 \includegraphics[scale=0.6]{images/sensitivity_delta_sl.pdf}
 	\caption{Typical profiles of $||u||$ and Arg$(u)$ for several
-	choices of $\delta_{sl}$, obtained with the ``FV free"
+	choices of $\delta_{\rm a}$, obtained with the ``FV free"
 	discretisation. Notice the changes of horizontal
 	and vertical scales between the bottom and top panels.}
 	\label{fig:ND_Consistency_sensitivity_delta_sl}
 \end{figure}
-\subsubsection{Analytical study of the sensitivity to $\delta_{sl}$}
+\subsubsection{Analytical study of the sensitivity to $\delta_{\rm a}$}
 \label{sec:ND_Consistency_sensitivity_delta_sl}
-In this subsection we study the sensitivity to $\delta_{sl}$
+In this subsection we study the sensitivity to $\delta_{\rm a}$
 of the continuous solution of
 \eqref{eq:ND_NeutralCase_continuousModel}.
 We will assume that the viscosity $K_u$ and the roughness length
 $z_u$ are the same for both $u_1$ and $u_2$.
 \par
 In Figure \ref{fig:ND_Consistency_sensitivity_delta_sl} the value
-of $z_u$ for $\delta_{sl} = 5\;{\rm m},10\;{\rm m},20\;{\rm m}$
+of $z_u$ for $\delta_{\rm a} = 5\;{\rm m},10\;{\rm m},20\;{\rm m}$
 is respectively $z_u = 3.8 \times 10^{-5} \;{\rm m},
 3.8 \times 10^{-5} \;{\rm m}$ and $3.6 \times 10^{-5} \;{\rm m}$.
 It seems reasonable to assume that $z_u$ do not depend on
-$\delta_{sl}$ for this analytical study of the sensitivity to
-$\delta_{sl}$.
+$\delta_{\rm a}$ for this analytical study of the sensitivity to
+$\delta_{\rm a}$.
 \par
 First, note that inside the surface layer for $u_2$,
 since $u_2(z) = \frac{u_\star}{\kappa}\ln(1+\frac{z}{z_u})
@@ -133,7 +133,7 @@ $\left(\frac{\ln(1+\frac{z}{z_u})}
 This forcing is more important when $\frac{\delta}{z_u}$
 is small. As it can be seen on Figure
 \ref{fig:ND_Consistency_sensitivity_delta_sl}
-the effect of changing $\delta_{sl}$ is not limited to the surface:
+the effect of changing $\delta_{\rm a}$ is not limited to the surface:
 the differences between the profiles are seen up
 to $150$ meters.
 \subsubsection{Study of the consistency: neutral case}
@@ -174,10 +174,10 @@ the ``FV free" scheme is small in low altitude.
 Two factors reduce the difference between low and high resolution
 for ``FV free":
 \begin{itemize}
-	\item $\delta_{sl} = z_{\frac{1}{2}}^{LR}$ is the same
+	\item $\delta_{\rm a} = z_{\frac{1}{2}}^{LR}$ is the same
 		for both low and high resolution whereas for
 		the other surface flux schemes the continuous
-		equations changes with $\delta_{sl}$.
+		equations changes with $\delta_{\rm a}$.
 	\item In the relative $u_\star$ difference, one can see
 		that the initial relative difference for
 		$u_\star$ is already smaller than with the
@@ -191,8 +191,8 @@ Finite Difference discretisation is not very sensitive
 to the increase of the space step. We show in \S
 \ref{sec:ND_Consistency_S-DAnalyticalStudy} that
 the boundary condition is robust with regard to
-$\delta_{sl}$.
-\subsubsection{Semi-Discrete sensitivity to $\delta_{sl}$
+$\delta_{\rm a}$.
+\subsubsection{Semi-Discrete sensitivity to $\delta_{\rm a}$
 			(Finite Differences)}
 \label{sec:ND_Consistency_S-DAnalyticalStudy}
 We put aside the sensitivity of the bulk procedure by
@@ -200,28 +200,28 @@ assuming as in \S \ref{sec:ND_Consistency_sensitivity_delta_sl}
 that $z_{u}$ is a constant.
 %
 The approach used in Finite Difference schemes consists in assuming
-$\delta_{\rm sl} = z_{1/2}$ and to use the flux at $z_0$ in
+$\delta_{\rm a} = z_{1/2}$ and to use the flux at $z_0$ in
 the integration in time
 $K_0\phi_0 = u_\star^2
-\frac{u(\delta_{\rm sl})}{||u(\delta_{\rm sl})||}$
+\frac{u(\delta_{\rm a})}{||u(\delta_{\rm a})||}$
 (we assume that $u(0)=0$ for simplicity).
 We generalize the usual approach with
-$\delta_{sl} = z_{1/2} - \epsilon$ with
+$\delta_{\rm a} = z_{1/2} - \epsilon$ with
 $\epsilon < \frac{h_{\frac{1}{2}}}{2}$. 
-The value $u(\delta_{\rm sl})$ can be approximated
-by $u_{1/2} - (\partial_z u)(\delta_{\rm sl})\epsilon$.
+The value $u(\delta_{\rm a})$ can be approximated
+by $u_{1/2} - (\partial_z u)(\delta_{\rm a})\epsilon$.
 The implementation of such a boundary condition would be
 \begin{equation}
 	\label{eq:ND_Consistency_SemiDiscreteBdCond}
 K_0\phi_0 = 
 	\kappa^2 ||u_{1/2} -
-	\emphase{(\partial_z u)(\delta_{\rm sl})\epsilon} ||
+	\emphase{(\partial_z u)(\delta_{\rm a})\epsilon} ||
 	\frac{u_{1/2} -
-	\emphase{(\partial_z u)(\delta_{\rm sl})\epsilon 
-	}}{\ln(1+\frac{\emphase{\delta_{sl}}}{z_{u}})^2}
+	\emphase{(\partial_z u)(\delta_{\rm a})\epsilon 
+	}}{\ln(1+\frac{\emphase{\delta_{\rm a}}}{z_{u}})^2}
 \end{equation}
 and it becomes convenient to compute the difference between
-$\delta_{sl}=z_{1/2}$ and $\delta_{sl}'=z_{1/2}-\epsilon$.
+$\delta_{\rm a}=z_{1/2}$ and $\delta_{\rm a}'=z_{1/2}-\epsilon$.
 Indeed,
 $|u - (\partial_z u) \epsilon| = |u| -
 \epsilon \frac{\mathfrak{R}(\overline{u} \partial_z u)}{|u|}
@@ -234,24 +234,24 @@ u\frac{\mathfrak{R}(\overline{u} \partial_z u)}{|u|}
 \right)
 + O(\epsilon^2)$.
 Using the wall law
-$\partial_z u=\frac{u(\delta_{\rm sl})}{(\delta_{\rm sl} + z_u)
-\ln(1+\frac{\delta_{sl}}{z_u})}$ we obtain 
+$\partial_z u=\frac{u(\delta_{\rm a})}{(\delta_{\rm a} + z_u)
+\ln(1+\frac{\delta_{\rm a}}{z_u})}$ we obtain 
 \begin{equation}
 |u - (\partial_z u) \epsilon|(u - (\partial_z u) \epsilon) - |u|u =
 	- \epsilon \left(\frac{2|u_{1/2}|u_{1/2}}
-	{(\delta_{\rm sl} + z_u) \ln(1+\frac{\delta_{sl}}{z_u})}
+	{(\delta_{\rm a} + z_u) \ln(1+\frac{\delta_{\rm a}}{z_u})}
 	\right)+ O(\epsilon^2)
 \end{equation}
 Combining with the derivative of
-$\frac{\kappa^2}{\ln(1+\frac{\delta_{sl}}{z_u})}$,
+$\frac{\kappa^2}{\ln(1+\frac{\delta_{\rm a}}{z_u})}$,
 we find the derivative of the right-hand side of
 \eqref{eq:ND_Consistency_SemiDiscreteBdCond} with respect to
-$\delta_{sl}$ to be equal to zero.
+$\delta_{\rm a}$ to be equal to zero.
 In conclusion, if $z_{u}$ does not depend on $u$ and if
 the evolution equation is integrated in time at $z_\frac{1}{2}$,
 then for the Finite Difference scheme
 \begin{equation}
-	\partial_{\delta_{sl}} (K_0 \phi_0) = 0
+	\partial_{\delta_{\rm a}} (K_0 \phi_0) = 0
 \end{equation}
 This result is expected since in the boundary condition
 $K_0 \phi_0 = u_\star^2 e_\tau$ the orientation $e_\tau$ is
@@ -314,10 +314,10 @@ at initialization whereas it is very high for the other surface flux
 schemes.
 %
 The ``FV2" scheme is not very consistent because it follows the
-continuous model with $\delta_{sl}$ changing together with the
+continuous model with $\delta_{\rm a}$ changing together with the
 space step.
 The Finite Difference or the ``FV pure" methods suffer
-less from this problem because even if $\delta_{sl}$ changes,
+less from this problem because even if $\delta_{\rm a}$ changes,
 it is assumed that the evolution equation is
 integrated inside the surface layer.
 \cite{maronga_improved_2020} also find that the
@@ -375,7 +375,7 @@ the height of the surface layer.
 The main conclusion is hence that
 \textbf{if Monin-Obukhov profiles are enforced in the
 surface layer the importance of the choice of
-$\delta_{sl}$ increases.}
+$\delta_{\rm a}$ increases.}
 In both cases, the different profiles are very similar.
 A ocean-atmosphere coupled case is presented in Section
 \ref{sec:ND_Consistency_Coupled}, where the surface scheme may be of a greater
@@ -460,7 +460,7 @@ to avoid solving the small scales of motion inside the surface layer.
 We compared several strategies for the treatment of the surface layer
 and proposed one (``FV free") with two main assets:
 \begin{itemize}
-	\item one can choose freely the height $\delta_{sl}$
+	\item one can choose freely the height $\delta_{\rm a}$
 		of the surface layer;
 	\item MOST is enforced in the surface layer which avoids
 		a contradiction between the evolution equation and

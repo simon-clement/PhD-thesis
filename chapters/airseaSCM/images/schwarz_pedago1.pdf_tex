@@ -58,10 +58,10 @@
     \put(0,0){\includegraphics[width=\unitlength,page=2]{schwarz_pedago1.pdf}}%
     \put(0.91800969,0.00061511){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Ocean\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{schwarz_pedago1.pdf}}%
-    \put(0.17851424,0.28775469){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u_\star, \theta_\star = {\rm BULK} \left( u_{\rm a}(\delta_{\rm sl}) - u_{\rm o}(\delta_o) \right)$\end{tabular}}}}%
+    \put(0.17851424,0.28775469){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u_\star, \theta_\star = {\rm BULK} \left( u_{\rm a}(\delta_{\rm a}) - u_{\rm o}(\delta_o) \right)$\end{tabular}}}}%
     \put(0.15894464,0.44602996){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$t^{i-1}$\end{tabular}}}}%
     \put(0.49103572,0.44602996){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$t^{i}$\end{tabular}}}}%
-    \put(0.5110816,0.28775469){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u_\star, \theta_\star = {\rm BULK} \left( u_{\rm a}(\delta_{\rm sl}) - u_{\rm o}(\delta_o) \right)$\end{tabular}}}}%
+    \put(0.5110816,0.28775469){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u_\star, \theta_\star = {\rm BULK} \left( u_{\rm a}(\delta_{\rm a}) - u_{\rm o}(\delta_o) \right)$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{schwarz_pedago1.pdf}}%
   \end{picture}%
 \endgroup%

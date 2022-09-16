@@ -1,4 +1,4 @@
-%% Creator: Inkscape 1.2 (1:1.2+202206011327+fc4e4096c5), www.inkscape.org
+%% Creator: Inkscape 1.2 (1:1.2.1+202207142221+cd75a1ee6d), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'nouvelle_dis_neutre_anydelta.pdf' (pdf, eps, ps)
 %%
@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{538.17328354bp}%
+    \setlength{\unitlength}{537.53964491bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,21 +50,21 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.38584282)%
+  \begin{picture}(1,0.38629764)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{nouvelle_dis_neutre_anydelta.pdf}}%
-    \put(0.05521965,0.00343148){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_0$\end{tabular}}}}%
-    \put(0.05521965,0.30404531){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{k+1}$\end{tabular}}}}%
-    \put(-0.00052534,0.23781391){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\widetilde{h}$\end{tabular}}}}%
-    \put(0.07163854,0.16877078){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{\rm sl}$\end{tabular}}}}%
-    \put(0.12968124,0.25484281){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(\partial_t + if)\widetilde{u} - \frac{K_{u,k+1}\phi_{k+1} - K_{u,{\delta}}\phi_{\delta}}{\widetilde{h}} = i f u_G$\end{tabular}}}}%
-    \put(0.1558199,0.17382954){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_{u,{\delta}}\phi^{n+1}_{\delta} = u_{\star}^2 e_{\tau}$\end{tabular}}}}%
-    \put(0.13258816,0.10055647){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u(z)-u(0) = \frac{u_\star}{\kappa} \log(1+\frac{z}{z_\star})e_\tau$\end{tabular}}}}%
-    \put(0.53606,0.28315939){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\overline{u}_{k+\frac{1}{2}} = \frac{1}{h_{k+\frac{1}{2}}} \left( \widetilde{h} \widetilde{u} + \int_{z_k}^{\delta_{\rm sl}}u(z) dz\right) $\end{tabular}}}}%
-    \put(0.05521965,0.07311175){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_k$\end{tabular}}}}%
+    \put(0.05528474,0.00343553){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_0$\end{tabular}}}}%
+    \put(0.05528474,0.30440371){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_{k+1}$\end{tabular}}}}%
+    \put(-0.00052596,0.23809423){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\widetilde{h}$\end{tabular}}}}%
+    \put(0.07172299,0.16896972){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{\rm a}$\end{tabular}}}}%
+    \put(0.1298341,0.25514321){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(\partial_t + if)\widetilde{u} - \frac{K_{u,k+1}\phi_{k+1} - K_{u,{\delta}}\phi_{\delta}}{\widetilde{h}} = i f u_G$\end{tabular}}}}%
+    \put(0.15600357,0.17403444){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_{u,{\delta}}\phi^{n+1}_{\delta} = u_{\star}^2 e_{\tau}$\end{tabular}}}}%
+    \put(0.13274445,0.100675){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$u(z)-u(0) = \frac{u_\star}{\kappa} \log(1+\frac{z}{z_\star})e_\tau$\end{tabular}}}}%
+    \put(0.5366919,0.28349317){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\overline{u}_{k+\frac{1}{2}} = \frac{1}{h_{k+\frac{1}{2}}} \left( \widetilde{h} \widetilde{u} + \int_{z_k}^{\delta_{\rm a}}u(z) dz\right) $\end{tabular}}}}%
+    \put(0.05528474,0.07319793){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_k$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{nouvelle_dis_neutre_anydelta.pdf}}%
-    \put(0.36841087,0.20973392){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}${\rm BULK}({\cal S}^n_{k+\frac{1}{2}}(-\frac{\widetilde{h}}{2}))$ \end{tabular}}}}%
+    \put(0.36884514,0.20998115){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}${\rm BULK}({\cal S}^n_{k+\frac{1}{2}}(-\frac{\widetilde{h}}{2}))$ \end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{nouvelle_dis_neutre_anydelta.pdf}}%
   \end{picture}%
 \endgroup%

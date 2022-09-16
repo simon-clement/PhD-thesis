@@ -47,8 +47,8 @@ also gives a friction scale $\theta_\star$
 for the potential temperature:
 \begin{equation}
 	u_\star, \emphase{\theta_\star} =
-	{\rm BULK}(\emphase{\theta(\delta_{sl})},
-	u(\delta_{sl}))
+	{\rm BULK}(\emphase{\theta(\delta_{\rm a})},
+	u(\delta_{\rm a}))
 \end{equation}
 where we omitted the BULK dependency on
 $u(0)$ and on the surface temperature $\theta_s$.
@@ -76,16 +76,16 @@ $\theta$, which is governed by:
 	\begin{equation}
 	\label{eq:ND_StratifiedCase_EkmanEq}
 \partial_t \theta -\partial_z (K_{\theta} \partial_z \theta)
-	= F_{\theta},~~~~~~~~~~~~~~ z \geq \delta_{sl}
+	= F_{\theta},~~~~~~~~~~~~~~ z \geq \delta_{\rm a}
 	\end{equation}
 	\begin{equation}
 	\label{eq:ND_StratifiedCase_ConstantFlux}
 	\left.K_\theta \partial_z \theta
-	\right|_{z\leq \delta_{\rm sl}}
+	\right|_{z\leq \delta_{\rm a}}
 		= \emphase{\theta_\star u_\star} = C_H
-	||u(\delta_{\rm sl}) - u(0)||
-	\left(\theta(\delta_{\rm sl}) - \theta_{s}\right)
-	,~~~ z < \delta_{sl}
+	||u(\delta_{\rm a}) - u(0)||
+	\left(\theta(\delta_{\rm a}) - \theta_{s}\right)
+	,~~~ z < \delta_{\rm a}
 	\end{equation}
 \end{subequations}
 The viscosities $K_u, K_\theta$ will be detailed with
@@ -111,18 +111,18 @@ profiles for $u$ and $\theta$ are
 \end{aligned}
 \end{equation}
 where $z_\theta$ typically depends on $u_\star$, $K_{{\rm mol}}$
-and $L_{MO} = \frac{\theta(\delta_{\rm sl})
+and $L_{MO} = \frac{\theta(\delta_{\rm a})
 u_\star^2}{\theta_\star \kappa g }$.
 Similarly to the neutral case, the semi-discrete in time
 boundary condition is not explicit:
-$C_H^n||u^n(\delta_{sl})- u^n(0)||$ is computed with the values
+$C_H^n||u^n(\delta_{\rm a})- u^n(0)||$ is computed with the values
 at the current time step whereas the temperature variation
 is taken at time $t^{n+1}$: the boundary condition for temperature
 is
 \begin{equation}
-	K_\theta \partial_z \theta = C_H^{\emphase{n}}||u^\emphase{n}(\delta_{sl})- u^{\emphase{n}}(0)||
-	(\theta^\emphase{n+1}(\delta_{\rm sl}) - \theta_s^\emphase{n+1}),
-	~~~~ z < \delta_{\rm sl}
+	K_\theta \partial_z \theta = C_H^{\emphase{n}}||u^\emphase{n}(\delta_{\rm a})- u^{\emphase{n}}(0)||
+	(\theta^\emphase{n+1}(\delta_{\rm a}) - \theta_s^\emphase{n+1}),
+	~~~~ z < \delta_{\rm a}
 \end{equation}
 
 \subsubsection{Finite Volume discretization}
@@ -182,13 +182,13 @@ need to introduce the bottom boundary condition for $\theta$.
 			})
 		\end{equation}
 		where 
-$C_H|\Delta u| = C_H||u^n(\delta_{sl})- u^n(0)|| = 
+$C_H|\Delta u| = C_H||u^n(\delta_{\rm a})- u^n(0)|| = 
 \frac{u_\star \kappa}{\ln\left(1+\frac{z}{z_{u}}\right)
     - \psi_\theta\left(\frac{z}{L_{MO}}\right) }$.
 
 	\item With ``FV pure" the evolution equation is solved in 
 		the whole first grid cell with the reconstructed
-		value $\theta(\delta_{sl}) = {\cal T}_{1/2}(0)$:
+		value $\theta(\delta_{\rm a}) = {\cal T}_{1/2}(0)$:
 		\begin{equation}
 			\underbrace{K_\theta
 			\emphase{\partial_z \theta}^{n+1}_\emphase{0}}_{\text{
@@ -224,14 +224,14 @@ $C_H|\Delta u| = C_H||u^n(\delta_{sl})- u^n(0)|| =
 		\begin{aligned}
 			 ||\overline{u}_{\frac{1}{2}}-u(0)||
 			 = \frac{u_\star}{\kappa}
-			\left(1\emphase{+\frac{z_u}{\delta_{sl}}}\right)
+			\left(1\emphase{+\frac{z_u}{\delta_{\rm a}}}\right)
 		\left(\ln(1+\frac{z}{z_u})\emphase{-1}\right)
 		- \emphase{\Psi_u}\left(\frac{z_1}{L_{MO}}\right)
 		    \\
 			\overline{\theta}_{\frac{1}{2}} - \theta_s=
 			\frac{\theta_\star}{\kappa}
 			\left(1\emphase{+\frac{z_\theta}
-					{\delta_{sl}}}\right)
+					{\delta_{\rm a}}}\right)
 		\left(\ln(1+\frac{z}{z_\theta})\emphase{-1}\right)
 		- \emphase{\Psi_\theta}\left(\frac{z_1}{L_{MO}}\right)
 		\end{aligned}
@@ -242,7 +242,7 @@ $C_H|\Delta u| = C_H||u^n(\delta_{sl})- u^n(0)|| =
 		the MOST profile for $\theta$ is assumed as in
 		\cite{nishizawa_surface_2018}.
 		The boundary condition is the flux at the top of the
-		surface layer $\delta_{sl}=z_1$,
+		surface layer $\delta_{\rm a}=z_1$,
 		using the reconstructed solution at $z_1$:
 		\begin{equation}
 			\underbrace{K_\theta
@@ -270,7 +270,7 @@ The value of $K_\theta$ at $z_0$ cannot be set to the molecular
 diffusivity in those cases for the same reason as the
 viscosity $K_{u,0}$ in the neutral case.
 %
-Moreover, the discretizations force $\delta_{sl}$ to the first
+Moreover, the discretizations force $\delta_{\rm a}$ to the first
 grid level $z_{\frac{1}{2}}$ (or $z_1$ in the case of ``FV2" and
 ``FV Nishizawa").
 We now derive the stratified version of the ``FV free" surface scheme
@@ -281,15 +281,15 @@ In this \S \ref{sec:ND_StratifiedCase_FVfree} we follow
 step by step the derivation of the neutral ``FV free" scheme and
 apply it to this stratified case. The stratification adds no
 complexity: we hence present directly the derivation directly for
-any $\delta_{\rm sl} \geq 0$.
-Let $k$ such that $z_k \leq \delta_{\rm sl} < z_{k+1}$.
+any $\delta_{\rm a} \geq 0$.
+Let $k$ such that $z_k \leq \delta_{\rm a} < z_{k+1}$.
 As in the neutral case, the cell $[z_k, z_{k+1}]$ is split
 into two parts for the ``FV free" surface flux scheme.
-The first part $[z_k,\delta_{\rm sl}]$ is contained
+The first part $[z_k,\delta_{\rm a}]$ is contained
 in the surface layer where the temperature and wind
 follow \eqref{eq:ND_StratifiedCase_MOST}.
 The second part is the
-``sub-cell" $[\delta_{\rm sl}, z_{k+1}]$ of size $\widetilde{h}$, of
+``sub-cell" $[\delta_{\rm a}, z_{k+1}]$ of size $\widetilde{h}$, of
 averages $\widetilde{u}, \widetilde{\theta}$
 and of sub-grid reconstructions
 \begin{equation}
@@ -307,7 +307,7 @@ and of sub-grid reconstructions
 \end{aligned}
 \end{equation}
 where $\xi = z - (z_{k+1} - \frac{\widetilde{h}}{2})$ is defined
-for $\delta_{\rm sl} < z < z_{k+1}$.
+for $\delta_{\rm a} < z < z_{k+1}$.
 The relation between
 $\overline{u}_{k+1/2}, \overline{\theta}_{k+1/2}$ and
 $\widetilde{u},\widetilde{\theta}$ is, similarly to the neutral case:
@@ -337,20 +337,20 @@ where the non-dimensional numbers $\alpha_{sl, u},
 \begin{equation}
 	\begin{aligned}
 	\alpha_{sl, x} &= \frac{\widetilde{h}}{h_{k+\frac{1}{2}}} +
-	\frac{\frac{1}{h_{k+\frac{1}{2}}}\int_{z_k}^{\delta_{sl}}
+	\frac{\frac{1}{h_{k+\frac{1}{2}}}\int_{z_k}^{\delta_{\rm a}}
 		\left(\ln(1+\frac{z}{z_{x}})
 		\emphase{- \psi_x\left(\frac{z}{L_{MO}}\right)}\right)
-	dz}{\ln(1+\frac{\delta_{sl}}{z_{x}})
-		\emphase{- \psi_x\left(\frac{\delta_{sl}}{L_{MO}}\right)
+	dz}{\ln(1+\frac{\delta_{\rm a}}{z_{x}})
+		\emphase{- \psi_x\left(\frac{\delta_{\rm a}}{L_{MO}}\right)
 		}} \\
 		&=\frac{\widetilde{h}}{h_{k+\frac{1}{2}}} +
  \frac{\frac{1}{{h_{k+\frac{1}{2}}}}
     \left[
 	    (z+z_{x})\ln(1+\frac{z}{z_{x}})-z
 		+\emphase{ z \Psi_x\left(\frac{z}{L_{MO}}\right)}
-	\right]_{z_k}^{\delta_{sl}}
-    }{\ln(1+\frac{\delta_{sl}}{z_{x}})
-		\emphase{- \psi_x\left(\frac{\delta_{sl}}{L_{MO}}\right)
+	\right]_{z_k}^{\delta_{\rm a}}
+    }{\ln(1+\frac{\delta_{\rm a}}{z_{x}})
+		\emphase{- \psi_x\left(\frac{\delta_{\rm a}}{L_{MO}}\right)
 		}}
 \end{aligned}
 \end{equation}
@@ -374,7 +374,7 @@ the boundary condition of ``FV free" is
 \begin{equation}
 	\label{eq:ND_StratifiedCase_semiDiscreteEkmanEqFVfree}
 	\underbrace{K_{\theta, \delta} (\partial_z \theta)_\delta}_{
-		\text{Flux at } \delta_{sl}
+		\text{Flux at } \delta_{\rm a}
 	} = 
 	C_H|\Delta u|\underbrace{
 	\frac{
@@ -383,7 +383,7 @@ the boundary condition of ``FV free" is
 	\frac{{(\partial_z \theta)}_{k+1}}{6}\right) 
   - \theta_s
 }{\alpha_{sl, \theta}}
-	}_{\text{Reconstruction at } \delta_{sl}}
+	}_{\text{Reconstruction at } \delta_{\rm a}}
 \end{equation}
 and the evolution equation in the first active grid cell is
 \begin{equation}
@@ -491,7 +491,7 @@ are obtained with the method named $l^\star_{\rm D80}$ described in
 	for $z\in (50 \; {\rm m}, 150\; {\rm m})$ whereas
 	$\partial_z l_{\rm down}$ is limited by 1 for $z<100 \;{\rm m}$.
 	The surface flux scheme used is ``FV free" which is why the
-	profiles start at $\delta_{sl} = 10\;{\rm m}$.}
+	profiles start at $\delta_{\rm a} = 10\;{\rm m}$.}
 	\label{fig:ND_StratifiedCase_mixing_lengths}
 \end{figure}
 Steps 3 and 4 are implemented by applying sequentially from top
@@ -559,7 +559,7 @@ quasi-stationary ($\partial_t e = 0$). The energy is given by
 an equilibrium between shear, buoyancy and dissipation:
 \begin{equation}
 	\label{eq:ND_StratifiedCase_TKE_SL_cond}
-e(z<\delta_{sl}) = \left(\frac{l_\epsilon}{c_\epsilon}
+e(z<\delta_{\rm a}) = \left(\frac{l_\epsilon}{c_\epsilon}
 (K_u||\partial_z u||^2 - K_\theta N^2)\right)^{2/3}
 \end{equation}
 where $K_u||\partial_z u||^2$ and $K_\theta N^2$ are given by MOST.
@@ -596,7 +596,7 @@ K_m = C_m l_m \sqrt{e} ~~\text{and}~~
 K_\theta = C_s l_m \phi_z \sqrt{e}
 \end{equation}
 inside the SL, we have
-for $z\leq \delta_{\rm sl}$
+for $z\leq \delta_{\rm a}$
 \begin{enumerate}
 \item
 Monin-Obukhov viscosity profiles in the surface layer:
@@ -609,7 +609,7 @@ K_\theta = \kappa u_\star\frac{z+ z_{u}}{\phi_h(z/L_{MO})}
 together with \eqref{eq:ND_StratifiedCase_viscosities_SL} put
 a constraint on $\phi_z$ in the surface layer:
 $\phi_z = \frac{C_m\phi_m(z/L_{MO})}{C_s\phi_h(z/L_{MO})}
-		\forall z\leq \delta_{\rm sl}$.
+		\forall z\leq \delta_{\rm a}$.
 \item Quasi-equilibrium of the TKE equation:
 \begin{equation}
 	\label{eq:ND_StratifiedCase_TKE_quasi_equilibrium}

@@ -57,9 +57,9 @@
     \put(-0.00321739,0.0187148){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$0$\end{tabular}}}}%
     \put(-0.00321739,0.21089788){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{turbulent_term.pdf}}%
-    \put(-0.00103609,0.10550716){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{sl}$\end{tabular}}}}%
+    \put(-0.00103609,0.10550716){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{\rm a}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{turbulent_term.pdf}}%
-    \put(0.13831958,0.07341296){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$|\langle w' {u'}^{\mathbb{C}}\rangle| = u_\star^2, ~~~~~~~ \langle w' \theta'\rangle = u_\star \theta_\star$\end{tabular}}}}%
+    \put(0.13831958,0.07341296){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$|\langle w' {u'}\rangle| = u_\star^2, ~~~~~~~ \langle w' \theta'\rangle = u_\star \theta_\star$\end{tabular}}}}%
     \put(0.10732237,0.18500316){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\langle w' u'\rangle = -K_u \partial_z u, ~~ \langle w' \theta'\rangle = -K_\theta \partial_z \theta$\end{tabular}}}}%
   \end{picture}%
 \endgroup%

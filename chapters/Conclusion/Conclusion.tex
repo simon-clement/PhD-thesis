@@ -1,18 +1,113 @@
 \chapter*{Conclusion and perspectives}
 \label{ch:conclusion}
-In this thesis we discussed the \myTD{sujet de thèse ici}
-\subsection{Summary}
-\myTD{résumé en anglais du résumé détaillé (2-3 pages ?)}
-\subsection{Perspectives}
+This thesis focused the numerical analysis of interactions between
+the ocean and atmosphere within their coupling. We proposed a
+new discretization of the surface layer which relies on
+hypotheses already in use in the computation of turbulent fluxes.
+Besides, the Schwarz methods were studied at discrete and
+semi-discrete levels and we have shown important features of their
+convergence. The analysis of convergence of Schwarz methods
+was finally pursued
+in the presence of a parameterized surface layer and we
+proved some convergence results on this simplified air-sea coupled
+problem.
+\par
+Chapter \ref{ch:discreteSchwarzAnalysis} discussed the convergence
+analysis of Schwarz methods at the semi-discrete and discrete
+levels. The effect of the discretization in both
+space and time was highlighted: in particular, we have identified
+the importance of the interpolation of the interface conditions
+for time schemes of multiple steps.
+Finally, a Finite Volume discretization was derived based
+on a subgrid reconstruction with quadratic splines.
+\par
+Chapter \ref{ch:approximatedDiscreteSchwarz} introduced
+approximations that can be used to simplify the derivation
+of the theoretical semi-discrete or fully discrete convergence factor.
+One approximation relies on the modified equations method to
+approximate the semi-discrete convergence factors and
+the other combines the semi-discrete convergence factors
+to approximate the fully discrete one.
+We found in which case those approximations could be useful and
+explained the reasons for which they can be inadequate in other
+cases.
+\par
+In Chapter \ref{ch:ND}, the surface layer hypotheses were discussed:
+we proposed a discretization based on the Monin-Obukhov Similarity
+Theory. This discretization based on Finite Volumes
+is such that the computation of turbulent fluxes is coherent
+with the subgrid reconstruction of the solution.
+The discretization also takes into account the recent discovery
+in surface layer parameterization that the height of the
+surface layer should not (always) be limited to the first grid level.
+\par
+This discretization is applied to the oceanic part of the surface
+layer in Chapter \ref{ch:OceanND}. Considering an oceanic
+surface layer is recent and still uncommon. We focused in particular
+on the handling of radiative fluxes which lead to particular
+difficulties in terms of subgrid reconstruction. The proposed
+discretization of the surface layer including radiative fluxes
+is a first step toward a well discretized oceanic surface layer.
+We have shown that this discretization does not perform well
+and should be improved.
+\par
+Finally, Chapter \ref{ch:OASchwarz} studied at the semi-discrete
+level in space the effect of the surface layer on the
+ocean-atmosphere coupling.
+The well-posedness of the coupled problem studied was discussed
+and the existence and unicity of a solution in the neighborhood
+of the steady state was proved.
+We examined the convergence of Schwarz methods with a parameterized
+surface layer as a nonlinear transmission condition:
+we derived upper and lower bound of the convergence factor and
+optimized numerically the convergence with respect to a relaxation
+parameter.
+\par
+% PERSPECTIVES
+The coupled problem examined in Chapter
+\ref{ch:OASchwarz} is idealized in two aspects. The first
+simplification is that
+the parameterization of the surface layer is explicit whereas
+it is instead based on fixed-point algorithms in operational models.
+Relaxing this simplification is difficult because the convergence
+study relies on the linearization of the explicit expression.
+The second simplification is the constant viscosity.
+Convergence studies were conducted with variable viscosities but
+never to our knowledge at the semi-discrete in space level.
+Two perspectives arise from the objective of taking the
+varying viscosities into account:
+\begin{itemize}
+	\item Developping mathematical tools so that the
+		semi-discrete in space convergence factor could
+		be studied with varying viscosities or
+		varying space steps;
+	\item Instead of combining two semi-discrete analyses
+		as it was done in
+	Chapter \ref{ch:approximatedDiscreteSchwarz}, 
+	the semi-discrete analysis with a surface layer
+	could be combined with a continuous case with
+	varying viscosities.
+\end{itemize}
+\par
+Another set of improvements should be mentioned for the discretization
+of the surface layer introduced in Chapters \ref{ch:ND} and
+\ref{ch:OceanND}:
 \begin{itemize}
 \item The schemes could be analyzed in terms of stability, monotony,
-	etc.
-\item The order of the schemes could be way better because right now
-	there is a jump of the grid size leading to a poor accuracy
-\item Numerical simulations with realistic numerical models in
-	3D
-\item Asymptotic analysis can lead to solutions of the optimisation
-problem (?)
-\item developping discrete tools to analyze varying viscosity or
-space step.
+	or other mathematical or physical properties;
+\item The order of the schemes could be improved: in particular,
+	splitting a cell in two parts breaks the possible structured
+		grid properties;
+\item The discretization could be tested more thoroughly with
+	realistic numerical models;
 \end{itemize}
+% Finally, recent developments in Schwarz methods analysis have
+% shown that the analytical optimization of the convergence factor
+% can be pursued with an asymptotic analysis that gives relevant
+% optimized parameters
+\par
+Studying Schwarz methods applied to the ocean-atmosphere interface
+is a contribution for the improvement of numerical analysis of
+geophysical systems. The ultimate end of this thesis is
+hence to reduce the numerical errors linked to the ocean-atmosphere
+coupling in operational models.

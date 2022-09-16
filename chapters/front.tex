@@ -37,10 +37,10 @@ discrétisations des échanges air-mer et de leur paramétrisation}}
 \fi
 
 \frontmatter
-\pagenumbering{Roman}
+\pagenumbering{gobble}
 
 %\maketitle %NE PAS LE METTRE
-\MakeUGthesePDG
+% \MakeUGthesePDG
 %----------------------------------------------------------------------
 
 % \ifodd \value{personal}{
@@ -108,6 +108,12 @@ discrétisations des échanges air-mer et de leur paramétrisation}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %-------------------------------------------------------------------------------
 \phantomsection
+\pdfbookmark[0]{Résumé détaillé}{resumefrancais}
+\pagenumbering{Roman}
+\import{chapters/Introduction/}{resume_detaille_francais.tex}
+
+\thispagestyle{empty}
+
 \pdfbookmark[0]{Table of Contents}{contents}
 \setcounter{tocdepth}{2}
 \dominitoc

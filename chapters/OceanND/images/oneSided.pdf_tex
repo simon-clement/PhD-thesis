@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{194.60513067bp}%
+    \setlength{\unitlength}{194.60512651bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -57,7 +57,7 @@
     \put(-0.00400026,0.26549469){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$0$\end{tabular}}}}%
     \put(-0.00400026,0.50444058){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{oneSided.pdf}}%
-    \put(-0.00128819,0.37340574){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{sl}$\end{tabular}}}}%
+    \put(-0.00128819,0.37340574){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\delta_{\rm a}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{oneSided.pdf}}%
     \put(0.14068822,0.44582478){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(\partial_t + if) u - \partial_z (K_u \partial_z u) = if u_G$\end{tabular}}}}%
     \put(0.38009022,0.33350224){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K_u \partial_z u = u_\star^2 e_\tau$\end{tabular}}}}%

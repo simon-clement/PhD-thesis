@@ -54,8 +54,8 @@ condition.
 \cite{mohammadi_rough_1998} show that bulk boundary
 conditions can be derived with domain decomposition arguments;
 the computational domain is split into two parts:
-the surface layer $(0,\delta_{sl})$ and the remainder of
-the atmosphere column, $(\delta_{sl}, +\infty)$
+the surface layer $(0,\delta_{\rm a})$ and the remainder of
+the atmosphere column, $(\delta_{\rm a}, +\infty)$
 (see Figure \ref{fig:ND_NeutralCase_EkmanContinuous}).
 %
 \par
@@ -78,13 +78,13 @@ The equations in the atmosphere column are hence (see Figure
 	\begin{equation}
 	\label{eq:ND_NeutralCase_EkmanEq}
   (\partial_t + if) u - \partial_z (K_u \partial_z u) = if u_G
-		,~~~~~ z \geq \delta_{sl}
+		,~~~~~ z \geq \delta_{\rm a}
 	\end{equation}
 	\begin{equation}
 	\label{eq:ND_NeutralCase_ConstantFlux}
 	K_u \partial_z u
 	= u_\star^2
-	e_\tau, ~~~~~~~~~~~ z < \delta_{sl}
+	e_\tau, ~~~~~~~~~~~ z < \delta_{\rm a}
 	\end{equation}
 \end{subequations}
 where $u_G$ is a constant value representing the geostrophic guide and
@@ -92,8 +92,8 @@ $f$ is the Coriolis parameter.
 %The discretized profile of $K_u$ will be
 %detailed in Section \ref{sec:ND_StratifiedCase_turbulentVisc}.
 The orientation of $\partial_z u$ is contained in
-$e_\tau = \frac{u(\delta_{\rm sl})-u(0)}
-	{||u(\delta_{\rm sl})-u(0)||}$
+$e_\tau = \frac{u(\delta_{\rm a})-u(0)}
+	{||u(\delta_{\rm a})-u(0)||}$
 where the surface current $u(0, t)$ is set to 0 or given by
 the ocean model in a coupled situation.
 In the neutral case (without stratification) we assume
@@ -135,10 +135,10 @@ The initial and top boundary conditions are
 %proportionality is the Von Karman constant $\kappa = 0.40$.
 %Combining molecular and turbulent viscosities in the surface layer
 The viscosity in the surface layer is
-$K_u(z\leq \delta_{sl}) = \kappa u_\star (z + z_{u})$ where
+$K_u(z\leq \delta_{\rm a}) = \kappa u_\star (z + z_{u})$ where
 $z_{u} = z_u({K_{{\rm mol}}}, u_\star)$ depends on the
 geometry of the space domain; $\kappa=0.40$ is the Von
-Karman constant and $K_{\rm mol}$ is the molecular viscosity.
+K\'arm\'an constant and $K_{\rm mol}$ is the molecular viscosity.
 It follows from \eqref{eq:ND_NeutralCase_ConstantFlux} that
 \begin{equation}
 \label{eq:ND_NeutralCase_WallLaw}
@@ -149,16 +149,16 @@ which is called \textit{logarithmic profile} (or in the
 stratified case \textit{MOST profile}).
 The expression \textit{wall law} can refer to either the
 logarithmic profile,
-the surface layer viscosity $K_u(z\leq \delta_{sl})$
+the surface layer viscosity $K_u(z\leq \delta_{\rm a})$
 and the boundary condition \eqref{eq:ND_NeutralCase_ConstantFlux}.
 \paragraph{BULK routines}
 The routine used to compute the friction velocity $u_\star$
 is called ${\rm BULK}$. It takes as parameters:
 \begin{itemize}
-	\item the (relative) wind speed $u(\delta_{sl})$;
-	\item the height of the surface layer $\delta_{sl}$;
+	\item the (relative) wind speed $u(\delta_{\rm a})$;
+	\item the height of the surface layer $\delta_{\rm a}$;
 	\item the temperature difference
-		$\theta(\delta_{sl}) - \theta(0)$
+		$\theta(\delta_{\rm a}) - \theta(0)$
 		(for the stratified case);
 \end{itemize}
 In the neutral case, it starts with a first guess of $z_u$ then
@@ -170,27 +170,27 @@ A typical integration in time from $u(z, t^{n})$ to
 $u(z, t^{n+1})$ is:
 \begin{enumerate}
 	\item Neutral Bulk: Use \eqref{eq:ND_NeutralCase_WallLaw}
-		to compute $u_\star = {\rm BULK}(u(\delta_{sl}, t^n))
-		:= \displaystyle \frac{\kappa ||u(\delta_{sl}, t^n)||}
-			{\ln(1+\frac{\delta_{sl}}{z_{u}})}$
+		to compute $u_\star = {\rm BULK}(u(\delta_{\rm a}, t^n))
+		:= \displaystyle \frac{\kappa ||u(\delta_{\rm a}, t^n)||}
+			{\ln(1+\frac{\delta_{\rm a}}{z_{u}})}$
   \item Integrate in time \eqref{eq:ND_NeutralCase_EkmanEq}
   using \eqref{eq:ND_NeutralCase_ConstantFlux} as a boundary condition
 		either explicitly: 
 	\begin{equation}
 		\left.K_u \partial_z u
-		\right|_{z\leq \delta_{\rm sl}, t^{n+1}}
-		= u_\star^2 \frac{u(\delta_{\rm sl},
+		\right|_{z\leq \delta_{\rm a}, t^{n+1}}
+		= u_\star^2 \frac{u(\delta_{\rm a},
 		t^{\emphase{n}})}
-		{||u(\delta_{\rm sl}, t^n)||}
+		{||u(\delta_{\rm a}, t^n)||}
 	\end{equation}
 		or implicitly:
 	\begin{equation}
 		\label{eq:ND_NeutralCase_implicitCond}
 		\left.K_u \partial_z u
-		\right|_{z\leq \delta_{\rm sl}, t^{n+1}}
-		= u_\star^2 \frac{u(\delta_{\rm sl},
+		\right|_{z\leq \delta_{\rm a}, t^{n+1}}
+		= u_\star^2 \frac{u(\delta_{\rm a},
 		t^{\emphase{n+1}})}
-		{||u(\delta_{\rm sl}, t^n)||}
+		{||u(\delta_{\rm a}, t^n)||}
 	\end{equation}
 	\cite{lemarie_stability_2015} showed that the explicit
 	numerical interface condition is not necessarily
@@ -208,7 +208,7 @@ domain is justified by the lack of numerical resolution
 close to the surface: the continuous model
 \eqref{eq:ND_NeutralCase_continuousModel} is split
 according to the numerical ressources. The height
-of the surface layer $\delta_{sl}$ is hence generally chosen as the
+of the surface layer $\delta_{\rm a}$ is hence generally chosen as the
 first grid level.
 However, in present numerical models,
 the evolution equation \eqref{eq:ND_NeutralCase_EkmanEq}
@@ -218,7 +218,7 @@ In order to improve the treatment of the surface layer,
 we can identify three issues (subjectively in decreasing
 order of importance and ease of correction):
 \begin{enumerate}
-	\item $\delta_{sl}$ is too small compared to the space steps.
+	\item $\delta_{\rm a}$ is too small compared to the space steps.
 		This issue is well-known
 		in the LES community and is called
 		\textit{log-layer mismatch}.
@@ -234,7 +234,7 @@ order of importance and ease of correction):
 		boundary condition for stratified Large-Eddy Simulations
 		which consists in using as the bulk input
 		horizontally averaged values at
-		$\delta_{sl}$ chosen for physical and numerical
+		$\delta_{\rm a}$ chosen for physical and numerical
 		reasons (within the surface layer, above the
 		roughness sub-layer and in a region where flows are
 		well-resolved).
@@ -246,12 +246,12 @@ order of importance and ease of correction):
 		because the average of the first cell is considered
 		to be the value in its center.
 		\begin{equation}
-		\left.K_u \partial_z u\right|_{z\leq\delta_{sl}}
+		\left.K_u \partial_z u\right|_{z\leq\delta_{\rm a}}
 			= u_\star^2 e_\tau
 		\Rightarrow
 		\begin{cases}
   (\partial_t + if) u - \partial_z (K_u \partial_z u) \neq if u_G
-			, ~~ z < \delta_{sl}\\
+			, ~~ z < \delta_{\rm a}\\
 		\frac{1}{z_1}\int_0^{z_1}u(z) dz \neq u(z_\frac{1}{2})
 		\end{cases}
 		\end{equation}
@@ -262,19 +262,19 @@ order of importance and ease of correction):
 		model should be recovered when the space step tends
 		to zero.  In particular, the surface layer should
 		still be parametrized with the same wall law which
-		is not the case when $\delta_{sl}$ is chosen
+		is not the case when $\delta_{\rm a}$ is chosen
 		as the first grid
 		level.
 		\begin{equation}
 			\lim_{h\rightarrow 0}
-		\left.K_u \partial_z u\right|_{z\leq\delta_{sl}}=
+		\left.K_u \partial_z u\right|_{z\leq\delta_{\rm a}}=
 			u_\star^2 e_\tau
 		\end{equation}
 		\cite{basu_cautionary_2017} warn that
 		in several recent LES studies the space step is
 		so small that the Monin-Obukhov hypotheses
 		(that the height of the roughness elements is small:
-		$z_u \ll \delta_{sl}$)
+		$z_u \ll \delta_{\rm a}$)
 		do not apply: the consistency problem is not only
 		a theoretical consideration.
 \end{enumerate}
@@ -286,7 +286,7 @@ is recalled and we introduce several strategies to treat
 the surface layer.
 In particular, one of the strategies (``FV free") enforces
 the wall law in the surface layer and does not
-assume a specific $\delta_{sl}$.
+assume a specific $\delta_{\rm a}$.
 The discussion is extended to a stratified case
 in Section \ref{sec:ND_StratifiedCase} then
 the strategies are compared in Section \ref{sec:ND_Consistency}.
