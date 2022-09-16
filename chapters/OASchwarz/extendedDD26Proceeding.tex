@@ -41,7 +41,7 @@ the implementation of coupling strategies. Such an iterative method
 has been recently applied in a state-of-the-art Earth 
 System Model (ESM) to evaluate the consequences of inaccuracies 
 in the usual ad-hoc ocean-atmosphere coupling algorithms 
-used in realistic models \cite{marti_schwarz_2021}. For such 
+used in realistic models \citep{marti_schwarz_2021}. For such 
 a complex application it is challenging to have an a priori 
 knowledge of the convergence properties of the Schwarz method. 
 Indeed coupled problems arising in ESMs often 
@@ -163,8 +163,8 @@ atmosphere, and leads to reasonable values of the solution $U$. \par
 %atmosphere and $0.1\;{\rm m.s^{-1}}$ in the ocean. Forcing term 
 %$g_j$ is set to $i f U_0 (z)$.\par
 The well-posedness of \eqref{eq:cplProblem} has been studied in 
-\cite{thery_etude_2021}
-%\cite{thery_etude_2021} studied the well-posedness of \eqref{eq:cplProblem}. 
+\citep{thery_etude_2021}
+%\citep{thery_etude_2021} studied the well-posedness of \eqref{eq:cplProblem}. 
 where it is proved that its steady version admits a unique
 solution for realistic values of the parameters. The study of the
 nonstationary case is much more challenging: numerical experiments
@@ -185,8 +185,8 @@ tend to confirm this well-posedness and we give in Section
 %
 %\newpage 
 %
-%\cite{thery_etude_2021}
-%\cite{Pelletier_etal_2021}
+%\citep{thery_etude_2021}
+%\citep{Pelletier_etal_2021}
 % 
 %The ocean-atmosphere system can be represented in the vertical direction by a coupling %between three main areas of interest: \textcolor{blue}{Simon: Plutôt un schéma comme dans %le début de la thèse de Sophie ?}
 %\begin{itemize}
@@ -231,7 +231,7 @@ tend to confirm this well-posedness and we give in Section
 %The left equality ensures the equality between the flux of the considered variable while
 %the right equality links the jump of the variable to the flux. The possible values of $\alpha$ are detailed in section \ref{subsec:heat} and \ref{subsec:momentum}.
 %Note that we study one variable at a time,
-%which makes our transmission conditions very different from the actual bulk formulations used in climate models \cite{taylor2000intercomparison}.
+%which makes our transmission conditions very different from the actual bulk formulations used in climate models \citep{taylor2000intercomparison}.
 %However, we are not concerned here by the accuracy but by the convergence speed. 
 %The analysis of such a coupled problem is inherently discrete, as it uses the prognostic variables at the first height level of each model.
 %
@@ -369,7 +369,7 @@ U_j(H_j,t) &=& U_j^\infty(t),  & t \in (0,T), \\
 for which we will now define a Finite Difference discretization and
 a Schwarz Waveform Relaxation.
 \subsection{Schwarz Waveform Relaxation}
-As discussed for example in \cite{marti_schwarz_2021},
+As discussed for example in \citep{marti_schwarz_2021},
 current ocean-atmosphere coupling methods can actually be seen as a 
 single iteration of a Schwarz Waveform Relaxation (SWR) algorithm. 
 %In SWR methods, equations on each subdomain are integrated in time 
@@ -424,8 +424,8 @@ system which is a major constraint for climate models.
 In \eqref{eq:bulkInterfaceCondition},
 the presence of the parameter $\theta$ makes it resemble to a Dirichlet-Neumann Waveform Relaxation algorithm.
 Indeed, if \eqref{eq:bulkInterfaceCondition} is replaced
-by $U_{\rm a}^k = \theta U_{\rm o}^{k-1} + (1-\theta) U_{\rm a}^{k-1}$ the DNWR algorithm is retrieved, as examined in the continuous case in \cite{gander_dirichlet-neumann_2014} and in the discrete case in
-\cite{meisrimel_time_2020}.
+by $U_{\rm a}^k = \theta U_{\rm o}^{k-1} + (1-\theta) U_{\rm a}^{k-1}$ the DNWR algorithm is retrieved, as examined in the continuous case in \citep{gander_dirichlet-neumann_2016} and in the discrete case in
+\citep{meisrimel_time_2020}.
 However \eqref{eq:bulkInterfaceCondition}
 involves both $\phi_{\rm a}^k$ and 
 $U_{\rm a}^{k-1+\theta}$:
@@ -479,7 +479,7 @@ the semi-discrete coupled problem:
 \label{eq:fluxInterfaceConditionSemiDiscrete}
 \end{align}
 \end{subequations}
-\cite{lions_mathematical_1995} proved the existence at the
+\citep{lions_mathematical_1995} proved the existence at the
 continuous level
 of global-in-time weak solutions in
 two dimensions of the primitive equations with
@@ -560,7 +560,7 @@ We note $U_j^e(z)$ the stationary solution (and ${\phi}_j^e$ its finite differen
 Computing $U_j^e$ is similar
 to the discrete analysis of the finite difference scheme for
 Schwarz methods (see Chapter \ref{ch:discreteSchwarzAnalysis} or
-\cite{wu_optimized_2017}),
+\citep{wu_optimized_2017}),
 except that:
 \begin{itemize}
 	\item the frequency variable $\omega$ is not present;
@@ -588,7 +588,7 @@ u_G^o - \frac{\nu_o\lambda_o}{if h_o} A^e, ~~~~~~~
 		\left.{U}^e_a\right|_{z=\delta_a} =
 u_G^a + \frac{\nu_a\lambda_a}{if h_a} B^e
 \end{equation}
-\begin{remark}[\cite{thery_etude_2021}, \S 5.1.3, \S 5.1.4]
+\begin{remark}[\citep{thery_etude_2021}, \S 5.1.3, \S 5.1.4]
 Similarly to the continuous case, the solution is of the form
 	$\left.{U}^e_a\right|_{z=\delta_a} = u_G^a -
 	u_\star^2 e_{\tau}\Psi_a$
@@ -985,7 +985,7 @@ on the initial data.
 		$D\mathbf{\Phi}(\mathbf{U}^e)$ is given
 		by the linearized problem (a rigourous
 		proof that can be directly adapted here
-		is given in \cite{chacon-rebollo_existence_2014}).
+		is given in \citep{chacon-rebollo_existence_2014}).
 	\item Prove that $D\mathbf{\Phi}(\mathbf{U}^e)$
 		is an isomorphism:
 		$D\mathbf{\Phi}(\mathbf{U}^e)$ can
@@ -1468,7 +1468,7 @@ initialized at the interface with a white noise around the interface value
 of the initial condition.
 Figure \ref{fig:evolutionErrNonlinear} shows the evolution of the error for two choices of $\theta$. The theoretical
 convergence according is
-also displayed: $\sup_\omega \xi$ is an upper bound of the $L^2$ convergence factor \cite{thery_etude_2021}. In the case
+also displayed: $\sup_\omega \xi$ is an upper bound of the $L^2$ convergence factor \citep{thery_etude_2021}. In the case
 $\alpha={\rm const}$ we use $\xi_0$ as an approximation of
 $\sup_\omega \xi$.
 The theoretical bounds $\max_\omega \widetilde{\xi}_1$ and $\xi_0$

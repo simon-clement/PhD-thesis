@@ -145,7 +145,7 @@ Note that we arrive naturally on fourth-order compact schemes for
 the first derivative $\partial_z u$
 (eq \eqref{eq:ND_NeutralCase_continuityEquationFV})
 and second-order for
-$\partial_z^2 u$ (see e.g. \cite{piller_finite-volume_2004}),
+$\partial_z^2 u$ (see e.g. \citep{piller_finite-volume_2004}),
 but with a different approach of imposing a spline reconstruction.
 This approach lets us better control the vertical profiles
 than the usual compact methods and
@@ -158,7 +158,7 @@ if $\frac{1}{12}, \frac{5}{6}$ are used in
 $\frac{1}{6}, \frac{2}{3}$, a fourth-order compact scheme
 is obtained. This scheme is studied in the Finite Difference sense
 in \citep{adam_highly_1977} and was also used
-by \cite{piller_finite-volume_2004} in a Finite Volume framework
+by \citep{piller_finite-volume_2004} in a Finite Volume framework
 close to the one we are using.
 If one assumes that the reconstruction is the fourth degree
 polynomial
@@ -214,7 +214,7 @@ the fourth-order
 On the domain boundaries there is no continuity constraint.
 ${\cal S}^4_{\frac{1}{2}}\left(-\frac{h_{\frac{1}{2}}}{2}\right)$
 can be constrained by a special treatment
-(see \cite{piller_finite-volume_2004})
+(see \citep{piller_finite-volume_2004})
 to keep the fourth-order accuracy on Dirichlet boundaries.
 }
 compact scheme considered.
@@ -247,7 +247,7 @@ presented in Section \ref{sec:ND_Intro_continuousModel}:
 		t^{n+1})}
 		{||u(\delta_{\rm a}, t^n)||}$.
 \end{itemize}
-\cite{nishizawa_surface_2018} investigated the effect of the
+\citep{nishizawa_surface_2018} investigated the effect of the
 first part of the discretization and showed that there is a
 negative bias in conventional surface flux schemes. This
 bias comes from the fact that these schemes assume that the
@@ -266,7 +266,7 @@ value at the center of the cell are equal
 		the center of the cell.}
 	\label{fig:ND_NeutralCase_nishizawaBias}
 \end{figure}
-Finally, \cite{nishizawa_surface_2018} propose an alternative
+Finally, \citep{nishizawa_surface_2018} propose an alternative
 bulk formulation which uses the averaged variable in the surface layer
 instead of its value at the top.
 \begin{remark}
@@ -377,7 +377,7 @@ the treatment of the surface layer in \citep{nishizawa_surface_2018}.
 	    it is assumed that the first cell is entirely inside
 		the surface layer: $\delta_{\rm a} = z_{1}$.
 		We mentioned previously that
-		\cite{nishizawa_surface_2018} show that the ``FV1"
+		\citep{nishizawa_surface_2018} show that the ``FV1"
 		strategy systematically underestimates
 		$u(\delta_{\rm a})$ because of the
 	  concavity of the logarithmic profile.
@@ -496,7 +496,7 @@ This behaviour is not satisfactory: although
 the choice of $\delta_{\rm a}$ is mainly related to numerical
 reasons we aim to approximate the continuous equations
 \eqref{eq:ND_NeutralCase_continuousModel}.
-\cite{basu_cautionary_2017} warns that using a small space step
+\citep{basu_cautionary_2017} warns that using a small space step
 while keeping the same treatment in LES goes against the
 range of validity of the MOST profiles.
 That is why in the following,

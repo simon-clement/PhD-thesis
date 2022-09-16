@@ -1,9 +1,65 @@
 \clearpage
 \phantomsection
-\pdfbookmark[0]{Résumé (Français/Anglais)}{resume}
-{\fontsize{11.45pt}{13.5pt}\selectfont 
-\lettrine[lines=2]{L}{orem}
-ipsum\myTD{résumé francais à gauche, anglais à droite tmtc}
+\pdfbookmark[0]{Abstract (Français/Anglais)}{abstract}
+\thispagestyle{empty}
+\begin{tabular}{c|c}
+{\begin{minipage}{15em}
+Le couplage océan-atmosphère est une composante essentielle
+des modèles de prévision numérique. Il repose sur
+le calcul et l'échange de flux turbulents à la surface au
+sein de méthodes itératives.
 \par
-\myTD{Je crois que Charles l'a fait à part et a inclut le pdf}
-}
+D'une part, le calcul des flux turbulents s'appuie sur
+des paramétrisations de l'interface air-mer utilisant
+des hypothèses sur les données qui ne sont pas
+mathématiquement imposées au sein des modèles.
+Cette thèse propose de renforcer le lien entre
+le calcul des flux turbulents et les
+représentations numériques -ou discrétisations-
+des équations décrivant l'océan et l'atmosphère.
+\par
+D'autre part, les méthodes itératives de couplage utilisées
+dans les modèles opérationnels introduisent une erreur
+numérique qu'il convient de minimiser. Dans cet
+objectif, la convergence de ces méthodes est ici analysée
+sur des modèles simplifiés, tout en restant au plus près
+de la discrétisation.
+\par
+En particulier, la couche limite de surface où s'échangent
+les flux turbulents est intégrée dans l'analyse de la
+convergence de ces méthodes de couplage.
+Les caractéristiques de cette couche limite sont liées
+aux choix dans la discrétisation, ce qui justifie d'étudier
+au préalable l'effet de la discrétisation
+dans la convergence des méthodes itératives de couplage.
+\end{minipage}}
+&
+{\begin{minipage}{15em}
+Ocean-atmosphere coupling is an essential component of numerical forecasting models.
+It relies on the computation and exchange of turbulent flows at the surface within iterative methods.  
+\par
+On one hand, the computation of turbulent fluxes relies
+on parameterizations of the air-sea interface that use
+assumptions about the data that are not
+mathematically imposed within the models.
+This thesis proposes to strengthen the link between the computation
+of turbulent fluxes and the numerical representations
+(discretizations) of the equations describing the ocean and
+atmosphere.
+\par
+On the other hand, the iterative coupling methods used
+in operational models introduce a numerical error that
+must be minimized. With this in mind, the convergence of
+these methods is analyzed
+here on simplified models, while remaining as close
+as possible to the discretization.
+\par
+In particular, the surface boundary layer where turbulent flows
+are exchanged is integrated in the
+analysis of the convergence of these coupling methods.
+The characteristics of this boundary layer are linked to
+the choices in the discretization, which justifies to study
+the effect of the latter in the convergence of iterative
+coupling methods.
+\end{minipage}}
+\end{tabular}

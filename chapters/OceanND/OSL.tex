@@ -51,7 +51,7 @@ potential temperature.
 % (SST) is often taken at the first grid level inside the
 % ocean: this corresponds to the assumption that 
 % the profiles are constant in the surface layer.
-% \cite{zeng_prognostic_2005} proposed a scheme to avoid this
+% \citep{zeng_prognostic_2005} proposed a scheme to avoid this
 % issue for weather forecasting, climate modeling and
 % data assimilation.
 % %
@@ -79,7 +79,7 @@ model are:
 	\item the density which mainly affects the exchanges
 		between ocean and atmosphere;
 	\item the universal stability functions which are
-		taken in \cite{large_similarity_2019};
+		taken in \citep{large_similarity_2019};
 	\item the vertical coordinate $z$ is negative;
 	\item the time and space scales (the motion in the ocean
 		is slower and smaller space steps are used with
@@ -183,7 +183,6 @@ the surface layer is:
 \end{equation}
 where for $x=u,\theta$:
 \begin{equation}
-	\label{eq:ND_Ocean_semiDiscreteEkmanEqPTFVfree}
 	\widetilde{x} = \frac{1}{\alpha_{\rm o, x}(t)}
 	\left(
 	\overline{x}_{k-1/2} -
@@ -228,7 +227,7 @@ reconstruction.
 We note $Q_{sw}$ and $Q_{lw}$ the shortwave and longwave (positive
 downward) radiative fluxes.
 To include those fluxes in the
-bulk formula, \cite{pelletier_two-sided_2021} introduced
+bulk formula, \citep{pelletier_two-sided_2021} introduced
 a variable $\theta_\star^{\rm rad}$
 that is similar to a friction scale but depends on $z$:
 \begin{equation}
@@ -311,7 +310,7 @@ the expressions):
 \end{equation}
 where $\nu$ is a constant parameter that can be set to 1 to
 recover a linear reconstruction of $\theta(z)$.
-\cite{zeng_prognostic_2005} choose $\nu=0.3$ and argue that
+\citep{zeng_prognostic_2005} choose $\nu=0.3$ and argue that
 the choice of $\nu$ is linked to the size of the molecular
 sub-layer.
 We formulate the reconstruction in terms of $\overline{\theta}_{osl}$
@@ -478,7 +477,7 @@ Q - Q_{lw} - \int_z^0 \partial_z Q_{sw}(z')dz'$ for $|z|\ll|\delta_o|$)
 % We now imitate the previous derivation, using a more regular
 % reconstruction for $\theta(z)$ inside the surface layer:
 % we take exactly the reconstruction used by
-% \cite{zeng_prognostic_2005}: let $d << |\delta_o|$ be the
+% \citep{zeng_prognostic_2005}: let $d << |\delta_o|$ be the
 % depth of the molecular sublayer:
 % \begin{equation}
 % 	\theta(z) = \theta_{-d} -
@@ -497,7 +496,7 @@ Q - Q_{lw} - \int_z^0 \partial_z Q_{sw}(z')dz'$ for $|z|\ll|\delta_o|$)
 % 	\right).
 % \end{equation}
 % $f_s$ is here the fraction of solar radiation absorbed in the
-% sublayer, described in \cite{zeng_prognostic_2005}.
+% sublayer, described in \citep{zeng_prognostic_2005}.
 % $d$ can be parametrized by $u_\star$ and the fluxes.
 \subsection{Sensitivity to the discretization
 	of the surface layers}

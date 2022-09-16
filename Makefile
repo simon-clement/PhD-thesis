@@ -61,6 +61,10 @@ $(TARGET_FILE): *.tex $(BIBSRC) $(STYLES) chapters/* chapters/*/*
 	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error ${NAME} 
 	@mv ${WRKDIR}/$@ $@
 
+draft: *.tex $(BIBSRC) $(STYLES) chapters/* chapters/*/*
+	@mkdir -p ${WRKDIR} 
+	@cd ${WRKDIR}; ${ENV} ${TEX} -halt-on-error -draftmode ${NAME} 
+
 #after compilation:
 split:
 	mkdir -p output_chapters

@@ -1925,7 +1925,7 @@ Similarly to a previously presented Neumann-Neumann waveform relaxation (NNWR) f
 	author = {Marti, Olivier and Braconnot, P. and Dufresne, J.-L. and Bellier, J. and Benshila, R. and Bony, S. and Brockmann, P. and Cadule, P. and Caubel, A. and Codron, F. and de Noblet, N. and Denvil, S. and Fairhead, L. and Fichefet, T. and Foujols, M.-A. and Friedlingstein, P. and Goosse, H. and Grandpeix, J.-Y. and Guilyardi, E. and Hourdin, F. and Idelkadi, A. and Kageyama, M. and Krinner, G. and Lévy, C. and Madec, G. and Mignot, J. and Musat, I. and Swingedouw, D. and Talandier, C.},
 	month = jan,
 	year = {2010},
-	keywords = {Atmosphere, Circulation, Climate, Coupling, El Niño/Southern oscillation, North-Atlantic oscillation, Ocean, Resolution, Simulations, Storm-tracks},
+	keywords = {Climate, Ocean, Atmosphere, Circulation, Coupling, El Niño/Southern oscillation, North-Atlantic oscillation, Resolution, Simulations, Storm-tracks},
 	pages = {1--26},
 }
 
@@ -1957,4 +1957,34 @@ Similarly to a previously presented Neumann-Neumann waveform relaxation (NNWR) f
 	note = {Pages: 23
 Publisher: ECMWF},
 	file = {Coupling of the NEMO and IFS models in a single executable | ECMWF:/home/clemensi/Zotero/storage/HR7UUKGC/11175-coupling-nemo-and-ifs-models-single-executable.html:text/html},
+}
+
+@misc{arnoult_discrete-time_2022,
+	title = {Discrete-time analysis of {Schwarz} waveform relaxation convergence},
+	url = {https://hal-univ-paris13.archives-ouvertes.fr/hal-03746438},
+	abstract = {We propose a new approach to analyze the convergence of optimized Schwarz waveform relaxation (OSWR) iterations for parabolic problems. Departing from traditional Fourier analysis in the time direction, we explicitly solve the equations obtained using the backward Euler scheme in time, and deduce convergence properties from this solution, in the two subdomains case. Convergence is proven for any positive Robin parameter (or couple of such parameters in the two-sided case). We also show that, for any fixed value of the number of time steps, the convergence depends on a single parameter which is a combination of the diffusion coefficient, the time step and the Robin parameter. A convergence result in a finite number of iterations is also proven for a well-chosen value of the Robin parameters. This approach allows us to define efficient optimized Robin parameters that depend on the number of iterations one wishes to perform, and to recommend a couple (number of iterations, Robin parameter) to reach a given accuracy. Numerical experiments illustrate the performance of such iteration-dependent optimized Robin parameters, compared to the observed optimal ones (which also depend on the number of iterations performed). A comparison is also given with optimized parameters derived by classical Fourier transform analysis on the continuous problem (which are independent of the iterations).},
+	language = {en},
+	urldate = {2022-09-16},
+	author = {Arnoult, Arthur and Japhet, Caroline and Omnes, Pascal},
+	month = aug,
+	year = {2022},
+	file = {Full Text PDF:/home/clemensi/Zotero/storage/SZN2DD9L/Arnoult et al. - 2022 - Discrete-time analysis of Schwarz waveform relaxat.pdf:application/pdf;Snapshot:/home/clemensi/Zotero/storage/U8PYPJTL/hal-03746438.html:text/html},
+}
+
+@article{connors_decoupled_2012,
+	title = {Decoupled {Time} {Stepping} {Methods} for {Fluid}-{Fluid} {Interaction}},
+	volume = {50},
+	issn = {0036-1429, 1095-7170},
+	url = {http://epubs.siam.org/doi/10.1137/090773362},
+	doi = {10.1137/090773362},
+	abstract = {A model of two incompressible, Newtonian ﬂuids coupled across a common interface is studied. The nonlinearity of the coupling condition exacerbates the problem of decoupling the ﬂuid calculations in each subdomain, a natural parallelization strategy employed in current climate models. A specialized partitioned time stepping method is studied which decouples the discrete ﬂuid equations without sacriﬁcing stability and maintaining convergence. This is accomplished through explicit updating of the size of the jump in tangential velocities across the ﬂuid-ﬂuid interface by a geometric averaging of this data over the previous two time levels. A full numerical analysis is presented and computational tests are performed demonstrating the robustness of this method.},
+	language = {en},
+	number = {3},
+	urldate = {2022-09-16},
+	journal = {SIAM Journal on Numerical Analysis},
+	author = {Connors, Jeffrey M. and Howell, Jason S. and Layton, William J.},
+	month = jan,
+	year = {2012},
+	pages = {1297--1319},
+	file = {Connors et al. - 2012 - Decoupled Time Stepping Methods for Fluid-Fluid In.pdf:/home/clemensi/Zotero/storage/MECGU43B/Connors et al. - 2012 - Decoupled Time Stepping Methods for Fluid-Fluid In.pdf:application/pdf},
 }

@@ -1,12 +1,12 @@
 \chapter*{Conclusion and perspectives}
 \label{ch:conclusion}
-This thesis focused the numerical analysis of interactions between
+This thesis focused on the numerical analysis of interactions between
 the ocean and atmosphere within their coupling. We proposed a
 new discretization of the surface layer which relies on
 hypotheses already in use in the computation of turbulent fluxes.
 Besides, the Schwarz methods were studied at discrete and
-semi-discrete levels and we have shown important features of their
-convergence. The analysis of convergence of Schwarz methods
+semi-discrete levels and we have highlighted important features
+of their convergence. The analysis of convergence of Schwarz methods
 was finally pursued
 in the presence of a parameterized surface layer and we
 proved some convergence results on this simplified air-sea coupled
@@ -16,7 +16,7 @@ Chapter \ref{ch:discreteSchwarzAnalysis} discussed the convergence
 analysis of Schwarz methods at the semi-discrete and discrete
 levels. The effect of the discretization in both
 space and time was highlighted: in particular, we have identified
-the importance of the interpolation of the interface conditions
+the importance of the interface conditions interpolation
 for time schemes of multiple steps.
 Finally, a Finite Volume discretization was derived based
 on a subgrid reconstruction with quadratic splines.
@@ -24,9 +24,9 @@ on a subgrid reconstruction with quadratic splines.
 Chapter \ref{ch:approximatedDiscreteSchwarz} introduced
 approximations that can be used to simplify the derivation
 of the theoretical semi-discrete or fully discrete convergence factor.
-One approximation relies on the modified equations method to
-approximate the semi-discrete convergence factors and
-the other combines the semi-discrete convergence factors
+One method approximates the semi-discrete convergence factors
+relying on the modified equations technique and
+the other method combines the semi-discrete analyses
 to approximate the fully discrete one.
 We found in which case those approximations could be useful and
 explained the reasons for which they can be inadequate in other
@@ -42,8 +42,8 @@ in surface layer parameterization that the height of the
 surface layer should not (always) be limited to the first grid level.
 \par
 This discretization is applied to the oceanic part of the surface
-layer in Chapter \ref{ch:OceanND}. Considering an oceanic
-surface layer is recent and still uncommon. We focused in particular
+layer in Chapter \ref{ch:OceanND}, even though considering an oceanic
+surface layer is recent and still uncommon. We focused specifically
 on the handling of radiative fluxes which lead to particular
 difficulties in terms of subgrid reconstruction. The proposed
 discretization of the surface layer including radiative fluxes
@@ -77,15 +77,15 @@ never to our knowledge at the semi-discrete in space level.
 Two perspectives arise from the objective of taking the
 varying viscosities into account:
 \begin{itemize}
-	\item Developping mathematical tools so that the
+	\item Developing mathematical tools so that the
 		semi-discrete in space convergence factor could
 		be studied with varying viscosities or
 		varying space steps;
 	\item Instead of combining two semi-discrete analyses
 		as it was done in
 	Chapter \ref{ch:approximatedDiscreteSchwarz}, 
-	the semi-discrete analysis with a surface layer
-	could be combined with a continuous case with
+	the semi-discrete analysis including a surface layer
+	could be combined with a continuous case involving
 	varying viscosities.
 \end{itemize}
 \par

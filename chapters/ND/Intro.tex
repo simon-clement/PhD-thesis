@@ -51,7 +51,7 @@ to refine the mesh enough for those small scales.
 The models hence exclude from the computational domain
 a part of the surface layer, using an adapted boundary
 condition.
-\cite{mohammadi_rough_1998} show that bulk boundary
+\citep{mohammadi_rough_1998} show that bulk boundary
 conditions can be derived with domain decomposition arguments;
 the computational domain is split into two parts:
 the surface layer $(0,\delta_{\rm a})$ and the remainder of
@@ -102,7 +102,7 @@ expressions\footnote{
 Setting $u(0,t)=0$ amounts to consider the ``absolute" wind speed
 rather than the ``relative" wind w.r.t. the surface currents:
 the implementation of current feedbacks in ocean-atmosphere
-coupled models is discussed in \cite{renault_implementation_2019}.
+coupled models is discussed in \citep{renault_implementation_2019}.
 }.
 The initial and top boundary conditions are
 \begin{subequations}
@@ -129,7 +129,7 @@ The initial and top boundary conditions are
 % Schlichting (1960) ptet sur le proportional to $z$}
 % In the surface layer, the size of the turbulent eddies at height $z$
 % is proportional to the distance to the surface $z$
-% (e.g. \cite{kawai_wall-modeling_2012}).
+% (e.g. \citep{kawai_wall-modeling_2012}).
 %The turbulent viscosity
 %linearly scales with $u_\star z$, where the coefficient of
 %proportionality is the Von Karman constant $\kappa = 0.40$.
@@ -164,7 +164,7 @@ is called ${\rm BULK}$. It takes as parameters:
 In the neutral case, it starts with a first guess of $z_u$ then
 uses \eqref{eq:ND_NeutralCase_WallLaw} to compute iteratively
 $u_\star$ and $z_u(K_{\rm mol}, u_\star)$ (see
-\cite{fairall_bulk_2003} for more precisions).
+\citep{fairall_bulk_2003} for more precisions).
 \paragraph{Bottom boundary condition}
 A typical integration in time from $u(z, t^{n})$ to
 $u(z, t^{n+1})$ is:
@@ -192,7 +192,7 @@ $u(z, t^{n+1})$ is:
 		t^{\emphase{n+1}})}
 		{||u(\delta_{\rm a}, t^n)||}
 	\end{equation}
-	\cite{lemarie_stability_2015} showed that the explicit
+	\citep{lemarie_stability_2015} showed that the explicit
 	numerical interface condition is not necessarily
 	stable: we choose to use the implicit condition and note
 		$u_\star^2 e_\tau$ the right-hand side of
@@ -200,6 +200,8 @@ $u(z, t^{n+1})$ is:
 	% citation: IFS Part IV end of page 48
 	This implicit implementation is used for instance in the
 	ECMWF model (see Section 3.5 of \citep{ecmwf_ifs_2020}).
+	Other more sophisticated possibilities can also guarantee
+	better numerical properties \citep{connors_decoupled_2012}.
 \end{enumerate}
 \subsection{Treatment of the surface layer}
 \label{sec:ND_Intro_treatmentSL}
@@ -227,10 +229,10 @@ order of importance and ease of correction):
 		to the surface, it should not be assumed that we solve
 		correctly the mechanisms in the first levels
 		of a finite difference classical approach.
-		\cite{kawai_wall-modeling_2012} propose to use other
+		\citep{kawai_wall-modeling_2012} propose to use other
 		levels than the first one to parameterize the
 		wall law in the neutral case.
-		\cite{maronga_improved_2020} give an improved
+		\citep{maronga_improved_2020} give an improved
 		boundary condition for stratified Large-Eddy Simulations
 		which consists in using as the bulk input
 		horizontally averaged values at
@@ -241,7 +243,7 @@ order of importance and ease of correction):
 	\item The quasi-stationary hypothesis of the wall law is
 		not compatible with treating the first cell like
 		the other ones.
-		\cite{nishizawa_surface_2018} have shown that a
+		\citep{nishizawa_surface_2018} have shown that a
 		bias is created in some Finite Volume models
 		because the average of the first cell is considered
 		to be the value in its center.
@@ -270,7 +272,7 @@ order of importance and ease of correction):
 		\left.K_u \partial_z u\right|_{z\leq\delta_{\rm a}}=
 			u_\star^2 e_\tau
 		\end{equation}
-		\cite{basu_cautionary_2017} warn that
+		\citep{basu_cautionary_2017} warn that
 		in several recent LES studies the space step is
 		so small that the Monin-Obukhov hypotheses
 		(that the height of the roughness elements is small:

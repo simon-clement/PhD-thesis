@@ -19,7 +19,7 @@ This section aims to present the so-called
 primitive equations, which are used to model the fluid dynamics
 in the inner parts of both the atmosphere and ocean. They represent
 a classical choice for studying climate and weather predictions.
-\subsection{Non-turbulent primitive equations}
+\subsection{Unaveraged primitive equations}
 \label{sec:airseaSCM_nonTurbulentPrimitiveEq}
 We start from the \textit{Navier-Stokes momentum equation}
 in a rotating frame
@@ -100,7 +100,7 @@ $f$ is commonly referred to as the Coriolis frequency.
 \item \textit{Hydrostatic fluid}:
 the vertical pressure gradient balances the gravity force:
 $\partial_z p = -\rho g$. The vertical
-acceleration is neglected compared to to pressure and gravity.
+acceleration is neglected compared to pressure and gravity.
 This approximation is usually done in large-scale simulations
 when the horizontal
 space step is larger than the vertical one by several orders
@@ -502,7 +502,7 @@ We list below the main features of the surface layer:
 		on $z$.
 		The size of the turbulent eddies at height $z$
 		is proportional to the distance to the surface $z$
-		(e.g. \cite{kawai_wall-modeling_2012}, see Figure
+		(e.g. \citep{kawai_wall-modeling_2012}, see Figure
 		\ref{fig:airseaSCM_eddiesDrawing}).
 		As a consequence, the turbulent viscosity
 		linearly scales with $z+z_u$:
@@ -893,7 +893,7 @@ in $\Omega_{\rm o} = [H_{\rm o},\delta_{\rm o}]$ where
 $H_{\rm a}=z_{\rm top}, H_{\rm o}=z_{\rm bottom}$.
 The model problem (analyzed in Chapter \ref{ch:OASchwarz}) reads:
 \begin{equation}
-\label{eq:cplProblem}
+\label{eq:airseaSCM_cplProblem}
 %\left\{
 \begin{array}{rcll}
 \partial_t U_j + i f U_j -

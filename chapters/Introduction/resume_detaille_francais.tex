@@ -27,7 +27,7 @@ turbulentes \textit{sous-maille} ne peuvent pas être représentées
 explicitement par les grilles de calcul et doivent être paramétrisée.
 \par
 Le concept de couche limite de surface
-(basée sur une hypothèse de flux constants) est ensuite introduit.
+(basé sur une hypothèse de flux constants) est ensuite introduit.
 Celui-ci est au centre du sujet de la thèse : il permet de décrire,
 à travers un formalisme nommé ``loi du mur",
 le comportement turbulent des écoulements aux abords de la surface.
@@ -42,7 +42,8 @@ important dans la couche limite de surface. Elle affecte la
 ``loi du mur" et est une composante essentielle des formulations
 bulk.
 \par
-Cette thèse s'articule autour d'une hiérarchie de modèles. Ceux-ci
+Cette thèse s'articule autour d'une hiérarchie de modèles présentés
+au chapitre \ref{ch:airseaSCM}. Ceux-ci
 décrivent tous l'évolution temporelle d'une colonne d'atmosphère
 au-dessus d'une colonne d'océan en une seule dimension spatiale
 (verticale).
@@ -62,9 +63,10 @@ au-dessus d'une colonne d'océan en une seule dimension spatiale
 		Cependant, ce couplage utilise des conditions de bord
 		à l'interface décrivant une couche limite de surface.
 \item Le plus haut niveau de la hiérarchie est un modèle utilisant
-un modèle de turbulence et qui inclut une stratification en
-température. A l'interface, de véritables formulations bulk
-sont utilisées (au lieu d'une formulation simplifiée dans le niveau intermédiaire).
+une paramétrisation de la turbulence et qui inclut une
+stratification en température.
+A l'interface, de véritables formulations bulk sont utilisées
+(au lieu d'une formulation simplifiée dans le niveau intermédiaire).
 Ce modèle est utilisé aux chapitres \ref{ch:ND}
 et \ref{ch:OceanND} pour
 s'intéresser à l'impact des discrétisations de couche limite,
@@ -74,7 +76,7 @@ Les objectifs de cette thèse correspondent aux trois niveaux de la
 hiérarchie :
 \begin{enumerate}
 	\item étudier l'effet de la discrétisation sur la vitesse de
-		convergence des méthodes de Schwarz ;
+		convergence des méthodes de Schwarz~;
 	\item étudier la vitesse de convergence des méthodes de
 		Schwarz en présence d'une couche limite de surface
 		(i.e. avec des conditions de transmission
@@ -88,7 +90,7 @@ hiérarchie :
 Le chapitre \ref{ch:discreteSchwarzAnalysis} a été publié sous la forme de l'article
 \citep{clement_discrete_2022-1} dans le journal
 \textit{SMAI Journal of Computational Mathematics}.
-\begin{enumerate}
+\begin{itemize}
 \item \textbf{Modèle continu et méthode de Schwarz} :
 Le modèle utilisé dans les deux premiers chapitres est le
 suivant:
@@ -124,8 +126,8 @@ L'étude de la convergence de cette méthode se fait en deux étapes :
 	de fréquences. On obtient une formule analytique de
 	la différence entre $u_j^k$
 	($k$ note l'itération de Schwarz courante)
-	et la solution couplée, i.e. de l'évolution de l'erreur
-	en fin des itérations.
+	et la solution couplée, c'est à dire
+	de l'évolution de l'erreur en fin des itérations.
 \item Les conditions de transmission à l'interface permettent
 	de quantifier l'évolution de cette différence au fur et
 	à mesure des itérations.
@@ -138,7 +140,7 @@ L'étude de la convergence de cette méthode se fait en deux étapes :
  de transmissions Dirichlet-Neumann, le facteur de convergence ne
  dépend pas non plus de la fréquence ni de $r$ et vaut
  $\rho_{DN}^{(c,c)}=\sqrt{\frac{\nu_o}{\nu_a}}$.
-\item \textbf{Facteur de convergence semi-discret en temps}:
+\item \textbf{Facteur de convergence semi-discret en temps} :
 la convergence observée lors de l'implémentation d'une méthode
 de Schwarz dépend des discrétisations en temps et en espace utilisées.
 On utilise la transformée en Z au lieu de la transformée de Fourier
@@ -158,10 +160,10 @@ centrées d'ordre 2 ;
 la deuxième est une discrétisation en volumes finis (FV) basée sur
 des splines paraboliques.
 Chaque maille est ainsi caractérisée par un polynôme d'ordre 2
-et l'approximation volumes finis est déduite du raccord des polynômes
-entre les mailles.
-Retrouver la solution numérique mono-domaine s'avère plus
-naturel lorsque la discrétisation FV est utilisée.
+et l'approximation volumes finis est déduite du raccord des
+polynômes entre les mailles.
+Retrouver la solution numérique mono-domaine s'avère immédiat
+lorsque la discrétisation FV est utilisée.
 Avec la discrétisation FD, utiliser une condition de transmission
 particulière dans ce but diminue
 drastiquement la vitesse de convergence.
@@ -170,7 +172,7 @@ une méthode d'analyse est présentée et appliquée pour les combinaisons
 de deux discrétisations en temps et en espace. Ces combinaisons
 sont démontrées stables en étudiant les valeurs propres des
 matrices à inverser.
-\end{enumerate}
+\end{itemize}
 Finalement, en utilisant des conditions de transmission
 contenant des degrés de liberté, la vitesse de convergence
 des méthodes de Schwarz peut être accélérée en optimisant les
@@ -193,7 +195,8 @@ que par une approche d'analyse discrète complète (comme au chapitre
 \ref{ch:discreteSchwarzAnalysis}), tout en étant plus précis que le
 facteur de convergence continu.
 La première approximation étudiée est la méthode des
-\textit{équations modifiées}.
+\textit{équations modifiées} qui introduit in terme représentant
+les principaux effets de la discrétisation.
 La seconde est une combinaison des analyses semi-discrètes
 pour approcher l'analyse complètement discrète.
 \subsection*{Équations modifiées}
@@ -222,7 +225,7 @@ de convergence semi-discret.
 \end{itemize}
 \subsubsection*{Équations modifiées en espace}
 L'utilisation des équations modifiées sur les schémas en espace
-suscite d'autres observations :
+suscite d'autres observations~:
 \begin{itemize}
 	\item 
 	le développement de Taylor introduit des dérivées
@@ -231,7 +234,7 @@ obtenir le caractère bien posé des équations modifiées, il est donc
 nécessaire d'ajouter des conditions d'interface. Celles-ci peuvent
 être judicieusement choisies à partir de la discrétisation en espace
 proche du bord.
-	\item Il n'est en général pas suffisant de n'étudier que
+	\item Il est en général insuffisant de n'étudier que
 		l'effet de la discrétisation de
 		l'équation aux dérivées partielles. En effet,
 		les conditions d'interface et de bord sont
@@ -250,6 +253,9 @@ proche du bord.
 	une astuce de calcul permet de se ramener au cas où un simple
 	changement de variable fréquentielle suffit pour caractériser
 		l'équation modifiée.
+	L'analyse de la convergence en prenant en compte la
+		discrétisation devient alors similaire à l'analyse
+		continue.
 \end{itemize}
 %
 \subsection*{Combinaison des facteurs de convergence}
@@ -344,7 +350,8 @@ En utilisant un critère de consistance, les stratégies
 	comparées pour différents types de stratification.
 	Une comparaison de ces stratégies est également effectuée
 	à l'aide d'un couplage avec une colonne océanique.
-\section*{Chapitre \ref{ch:OceanND} : La couche limite océanique}
+\section*{Chapitre \ref{ch:OceanND} : Discrétisation de
+la couche limite oceanique}
 Le chapitre \ref{ch:OceanND} est tourné vers la définition et l'implémentation
 d'une couche limite de surface océanique.
 \par
