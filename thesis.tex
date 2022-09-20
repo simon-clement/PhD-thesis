@@ -24,7 +24,6 @@
 %---------------------------------------
 % Frontmatter : abstract, acknowledgments & toc
 %---------------------------------------
-%\import{chapters/}{front.tex}
 %---------------------------------------
 \pagenumbering{gobble}
 \pdfbookmark[0]{Front page}{frontpage}
@@ -43,8 +42,12 @@
 %
 \pdfbookmark[0]{Table of Contents}{contents}
 \setcounter{tocdepth}{2}
+% Activation of ToC by chapter:
 \dominitoc
+% main table of contents:
 \tableofcontents
+% correction of a bug with minitoc:
+\adjustmtc
 %
 %---------------------------------------
 % Mainmatter : chapters and appendices
