@@ -1023,6 +1023,7 @@ Performing only one iteration and using the data of the previous
 time windows induces significant errors in the air-sea
 interactions \citep{marti_schwarz_2021}.
 \subsection{Schwarz Waveform Relaxation}
+\label{sec:airseaSCM_SWR}
 There are many Schwarz Waveform Relaxation methods
 as there are multiple choices for the
 boundary conditions for the interface. Moreover,
@@ -1046,7 +1047,6 @@ previous iteration ${\mathcal B}_2 u_2^{\emphase{k-1}}(0^+,t)$:
 	u_1^{\emphase{k}}(x,0) &= u_{1,0}(x)   &\qquad&  x \in (-\infty,0)  \\
 	{\mathcal B}_1 u_1^{\emphase{k}}(0^-,t) &= {\mathcal B}_2 u_2^{\emphase{k-1}}(0^+,t) &\qquad& t \in [0,T] 
 \end{align}
-\label{eq:airseaSCM_SWR-for-u1}
 \end{subequations}
 The iteration is then completed by the resolution
 of the system in the other subdomain, using another
@@ -1147,3 +1147,16 @@ We focus on \textit{Schwarz Waveform Relaxation} (SWR) methods:
 		other types of parameters like the ones in
 		Robin transmission conditions.
 \end{itemize}
+\par
+A particularity of the surface layer is that the values of
+$\delta_{\rm a}, \delta_{\rm o}$ are set to match the first
+grid level of the vertical grids. The surface conditions
+\eqref{eq:airseaSCM_bd2SWR} or
+\eqref{eq:airseaSCM_simplifiedBdCondForOASchwarz} are hence
+linked with the numerical implementation.
+Moreover, some nonlinearities in
+\eqref{eq:airseaSCM_bd2SWR} can be simplified
+(see Chapter \ref{ch:ND}) through the discretization in time.
+The analysis of Schwarz methods at the semi-discrete level in space
+or even at the fully discrete level
+is hence adapted to \eqref{eq:airseaSCM_SWRTurbulentEkman}.

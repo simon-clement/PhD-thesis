@@ -1,8 +1,11 @@
 \chapter{Approximations of the discrete convergence factor of Schwarz methods }
 \label{ch:approximatedDiscreteSchwarz}
 \minitoc
-The convergence factor can be tedious to compute when taking
-into account the discretizations. The goal of this chapter
+In Chapter \ref{ch:discreteSchwarzAnalysis} the semi-discrete and
+discrete convergence factors of Schwarz methods were studied.
+As the complexity of the discretizations increase, it becomes
+tedious to compute those convergence factors.
+The goal of this chapter
 is to ease the computations with approximations.
 An article in preparation is reported here :
 it discusses two different methods to approximate the discrete
@@ -16,6 +19,32 @@ compute them.
 factors and the continuous one to get an approximation of the
 discrete in space and time convergence factor.
 \end{itemize}
+Those two methods are then used in the optimization of the
+convergence to evaluate the potential of these approximations
+in the acceleration of Schwarz methods.
+\par
+The main results of this chapter are listed below.
+\begin{itemize}
+\item The convergence study with modified equations
+	includes the main features of the semi-discrete
+		schemes for low-frequencies.
+\item The modified equations are not to be used for
+	time schemes within Schwarz method, because they ignore
+		the presence of the intermediate step.
+\item For space schemes, using the modified equations simplifies
+	the analysis of the convergence factor
+	(compared to the semi-discrete level) only
+	for a particular type of differential equations.
+\item The combination of the semi-discrete analyses can provide
+	a good approximation of the discrete convergence factor.
+	For a large range of the problem parameters,
+	the optimization performs better on the \textit{combined}
+	convergence than on the continuous one. However,
+	this improvement is not systematic and using this method
+	on other problems without further investigations
+	would be uncertain.
+\end{itemize}
+
 \setlength{\footskip}{110pt}
 \invisiblesection{Introduction}
 \includepdf[pages=1,pagecommand={}, scale=0.95, offset=0 -10]{paperApproximatedDiscreteSchwarz.pdf}
@@ -33,8 +62,9 @@ discrete in space and time convergence factor.
 \includepdf[pages=9-10,pagecommand={}, scale=0.95, offset=0 -10]{paperApproximatedDiscreteSchwarz.pdf}
 \invisiblesubsection{Robin two-sided optimisation}
 \invisiblesubsection{Robustness}
-\includepdf[pages=11-,pagecommand={}, scale=0.95, offset=0 -10]{paperApproximatedDiscreteSchwarz.pdf}
+\includepdf[pages=11,pagecommand={}, scale=0.95, offset=0 -10]{paperApproximatedDiscreteSchwarz.pdf}
 \invisiblesection{Conclusion}
+\includepdf[pages=12-,pagecommand={}, scale=0.95, offset=0 -10]{paperApproximatedDiscreteSchwarz.pdf}
 \setlength{\footskip}{30pt}
 % \section{Limitations of the discrete convergence factor}
 % \subsection{Bounded domains in space}

@@ -1,9 +1,3 @@
-envoyer un mail à zilora après jury dans adum
-rapporteurs:
-omnes
-schuly
-membres autre:
-connors
-franck dumas
-martin Schreiber
-Véronique Martin
+Faut voir si le jury accepte les versions électronique:
+demander l'adresse le cas non échéant
+

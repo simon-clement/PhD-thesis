@@ -2,64 +2,86 @@
 \phantomsection
 \pdfbookmark[0]{Abstract (Français/Anglais)}{abstract}
 \thispagestyle{empty}
+\newgeometry{left=1.2cm,top=3cm, bottom=0.1cm, right=2cm}
 \begin{tabular}{c|c}
-{\begin{minipage}{15em}
-Le couplage océan-atmosphère est une composante essentielle
-des modèles de prévision numérique. Il repose sur
-le calcul et l'échange de flux turbulents à la surface au
-sein de méthodes itératives.
+{\begin{minipage}{18em}
+Les modèles numériques de prévision de l'océan et de l'atmosphère
+sont essentiels pour la compréhension des phénomènes géo-physiques
+qui y sont liés.
+Le couplage de ces modèles dans les simulations
+joue un rôle clé pour une large gamme d'échelles temporelles
+(cycle diurne, cyclone tropicaux, climat...)
+où il est nécessaire de représenter les interactions entre l'océan et
+l'atmosphère.
 \par
-D'une part, le calcul des flux turbulents s'appuie sur
-des paramétrisations de l'interface air-mer utilisant
-des hypothèses sur les données qui ne sont pas
-mathématiquement imposées au sein des modèles.
+	\vspace{0.2cm}
+L'implémentation du couplage est généralement réalisée de manière
+partielle et introduit une erreur numérique qu'il convient de
+minimiser. Dans ce but, des méthodes de couplage itératives et
+leur vitesse de convergence sont considérées ici, les pratiques
+actuelles étant souvent équivalentes à une seule itération.
+\par
+	\vspace{0.2cm}
+Une difficulté dans l'analyse mathématique de la convergence
+des méthodes de couplage est la présence d'une couche limite
+de surface entre l'océan et l'atmosphère.
+Cette spécificité justifie d'étudier la convergence au niveau
+discret (c'est à dire en prenant en compte certains choix
+d'implémentation) plutôt que continu.
+\par
+	\vspace{0.2cm}
+Par ailleurs, les paramétrisations de la couche limite
+de surface s'appuient sur des hypothèses
+qui ne sont pas mathématiquement imposées au sein des modèles.
 Cette thèse propose de renforcer le lien entre
-le calcul des flux turbulents et les
-représentations numériques -ou discrétisations-
-des équations décrivant l'océan et l'atmosphère.
+le calcul des flux turbulents intervenant dans la couche limite
+et les discrétisations des équations décrivant l'océan
+et l'atmosphère.
 \par
-D'autre part, les méthodes itératives de couplage utilisées
-dans les modèles opérationnels introduisent une erreur
-numérique qu'il convient de minimiser. Dans cet
-objectif, la convergence de ces méthodes est ici analysée
-sur des modèles simplifiés, tout en restant au plus près
-de la discrétisation.
-\par
-En particulier, la couche limite de surface où s'échangent
-les flux turbulents est intégrée dans l'analyse de la
-convergence de ces méthodes de couplage.
-Les caractéristiques de cette couche limite sont liées
-aux choix dans la discrétisation, ce qui justifie d'étudier
-au préalable l'effet de la discrétisation
-dans la convergence des méthodes itératives de couplage.
+	\vspace{0.2cm}
+L'analyse de la couche limite de surface au sein du couplage
+océan-atmosphère est réalisée ici en utilisant une hiérarchie
+de modèles permettant à la fois d'obtenir des résultats
+mathématiques et de reproduire des comportements numériques d'intérêt.
 \end{minipage}}
 &
-{\begin{minipage}{15em}
-Ocean-atmosphere coupling is an essential component of numerical forecasting models.
-It relies on the computation and exchange of turbulent flows at the surface within iterative methods.  
+{\begin{minipage}{18em}
+Numerical models of the ocean and atmosphere
+are essential for the understanding of the geo-physical phenomena related to them.
+The coupling of these models in simulations
+plays a key role for a wide range of time scales
+(diurnal cycle, tropical cyclone, global climate...)
+where it is necessary to represent the interactions between the ocean and
+the atmosphere.
 \par
-On one hand, the computation of turbulent fluxes relies
-on parameterizations of the air-sea interface that use
-assumptions about the data that are not
-mathematically imposed within the models.
-This thesis proposes to strengthen the link between the computation
-of turbulent fluxes and the numerical representations
-(discretizations) of the equations describing the ocean and
-atmosphere.
+	\vspace{0.2cm}
+The implementation of the coupling is generally done only partially
+and introduces a numerical error that should be minimized.
+For this purpose, iterative coupling methods and their convergence speed
+are considered here, the current practices being often equivalent to a
+single iteration.
 \par
-On the other hand, the iterative coupling methods used
-in operational models introduce a numerical error that
-must be minimized. With this in mind, the convergence of
-these methods is analyzed
-here on simplified models, while remaining as close
-as possible to the discretization.
+	\vspace{0.2cm}
+A difficulty in the mathematical convergence analysis
+of coupling methods is the presence of a surface layer
+between the ocean and the atmosphere.
+This specificity justifies studying the convergence at the
+discrete level (i.e. taking into account some implementation choices) rather than
+at the continuous level.
 \par
-In particular, the surface boundary layer where turbulent flows
-are exchanged is integrated in the
-analysis of the convergence of these coupling methods.
-The characteristics of this boundary layer are linked to
-the choices in the discretization, which justifies to study
-the effect of the latter in the convergence of iterative
-coupling methods.
+	\vspace{0.2cm}
+Moreover, the parameterizations of the surface layer
+are based on assumptions which are not mathematically
+enforced within the models.
+This thesis proposes to strengthen the link between
+the computation of turbulent flows in the surface layer
+and the discretizations of the equations describing the ocean
+and the atmosphere.
+\par
+	\vspace{0.2cm}
+The analysis of the surface boundary layer within the ocean-atmosphere coupling
+is carried out here using a hierarchy
+of models allowing to obtain both mathematical results and the
+replication of numerical behaviors of interest.
 \end{minipage}}
 \end{tabular}

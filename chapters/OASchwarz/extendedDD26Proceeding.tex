@@ -91,10 +91,11 @@ containing the air-sea interface $\Gamma = \{z = 0\}$.
 In the ocean and the atmosphere, which are  turbulent fluids,
 the velocity field varies considerably in the few 
 meters close to the interface (in a region called 
-\textit{surface layer}). The cost of an
-explicit representation of the surface layer in numerical simulations being 
+\textit{surface layer}, see Chapter \ref{ch:airseaSCM}).
+The cost of an explicit representation of the surface layer
+in numerical simulations being
 unaffordable, this region is numerically accounted for 
-using wall laws a.k.a. log laws \cite[e.g.][]{mohammadi_rough_1998}. This approach, 
+using wall laws \cite[e.g.][]{mohammadi_rough_1998}. This approach, 
 traditionally used to deal with solid walls, is also used
 in the ocean-atmosphere context, with additional complexity 
 arising from the stratification effects \cite[e.g.][]{pelletier_two-sided_2021}.
@@ -162,14 +163,17 @@ atmosphere, and leads to reasonable values of the solution $U$. \par
 %are hence set to constant values of $10\;{\rm m.s^{-1}}$ in the 
 %atmosphere and $0.1\;{\rm m.s^{-1}}$ in the ocean. Forcing term 
 %$g_j$ is set to $i f U_0 (z)$.\par
-The well-posedness of \eqref{eq:cplProblem} has been studied in 
-\citep{thery_etude_2021}
+The well-posedness of \eqref{eq:cplProblem} has been studied
+for a particular parameterization of $\nu_j$ in 
+\citep{thery_etude_2021},
 %\citep{thery_etude_2021} studied the well-posedness of \eqref{eq:cplProblem}. 
 where it is proved that its steady version admits a unique
 solution for realistic values of the parameters. The study of the
 nonstationary case is much more challenging: numerical experiments
 tend to confirm this well-posedness and we give in Section
-\ref{sec:OASchwarz_wellPosedness} some elements for a theoretical proof.
+\ref{sec:OASchwarz_wellPosedness} some elements for a theoretical
+proof. In the following, the viscosities $\nu_j$ are assumed to
+be constant.
 %
 %
 %
@@ -517,11 +521,11 @@ However the steps of the proof remain the same.
 \subsection{Derivation of the steady state}
 \label{sec:OASchwarz_SteadyState}
 The first step of the proof is the derivation of the
-steady state. The case $f=0$ is first set aside in
+steady state. The special case $f=0$ is first set aside in
 \S\ref{sec:OASchwarz_SteadyStatef0}; the steady states of
 the inner subdomains are then given in 
 \S\ref{sec:OASchwarz_SteadyStateInner}.
-Finally, the nonlinear condition is treated
+Finally, the nonlinear boundary condition is treated
 in \S\ref{sec:OASchwarz_SteadyStateNonlinear}
 and solutions are given in \S\ref{sec:summary_stationnary}.
 \subsubsection{Special case $f=0$}
@@ -535,8 +539,8 @@ cannot be equal to zero and $U_j$ are affine.
 \begin{itemize}
 	\item With spatial domains of finite size:
 	a steady state can be found following
-	\S\ref{sec:OASchwarz_SteadyStateNonlinear}, with
-		the difference that $U_j$ are affine.
+	\S\ref{sec:OASchwarz_SteadyStateNonlinear},
+		except that $U_j$ are affine.
 	\item With spatial domains of infinite size:
 	$\phi_j$ does not tend to zero for
 	$z\rightarrow \pm \infty$ and we hence have

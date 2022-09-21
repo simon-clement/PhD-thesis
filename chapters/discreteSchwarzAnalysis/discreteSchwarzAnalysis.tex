@@ -1,34 +1,50 @@
 \chapter{Discrete Analysis of Schwarz methods for a diffusion reaction problem with discontinuous coefficients}
 \label{ch:discreteSchwarzAnalysis}
 \minitoc
+As seen in the previous chapter (\S \ref{sec:airseaSCM_SWR})
+the convergence of Schwarz methods is usually studied on the
+continuous problem. For the inclusion of the surface layer
+in the convergence study
+it seems important to switch to the semi-discrete level or even
+to the totally discrete level.
 In this chapter the focus is on the effect of the discretization
 on the convergence speed of Schwarz methods. The reaction-diffusion
 equations coupling problem presented in
 Chapter \ref{ch:airseaSCM} is used : the goal is
-to present the methodology
-that can be used to study the convergence
+to present the methodology that can be used to study the convergence
 of Schwarz methods in a discrete setting.
 \par
 For this purpose, the article
 \citep{clement_discrete_2022-1} was published in
 \textit{SMAI Journal of Computational Mathematics} and is reported
 here.
-This article:
+This article is built upon the following steps:
 \begin{itemize}
-	\item presents a Finite Volume discretization based
-	on quadratic spline reconstruction in space;
-	\item presents a methodology to study the convergence
-	speed of Schwarz methods;
-	\item examinates the difference betweeen
-	the discrete convergence factor and the continuous one;
-	\item proves the stability of the discrete schemes considered;
-	\item exposes an operator $\gamma$ showing the specificity
+	\item Description of a methodology to study the convergence
+	speed of Schwarz methods.
+	\item Introduction of space and time schemes,
+		notably a Finite Volume discretization based
+	on quadratic spline reconstruction in space and
+		a Diagonally Implicit Runge Kutta scheme in time.
+	\item Numerical experiments and optimization of continuous
+		and discrete convergence factors.
+\end{itemize}
+The key points of this chapter are:
+\begin{itemize}
+	\item The difference between
+	the discrete convergence factor and the continuous one
+		and the expression of those convergence factors.
+	\item The stability of the discrete schemes considered;
+	\item An operator showing the specificity
 	of multi-stage time schemes within Schwarz methods.
-	\item investigates on the interactions between the time
-		and space discretisations.
+	\item The interactions between the time and space
+		discretizations.
+	\item The numerical optimization of the convergence factors.
 \end{itemize}
 \paragraph{Code availability}
-The code used in the numerical experiments is available in a Zenodo
+All the theoretical results were numerically validated:
+the code used for the experiments in this chapter
+and all the others is available in a Zenodo
 archive (https://doi.org/10.5281/zenodo.7092357,
 \citep{clement_code_2022-1}).
 \setlength{\footskip}{110pt}
