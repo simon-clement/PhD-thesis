@@ -685,6 +685,15 @@ $|d| \approx 10^{-1} \;{\rm m}^{-1}.{\rm s}$ and
 $d_R \approx -8 \times 10^{-2}\;{\rm m}^{-1}.{\rm s}$.
 %$\frac{{d_R} d_I}{u_G^{\rm a}^g - u_G^{\rm o}^g} \approx-7\times 10^{-4}$, ${d_I}\approx8.6 \times 10^{-2}$, $\frac{d_I}{{u_G^{\rm a}^g - u_G^{\rm o}^g}}\approx 8.7\times 10^{-3}$.
 The solution is detailed below.
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.55]{profile_stationnaire.pdf}
+    \caption{Stationary solution profile in ocean and atmosphere;
+	the analysis exactly fits the result of Schwarz iterations.
+	Notice that the surface layer is not explicitly computed.
+	The profile is the same as in Figure \ref{fig:presentationDomains}.}
+    \label{fig:validation}
+\end{figure}
 \subsubsection{Solutions}
 \label{sec:summary_stationnary}
 We define:
@@ -736,16 +745,6 @@ u_G^a + \frac{\nu_a\lambda_a}{if h_a}
 \end{equation}
 Figure \ref{fig:validation} shows that this analysis exactly
 fits the result of Schwarz algorithm.
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.55]{profile_stationnaire.pdf}
-    \caption{Stationary solution profile in ocean and atmosphere;
-	the analysis exactly fits the result of Schwarz iterations.
-	Notice that the surface layer is not explicitly computed.
-	The profile is the same as in Figure \ref{fig:presentationDomains}.}
-    \label{fig:validation}
-\end{figure}
-
 % \subsection{Well-posedness}
 % \subsubsection{Sufficient conditions for well-posedness}
 % If it is unique, the real positive $\Tilde{y}$ is always one of 

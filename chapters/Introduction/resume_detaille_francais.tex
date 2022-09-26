@@ -21,10 +21,10 @@ Une attention particulière est portée à la représentation de la
 \par
 Cette séparation d'échelle est nécessaire d'un point de vue
 numérique : les échelles résolues correspondent à celles représentées
-dans les grilles de calcul des schémas numérique (actuellement,
+dans les grilles de calcul des schémas numériques (actuellement,
 de l'ordre de centaines de mètres). Au contraire, les échelles
 turbulentes \textit{sous-maille} ne peuvent pas être représentées
-explicitement par les grilles de calcul et doivent être paramétrisée.
+explicitement par les grilles de calcul et doivent être paramétrisées.
 \par
 Le concept de couche limite de surface
 (basé sur une hypothèse de flux constants) est ensuite introduit.
@@ -126,7 +126,7 @@ L'étude de la convergence de cette méthode se fait en deux étapes :
 	de fréquences. On obtient une formule analytique de
 	la différence entre $u_j^k$
 	($k$ note l'itération de Schwarz courante)
-	et la solution couplée, c'est à dire
+	et la solution couplée, c'est-à-dire
 	de l'évolution de l'erreur en fin des itérations.
 \item Les conditions de transmission à l'interface permettent
 	de quantifier l'évolution de cette différence au fur et
@@ -137,7 +137,7 @@ L'étude de la convergence de cette méthode se fait en deux étapes :
  est multipliée à chaque itération par un
  \textit{facteur de convergence} ne dépendant
  pas de $k$. Dans le cas continu avec des conditions
- de transmissions Dirichlet-Neumann, le facteur de convergence ne
+ de transmission Dirichlet-Neumann, le facteur de convergence ne
  dépend pas non plus de la fréquence ni de $r$ et vaut
  $\rho_{DN}^{(c,c)}=\sqrt{\frac{\nu_o}{\nu_a}}$.
 \item \textbf{Facteur de convergence semi-discret en temps} :
@@ -195,7 +195,7 @@ que par une approche d'analyse discrète complète (comme au chapitre
 \ref{ch:discreteSchwarzAnalysis}), tout en étant plus précis que le
 facteur de convergence continu.
 La première approximation étudiée est la méthode des
-\textit{équations modifiées} qui introduit in terme représentant
+\textit{équations modifiées} qui introduit un terme représentant
 les principaux effets de la discrétisation.
 La seconde est une combinaison des analyses semi-discrètes
 pour approcher l'analyse complètement discrète.
@@ -229,7 +229,7 @@ suscite d'autres observations~:
 \begin{itemize}
 	\item 
 	le développement de Taylor introduit des dérivées
-d'ordre plus élevées que dans l'équation originale. Pour
+d'ordre plus élevé que dans l'équation originale. Pour
 obtenir le caractère bien posé des équations modifiées, il est donc
 nécessaire d'ajouter des conditions d'interface. Celles-ci peuvent
 être judicieusement choisies à partir de la discrétisation en espace
@@ -239,7 +239,7 @@ proche du bord.
 		l'équation aux dérivées partielles. En effet,
 		les conditions d'interface et de bord sont
 		elles aussi affectées par la discrétisation et
-		leur version discrète doit être utilisée
+		leurs versions discrètes doivent être utilisées
 		dans le calcul du facteur de convergence.
 	\item Dans le cas général, l'utilisation des équations
 	modifiées en espace augmente l'ordre de l'équation aux
@@ -291,7 +291,7 @@ d'atmosphère doit se diviser en deux parties :
 	de calcul et paramétrisée par une ``loi du mur" ;
 	\item
 	le reste de la colonne, qui réagit plus lentement
-	aux variations des condtions à la surface.
+	aux variations des conditions à la surface.
 \end{enumerate}
 L'objectif de ce chapitre est d'évaluer les discrétisations possibles
 de cette couche limite.
@@ -320,9 +320,9 @@ d'étendre la couche limite de surface à l'entièreté de
 la première cellule et d'utiliser un algorithme bulk
 adapté aux données moyennées.
 \par
-Ce chapitre \ref{ch:ND} propose de renforcer les hypothèses
-	existantes dans les formulations bulk en les
-	appliquant directement dans la discrétisation FV.
+Ce chapitre \ref{ch:ND} propose d'implémenter
+directement dans la discrétisation FV les hypothèses
+existantes dans les formulations bulk.
 	Pour ce faire, la reconstruction à l'intérieur
 	de la première maille est réalisée à l'aide des fonctions
 	particulières intervenant dans les lois du mur et
@@ -376,15 +376,17 @@ L'implémentation de cette couche limite peut suivre
 	constant utilisée dans les lois du mur.
 \par
 Les stratégies de gestion de la couche limite
-	océanique sont comparées dans des simulations numérique,
+	océanique sont comparées dans des simulations numériques,
 	dans un cas forcé et dans un cas couplé.
 \section*{Chapitre \ref{ch:OASchwarz}: Méthodes de Schwarz pour le couplage
 discret océan-atmosphère}
 Le dernier chapitre de cette thèse met en relation l'étude discrète
 des méthodes de Schwarz et l'utilisation d'une couche limite de
 surface.
-	\par La hauteur de la couche limite de surface est
-		choisie en fonction de la résolution de la grille.
+	\par Comme mentionné précédemment,
+	la hauteur de la couche limite de surface est
+	choisie dans les modèles actuels en fonction de la
+	résolution de la grille.
 		Pour cette raison, étudier la convergence de
 		l'algorithme de Schwarz
 		au niveau semi-discret en espace semble pertinent,

@@ -574,14 +574,14 @@ for the potential temperature, such that
 \begin{equation}
 	\langle w' \theta' \rangle = u_\star \theta_\star
 \end{equation}
-Figure \ref{fig:airseaSCM_turbulentTermHandling} summarizes the
-handling of the turbulent terms in the stratified case.
-\begin{figure}
+\begin{figure}[h!]
 	\centering
 	\subimport{images/}{turbulent_term.pdf_tex}
 	\caption{Summary of the turbulent term handling}
 	\label{fig:airseaSCM_turbulentTermHandling}
 \end{figure}
+Figure \ref{fig:airseaSCM_turbulentTermHandling} summarizes the
+handling of the turbulent terms in the stratified case.
 To describe the stratification, the \textit{Obukhov length}
 is used:
 \begin{equation}
@@ -616,10 +616,7 @@ in \text{stability functions} $\phi_m, \phi_h$:
 \end{equation}
 Typical stability functions are plotted in the left panel of Figure
 \ref{fig:airseaSCM_stabilityfunctions}.
-A stable (resp. unstable) stratification leads to a
-decrease (resp. increase) of $K_u, K_\theta$ and
-$L_{MO}\rightarrow \infty$ indeed recovers the neutral case.
-\begin{figure}
+\begin{figure}[h!]
 	\centering
 \includegraphics[scale=0.8]{images/stabilityfunctions.pdf}
 	\caption{Typical profiles of the stability functions (left)
@@ -630,6 +627,9 @@ $L_{MO}\rightarrow \infty$ indeed recovers the neutral case.
 	}
 	\label{fig:airseaSCM_stabilityfunctions}
 \end{figure}
+A stable (resp. unstable) stratification leads to a
+decrease (resp. increase) of $K_u, K_\theta$ and
+$L_{MO}\rightarrow \infty$ indeed recovers the neutral case.
 To obtain the solution profiles,
 the \textit{integrated forms}
 of the stability functions $\psi_m, \psi_h$
@@ -840,7 +840,7 @@ which can be written ${\cal L}u^{\mathbb{C}} = -i f u^\mathbb{C}$.
 In the following we will drop the ${\mathbb{C}}$ superscript
 and use a reaction term $ifu$ for the Coriolis effect. The
 orientation of $u$ will be noted $\emphase{e_\tau} = \frac{u}{|u|}$.
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\subimport{images/}{twoSided.pdf_tex}
 	\caption{Summary
@@ -968,7 +968,7 @@ stand for forcing terms and are not linked with the Coriolis effect.
 $r\in \mathbb{R}$ is a reaction term.
 %
 \section{Schwarz methods for the ocean-atmosphere coupling}
-\label{sec:airseaSCM_Schwarz}.
+\label{sec:airseaSCM_Schwarz}
 The coupled problems presented in Section
 \ref{sec:airseaSCM_hierarchy} are numerically solved with
 coupling algorithms.

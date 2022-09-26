@@ -7,12 +7,12 @@ As the complexity of the discretizations increase, it becomes
 tedious to compute those convergence factors.
 The goal of this chapter
 is to ease the computations with approximations.
-An article in preparation is reported here :
+An article in preparation is reported here:
 it discusses two different methods to approximate the discrete
 or semi-discrete convergence factor without actually having to
 compute them.
 \begin{itemize}
-\item The first methods approximates a semi-discrete
+\item The first method approximates a semi-discrete
 (in space or time) convergence factor by using
 \textit{modified equations}.
 \item The second method combines the semi-discrete convergence
@@ -28,9 +28,12 @@ The main results of this chapter are listed below.
 \item The convergence study with modified equations
 	includes the main features of the semi-discrete
 		schemes for low-frequencies.
-\item The modified equations are not to be used for
-	time schemes within Schwarz method, because they ignore
-		the presence of the intermediate step.
+\item Using the modified equations technique
+	on a multi-step time scheme amounts to ignoring
+	the presence of the intermediate step. We conclude
+	that this technique should not be used for
+	the approximation of the semi-discrete in time
+	convergence factor.
 \item For space schemes, using the modified equations simplifies
 	the analysis of the convergence factor
 	(compared to the semi-discrete level) only

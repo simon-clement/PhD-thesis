@@ -13,8 +13,8 @@ in the presence of a parameterized surface layer and we
 proved some convergence results on this simplified air-sea coupled
 problem.
 \par
-Let us recall the three objectives of this thesis:
-a hierarchy of three models was used to achieve each of them.
+Let us recall the three objectives of this thesis (a hierarchy
+of three models was used to achieve each of them):
 \begin{itemize}
 \item Improve our knowledge on how the discretization affects
 the convergence factor of Schwarz methods.
@@ -67,17 +67,16 @@ we proposed a discretization based on the Monin-Obukhov Similarity
 Theory.
 We used the solution profiles of this Similarity Theory
 as the subgrid reconstruction on which is based
-the Finite Volume discretization introduced in Chapter
-\ref{ch:discreteSchwarzAnalysis}.
+the Finite Volume discretization.
 This discretization
 is such that the computation of turbulent fluxes is coherent
 with the subgrid reconstruction of the solution.
-It was recently discovered that the height of the
+It was recently highlighted that the height of the
 surface layer should not (always) be limited to the first grid level.
 We hence allowed the size of the surface layer to be freely chosen 
 independently from the grid levels: as a result, the
 consistency of the discretization was found to be better than
-the usual methods that constraint the surface layer height.
+the usual methods that constrain the surface layer height.
 \par
 This discretization is applied to the oceanic part of the surface
 layer in Chapter \ref{ch:OceanND}, even though considering an oceanic
@@ -89,13 +88,13 @@ is a first step toward a well discretized oceanic surface layer.
 We have shown that this discretization does not perform well in
 terms of consistency and should be improved.
 \par
-Finally, Chapter \ref{ch:OASchwarz} studied at the semi-discrete
-level in space the effect of the surface layer on the
+Finally, Chapter \ref{ch:OASchwarz} studied at the
+semi-discrete-in-space level the effect of the surface layer on the
 ocean-atmosphere coupling.
 The methodology presented in Chapter \ref{ch:discreteSchwarzAnalysis}
 was used to treat a surface layer which was simplified compared to
 Chapters \ref{ch:ND} and \ref{ch:OceanND}.
-The well-posedness of the coupled problem studied was discussed
+The well-posedness of the coupled problem was discussed
 and the existence and unicity of a solution in the neighborhood
 of the steady state was proved using the inverse function theorem.
 We examined the convergence of Schwarz methods with a parameterized
@@ -110,53 +109,85 @@ the iterations.
 We optimized numerically the convergence with respect to a relaxation
 parameter and compared the convergence of the nonlinear system
 with the one with a linearized transmission condition.
-\par
 % PERSPECTIVES
 \subsection*{Perspectives}
-The coupled problem examined in Chapter
-\ref{ch:OASchwarz} is idealized in two aspects. The first
-simplification is that
-the parameterization of the surface layer is explicit whereas
-it is instead based on fixed-point algorithms in operational models.
-Relaxing this simplification is difficult because the convergence
-study relies on the linearization of the explicit expression.
-The second simplification is the constant viscosity.
-Convergence studies were conducted with variable viscosities but
-never to our knowledge at the semi-discrete in space level.
+The ultimate goal of this thesis is
+to reduce the numerical errors linked to the ocean-atmosphere
+coupling in operational models. Two perspectives
+directly linked with this objective arise:
+\begin{itemize}
+	\item Implement and evaluate the discretization of the
+		surface layer introduced in Chapter \ref{ch:ND} and
+	\ref{ch:OceanND} within more realistic simulations.
+	The order of accuracy would need to be improved in the
+	process: in particular, splitting a cell in two parts
+	breaks the possible structured grid properties.
+	Furthermore, the schemes should be analyzed in terms of
+	stability, monotonicity, and other mathematical or physical
+		properties.
+	\item Make sure that the convergence of Schwarz methods
+	is attained in one or two iterations: it is
+	otherwise unaffordable in this ocean-atmosphere context.
+	This can be done by choosing better transmission
+	conditions and/or by improving the first guess
+	(the latter option
+	is presently studied in the AIRSEA team in collaboration
+	with O. Marti for the model IPSL-CM).
+	This first guess could be obtained either with a
+	well-chosen extrapolation of other time windows or
+	with Schwarz iterations on a simplified problem (e.g.
+	similar to the ones studied in this thesis).
+\end{itemize}
+\par
+Besides those direct applications, the theoretical aspects
+also need to be consolidated in terms of well-posedness
+and in terms of convergence of Schwarz methods.
+It seems that this mathematical knowledge is not going to
+catch up soon with the increasing complexity
+of the operational models. However,
+the former could provide guidelines to wisely
+parameterize and discretize the latter while keeping
+good mathematical properties.
+\par
+Several steps forward can be pursued as the
+following of the present thesis which used the
+simplification that the viscosity is constant.
+Convergence studies of Schwarz methods
+were conducted with variable viscosities but
+never to our knowledge at the semi-discrete-in-space level.
 Two perspectives arise from the objective of taking the
 varying viscosities into account:
 \begin{itemize}
 	\item Developing mathematical tools so that the
-		semi-discrete in space convergence factor could
-		be studied with varying viscosities or
-		varying space steps;
-	\item Instead of combining two semi-discrete analyses
-		as it was done in
-	Chapter \ref{ch:approximatedDiscreteSchwarz}, 
-	the semi-discrete analysis including a surface layer
-	could be combined with a continuous case involving
-	varying viscosities.
+		semi-discrete-in-space convergence factor could
+		be studied with varying viscosities (as it was done
+		in the continuous case in \citep{thery_etude_2021})
+		or varying space steps.
+		A first step toward this convergence factor
+		would be to use the idea of the \textit{combined}
+		convergence factor in
+		Chapter \ref{ch:approximatedDiscreteSchwarz}:
+		instead of combining the contribution of the
+		space scheme and of the time scheme, it could
+		be relevant to combine the contribution of
+		the space scheme and of the varying viscosities.
+	\item Extending the proof of well-posedness of Chapter
+		\ref{ch:OASchwarz} to varying viscosities
+		that depend on the surface layer parameterization.
+		The atmosphere and ocean models were developed 
+		separately and are coupled through a surface
+		layer whose parameterization contains additional
+		hypotheses. The compatibility between all the
+		components of the ocean-atmosphere coupling
+		is not guaranteed and the well-posedness
+		study of simplified models could teach us a lot.
 \end{itemize}
-\par
-Another set of improvements should be mentioned for the discretization
-of the surface layer introduced in Chapters \ref{ch:ND} and
-\ref{ch:OceanND}:
-\begin{itemize}
-\item The schemes could be analyzed in terms of stability, monotony,
-	or other mathematical or physical properties;
-\item The order of the schemes could be improved: in particular,
-	splitting a cell in two parts breaks the possible structured
-		grid properties;
-\item The discretization could be tested more thoroughly with
-	realistic numerical models;
-\end{itemize}
-% Finally, recent developments in Schwarz methods analysis have
-% shown that the analytical optimization of the convergence factor
-% can be pursued with an asymptotic analysis that gives relevant
-% optimized parameters
-\par
-Studying Schwarz methods applied to the ocean-atmosphere interface
-is a contribution for the improvement of numerical analysis of
-geophysical systems. The ultimate goal of this thesis is
-hence to reduce the numerical errors linked to the ocean-atmosphere
-coupling in operational models.
+The coherence between the surface layer parameterization and
+the discretization is a small aspect in the problem of
+articulating a dynamical core with a physical parameterization.
+Indeed, the common practice in fluid dynamics is to exclude
+the boundary layers from the computational domain.
+Because of the huge complexity of the numerical models, some
+problems can appear in the design of the model itself:
+the development and the implementation of parameterizations
+need a numerical analysis to ensure a global harmony.

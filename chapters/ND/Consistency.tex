@@ -48,7 +48,7 @@ surface layer does not follow the wall law.
 Consequently, the profile of $||u||$ depends strongly
 on the choice of $\delta_{\rm a}$.
 %
-\begin{figure}
+\begin{figure}[h!]
 	\centering
 \includegraphics[scale=0.6]{images/sensitivity_delta_sl.pdf}
 	\caption{Typical profiles of $||u||$ and Arg$(u)$ for several
@@ -137,6 +137,9 @@ the effect of changing $\delta_{\rm a}$ is not limited to the surface:
 the differences between the profiles are seen up
 to $150$ meters.
 \subsubsection{Study of the consistency: neutral case}
+We now compare the profiles of a high
+resolution simulation with the profiles
+of a simulation with lower resolution.
 \begin{figure}
 	\centering
 	\subimport{images/}{lowres_highres.pdf_tex}
@@ -144,9 +147,7 @@ to $150$ meters.
 	between each ``Low resolution" levels.}
 	\label{fig:ND_Consistency_lowres_highres}
 \end{figure}
-We now compare the profiles of a high
-resolution simulation with the profiles
-of a simulation with lower resolution. To create the high resolution grid,
+To create the high resolution grid,
 two additional grid levels are added between each grid levels
 (see Figure \ref{fig:ND_Consistency_lowres_highres}).
 After the simulation ($\Delta t=30\;{\rm s}$,
