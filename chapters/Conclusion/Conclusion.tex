@@ -126,16 +126,15 @@ directly linked with this objective arise:
 	stability, monotonicity, and other mathematical or physical
 		properties.
 	\item Make sure that the convergence of Schwarz methods
-	is attained in one or two iterations: it is
+	is attained in one or two iterations: iterative coupling is
 	otherwise unaffordable in this ocean-atmosphere context.
 	This can be done by choosing better transmission
-	conditions and/or by improving the first guess
-	(the latter option
-	is presently studied in the AIRSEA team in collaboration
-	with O. Marti for the model IPSL-CM).
+	conditions and/or by improving the first guess.
 	This first guess could be obtained either with a
-	well-chosen extrapolation of other time windows or
-	with Schwarz iterations on a simplified problem (e.g.
+	well-chosen extrapolation of other time windows (the latter option
+	is presently studied in the AIRSEA team in collaboration
+	with O. Marti for the model IPSL-CM) or
+	with Schwarz iterations on a simplified internal subproblem (e.g.
 	similar to the ones studied in this thesis).
 \end{itemize}
 \par
@@ -183,11 +182,9 @@ varying viscosities into account:
 		study of simplified models could teach us a lot.
 \end{itemize}
 The coherence between the surface layer parameterization and
-the discretization is a small aspect in the problem of
+the discretization is a small aspect within the much wider problem of
 articulating a dynamical core with a physical parameterization.
-Indeed, the common practice in fluid dynamics is to exclude
-the boundary layers from the computational domain.
-Because of the huge complexity of the numerical models, some
-problems can appear in the design of the model itself:
+Incoherence may appear in this conception because of the huge
+complexity of the numerical models:
 the development and the implementation of parameterizations
 need a numerical analysis to ensure a global harmony.

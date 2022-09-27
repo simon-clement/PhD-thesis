@@ -294,7 +294,7 @@ a \textit{turbulence closure} defines a relation between
 the turbulent terms $\langle w' u'\rangle, \langle w' v'\rangle,
 \langle w' \theta'\rangle$ and those averaged quantities.
 The density $\rho$ is not used explicitly
-in \ref{eq:airseaSCM_TurbulentPrimitiveEq1D}
+in \eqref{eq:airseaSCM_TurbulentPrimitiveEq1D}
 but appear in the turbulence closure.
 \section{The turbulence}
 \label{sec:airseaSCM_turbulence}
@@ -942,7 +942,7 @@ case where
 	\item $u(z,t) \in\mathbb{R}$ and $if$ is replaced by
 		$r\in\mathbb{R}$;
 	\item we do not include the density ratio
-	in the continuity of the flux at interface
+	in the continuity of the flux at interface.
 \end{itemize}
 The coupled system is more symmetric and we note
 $u_1, u_2$ instead of $u_o, u_a$ in Chapters
@@ -997,7 +997,7 @@ The coupling algorithms then iterate (once):
 		Forecasts \citep{mogensen_coupling_2012} and by
 		Environment and Climate Change Canada
 		\citep{marti_schwarz_2021}.
-		In the atmosphere-first,
+		In the atmosphere-first method,
 		the models can actually also be
 		run in parallel by using the data of the ocean
 		not of the previous time windows but from the
@@ -1086,11 +1086,11 @@ takes a slightly different form.
 Indeed, 
 \begin{itemize}
 \item the surface layer is excluded from the computational domains,
-creating a sort of ``negative overlap" the informations are
+creating a sort of ``negative overlap": the informations are
 not transmitted at 0 but at $\delta_{\rm a}$ and at $\delta_{\rm o}$.
 \item There is a nonlinear transmission condition: the bulk
 formulation. It computes the turbulent fluxes from the jump of
-the $u$ and $\theta$ across the interface.
+$u$ and $\theta$ across the interface.
 \end{itemize}
 \par
 Omitting external boundary conditions and initial conditions,
