@@ -33,14 +33,12 @@
 \thispagestyle{empty}
 ~\\
 %
-\pdfbookmark[0]{Résumé détaillé}{resumefrancais}
 \pagenumbering{Roman}
 \import{chapters/Introduction/}{resume_detaille_francais.tex}
 %
-\thispagestyle{empty}
-~\\
-%
+\cleardoublepage
 \pdfbookmark[0]{Table of Contents}{contents}
+%
 \setcounter{tocdepth}{2}
 % Activation of ToC by chapter:
 \dominitoc
@@ -55,21 +53,13 @@
 \mainmatter
 %\pagestyle{fancy}
 %---------------------------------------
-\pdfbookmark[0]{Introduction}{introduction}
 \import{chapters/Introduction/}{Introduction.tex}
-\pdfbookmark[0]{Chapitre 1}{chapitre1}
 \import{chapters/airseaSCM/}{airseaSCM.tex}
-\pdfbookmark[0]{Chapitre 2}{chapitre2}
 \import{chapters/discreteSchwarzAnalysis/}{discreteSchwarzAnalysis.tex}
-\pdfbookmark[0]{Chapitre 3}{chapitre3}
 \import{chapters/approximatedDiscreteSchwarz/}{approximatedDiscreteSchwarz.tex}
-\pdfbookmark[0]{Chapitre 4}{chapitre4}
 \import{chapters/ND/}{NewDiscretisation.tex}
-\pdfbookmark[0]{Chapitre 5}{chapitre5}
 \import{chapters/OceanND/}{OceanND.tex}
-\pdfbookmark[0]{Chapitre 6}{chapitre6}
 \import{chapters/OASchwarz/}{OASchwarz.tex}
-\pdfbookmark[0]{Conclusion}{conclusion}
 \import{chapters/Conclusion/}{Conclusion.tex}
 
 %---------------------------------------
